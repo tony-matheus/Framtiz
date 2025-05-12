@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { Lock, User, AlertTriangle, RefreshCw } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { clientAuthService } from '@/lib/services/auth/client-auth-service';
+import { login } from './actions';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('tony.bernardo.lima@gmail.com');
@@ -26,20 +27,21 @@ export default function LoginPage() {
 
     setIsLoading(true);
 
-    const result = await clientAuthService.signIn({
+    // const result =
+    await login({
       email,
       password,
     });
 
-    console.log({ result });
-    setIsLoading(false);
+    // console.log({ result });
+    // setIsLoading(false);
 
-    if (!result.success) {
-      setError(result.error || 'Authentication failed');
-      return;
-    }
+    // if (!result.success) {
+    //   setError(result.error || 'Authentication failed');
+    //   return;
+    // }
 
-    router.push('/admin');
+    // router.push('/admin');
   };
 
   return (
