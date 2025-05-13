@@ -24,7 +24,6 @@ export async function middleware(request: NextRequest) {
       }
     }
 
-    // Return 401 with WWW-Authenticate header
     const response = new NextResponse('Authentication required', {
       status: 401,
       headers: {

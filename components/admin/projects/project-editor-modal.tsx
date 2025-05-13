@@ -5,12 +5,13 @@ import { useState, useEffect } from 'react';
 import { Save, Sparkles, RefreshCw, X } from 'lucide-react';
 import { CyberButton } from '@/components/ui-custom/cyber-button';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
+import { Project } from '@/lib/services/project-service';
 
 interface ProjectEditorModalProps {
   isOpen: boolean;
   onClose: () => void;
-  selectedRepo: any;
-  onSave: (updatedRepo: any) => void;
+  selectedRepo: Project;
+  onSave: (updatedRepo: Project) => void;
   className?: string;
 }
 
@@ -118,7 +119,7 @@ export default function ProjectEditorModal({
         <div className='flex items-center justify-between p-4 border-b border-slate-800 bg-slate-900 z-10'>
           <h2 className='text-xl font-bold text-slate-200 font-mono flex items-center'>
             <div className='w-2 h-2 bg-green-400 mr-2 animate-pulse'></div>
-            EDITING: {editingRepo.name.toUpperCase()}
+            EDITING: {editingRepo.title.toUpperCase()}
           </h2>
           <CyberButton variant='outline' size='icon' onClick={onClose}>
             <X size={18} />
@@ -139,10 +140,10 @@ export default function ProjectEditorModal({
                   PROJECT_PREVIEW
                 </h3>
                 <div className='aspect-video bg-slate-800 border border-slate-700 mb-4 flex items-center justify-center text-slate-500'>
-                  {editingRepo.image ? (
+                  {editingRepo.image_url ? (
                     <img
-                      src={editingRepo.image || '/placeholder.svg'}
-                      alt={editingRepo.name}
+                      src={editingRepo.image_url || '/placeholder.svg'}
+                      alt={editingRepo.title}
                       className='w-full h-full object-cover'
                     />
                   ) : (
@@ -151,18 +152,10 @@ export default function ProjectEditorModal({
                 </div>
                 <div className='space-y-2'>
                   <div className='text-lg text-slate-200 font-mono'>
-                    {editingRepo.name}
+                    {editingRepo.title}
                   </div>
                   <div className='text-sm text-slate-400'>
                     {editingRepo.description}
-                  </div>
-                  <div className='flex flex-wrap gap-2 mt-2'>
-                    {editingRepo.language && (
-                      <span className='px-2 py-1 text-xs bg-slate-800 text-purple-300 border border-purple-900 flex items-center'>
-                        <span className='w-1 h-1 bg-green-400 mr-1'></span>
-                        {editingRepo.language}
-                      </span>
-                    )}
                   </div>
                 </div>
               </CyberCardContent>

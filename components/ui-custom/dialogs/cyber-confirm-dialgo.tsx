@@ -85,10 +85,8 @@ export function CyberConfirmDialog({
           </div>
         </DialogHeader>
 
-        <DialogDescription className='p-6 pt-2 text-slate-300'>
-          <div className='mb-6 p-4 border border-slate-800 bg-slate-800/50'>
-            {description}
-          </div>
+        <DialogDescription className='p-6 pt-2 text-slate-300 mb-6 border border-slate-800 bg-slate-800/50'>
+          {description}
         </DialogDescription>
 
         <DialogFooter className='p-6 pt-0 flex justify-end space-x-4'>

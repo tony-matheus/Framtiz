@@ -27,16 +27,16 @@ export function CyberCard({
   return (
     <Card
       className={cn(
-        'bg-slate-900 border-slate-800 text-slate-200 relative',
-        withCornerAccents && 'cyber-card-with-accents',
+        'bg-slate-900 border-slate-800 text-slate-200 relative group',
+        // withCornerAccents && 'cyber-card-with-accents',
         className
       )}
     >
       {children}
       {withCornerAccents && (
         <>
-          <div className='absolute -top-1 -left-1 w-3 h-3 bg-purple-600'></div>
-          <div className='absolute -bottom-1 -right-1 w-3 h-3 bg-green-400'></div>
+          <div className='hidden group-hover:block absolute -top-1 -left-1 w-3 h-3 bg-purple-600'></div>
+          <div className='hidden group-hover:block absolute -bottom-1 -right-1 w-3 h-3 bg-green-400'></div>
         </>
       )}
     </Card>

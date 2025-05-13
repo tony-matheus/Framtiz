@@ -1,6 +1,6 @@
 'use client';
 
-import { useCanvasEffect } from '@/hooks/use-canvas-effect';
+import { useCanvasEffect } from '@/lib/hooks/use-canvas-effect';
 import { motion } from 'framer-motion';
 import { ArrowDown, Terminal } from 'lucide-react';
 import { Button } from './ui/button';

@@ -14,7 +14,7 @@ export const clientAuthService = {
       options: {
         data: {
           username: data.username,
-          full_name: data.full_name,
+          full_name: data.fullName,
         },
       },
     });
@@ -73,9 +73,10 @@ export const clientAuthService = {
       id: user.id,
       email: user.email!,
       username: profile.username,
-      full_name: profile.full_name,
-      avatar_url: profile.avatar_url,
-      is_admin: profile.is_admin,
+      fullName: profile.full_name,
+      avatarUrl: profile.avatar_url,
+      isAdmin: profile.is_admin,
+      githubUsername: profile.github_username,
     };
   },
 };

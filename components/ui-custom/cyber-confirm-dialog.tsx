@@ -81,12 +81,12 @@ export function CyberConfirmDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className='bg-slate-900 border-2 border-slate-800 text-slate-200 p-0 max-w-md mx-auto relative cyber-confirm-dialog'>
+      <DialogContent className='bg-slate-900 border-2 border-slate-800 text-slate-200 p-0 max-w-md mx-auto'>
         {/* Decorative elements */}
         <div className='absolute -top-1 -left-1 w-3 h-3 bg-purple-600'></div>
         <div className='absolute -bottom-1 -right-1 w-3 h-3 bg-green-400'></div>
 
-        <DialogHeader className='p-6 pb-2'>
+        <DialogHeader className='p-4  relative'>
           <div className='flex items-center'>
             <div
               className={`w-10 h-10 ${bgColor} border ${borderColor} flex items-center justify-center mr-4`}
@@ -99,13 +99,11 @@ export function CyberConfirmDialog({
           </div>
         </DialogHeader>
 
-        <DialogDescription className='p-6 pt-2 text-slate-300'>
-          <div className='mb-6 p-4 border border-slate-800 bg-slate-800/50'>
-            {description}
-          </div>
+        <DialogDescription className='p-4 pt-2 text-slate-300 mb-6 border border-slate-800 bg-slate-800/50'>
+          {description}
         </DialogDescription>
 
-        <DialogFooter className='p-6 pt-0 flex justify-end space-x-4'>
+        <DialogFooter className='p-4 flex justify-end space-x-4'>
           <CyberButton variant='outline' onClick={onClose} disabled={isLoading}>
             {cancelText}
           </CyberButton>

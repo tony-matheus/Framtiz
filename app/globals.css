@@ -57,31 +57,6 @@ body {
   animation: glitch 0.2s linear infinite;
 }
 
-/* Cyber card with corner accents */
-.cyber-card-with-accents {
-  position: relative;
-}
-
-.cyber-card-with-accents::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  width: 3px;
-  height: 3px;
-  background-color: #8b5cf6;
-}
-
-.cyber-card-with-accents::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 3px;
-  height: 3px;
-  background-color: #10b981;
-}
-
 /* Override shadcn dialog styles for cyberpunk theme */
 .cyber-dialog {
   background-color: #0f172a;
@@ -1351,4 +1326,138 @@ textarea {
   transform: translate(-50%, -50%) !important;
   max-height: 90vh !important;
   overflow-y: auto !important;
+}
+
+/* Add these to your existing globals.css file */
+
+/* Skeleton loading animation */
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.skeleton-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+/* Skeleton shimmer effect */
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.05) 20%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Error state animation */
+@keyframes error-pulse {
+  0%,
+  100% {
+    border-color: rgba(220, 38, 38, 0.5);
+  }
+  50% {
+    border-color: rgba(220, 38, 38, 1);
+  }
+}
+
+.error-pulse {
+  animation: error-pulse 2s ease-in-out infinite;
+}
+
+/* Glitch effect for error states */
+@keyframes error-glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.error-glitch {
+  animation: error-glitch 0.5s ease-in-out;
+}
+
+/* Cyber-themed table styles */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+thead tr {
+  background-color: #0f172a;
+}
+
+tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+  background-color: rgba(30, 41, 59, 0.5);
+}
+
+th,
+td {
+  border-bottom: 1px solid #1e293b;
+}
+
+th {
+  font-family: monospace;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  padding: 0.75rem 1rem;
+}
+
+td {
+  padding: 0.75rem 1rem;
+}
+
+/* Selected row styling */
+tr.selected {
+  background-color: rgba(139, 92, 246, 0.1);
+}
+
+/* Disabled row styling */
+tr.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }

@@ -4,22 +4,30 @@ import {
   Home,
   Settings,
   FileCode,
-  User,
+  User as UserIcon,
   LogOut,
-  Terminal,
   Edit,
+  X,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { CyberButton } from '@/components/ui-custom/cyber-button';
 import { CyberProgress } from '@/components/ui-custom/cyber-progress';
 import { Separator } from '@/components/ui/separator';
+import { User } from '@/lib/services/auth/auth-types';
+import Image from 'next/image';
 
 interface AdminSidebarProps {
+  onClose: () => void;
   onLogout: () => void;
+  user: User;
 }
 
-export default function AdminSidebar({ onLogout }: AdminSidebarProps) {
+export default function AdminSidebar({
+  onClose,
+  onLogout,
+  user,
+}: AdminSidebarProps) {
   const pathname = usePathname();
 
   const navItems = [
@@ -44,17 +52,34 @@ export default function AdminSidebar({ onLogout }: AdminSidebarProps) {
   ];
 
   return (
-    <div className='w-64 bg-slate-900 border-r border-slate-800 min-h-screen'>
+    <div className='w-64 bg-slate-900 border-r border-slate-800 min-h-screen overflow-y-auto'>
       {/* Header */}
-      <div className='p-4 border-b border-slate-800'>
+      <div className='p-4 border-b border-slate-800 flex justify-between items-center'>
         <div className='flex items-center'>
-          <div className='w-10 h-10 bg-purple-600 flex items-center justify-center mr-3'>
-            <Terminal className='text-white' size={20} />
+          <div className='size-16 bg-transparent flex rounded-full border-2 border-purple-900 items-center justify-center mr-3'>
+            <Image
+              src='/logo/logo-dark.png'
+              width={500}
+              height={500}
+              alt='Framtiz logo'
+            />
           </div>
           <div>
-            <div className='text-sm text-green-400 font-mono'>ADMIN_CMS</div>
-            <div className='text-xs text-slate-400 font-mono'>v2.4.1</div>
+            <div className='text-sm text-green-400 font-mono'>FRAMTIZ</div>
+            <div className='text-xs text-slate-400 font-mono'>v0.0.1</div>
           </div>
+        </div>
+
+        {/* Close button - only on mobile */}
+        <div className='md:hidden'>
+          <CyberButton
+            onClick={onClose}
+            variant='outline'
+            size='icon'
+            className='h-7 w-7'
+          >
+            <X size={16} />
+          </CyberButton>
         </div>
       </div>
 
@@ -63,14 +88,14 @@ export default function AdminSidebar({ onLogout }: AdminSidebarProps) {
         <div className='flex items-center justify-between'>
           <div className='flex items-center'>
             <div className='w-8 h-8 bg-slate-800 border border-purple-600 flex items-center justify-center mr-3'>
-              <User className='text-purple-400' size={16} />
+              <UserIcon className='text-purple-400' size={16} />
             </div>
             <div>
               <div className='text-sm text-slate-200 font-mono'>
-                JANE_DEVELOPER
+                {user.username?.toUpperCase() ?? 'EDIT_TO_CHANGE_YOUR_NAME'}
               </div>
               <div className='text-xs text-slate-400 font-mono'>
-                ADMIN_LEVEL
+                {user.isAdmin ? 'ADMIN_LEVEL' : 'USER_LEVEL'}
               </div>
             </div>
           </div>
@@ -86,7 +111,8 @@ export default function AdminSidebar({ onLogout }: AdminSidebarProps) {
       <div className='p-4'>
         <div className='text-xs text-slate-500 font-mono mb-2'>NAVIGATION</div>
         {navItems.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive =
+            pathname === item.href || pathname.startsWith(item.href);
 
           return (
             <Link key={item.id} href={item.href} passHref>

@@ -55,7 +55,7 @@ export default function FloatingNav() {
     const checkAdmin = async () => {
       const user = await clientAuthService.getCurrentUser();
       setLoggedIn(!!user);
-      setIsAdmin(!!user?.is_admin);
+      setIsAdmin(!!user?.isAdmin);
     };
 
     checkAdmin();

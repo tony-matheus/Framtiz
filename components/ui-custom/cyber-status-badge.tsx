@@ -10,6 +10,15 @@ interface CyberStatusBadgeProps {
   children?: ReactNode;
 }
 
+const STATUS_CONFIG = {
+  online: { color: 'text-green-400', bg: 'bg-green-400' },
+  offline: { color: 'text-slate-400', bg: 'bg-slate-400' },
+  warning: { color: 'text-yellow-400', bg: 'bg-yellow-400' },
+  error: { color: 'text-red-400', bg: 'bg-red-400' },
+  success: { color: 'text-green-400', bg: 'bg-green-400' },
+  pending: { color: 'text-purple-400', bg: 'bg-purple-400' },
+};
+
 export function CyberStatusBadge({
   status,
   label,
@@ -17,16 +26,7 @@ export function CyberStatusBadge({
   withDot = true,
   children,
 }: CyberStatusBadgeProps) {
-  const statusConfig = {
-    online: { color: 'text-green-400', bg: 'bg-green-400' },
-    offline: { color: 'text-slate-400', bg: 'bg-slate-400' },
-    warning: { color: 'text-yellow-400', bg: 'bg-yellow-400' },
-    error: { color: 'text-red-400', bg: 'bg-red-400' },
-    success: { color: 'text-green-400', bg: 'bg-green-400' },
-    pending: { color: 'text-purple-400', bg: 'bg-purple-400' },
-  };
-
-  const { color, bg } = statusConfig[status];
+  const { color, bg } = STATUS_CONFIG[status];
 
   return (
     <Badge

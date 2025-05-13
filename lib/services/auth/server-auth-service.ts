@@ -28,14 +28,15 @@ export const serverAuthService = {
       id: user.id,
       email: user.email!,
       username: user.user_metadata.username,
-      full_name: profile.full_name,
-      avatar_url: profile.avatar_url,
-      is_admin: profile.is_admin,
+      fullName: profile.full_name,
+      avatarUrl: profile.avatar_url,
+      isAdmin: profile.is_admin,
+      githubUsername: profile.github_username,
     };
   },
 
   async isAdmin(): Promise<boolean> {
     const user = await this.getCurrentUser();
-    return !!user?.is_admin;
+    return !!user?.isAdmin;
   },
 };

@@ -2,16 +2,17 @@ export type User = {
   id: string;
   email: string;
   username?: string;
-  full_name?: string;
-  avatar_url?: string;
-  is_admin: boolean;
+  fullName?: string;
+  avatarUrl?: string;
+  isAdmin: boolean;
+  githubUsername?: string;
 };
 
 export type SignUpData = {
   email: string;
   password: string;
   username: string;
-  full_name?: string;
+  fullName?: string;
 };
 
 export type SignInData = {

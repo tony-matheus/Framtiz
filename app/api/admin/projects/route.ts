@@ -1,11 +1,10 @@
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
 import { NextResponse } from 'next/server';
-import type { ProjectInput } from '@/lib/services/project-service';
+import { z } from 'zod';
 
 export async function GET() {
   try {
-    // Check if user is admin
     const isAdmin = await serverAuthService.isAdmin();
 
     if (!isAdmin) {
@@ -33,37 +32,45 @@ export async function GET() {
   }
 }
 
+// Define the Zod schema for project data validation
+const ProjectInputSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  slug: z.string().min(1, 'Slug is required'),
+  github_url: z
+    .string()
+    .url('Invalid GitHub URL format')
+    .min(1, 'GitHub URL is required'),
+});
+
 export async function POST(request: Request) {
   try {
-    // Check if user is admin
     const isAdmin = await serverAuthService.isAdmin();
-
     if (!isAdmin) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const projectData: ProjectInput = await request.json();
+    const projectData = await request.json();
+    const parsedData = ProjectInputSchema.safeParse(projectData);
 
-    // Validate required fields
-    if (
-      !projectData.title ||
-      !projectData.slug ||
-      !projectData.description ||
-      !projectData.github_url
-    ) {
+    if (!parsedData.success) {
+      const errorMessages = parsedData.error.errors
+        .map((err) => err.message)
+        .join(', ');
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: `Validation failed: ${errorMessages}` },
         { status: 400 }
       );
     }
 
+    const { title, slug, github_url } = parsedData.data;
+
     const supabase = await createServerSupabaseClient();
 
-    // Check if slug is unique
+    // Check if the slug is unique
     const { data: existingProject } = await supabase
       .from('projects')
       .select('id')
-      .eq('slug', projectData.slug)
+      .eq('slug', slug)
       .single();
 
     if (existingProject) {
@@ -73,9 +80,10 @@ export async function POST(request: Request) {
       );
     }
 
+    // Insert the new project data into the database
     const { data, error } = await supabase
       .from('projects')
-      .insert(projectData)
+      .insert({ title, slug, github_url })
       .select()
       .single();
 

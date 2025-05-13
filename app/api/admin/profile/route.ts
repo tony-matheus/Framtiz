@@ -1,6 +1,6 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
 import { NextResponse } from 'next/server';
+import { serverProfileService } from '@/lib/services/profile-service';
 
 export async function PUT(request: Request) {
   try {
@@ -11,48 +11,22 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { username, full_name } = await request.json();
+    const { username, full_name, github_username } = await request.json();
 
-    // Validate input
-    if (!username) {
-      return NextResponse.json(
-        { error: 'Username is required' },
-        { status: 400 }
-      );
-    }
-
-    const supabase = await createServerSupabaseClient();
-
-    // Check if username is already taken (excluding current user)
-    const { data: existingUser } = await supabase
-      .from('profiles')
-      .select('id')
-      .eq('username', username)
-      .neq('id', user.id)
-      .single();
-
-    if (existingUser) {
-      return NextResponse.json(
-        { error: 'Username is already taken' },
-        { status: 400 }
-      );
-    }
-
-    // Update profile
-    const { error } = await supabase
-      .from('profiles')
-      .update({
+    const { error, success } = await serverProfileService.updateProfile(
+      {
         username,
+        github_username,
         full_name: full_name || null,
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', user.id);
+      },
+      user.id
+    );
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success }, { status: 200 });
   } catch (error) {
     console.error('Error updating profile:', error);
     return NextResponse.json(

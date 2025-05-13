@@ -1,4 +1,4 @@
-import { Terminal, AlertTriangle, Zap } from 'lucide-react';
+import { Terminal, Zap } from 'lucide-react';
 
 interface SystemStatus {
   security: string;
@@ -8,9 +8,13 @@ interface SystemStatus {
 }
 
 export default function SystemFooter({
-  systemStatus,
+  systemStatus = {
+    security: 'SECURE',
+    connection: 'STABLE',
+    lastSync: '2025-05-11 10:42:18',
+  },
 }: {
-  systemStatus: SystemStatus;
+  systemStatus?: SystemStatus;
 }) {
   return (
     <div className='mt-12 border-t border-slate-800 pt-4'>
@@ -23,10 +27,12 @@ export default function SystemFooter({
           </span>
         </div>
         <div className='flex items-center'>
-          <AlertTriangle size={14} className='text-yellow-500 mr-2' />
-          <span className='text-slate-400 font-mono'>SECURITY_STATUS: </span>
+          {'💜💚'}
+          <span className='text-slate-400 font-mono ml-2'>
+            MADE_WITH_LOVE_BY:{' '}
+          </span>
           <span className='text-green-400 font-mono ml-1'>
-            {systemStatus.security}
+            TONY &quot;LINGUIÇA&quot; LIMA
           </span>
         </div>
         <div className='flex items-center'>

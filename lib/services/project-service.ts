@@ -5,16 +5,15 @@ export type Project = {
   id: number;
   title: string;
   slug: string;
-  description: string;
+  description?: string;
   tech_stack: string[];
   github_url: string;
   live_url?: string;
-  image_url: string;
-  level: string;
-  status: string;
-  featured: boolean;
-  created_at: string;
-  updated_at: string;
+  image_url?: string;
+  status?: string;
+  featured?: boolean;
+  created_at?: string;
+  updated_at?: string;
 };
 
 export type ProjectInput = Omit<Project, 'id' | 'created_at' | 'updated_at'>;
@@ -76,7 +75,11 @@ export const clientProjectService = {
     const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('projects')
-      .insert(project)
+      .insert({
+        project,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      })
       .select()
       .single();
 

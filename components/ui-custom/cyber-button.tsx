@@ -5,7 +5,7 @@ import { type ButtonHTMLAttributes, forwardRef } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 
 interface CyberButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'outline';
+  variant?: 'primary' | 'secondary' | 'danger' | 'outline' | 'warning';
   size?: 'default' | 'sm' | 'lg' | 'icon';
   asChild?: boolean;
   isLoading?: boolean;
@@ -37,6 +37,8 @@ export const CyberButton = forwardRef<HTMLButtonElement, CyberButtonProps>(
         'border-2 border-purple-600 text-purple-300 hover:bg-purple-900/30',
       secondary:
         'border-2 border-green-600 text-green-300 hover:bg-green-900/30',
+      warning:
+        'border-2 border-yellow-600 text-yellow-300 hover:bg-yellow-900/30',
       danger: 'border-2 border-red-600 text-red-300 hover:bg-red-900/30',
       outline:
         'border border-slate-700 text-slate-300 hover:border-purple-600 hover:text-purple-300',
