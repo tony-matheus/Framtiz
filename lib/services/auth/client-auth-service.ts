@@ -52,22 +52,26 @@ export const clientAuthService = {
     const supabase = getSupabaseClient();
 
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (!session?.user) {
+    if (!user) {
       return null;
     }
 
-    const { data: profile } = await supabase.auth.getUser();
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user.id)
+      .single();
 
     if (!profile) {
       return null;
     }
 
     return {
-      id: session.user.id,
-      email: session.user.email!,
+      id: user.id,
+      email: user.email!,
       username: profile.username,
       full_name: profile.full_name,
       avatar_url: profile.avatar_url,

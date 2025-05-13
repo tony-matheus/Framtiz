@@ -5,8 +5,6 @@ import type React from 'react';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Lock, User, AlertTriangle, RefreshCw } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { clientAuthService } from '@/lib/services/auth/client-auth-service';
 import { login } from './actions';
 
 export default function LoginPage() {
@@ -14,7 +12,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('Pholops01#');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,21 +24,10 @@ export default function LoginPage() {
 
     setIsLoading(true);
 
-    // const result =
     await login({
       email,
       password,
     });
-
-    // console.log({ result });
-    // setIsLoading(false);
-
-    // if (!result.success) {
-    //   setError(result.error || 'Authentication failed');
-    //   return;
-    // }
-
-    // router.push('/admin');
   };
 
   return (

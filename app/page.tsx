@@ -9,20 +9,18 @@ import { serverProjectService } from '@/lib/services/project-service';
 // import { serverAnalyticsService } from "@/lib/services/analytics-service"
 
 export default async function Home() {
-  // Fetch projects from Supabase
   const projects = await serverProjectService.getAllProjects();
   const user = await serverAuthService.getCurrentUser();
 
   // Track page view
   // await serverAnalyticsService.trackPageView("/", new Request("https://example.com"))
-  console.log({ user });
   return (
     <main className='min-h-screen bg-slate-950 text-slate-50'>
       <Hero
         profile={
           {
             id: 1,
-            name: user?.email ?? 'William Frantz',
+            name: user?.username ?? 'William Frantz',
             description: 'Senior Anti-cheat engineer at Riot Games',
             github_url: 'https://github.com/WLSF',
           } as Profile

@@ -1,49 +1,60 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, User, Briefcase, Mail, Terminal, Shield } from 'lucide-react';
-import NavItem from './nav-item';
+import { Home, User, Mail, Terminal, Shield } from 'lucide-react';
+import NavItem, { NavItemsProps } from './nav-item';
 import PowerStatus from './power-status';
 import { clientAuthService } from '@/lib/services/auth/client-auth-service';
 
-const NAV_ITEMS = [
+const LOGOUT_NAV_ITEMS = [
   {
     icon: <Home size={18} />,
-    label: 'HOME_TERMINAL',
+    label: 'BLOG',
     href: '/',
+    status: 'INACTIVE',
+  },
+  {
+    icon: <Mail size={18} />,
+    label: 'CONTACT',
+    href: '/',
+    status: 'INACTIVE',
+  },
+] satisfies NavItemsProps[];
+
+const LOGGED_IN_NAV_ITEMS = [
+  {
+    icon: <Home size={18} />,
+    label: 'ADMIN',
+    href: '/admin',
     status: 'ACTIVE',
   },
   {
     icon: <User size={18} />,
     label: 'USER_PROFILE',
     href: '/admin',
-    status: 'SECURE',
+    status: 'ACTIVE',
   },
   {
-    icon: <Briefcase size={18} />,
-    label: 'PROJECT_DATABASE',
-    href: '#',
-    status: 'ONLINE',
+    icon: <User size={18} />,
+    label: 'LOGOUT',
+    href: '/admin',
+    status: 'INACTIVE',
   },
-  {
-    icon: <Mail size={18} />,
-    label: 'MESSAGE_SYSTEM',
-    href: '#',
-    status: 'IDLE',
-  },
-];
+] satisfies NavItemsProps[];
 
 export default function FloatingNav() {
   const [isOpen, setIsOpen] = useState(true);
   const [glitchActive, setGlitchActive] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [percentage, setPercentage] = useState(50);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // Check if user is admin
   useEffect(() => {
     const checkAdmin = async () => {
       const user = await clientAuthService.getCurrentUser();
+      setLoggedIn(!!user);
       setIsAdmin(!!user?.is_admin);
     };
 
@@ -151,45 +162,41 @@ export default function FloatingNav() {
 
               {/* Navigation */}
               <div className='p-2'>
-                {NAV_ITEMS.map((item, index) => (
-                  <motion.div
-                    key={index}
-                    className='mb-2'
-                    whileHover={{ x: 5 }}
-                    whileTap={{ scale: 0.98 }}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                  >
+                {LOGOUT_NAV_ITEMS.map((item, index) => (
+                  <Fragment key={index}>
                     {/* Don't show admin link if not admin */}
                     {(item.label !== 'USER_PROFILE' || isAdmin) && (
                       <NavItem
+                        className='mb-2'
                         {...item}
-                        errorType={glitchActive ? 'error' : 'success'}
+                        status={glitchActive ? 'INACTIVE' : item.status}
                       />
                     )}
-                  </motion.div>
+                  </Fragment>
+                ))}
+
+                {LOGGED_IN_NAV_ITEMS.map((item, index) => (
+                  <Fragment key={index}>
+                    {/* Don't show admin link if not admin */}
+                    {(item.label !== 'USER_PROFILE' || isAdmin) && (
+                      <NavItem
+                        className='mb-2'
+                        {...item}
+                        status={glitchActive ? 'INACTIVE' : item.status}
+                      />
+                    )}
+                  </Fragment>
                 ))}
 
                 {/* Login/Signup links if not admin */}
-                {!isAdmin && (
-                  <>
-                    <motion.div
-                      className='mb-2'
-                      whileHover={{ x: 5 }}
-                      whileTap={{ scale: 0.98 }}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      <NavItem
-                        label='Login'
-                        href='/admin/login'
-                        status='SECURE'
-                        icon={<User size={18} />}
-                      />
-                    </motion.div>
-                  </>
+                {!loggedIn && (
+                  <NavItem
+                    label='Login'
+                    href='/admin/login'
+                    status='ACTIVE'
+                    icon={<User size={18} />}
+                    className='mb-2'
+                  />
                 )}
               </div>
 

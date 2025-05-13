@@ -1,7 +1,7 @@
 'use server';
 
 import { SignInData } from '@/lib/services/auth/auth-types';
-import { serverAuthService } from '@/lib/services/auth/server-auth-service';
+
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -15,9 +15,6 @@ export async function login(data: SignInData) {
     email: data.email,
     password: data.password,
   });
-
-  const user = await serverAuthService.getCurrentUser();
-  console.log({ login: user });
 
   if (error) {
     redirect('/error');

@@ -7,23 +7,27 @@ export const serverAuthService = {
     const supabase = await createServerSupabaseClient();
 
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (!session?.user) {
+    if (!user) {
       return null;
     }
 
-    const { data: profile } = await supabase.auth.getUser();
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user.id)
+      .single();
 
-    if (!profile) {
+    if (!user) {
       return null;
     }
 
     return {
-      id: session.user.id,
-      email: session.user.email!,
-      username: profile.username,
+      id: user.id,
+      email: user.email!,
+      username: user.user_metadata.username,
       full_name: profile.full_name,
       avatar_url: profile.avatar_url,
       is_admin: profile.is_admin,
