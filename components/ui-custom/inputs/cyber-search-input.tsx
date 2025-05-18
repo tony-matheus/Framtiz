@@ -1,40 +1,47 @@
+import { cn } from '@/lib/utils';
 import { Search } from 'lucide-react';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
 interface CyberSearchInputProps {
   term?: string;
   onSearch: (arg0: string) => void;
+  className?: string;
+  placeholder?: string;
 }
 
 export default function CyberSearchInput({
   term,
   onSearch,
+  className,
+  placeholder,
 }: CyberSearchInputProps) {
-  const [searchTerm, setSearchTerm] = useState(term);
-  const pathname = usePathname();
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState<string>(term ?? '');
 
-  const handleSearch = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (term) {
-      params.set('query', term);
+  const debouncedSearch = useDebouncedCallback((newTerm: string) => {
+    saveSearchParams(newTerm);
+    console.log(newTerm);
+    onSearch(newTerm);
+  }, 500);
+
+  const saveSearchParams = (newTerm: string) => {
+    const url = new URL(window.location.href);
+
+    if (newTerm) {
+      url.searchParams.set('query', newTerm);
     } else {
-      params.delete('query');
+      url.searchParams.delete('query');
     }
-    router.replace(`${pathname}?${params.toString()}`);
-    onSearch(term);
-  }, 300);
+    window.history.replaceState({}, '', url.toString());
+  };
 
   const handleTyping = (newTerm: string) => {
     setSearchTerm(newTerm);
-    handleSearch(newTerm);
+    debouncedSearch(newTerm);
   };
 
   return (
-    <div className='relative flex-1'>
+    <div className={cn('relative flex-1', className)}>
       <div className='absolute left-0 top-0 bottom-0 w-10 flex items-center justify-center border-r border-slate-700'>
         <Search size={16} className='text-slate-500' />
       </div>
@@ -43,7 +50,7 @@ export default function CyberSearchInput({
         value={searchTerm}
         onChange={(e) => handleTyping(e.target.value)}
         className='w-full bg-slate-800 border border-slate-700 p-3 pl-12 text-slate-200 focus:border-purple-600 outline-none transition-colors'
-        placeholder='Search repositories...'
+        placeholder={placeholder}
       />
     </div>
   );

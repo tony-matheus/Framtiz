@@ -6,7 +6,7 @@ import {
 } from '../../services/github/repos-service';
 import { GithubRepo } from '@/app/api/github/repos/route';
 
-interface UseGithubReposResult {
+type UseGithubReposResult = {
   data: GithubRepo[];
   currentPage: number;
   totalPages: number;
@@ -15,7 +15,7 @@ interface UseGithubReposResult {
   loadNextPage: () => void;
   loadPreviousPage: () => void;
   goToPage: (page: number) => void;
-}
+};
 
 export const useGithubRepos = (
   initialPage = 1,

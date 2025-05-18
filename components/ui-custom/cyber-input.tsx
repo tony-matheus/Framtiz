@@ -9,7 +9,7 @@ interface CyberInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const CyberInput = forwardRef<HTMLInputElement, CyberInputProps>(
   ({ label, type = 'text', ...props }: CyberInputProps, ref) => {
     return (
-      <div className='w-full mt-4'>
+      <div className='w-full'>
         {!!label && (
           <label className='block text-slate-400 text-sm font-mono mb-2'>
             {label}

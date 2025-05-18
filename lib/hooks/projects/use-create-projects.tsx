@@ -69,11 +69,6 @@ export const useCreateProjectsFromGitHubRepo = (onSave?: () => void) => {
         );
       }
 
-      console.log({
-        solved: index + 1,
-        total: selectedRepos.length,
-        progress: ((index + 1) / selectedRepos.length) * 100,
-      });
       setProgress(Math.round(((index + 1) / selectedRepos.length) * 100));
     }
 

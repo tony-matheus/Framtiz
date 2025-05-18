@@ -1,7 +1,7 @@
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
 import { NextResponse } from 'next/server';
-import { z } from 'zod';
+import { ProjectInputSchema } from '@/lib/schemas/project-schemas';
 
 export async function GET() {
   try {
@@ -31,16 +31,6 @@ export async function GET() {
     );
   }
 }
-
-// Define the Zod schema for project data validation
-const ProjectInputSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  slug: z.string().min(1, 'Slug is required'),
-  github_url: z
-    .string()
-    .url('Invalid GitHub URL format')
-    .min(1, 'GitHub URL is required'),
-});
 
 export async function POST(request: Request) {
   try {

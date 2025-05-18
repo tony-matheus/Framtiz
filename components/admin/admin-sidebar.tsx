@@ -8,6 +8,7 @@ import {
   LogOut,
   Edit,
   X,
+  Newspaper,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -36,6 +37,12 @@ export default function AdminSidebar({
       label: 'DASHBOARD',
       icon: <Home size={18} />,
       href: '/admin/dashboard',
+    },
+    {
+      id: 'blog',
+      label: 'BLOG',
+      icon: <Newspaper size={18} />,
+      href: '/admin/blogs',
     },
     {
       id: 'projects',
