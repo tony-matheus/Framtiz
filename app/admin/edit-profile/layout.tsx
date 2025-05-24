@@ -2,8 +2,6 @@ import type { ReactNode } from 'react';
 
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
 import { redirect } from 'next/navigation';
-import AdminLayout from '@/components/admin/admin-layout';
-import SystemFooter from '@/components/admin/system-footer';
 import { UserProvider } from '../../../lib/contexts/user-context';
 
 export default async function Layout({ children }: { children: ReactNode }) {
@@ -13,10 +11,5 @@ export default async function Layout({ children }: { children: ReactNode }) {
     redirect('/admin/login');
   }
 
-  return (
-    <AdminLayout user={user}>
-      <UserProvider value={user}>{children}</UserProvider>
-      <SystemFooter />
-    </AdminLayout>
-  );
+  return <UserProvider value={user}>{children}</UserProvider>;
 }

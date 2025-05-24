@@ -7,20 +7,17 @@ import { Plus } from 'lucide-react';
 import { CyberButton } from '@/components/ui-custom/cyber-button';
 import AdminHeader from '@/components/admin/admin-header';
 import BlogEditorDialog from '@/components/admin/blog/blog-editor-dialog';
-import { useBlogContext } from './contexts/blog-context';
 import { Blog } from '@/lib/services/blog-service';
-import { useDestroyBlog } from '@/lib/hooks/blogs/use-destroy-blog';
-import { useUpdateBlog } from '@/lib/hooks/blogs/use-update-blog';
+import { useDestroyBlog } from '@/lib/hooks/blogs/mutations/use-destroy-blog';
+import { useUpdateBlog } from '@/lib/hooks/blogs/mutations/use-update-blog';
 import BlogList from '@/components/admin/blog/blog-list';
-import { useFetchBlogs } from '@/lib/hooks/blogs/use-fetch-blogs';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberPagination } from '@/components/ui-custom/cyber-pagination';
+import { useSuspenseFetchBlogs } from '@/lib/hooks/blogs/fetch/use-suspense-fetch-blogs';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function BlogPage() {
-  const {
-    state: { blogs, totalPages },
-    dispatch,
-  } = useBlogContext();
+  const queryClient = useQueryClient();
 
   const [term, setTerm] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -31,25 +28,31 @@ export default function BlogPage() {
 
   const { mutate: updateBlog } = useUpdateBlog();
 
-  const { data, currentPage, goToPage } = useFetchBlogs({
-    title: term,
+  const { blogs, totalPages, currentPage, goToPage } = useSuspenseFetchBlogs({
     initialPage: 1,
-    initialData: { blogs, totalPages },
+    title: term,
   });
 
-  console.log({ term });
+  const refetchPage = (page: number, term: string = '') => {
+    queryClient.refetchQueries({
+      queryKey: ['blogs', term, page],
+      exact: true,
+    });
+  };
+
   const handleAddBlog = () => {
     setCurrentBlog(null);
     setIsDialogOpen(true);
   };
 
-  const handleSaveBlog = (blog: Blog) => {
+  const handleSaveBlog = () => {
     setIsDialogOpen(false);
     if (currentBlog) {
-      dispatch({ type: 'UPDATE_BLOG', blog });
+      refetchPage(currentPage, term);
       return setCurrentBlog(null);
     }
-    dispatch({ type: 'ADD_BLOG', blog });
+    goToPage(1);
+    refetchPage(1, '');
   };
 
   const handleEditBlog = (blog: Blog) => {
@@ -59,7 +62,7 @@ export default function BlogPage() {
 
   const handleDeleteBlog = async (blog: Blog) => {
     await mutateDestroy(blog.id);
-    dispatch({ type: 'DELETE_BLOG', blogId: blog.id });
+    refetchPage(currentPage, term);
   };
 
   const handleToggleStatus = async (blog: Blog) => {
@@ -78,7 +81,7 @@ export default function BlogPage() {
           transition={{ duration: 0.5 }}
           className='mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4'
         >
-          <AdminHeader title='BLOG' />
+          <AdminHeader title='BLOGS' />
 
           <CyberButton
             variant='primary'
@@ -91,7 +94,7 @@ export default function BlogPage() {
         </motion.div>
 
         <BlogList
-          blogs={data}
+          blogs={blogs}
           onSearch={setTerm}
           onAdd={handleAddBlog}
           onEdit={handleEditBlog}

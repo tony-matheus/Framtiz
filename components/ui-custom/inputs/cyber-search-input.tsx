@@ -20,7 +20,7 @@ export default function CyberSearchInput({
 
   const debouncedSearch = useDebouncedCallback((newTerm: string) => {
     saveSearchParams(newTerm);
-    console.log(newTerm);
+
     onSearch(newTerm);
   }, 500);
 

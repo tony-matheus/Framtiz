@@ -18,6 +18,7 @@ export default function ProjectSelectPage() {
   const navigateBack = () => {
     router.push('/admin/projects');
   };
+
   return (
     <div>
       <motion.div

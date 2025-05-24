@@ -30,7 +30,6 @@ const getAllBlogs = async (
   const from = (page - 1) * limit;
   const to = from + limit - 1;
 
-  console.log({ from, to });
   query = query.range(from, to);
 
   const { data, count, error } = await query.order('created_at', {
@@ -42,7 +41,6 @@ const getAllBlogs = async (
   }
 
   const totalPages = Math.ceil((count || 1) / limit);
-  console.log({ limit, count, totalPages });
 
   return { blogs: data as Blog[], totalPages };
 };

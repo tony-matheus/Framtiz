@@ -1,8 +1,6 @@
 'use client';
 
 import {
-  Home,
-  Settings,
   FileCode,
   User as UserIcon,
   LogOut,
@@ -32,15 +30,15 @@ export default function AdminSidebar({
   const pathname = usePathname();
 
   const navItems = [
-    {
-      id: 'dashboard',
-      label: 'DASHBOARD',
-      icon: <Home size={18} />,
-      href: '/admin/dashboard',
-    },
+    // {
+    //   id: 'dashboard',
+    //   label: 'DASHBOARD',
+    //   icon: <Home size={18} />,
+    //   href: '/admin/dashboard',
+    // },
     {
       id: 'blog',
-      label: 'BLOG',
+      label: 'BLOGS',
       icon: <Newspaper size={18} />,
       href: '/admin/blogs',
     },
@@ -50,12 +48,12 @@ export default function AdminSidebar({
       icon: <FileCode size={18} />,
       href: '/admin/projects',
     },
-    {
-      id: 'settings',
-      label: 'SETTINGS',
-      icon: <Settings size={18} />,
-      href: '/admin/settings',
-    },
+    // {
+    //   id: 'settings',
+    //   label: 'SETTINGS',
+    //   icon: <Settings size={18} />,
+    //   href: '/admin/settings',
+    // },
   ];
 
   return (

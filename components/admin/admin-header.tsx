@@ -2,15 +2,18 @@
 
 import { cn } from '@/lib/utils';
 import CyberHeading from '../ui-custom/cyber-heading';
+import { Skeleton } from '../ui/skeleton';
 
 interface AdminHeaderProps {
   title?: string;
   indicator?: 'purple' | 'green';
+  loading?: boolean;
 }
 
 export default function AdminHeader({
   indicator = 'green',
   title = 'ADMIN_TERMINAL',
+  loading = false,
 }: AdminHeaderProps) {
   return (
     <div
@@ -19,7 +22,11 @@ export default function AdminHeader({
         indicator === 'purple' ? 'border-purple-600' : 'border-green-400'
       )}
     >
-      <CyberHeading as='h2'>{title}</CyberHeading>
+      {loading ? (
+        <Skeleton className='h-40 sm:h-56 w-full bg-slate-800/50' />
+      ) : (
+        <CyberHeading as='h2'>{title}</CyberHeading>
+      )}
     </div>
   );
 }

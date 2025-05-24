@@ -30,21 +30,22 @@ export default function BlogItem({
 
   return (
     <CyberCard className='h-full'>
-      <CyberCardContent>
-        <h3 className='text-lg font-mono text-slate-200'>{blog.title}</h3>
-        <div className='flex items-center gap-2 my-2'>
-          <CyberSwitch
-            id='status'
-            checked={published}
-            onCheckedChange={(value) => handlePublishChange(blog, value)}
-            disabled={isDeleting}
-          />
-          <span className='text-sm text-slate-300 font-mono'>
-            {published ? 'PUBLISHED' : 'DRAFT'}
-          </span>
+      <CyberCardContent className='flex flex-col justify-between h-full'>
+        <div>
+          <h3 className='text-lg font-mono text-slate-200'>{blog.title}</h3>
+          <div className='flex items-center gap-2 my-2'>
+            <CyberSwitch
+              id='status'
+              checked={published}
+              onCheckedChange={(value) => handlePublishChange(blog, value)}
+              disabled={isDeleting}
+            />
+            <span className='text-sm text-slate-300 font-mono'>
+              {published ? 'PUBLISHED' : 'DRAFT'}
+            </span>
+          </div>
         </div>
-
-        <div className='flex justify-between items-center text-xs text-slate-500 mt-auto pt-2 border-t border-slate-800'>
+        <div className='flex justify-between items-center text-xs text-slate-500 pt-2 border-t border-slate-800'>
           <CyberButton
             variant='outline'
             size='sm'

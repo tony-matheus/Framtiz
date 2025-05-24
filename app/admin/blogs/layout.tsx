@@ -2,10 +2,11 @@ import type { ReactNode } from 'react';
 
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
 import { redirect } from 'next/navigation';
-import AdminLayout from '@/components/admin/admin-layout';
-import SystemFooter from '@/components/admin/system-footer';
-import { serverBlogService } from '@/lib/services/blog-service';
-import { BlogProvider } from './contexts/blog-context';
+import { getQueryClient } from '@/lib/helpers/get-query-client';
+
+import ReactQueryProvider from '@/lib/contexts/react-query-provider';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+import { blogQueryOptions } from '@/lib/hooks/blogs/fetch/blog-options';
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const user = await serverAuthService.getCurrentUser();
@@ -14,14 +15,20 @@ export default async function Layout({ children }: { children: ReactNode }) {
     redirect('/admin/login');
   }
 
-  const { blogs, totalPages } = await serverBlogService.getAllBlogs();
+  const queryClient = getQueryClient();
+
+  await queryClient.prefetchQuery(
+    blogQueryOptions({
+      page: 1,
+      title: '',
+    })
+  );
 
   return (
-    <AdminLayout user={user}>
-      <BlogProvider initialblogs={blogs} totalPages={totalPages}>
+    <ReactQueryProvider>
+      <HydrationBoundary state={dehydrate(queryClient)}>
         {children}
-      </BlogProvider>
-      <SystemFooter />
-    </AdminLayout>
+      </HydrationBoundary>
+    </ReactQueryProvider>
   );
 }
