@@ -108,87 +108,87 @@ export default function ProjectForm({ project, onSave, onCancel }: ProjectFormPr
   }
 
   return (
-    <div className="bg-slate-900 border border-slate-800 p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-lg font-mono text-slate-200">{project ? "EDIT_PROJECT" : "NEW_PROJECT"}</h3>
+    <div className="border border-slate-800 bg-slate-900 p-6">
+      <div className="mb-6 flex items-center justify-between">
+        <h3 className="font-mono text-lg text-slate-200">{project ? "EDIT_PROJECT" : "NEW_PROJECT"}</h3>
         <button
           onClick={onCancel}
-          className="p-2 border border-slate-700 text-slate-400 hover:border-red-600 hover:text-red-300 transition-colors"
+          className="border border-slate-700 p-2 text-slate-400 transition-colors hover:border-red-600 hover:text-red-300"
         >
           <X size={16} />
         </button>
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="space-y-4">
             <div>
-              <label className="block text-slate-400 text-sm font-mono mb-2">TITLE</label>
+              <label className="mb-2 block font-mono text-sm text-slate-400">TITLE</label>
               <input
                 type="text"
                 name="title"
                 value={formData.title}
                 onChange={handleInputChange}
-                className={`w-full bg-slate-800 border ${
+                className={`w-full border bg-slate-800 ${
                   errors.title ? "border-red-600" : "border-slate-700"
-                } p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors`}
+                } p-3 text-slate-200 outline-none transition-colors focus:border-purple-600`}
               />
               {errors.title && <p className="mt-1 text-xs text-red-400">{errors.title}</p>}
             </div>
 
             <div>
-              <label className="block text-slate-400 text-sm font-mono mb-2">SLUG</label>
+              <label className="mb-2 block font-mono text-sm text-slate-400">SLUG</label>
               <input
                 type="text"
                 name="slug"
                 value={formData.slug}
                 onChange={handleInputChange}
-                className={`w-full bg-slate-800 border ${
+                className={`w-full border bg-slate-800 ${
                   errors.slug ? "border-red-600" : "border-slate-700"
-                } p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors`}
+                } p-3 text-slate-200 outline-none transition-colors focus:border-purple-600`}
               />
               {errors.slug && <p className="mt-1 text-xs text-red-400">{errors.slug}</p>}
             </div>
 
             <div>
-              <label className="block text-slate-400 text-sm font-mono mb-2">DESCRIPTION</label>
+              <label className="mb-2 block font-mono text-sm text-slate-400">DESCRIPTION</label>
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
                 rows={4}
-                className={`w-full bg-slate-800 border ${
+                className={`w-full border bg-slate-800 ${
                   errors.description ? "border-red-600" : "border-slate-700"
-                } p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors`}
+                } p-3 text-slate-200 outline-none transition-colors focus:border-purple-600`}
               />
               {errors.description && <p className="mt-1 text-xs text-red-400">{errors.description}</p>}
             </div>
 
             <div>
-              <label className="block text-slate-400 text-sm font-mono mb-2">TECH_STACK</label>
+              <label className="mb-2 block font-mono text-sm text-slate-400">TECH_STACK</label>
               <div className="flex">
                 <input
                   type="text"
                   value={newTech}
                   onChange={(e) => setNewTech(e.target.value)}
-                  className="flex-1 bg-slate-800 border border-slate-700 p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors"
+                  className="flex-1 border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600"
                   placeholder="Add technology..."
                 />
                 <button
                   type="button"
                   onClick={handleAddTech}
-                  className="px-4 bg-slate-800 border border-purple-600 text-purple-300 ml-2"
+                  className="ml-2 border border-purple-600 bg-slate-800 px-4 text-purple-300"
                 >
                   <Plus size={16} />
                 </button>
               </div>
               {errors.tech_stack && <p className="mt-1 text-xs text-red-400">{errors.tech_stack}</p>}
 
-              <div className="flex flex-wrap gap-2 mt-3">
+              <div className="mt-3 flex flex-wrap gap-2">
                 {formData.tech_stack.map((tech, index) => (
                   <div
                     key={index}
-                    className="flex items-center px-2 py-1 bg-slate-800 border border-purple-900 text-purple-300 text-xs"
+                    className="flex items-center border border-purple-900 bg-slate-800 px-2 py-1 text-xs text-purple-300"
                   >
                     <span>{tech}</span>
                     <button
@@ -206,60 +206,60 @@ export default function ProjectForm({ project, onSave, onCancel }: ProjectFormPr
 
           <div className="space-y-4">
             <div>
-              <label className="block text-slate-400 text-sm font-mono mb-2">GITHUB_URL</label>
+              <label className="mb-2 block font-mono text-sm text-slate-400">GITHUB_URL</label>
               <input
                 type="text"
                 name="github_url"
                 value={formData.github_url}
                 onChange={handleInputChange}
-                className={`w-full bg-slate-800 border ${
+                className={`w-full border bg-slate-800 ${
                   errors.github_url ? "border-red-600" : "border-slate-700"
-                } p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors`}
+                } p-3 text-slate-200 outline-none transition-colors focus:border-purple-600`}
               />
               {errors.github_url && <p className="mt-1 text-xs text-red-400">{errors.github_url}</p>}
             </div>
 
             <div>
-              <label className="block text-slate-400 text-sm font-mono mb-2">LIVE_URL (OPTIONAL)</label>
+              <label className="mb-2 block font-mono text-sm text-slate-400">LIVE_URL (OPTIONAL)</label>
               <input
                 type="text"
                 name="live_url"
                 value={formData.live_url}
                 onChange={handleInputChange}
-                className="w-full bg-slate-800 border border-slate-700 p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors"
+                className="w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600"
               />
             </div>
 
             <div>
-              <label className="block text-slate-400 text-sm font-mono mb-2">IMAGE_URL</label>
+              <label className="mb-2 block font-mono text-sm text-slate-400">IMAGE_URL</label>
               <input
                 type="text"
                 name="image_url"
                 value={formData.image_url}
                 onChange={handleInputChange}
-                className="w-full bg-slate-800 border border-slate-700 p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors"
+                className="w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-slate-400 text-sm font-mono mb-2">LEVEL</label>
+                <label className="mb-2 block font-mono text-sm text-slate-400">LEVEL</label>
                 <input
                   type="text"
                   name="level"
                   value={formData.level}
                   onChange={handleInputChange}
-                  className="w-full bg-slate-800 border border-slate-700 p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors"
+                  className="w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 text-sm font-mono mb-2">STATUS</label>
+                <label className="mb-2 block font-mono text-sm text-slate-400">STATUS</label>
                 <select
                   name="status"
                   value={formData.status}
                   onChange={handleInputChange}
-                  className="w-full bg-slate-800 border border-slate-700 p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors"
+                  className="w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600"
                 >
                   <option value="ONLINE">ONLINE</option>
                   <option value="STABLE">STABLE</option>
@@ -271,34 +271,34 @@ export default function ProjectForm({ project, onSave, onCancel }: ProjectFormPr
               </div>
             </div>
 
-            <div className="flex items-center mt-4">
+            <div className="mt-4 flex items-center">
               <input
                 type="checkbox"
                 id="featured"
                 name="featured"
                 checked={formData.featured}
                 onChange={handleCheckboxChange}
-                className="w-4 h-4 bg-slate-800 border border-slate-700 focus:ring-purple-600"
+                className="size-4 border border-slate-700 bg-slate-800 focus:ring-purple-600"
               />
-              <label htmlFor="featured" className="ml-2 text-slate-300 text-sm font-mono">
+              <label htmlFor="featured" className="ml-2 font-mono text-sm text-slate-300">
                 FEATURED_PROJECT
               </label>
             </div>
           </div>
         </div>
 
-        <div className="flex justify-end mt-8">
+        <div className="mt-8 flex justify-end">
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 bg-transparent border border-slate-700 text-slate-300 mr-4"
+            className="mr-4 border border-slate-700 bg-transparent px-4 py-2 text-slate-300"
           >
             CANCEL
           </button>
           <button
             type="submit"
             disabled={isLoading}
-            className="px-4 py-2 bg-transparent border-2 border-green-600 text-green-300 flex items-center hover:bg-green-900/30 transition-colors"
+            className="flex items-center border-2 border-green-600 bg-transparent px-4 py-2 text-green-300 transition-colors hover:bg-green-900/30"
           >
             <Save size={16} className="mr-2" />
             <span className="font-mono">{isLoading ? "SAVING..." : "SAVE_PROJECT"}</span>

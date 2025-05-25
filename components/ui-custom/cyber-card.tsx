@@ -35,8 +35,8 @@ export function CyberCard({
       {children}
       {withCornerAccents && (
         <>
-          <div className='hidden group-hover:block absolute -top-1 -left-1 w-3 h-3 bg-purple-600'></div>
-          <div className='hidden group-hover:block absolute -bottom-1 -right-1 w-3 h-3 bg-green-400'></div>
+          <div className='absolute -left-1 -top-1 hidden size-3 bg-purple-600 group-hover:block'></div>
+          <div className='absolute -bottom-1 -right-1 hidden size-3 bg-green-400 group-hover:block'></div>
         </>
       )}
     </Card>

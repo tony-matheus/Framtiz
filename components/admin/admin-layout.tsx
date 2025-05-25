@@ -20,7 +20,7 @@ export default function AdminLayout({ children, user }: AdminLayoutProps) {
   return (
     <div className='flex h-screen overflow-hidden'>
       {/* Mobile sidebar toggle */}
-      <div className='fixed top-4 left-4 z-30 md:hidden'>
+      <div className='fixed left-4 top-4 z-30 md:hidden'>
         <CyberButton
           variant='outline'
           size='icon'

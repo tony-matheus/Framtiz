@@ -11,14 +11,14 @@ const CyberInput = forwardRef<HTMLInputElement, CyberInputProps>(
     return (
       <div className='w-full'>
         {!!label && (
-          <label className='block text-slate-400 text-sm font-mono mb-2'>
+          <label className='mb-2 block font-mono text-sm text-slate-400'>
             {label}
           </label>
         )}
         <Input
           ref={ref}
           type={type}
-          className='w-full bg-slate-800 border border-slate-700 p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors'
+          className='w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600'
           {...props}
         />
       </div>

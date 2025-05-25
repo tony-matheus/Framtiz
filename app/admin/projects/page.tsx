@@ -10,7 +10,6 @@ import { CyberConfirmDialog } from '@/components/ui-custom/cyber-confirm-dialog'
 import EmptyState from '@/components/admin/empty-state';
 import { useProjectContext } from './contexts/project-context';
 import { Project } from '@/lib/services/project-service';
-import AdminHeader from '@/components/admin/admin-header';
 import ProjectCard from '@/components/admin/projects/project-card';
 import { useDeleteProject } from '@/lib/hooks/projects/use-delete-projects';
 
@@ -60,23 +59,21 @@ export default function ProjectsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className='mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4'
+          className='mb-4 flex flex-col items-start justify-end gap-4 py-4 md:flex-row md:items-center'
         >
-          <AdminHeader title='PORTFOLIO_PROJECTS' />
-
           <CyberButton
             variant='primary'
             leftIcon={<Plus size={16} />}
             onClick={navigateToProjectSelector}
             className='md:self-end'
           >
-            ADD_NEW_PROJECT
+            ADD_PROJECT
           </CyberButton>
         </motion.div>
 
         {/* Selected Projects */}
         {projects.length > 0 ? (
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
             {projects.map((project) => (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

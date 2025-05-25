@@ -26,17 +26,17 @@ export default function ProjectCard({
   onDelete,
 }: ProjectCardProps) {
   return (
-    <CyberCard className='h-full cyber-card-with-accents hover:border-purple-600 transition-colors group'>
+    <CyberCard className='cyber-card-with-accents group h-full transition-colors hover:border-purple-600'>
       <CyberCardContent>
-        <div className='flex justify-between items-start mb-3'>
-          <Heading as='h5' className='font-mono'>
+        <div className='mb-3 flex items-start justify-between'>
+          <Heading as='h5' className='h-[84] font-mono'>
             {title}
           </Heading>
           <div className='flex gap-2'>
             <CyberButton
               variant='outline'
               size='icon'
-              className='h-7 w-7'
+              className='size-7'
               onClick={onEdit}
             >
               <Edit size={14} />
@@ -44,7 +44,7 @@ export default function ProjectCard({
             <CyberButton
               variant='outline'
               size='icon'
-              className='h-7 w-7'
+              className='size-7'
               onClick={onDelete}
             >
               <Trash2 size={14} />
@@ -53,7 +53,7 @@ export default function ProjectCard({
         </div>
 
         <div className='mb-3'>
-          <p className='text-xs text-slate-400 mb-1 font-mono'>STATUS</p>
+          <p className='mb-1 font-mono text-xs text-slate-400'>STATUS</p>
           <div className='flex items-center'>
             <span
               className={cn(
@@ -72,14 +72,14 @@ export default function ProjectCard({
           </div>
         </div>
 
-        <p className='text-sm text-slate-400 mb-3'>{description}</p>
+        <p className='mb-3 text-sm text-slate-400'>{description}</p>
 
-        <div className='flex justify-between items-center text-xs text-slate-500 mt-auto pt-2 border-t border-slate-800'>
+        <div className='mt-auto flex items-center justify-between border-t border-slate-800 pt-2 text-xs text-slate-500'>
           <a
             href={githubUrl}
             target='_blank'
             rel='noopener noreferrer'
-            className='text-purple-400 hover:text-green-400 transition-colors flex items-center'
+            className='flex items-center text-purple-400 transition-colors hover:text-green-400'
           >
             <ExternalLink size={12} className='mr-1' />
             GitHub

@@ -21,21 +21,21 @@ export function CyberErrorState({
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className={`bg-slate-900 border-2 border-red-900 p-6 relative ${className}`}
+      className={`relative border-2 border-red-900 bg-slate-900 p-6 ${className}`}
     >
       {/* Decorative elements */}
-      <div className='absolute -top-1 -left-1 w-3 h-3 bg-red-600'></div>
-      <div className='absolute -bottom-1 -right-1 w-3 h-3 bg-red-600'></div>
+      <div className='absolute -left-1 -top-1 size-3 bg-red-600'></div>
+      <div className='absolute -bottom-1 -right-1 size-3 bg-red-600'></div>
 
       <div className='flex flex-col items-center text-center'>
-        <div className='w-16 h-16 bg-red-900/30 border-2 border-red-600 flex items-center justify-center mb-4'>
+        <div className='mb-4 flex size-16 items-center justify-center border-2 border-red-600 bg-red-900/30'>
           <AlertTriangle className='text-red-400' size={32} />
         </div>
 
-        <h3 className='text-xl font-bold text-red-400 font-mono mb-2'>
+        <h3 className='mb-2 font-mono text-xl font-bold text-red-400'>
           {title}
         </h3>
-        <p className='text-slate-300 mb-6 max-w-md'>{message}</p>
+        <p className='mb-6 max-w-md text-slate-300'>{message}</p>
 
         {onRetry && (
           <CyberButton
@@ -49,9 +49,9 @@ export function CyberErrorState({
       </div>
 
       {/* Glitch effect */}
-      <div className='absolute inset-0 bg-red-900/5 pointer-events-none'></div>
-      <div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-transparent'></div>
-      <div className='absolute bottom-0 right-0 w-full h-1 bg-gradient-to-l from-red-600 to-transparent'></div>
+      <div className='pointer-events-none absolute inset-0 bg-red-900/5'></div>
+      <div className='absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-red-600 to-transparent'></div>
+      <div className='absolute bottom-0 right-0 h-1 w-full bg-gradient-to-l from-red-600 to-transparent'></div>
     </motion.div>
   );
 }

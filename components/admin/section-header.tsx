@@ -28,7 +28,7 @@ export function SectionHeader({
         className
       )}
     >
-      <div className='flex items-center mb-2'>
+      <div className='mb-2 flex items-center'>
         <div
           className={cn(
             'w-2 h-2 mr-2',

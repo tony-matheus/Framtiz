@@ -1,5 +1,5 @@
 import { Blog } from '@/lib/services/blog-service';
-import { queryOptions } from '@tanstack/react-query';
+import { keepPreviousData, queryOptions } from '@tanstack/react-query';
 import axios from 'axios';
 
 export type PaginatedBlogResponse = {
@@ -32,9 +32,9 @@ export const blogQueryOptions = ({
   page: number;
   limit?: number;
 }) =>
-  queryOptions<PaginatedBlogResponse, Error, PaginatedBlogResponse>({
+  queryOptions({
     queryKey: ['blogs', title ?? '', page],
     queryFn: () => fetchBlogs({ title, page, limit }),
-    placeholderData: (prev) => prev,
+    placeholderData: keepPreviousData,
     staleTime: 60_000,
   });

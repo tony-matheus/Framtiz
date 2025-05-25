@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { blogQueryOptions, PaginatedBlogResponse } from './blog-options';
+import { blogQueryOptions } from './blog-options';
 import { Blog } from '@/lib/services/blog-service';
 
 export type UseFetchBlogsResult = {
@@ -29,11 +29,9 @@ export const useFetchBlogs = ({
 }: UseFetchBlogsProps): UseFetchBlogsResult => {
   const [page, setPage] = useState(initialPage);
 
-  const { data, isPending, isError } = useQuery<
-    PaginatedBlogResponse,
-    Error,
-    PaginatedBlogResponse
-  >(blogQueryOptions({ title, page, limit }));
+  const { data, isPending, isError } = useQuery(
+    blogQueryOptions({ title, page, limit })
+  );
 
   return {
     blogs: data?.blogs ?? [],

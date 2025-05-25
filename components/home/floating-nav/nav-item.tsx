@@ -61,20 +61,20 @@ export default function NavItem({
       <NavLinkWrapper
         href={href}
         status={status}
-        className='flex items-center justify-between p-3 border border-slate-800 hover:border-purple-600 hover:bg-slate-800/50 transition-colors group cursor-pointer'
+        className='group flex cursor-pointer items-center justify-between border border-slate-800 p-3 transition-colors hover:border-purple-600 hover:bg-slate-800/50'
       >
         <div className='flex items-center'>
-          <span className='text-purple-400 mr-3 group-hover:text-green-400 transition-colors'>
+          <span className='mr-3 text-purple-400 transition-colors group-hover:text-green-400'>
             {icon}
           </span>
-          <span className='text-slate-300 font-mono text-sm'>{label}</span>
+          <span className='font-mono text-sm text-slate-300'>{label}</span>
         </div>
         <div className='flex items-center'>
           <span
-            className={`w-1 h-1 mr-1 ${COLOR_MAP[status].split(' ')[1]}`}
+            className={`mr-1 size-1 ${COLOR_MAP[status].split(' ')[1]}`}
           ></span>
           <span
-            className={`text-xs font-mono ${COLOR_MAP[status].split(' ')[0]}`}
+            className={`font-mono text-xs ${COLOR_MAP[status].split(' ')[0]}`}
           >
             {status}
           </span>

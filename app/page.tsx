@@ -1,33 +1,40 @@
-import FloatingNav from '@/components/floating-nav/floating-nav';
-import Hero, { Profile } from '@/components/hero';
-import ProjectShowcase from '@/components/project-showcase';
+import BlogPosts from '@/components/home/blog-posts';
+import ExperienceTimeline from '@/components/home/experience-timeline';
+import FeaturedProjects from '@/components/home/featured-projects';
+import FloatingNav from '@/components/home/floating-nav/floating-nav';
+import Footer from '@/components/home/footer';
+import Hero, { Profile } from '@/components/home/hero';
+
+import ScrollProgress from '@/components/home/scroll-progress';
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
 import { serverProjectService } from '@/lib/services/project-service';
-// import ProjectShowcase from '@/components/project-showcase';
-// import FloatingNav from '@/components/floating-nav';
-
-// import { serverAnalyticsService } from "@/lib/services/analytics-service"
+import { serverBlogService } from '@/lib/services/blog-service';
 
 export default async function Home() {
   const projects = await serverProjectService.getAllProjects();
+  const { blogs } = await serverBlogService.getAllBlogs();
   const user = await serverAuthService.getCurrentUser();
 
-  // Track page view
-  // await serverAnalyticsService.trackPageView("/", new Request("https://example.com"))
   return (
     <main className='min-h-screen bg-slate-950 text-slate-50'>
+      <ScrollProgress />
+      <FloatingNav />
       <Hero
         profile={
           {
             id: 1,
             name: user?.username ?? 'William Frantz',
             description: 'Senior Anti-cheat engineer at Riot Games',
-            github_url: 'https://github.com/WLSF',
+            github_url: user?.githubUsername
+              ? `https://github.com/${user?.githubUsername}`
+              : null,
           } as Profile
         }
       />
-      <ProjectShowcase projects={projects} />
-      <FloatingNav />
+      <FeaturedProjects projects={projects} />
+      <BlogPosts blogs={blogs} />
+      <ExperienceTimeline />
+      <Footer />
     </main>
   );
 }

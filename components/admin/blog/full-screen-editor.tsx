@@ -88,11 +88,11 @@ export default function FullScreenEditor({
   }, [onClose, onSave]);
 
   return (
-    <div className='fixed inset-0 z-50 bg-slate-950 flex flex-col'>
+    <div className='fixed inset-0 z-50 flex flex-col bg-slate-950'>
       {/* Header */}
-      <div className='flex items-center justify-between p-4 border-b border-slate-800 bg-slate-900'>
+      <div className='flex items-center justify-between border-b border-slate-800 bg-slate-900 p-4'>
         <div className='flex items-center gap-4'>
-          <h2 className='text-xl font-bold text-slate-200 font-mono flex items-center'>
+          <h2 className='flex items-center font-mono text-xl font-bold text-slate-200'>
             <FileText className='mr-2 text-purple-400' size={20} />
             <span>FULL_SCREEN_EDITOR</span>
           </h2>
@@ -101,7 +101,7 @@ export default function FullScreenEditor({
               type='text'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className='bg-slate-800 border shadow-inner shadow-slate-700 p-2 text-slate-200 focus:shadow-purple-600 outline-none transition-colors w-64'
+              className='w-64 border bg-slate-800 p-2 text-slate-200 shadow-inner shadow-slate-700 outline-none transition-colors focus:shadow-purple-600'
               placeholder='Enter blog title...'
             />
           </div>
@@ -110,7 +110,7 @@ export default function FullScreenEditor({
           <div className='flex items-center space-x-2'>
             <Label
               htmlFor='fs-status'
-              className='text-slate-400 text-sm font-mono'
+              className='font-mono text-sm text-slate-400'
             >
               ACTIVE_STATUS
             </Label>
@@ -120,7 +120,7 @@ export default function FullScreenEditor({
                 checked={published}
                 onCheckedChange={setPublished}
               />
-              <span className='text-sm text-slate-300 font-mono'>
+              <span className='font-mono text-sm text-slate-300'>
                 {published ? 'PUBLISHED' : 'DRAFT'}
               </span>
             </div>
@@ -149,16 +149,16 @@ export default function FullScreenEditor({
       </div>
 
       {/* Split-pane layout */}
-      <div ref={containerRef} className='flex flex-1 overflow-hidden relative'>
+      <div ref={containerRef} className='relative flex flex-1 overflow-hidden'>
         {/* Editor pane */}
         <div
-          className='h-full overflow-auto bg-slate-900 border-r border-slate-800'
+          className='h-full overflow-auto border-r border-slate-800 bg-slate-900'
           style={{ width: `${splitPosition}%` }}
         >
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className='w-full h-full bg-slate-800 border-0 p-4 text-slate-200 focus:outline-none font-mono resize-none'
+            className='size-full resize-none border-0 bg-slate-800 p-4 font-mono text-slate-200 focus:outline-none'
             placeholder='Write your blog post in Markdown...'
           />
         </div>
@@ -166,14 +166,14 @@ export default function FullScreenEditor({
         {/* Resizable divider */}
         <div
           ref={dividerRef}
-          className={`w-1 h-full bg-slate-700 cursor-col-resize hover:bg-purple-600 active:bg-purple-600 ${
+          className={`h-full w-1 cursor-col-resize bg-slate-700 hover:bg-purple-600 active:bg-purple-600 ${
             isDragging ? 'bg-purple-600' : ''
           }`}
           onMouseDown={() => setIsDragging(true)}
         >
-          <div className='absolute top-1/2 left-0 transform -translate-y-1/2 w-5 h-10 bg-slate-700 hover:bg-purple-600 flex items-center justify-center rounded-sm'>
-            <div className='w-0.5 h-4 bg-slate-500 mx-0.5'></div>
-            <div className='w-0.5 h-4 bg-slate-500 mx-0.5'></div>
+          <div className='absolute left-0 top-1/2 flex h-10 w-5 -translate-y-1/2 items-center justify-center rounded-sm bg-slate-700 hover:bg-purple-600'>
+            <div className='mx-0.5 h-4 w-0.5 bg-slate-500'></div>
+            <div className='mx-0.5 h-4 w-0.5 bg-slate-500'></div>
           </div>
         </div>
 
@@ -190,7 +190,7 @@ export default function FullScreenEditor({
               {content ? (
                 <ReactMarkdown>{content}</ReactMarkdown>
               ) : (
-                <div className='text-slate-500 italic'>
+                <div className='italic text-slate-500'>
                   No content to preview
                 </div>
               )}
@@ -200,19 +200,19 @@ export default function FullScreenEditor({
       </div>
 
       {/* Keyboard shortcuts info */}
-      <div className='absolute bottom-4 left-4 text-xs text-slate-500 bg-slate-900/80 p-2 rounded border border-slate-800'>
+      <div className='absolute bottom-4 left-4 rounded border border-slate-800 bg-slate-900/80 p-2 text-xs text-slate-500'>
         <div className='font-mono'>KEYBOARD_SHORTCUTS:</div>
-        <div className='flex gap-4 mt-1'>
+        <div className='mt-1 flex gap-4'>
           <span>ESC - Exit Full Screen</span>
           <span>Ctrl+S - Save</span>
         </div>
       </div>
 
       {/* Decorative elements */}
-      <div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-600 to-transparent'></div>
-      <div className='absolute bottom-0 right-0 w-full h-1 bg-gradient-to-l from-green-400 to-transparent'></div>
-      <div className='absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-purple-600 to-transparent'></div>
-      <div className='absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-transparent to-green-400'></div>
+      <div className='absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-purple-600 to-transparent'></div>
+      <div className='absolute bottom-0 right-0 h-1 w-full bg-gradient-to-l from-green-400 to-transparent'></div>
+      <div className='absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-purple-600 to-transparent'></div>
+      <div className='absolute right-0 top-0 h-full w-1 bg-gradient-to-b from-transparent to-green-400'></div>
     </div>
   );
 }

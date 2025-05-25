@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 // This endpoint should only be called once to set up the first admin
 // In a real app, you'd want to secure this better
-export async function POST(request: Request) {
+export async function POST() {
   try {
     const supabase = await createServerSupabaseClient();
     const {

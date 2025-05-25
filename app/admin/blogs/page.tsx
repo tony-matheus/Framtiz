@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
 
 import { CyberButton } from '@/components/ui-custom/cyber-button';
-import AdminHeader from '@/components/admin/admin-header';
 import BlogEditorDialog from '@/components/admin/blog/blog-editor-dialog';
 import { Blog } from '@/lib/services/blog-service';
 import { useDestroyBlog } from '@/lib/hooks/blogs/mutations/use-destroy-blog';
@@ -15,6 +14,7 @@ import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberPagination } from '@/components/ui-custom/cyber-pagination';
 import { useSuspenseFetchBlogs } from '@/lib/hooks/blogs/fetch/use-suspense-fetch-blogs';
 import { useQueryClient } from '@tanstack/react-query';
+import CyberSearchInput from '@/components/ui-custom/inputs/cyber-search-input';
 
 export default function BlogPage() {
   const queryClient = useQueryClient();
@@ -33,7 +33,7 @@ export default function BlogPage() {
     title: term,
   });
 
-  const refetchPage = (page: number, term: string = '') => {
+  const refetchPage = (page: number, term = '') => {
     queryClient.refetchQueries({
       queryKey: ['blogs', term, page],
       exact: true,
@@ -65,8 +65,8 @@ export default function BlogPage() {
     refetchPage(currentPage, term);
   };
 
-  const handleToggleStatus = async (blog: Blog) => {
-    await updateBlog({
+  const handleToggleStatus = (blog: Blog) => {
+    updateBlog({
       ...blog,
       published: !blog.published,
     });
@@ -79,9 +79,9 @@ export default function BlogPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className='mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4'
+          className='mb-4 flex flex-col items-start justify-between gap-4 py-4 md:flex-row md:items-center'
         >
-          <AdminHeader title='BLOGS' />
+          <CyberSearchInput onSearch={setTerm} />
 
           <CyberButton
             variant='primary'
@@ -95,7 +95,6 @@ export default function BlogPage() {
 
         <BlogList
           blogs={blogs}
-          onSearch={setTerm}
           onAdd={handleAddBlog}
           onEdit={handleEditBlog}
           onDelete={handleDeleteBlog}
@@ -108,9 +107,9 @@ export default function BlogPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className='mt-8 mb-12'
+            className='mb-12 mt-8'
           >
-            <CyberCard className='inline-block mx-auto'>
+            <CyberCard className='mx-auto inline-block'>
               <CyberCardContent className='p-2 sm:p-4'>
                 <CyberPagination
                   totalPages={totalPages}

@@ -51,7 +51,7 @@ export function CyberProgress({
   return (
     <div className={cn('w-full', className)}>
       {(label || showValue) && (
-        <div className='flex justify-between items-center mb-1 text-xs text-slate-400'>
+        <div className='mb-1 flex items-center justify-between text-xs text-slate-400'>
           {label && <span className='font-mono'>{label}</span>}
           {showValue && (
             <span className={cn('font-mono', STATUS_COLOR[status].text)}>

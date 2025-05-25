@@ -50,31 +50,31 @@ export default function RepoSelector({
   return (
     <div className='mb-8'>
       {/* Search and filters */}
-      <div className='mb-4 flex flex-col md:flex-row gap-4'>
+      <div className='mb-4 flex flex-col gap-4 md:flex-row'>
         <CyberSearchInput onSearch={() => {}} />
         <div className='flex items-center text-sm text-slate-300'>
-          <span className='font-mono mr-2'>SELECTED:</span>
-          <span className='px-2 py-1 bg-purple-900/30 border border-purple-600 font-mono'>
+          <span className='mr-2 font-mono'>SELECTED:</span>
+          <span className='border border-purple-600 bg-purple-900/30 px-2 py-1 font-mono'>
             {selectedRepos.length}/{repos.length}
           </span>
         </div>
       </div>
 
       {/* Repository table */}
-      <div className='bg-slate-900 border border-slate-800'>
+      <div className='border border-slate-800 bg-slate-900'>
         <Table>
-          <TableHeader className='bg-slate-900 border-b border-slate-800'>
-            <TableRow className='hover:bg-transparent border-none'>
-              <TableHead className='text-xs text-slate-400 font-mono w-[60px] py-3'>
+          <TableHeader className='border-b border-slate-800 bg-slate-900'>
+            <TableRow className='border-none hover:bg-transparent'>
+              <TableHead className='w-[60px] py-3 font-mono text-xs text-slate-400'>
                 SELECT
               </TableHead>
-              <TableHead className='text-xs text-slate-400 font-mono py-3'>
+              <TableHead className='py-3 font-mono text-xs text-slate-400'>
                 REPOSITORY
               </TableHead>
-              <TableHead className='text-xs text-slate-400 font-mono text-center py-3 w-[100px]'>
+              <TableHead className='w-[100px] py-3 text-center font-mono text-xs text-slate-400'>
                 STARS
               </TableHead>
-              <TableHead className='text-xs text-slate-400 font-mono py-3 w-[150px]'>
+              <TableHead className='w-[150px] py-3 font-mono text-xs text-slate-400'>
                 UPDATED
               </TableHead>
             </TableRow>
@@ -117,14 +117,14 @@ export default function RepoSelector({
                     <TableCell>
                       <a
                         href={repo.url}
-                        className='font-mono text-sm text-slate-200 hover:text-white group-hover:font-bold'
+                        className='font-mono text-sm text-slate-200 group-hover:font-bold group-hover:text-purple-400'
                       >
                         <div className='flex items-center gap-2'>
                           {repo.name}
                           <ExternalLink size={12} />
                         </div>
                       </a>
-                      <p className='text-xs text-slate-400 mt-1'>
+                      <p className='mt-1 text-xs text-slate-400'>
                         {repo.description}
                       </p>
                     </TableCell>
@@ -136,7 +136,7 @@ export default function RepoSelector({
                     </TableCell>
 
                     <TableCell>
-                      <div className='flex items-center text-slate-300 text-xs'>
+                      <div className='flex items-center text-xs text-slate-300'>
                         <Clock size={14} className='mr-1 text-green-400' />
                         <p>{formatDate(repo.updated_at)}</p>
                       </div>

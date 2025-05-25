@@ -85,9 +85,9 @@ export default function RepoList() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className='mt-8 mb-12'
+          className='mb-12 mt-8'
         >
-          <CyberCard className='inline-block mx-auto'>
+          <CyberCard className='mx-auto inline-block'>
             <CyberCardContent className='p-2 sm:p-4'>
               <CyberPagination
                 totalPages={totalPages}
@@ -97,7 +97,7 @@ export default function RepoList() {
             </CyberCardContent>
           </CyberCard>
 
-          <div className='text-center mt-4 text-xs text-slate-400 font-mono'>
+          <div className='mt-4 text-center font-mono text-xs text-slate-400'>
             SHOWING {indexOfFirstItem + 1}-
             {Math.min(indexOfLastItem, selectedRepos.length)} OF{' '}
             {selectedRepos.length} REPOS

@@ -22,16 +22,16 @@ export default function SettingsPage() {
       </motion.div>
 
       {/* Settings panels */}
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+      <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
         <CyberCard>
           <CyberCardContent>
-            <h3 className='text-lg font-mono text-slate-200 mb-4 flex items-center'>
-              <Lock size={18} className='text-purple-400 mr-2' />
+            <h3 className='mb-4 flex items-center font-mono text-lg text-slate-200'>
+              <Lock size={18} className='mr-2 text-purple-400' />
               SECURITY_SETTINGS
             </h3>
             {/* Security settings */}
             <div className='space-y-4'>
-              <div className='flex items-center justify-between p-3 border border-slate-800'>
+              <div className='flex items-center justify-between border border-slate-800 p-3'>
                 <div className='font-mono text-sm text-slate-300'>
                   TWO_FACTOR_AUTHENTICATION
                 </div>
@@ -42,15 +42,15 @@ export default function SettingsPage() {
                   </Label>
                 </div>
               </div>
-              <div className='flex items-center justify-between p-3 border border-slate-800'>
+              <div className='flex items-center justify-between border border-slate-800 p-3'>
                 <div className='font-mono text-sm text-slate-300'>
                   SESSION_TIMEOUT
                 </div>
-                <div className='text-purple-300 text-sm font-mono'>
+                <div className='font-mono text-sm text-purple-300'>
                   30_MINUTES
                 </div>
               </div>
-              <div className='flex items-center justify-between p-3 border border-slate-800'>
+              <div className='flex items-center justify-between border border-slate-800 p-3'>
                 <div className='font-mono text-sm text-slate-300'>
                   API_KEY_ROTATION
                 </div>
@@ -62,27 +62,27 @@ export default function SettingsPage() {
 
         <CyberCard>
           <CyberCardContent>
-            <h3 className='text-lg font-mono text-slate-200 mb-4 flex items-center'>
-              <Sparkles size={18} className='text-purple-400 mr-2' />
+            <h3 className='mb-4 flex items-center font-mono text-lg text-slate-200'>
+              <Sparkles size={18} className='mr-2 text-purple-400' />
               AI_CONFIGURATION
             </h3>
             {/* AI settings */}
             <div className='space-y-4'>
-              <div className='flex items-center justify-between p-3 border border-slate-800'>
+              <div className='flex items-center justify-between border border-slate-800 p-3'>
                 <div className='font-mono text-sm text-slate-300'>
                   AI_PROVIDER
                 </div>
-                <div className='text-purple-300 text-sm font-mono'>
+                <div className='font-mono text-sm text-purple-300'>
                   OPENAI_GPT4
                 </div>
               </div>
-              <div className='flex items-center justify-between p-3 border border-slate-800'>
+              <div className='flex items-center justify-between border border-slate-800 p-3'>
                 <div className='font-mono text-sm text-slate-300'>
                   DESCRIPTION_LENGTH
                 </div>
-                <div className='text-purple-300 text-sm font-mono'>MEDIUM</div>
+                <div className='font-mono text-sm text-purple-300'>MEDIUM</div>
               </div>
-              <div className='flex items-center justify-between p-3 border border-slate-800'>
+              <div className='flex items-center justify-between border border-slate-800 p-3'>
                 <div className='font-mono text-sm text-slate-300'>
                   TECH_DETECTION
                 </div>
@@ -99,21 +99,21 @@ export default function SettingsPage() {
 
         <CyberCard>
           <CyberCardContent>
-            <h3 className='text-lg font-mono text-slate-200 mb-4 flex items-center'>
-              <div className='w-2 h-2 bg-purple-400 mr-2'></div>
+            <h3 className='mb-4 flex items-center font-mono text-lg text-slate-200'>
+              <div className='mr-2 size-2 bg-purple-400'></div>
               APPEARANCE_SETTINGS
             </h3>
             {/* Appearance settings */}
             <div className='space-y-4'>
-              <div className='flex items-center justify-between p-3 border border-slate-800'>
+              <div className='flex items-center justify-between border border-slate-800 p-3'>
                 <div className='font-mono text-sm text-slate-300'>
                   THEME_MODE
                 </div>
-                <div className='text-purple-300 text-sm font-mono'>
+                <div className='font-mono text-sm text-purple-300'>
                   CYBERPUNK
                 </div>
               </div>
-              <div className='flex items-center justify-between p-3 border border-slate-800'>
+              <div className='flex items-center justify-between border border-slate-800 p-3'>
                 <div className='font-mono text-sm text-slate-300'>
                   ANIMATION_EFFECTS
                 </div>
@@ -124,11 +124,11 @@ export default function SettingsPage() {
                   </Label>
                 </div>
               </div>
-              <div className='flex items-center justify-between p-3 border border-slate-800'>
+              <div className='flex items-center justify-between border border-slate-800 p-3'>
                 <div className='font-mono text-sm text-slate-300'>
                   COLOR_SCHEME
                 </div>
-                <div className='text-purple-300 text-sm font-mono'>
+                <div className='font-mono text-sm text-purple-300'>
                   PURPLE_GREEN
                 </div>
               </div>
@@ -138,13 +138,13 @@ export default function SettingsPage() {
 
         <CyberCard>
           <CyberCardContent>
-            <h3 className='text-lg font-mono text-slate-200 mb-4 flex items-center'>
-              <div className='w-2 h-2 bg-green-400 mr-2'></div>
+            <h3 className='mb-4 flex items-center font-mono text-lg text-slate-200'>
+              <div className='mr-2 size-2 bg-green-400'></div>
               NOTIFICATION_SETTINGS
             </h3>
             {/* Notification settings */}
             <div className='space-y-4'>
-              <div className='flex items-center justify-between p-3 border border-slate-800'>
+              <div className='flex items-center justify-between border border-slate-800 p-3'>
                 <div className='font-mono text-sm text-slate-300'>
                   EMAIL_NOTIFICATIONS
                 </div>
@@ -155,7 +155,7 @@ export default function SettingsPage() {
                   </Label>
                 </div>
               </div>
-              <div className='flex items-center justify-between p-3 border border-slate-800'>
+              <div className='flex items-center justify-between border border-slate-800 p-3'>
                 <div className='font-mono text-sm text-slate-300'>
                   SECURITY_ALERTS
                 </div>
@@ -166,7 +166,7 @@ export default function SettingsPage() {
                   </Label>
                 </div>
               </div>
-              <div className='flex items-center justify-between p-3 border border-slate-800'>
+              <div className='flex items-center justify-between border border-slate-800 p-3'>
                 <div className='font-mono text-sm text-slate-300'>
                   SYSTEM_UPDATES
                 </div>

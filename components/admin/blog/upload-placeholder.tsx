@@ -24,7 +24,7 @@ export default function UploadPlaceholder({
   return (
     <div
       id={`upload-${id}`}
-      className='my-4 p-3 border border-dashed rounded-none bg-slate-800/50 text-sm'
+      className='my-4 rounded-none border border-dashed bg-slate-800/50 p-3 text-sm'
       style={{
         borderColor:
           status === 'uploading'
@@ -58,7 +58,7 @@ export default function UploadPlaceholder({
         </div>
 
         {status === 'uploading' && (
-          <div className='text-xs text-purple-400 font-mono'>{progress}%</div>
+          <div className='font-mono text-xs text-purple-400'>{progress}%</div>
         )}
       </div>
 

@@ -3,7 +3,6 @@
 import type React from 'react';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { User, Save, Mail, MapPin, Github, Twitter } from 'lucide-react';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberFormField } from '@/components/ui-custom/cyber-form-field';
@@ -12,7 +11,6 @@ import { CyberDataDisplay } from '@/components/ui-custom/cyber-data-display';
 import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
 import { Separator } from '@/components/ui/separator';
 import { useUserContext } from '../../../lib/contexts/user-context';
-import AdminHeader from '@/components/admin/admin-header';
 import { useUpdateProfile } from '@/lib/hooks/profile/use-update-profile';
 
 export default function EditProfile() {
@@ -47,27 +45,18 @@ export default function EditProfile() {
 
   return (
     <div>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className='mb-8'
-      >
-        <AdminHeader title='PROFILE_CONFIGURATION' />
-      </motion.div>
-
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+      <div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
         {/* Profile sidebar */}
         <CyberCard>
           <CyberCardContent className='flex flex-col items-center p-6'>
-            <div className='w-24 h-24 bg-slate-800 border-2 border-purple-600 flex items-center justify-center mb-4'>
+            <div className='mb-4 flex size-24 items-center justify-center border-2 border-purple-600 bg-slate-800'>
               <User className='text-purple-400' size={48} />
             </div>
             <div className='text-center'>
-              <div className='text-lg text-slate-200 font-mono'>
+              <div className='font-mono text-lg text-slate-200'>
                 {profile.username}
               </div>
-              <div className='text-sm text-slate-400 font-mono'>
+              <div className='font-mono text-sm text-slate-400'>
                 {profile.role}
               </div>
             </div>
@@ -75,8 +64,8 @@ export default function EditProfile() {
             <Separator className='my-6 bg-slate-800' />
 
             <div className='w-full space-y-4'>
-              <div className='p-3 border border-slate-800'>
-                <div className='text-xs text-slate-500 font-mono mb-1'>
+              <div className='border border-slate-800 p-3'>
+                <div className='mb-1 font-mono text-xs text-slate-500'>
                   ACCOUNT_STATUS
                 </div>
                 <CyberStatusBadge status='online'>ACTIVE</CyberStatusBadge>
@@ -94,13 +83,13 @@ export default function EditProfile() {
         {/* Profile form */}
         <CyberCard className='md:col-span-2'>
           <CyberCardContent>
-            <h3 className='text-lg font-mono text-slate-200 mb-4 flex items-center'>
-              <div className='w-2 h-2 bg-purple-400 mr-2'></div>
+            <h3 className='mb-4 flex items-center font-mono text-lg text-slate-200'>
+              <div className='mr-2 size-2 bg-purple-400'></div>
               EDIT_PROFILE
             </h3>
 
             <form onSubmit={handleSubmit} className='space-y-6'>
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+              <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
                 <CyberFormField
                   label='USERNAME'
                   name='username'
@@ -128,7 +117,7 @@ export default function EditProfile() {
                 rows={4}
               />
 
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+              <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
                 <CyberFormField
                   label='LOCATION'
                   name='location'
@@ -138,7 +127,7 @@ export default function EditProfile() {
                 />
               </div>
 
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+              <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
                 <CyberFormField
                   label='GITHUB'
                   name='githubUsername'

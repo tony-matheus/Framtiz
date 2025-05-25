@@ -19,7 +19,7 @@ export default function DashboardPage() {
       </motion.div>
 
       {/* Dashboard content */}
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-8'>
+      <div className='mb-8 grid grid-cols-1 gap-6 md:grid-cols-3'>
         <MetricCard
           title='VISITOR_METRICS'
           subtitle='Total visitors this month'
@@ -45,33 +45,33 @@ export default function DashboardPage() {
       {/* System Status */}
       <CyberCard>
         <CyberCardContent>
-          <h3 className='text-lg font-mono text-slate-200 mb-4 flex items-center'>
-            <div className='w-2 h-2 bg-green-400 mr-2'></div>
+          <h3 className='mb-4 flex items-center font-mono text-lg text-slate-200'>
+            <div className='mr-2 size-2 bg-green-400'></div>
             SYSTEM_HEALTH
           </h3>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+          <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
             <CyberProgress
               label='SYSTEM_HEALTH'
               value={24}
-              className='bg-slate-800/50 p-4 border border-slate-700'
+              className='border border-slate-700 bg-slate-800/50 p-4'
               showValue
             />
             <CyberProgress
               label='MEMORY_USAGE'
               value={90}
               status='danger'
-              className='bg-slate-800/50 p-4 border border-slate-700'
+              className='border border-slate-700 bg-slate-800/50 p-4'
               showValue
             />
             <CyberProgress
               label='STORAGE_USAGE'
               value={40}
               status='success'
-              className='bg-slate-800/50 p-4 border border-slate-700'
+              className='border border-slate-700 bg-slate-800/50 p-4'
               showValue
             />
             <CyberProgress
-              className='bg-slate-800/50 p-4 border border-slate-700'
+              className='border border-slate-700 bg-slate-800/50 p-4'
               showValue
               label='NETWORK_TRAFFIC'
               value={10}

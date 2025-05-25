@@ -57,11 +57,11 @@ export default function AdminSidebar({
   ];
 
   return (
-    <div className='w-64 bg-slate-900 border-r border-slate-800 min-h-screen overflow-y-auto'>
+    <div className='min-h-screen w-64 overflow-y-auto border-r border-slate-800 bg-slate-950'>
       {/* Header */}
-      <div className='p-4 border-b border-slate-800 flex justify-between items-center'>
+      <div className='flex items-center justify-between border-b border-slate-800 p-4'>
         <div className='flex items-center'>
-          <div className='size-16 bg-transparent flex rounded-full border-2 border-purple-900 items-center justify-center mr-3'>
+          <div className='mr-3 flex size-16 items-center justify-center rounded-full border-2 border-purple-900 bg-transparent'>
             <Image
               src='/logo/logo-dark.png'
               width={500}
@@ -70,8 +70,8 @@ export default function AdminSidebar({
             />
           </div>
           <div>
-            <div className='text-sm text-green-400 font-mono'>FRAMTIZ</div>
-            <div className='text-xs text-slate-400 font-mono'>v0.0.1</div>
+            <div className='font-mono text-sm text-green-400'>FRAMTIZ</div>
+            <div className='font-mono text-xs text-slate-400'>v0.0.1</div>
           </div>
         </div>
 
@@ -81,7 +81,7 @@ export default function AdminSidebar({
             onClick={onClose}
             variant='outline'
             size='icon'
-            className='h-7 w-7'
+            className='size-7'
           >
             <X size={16} />
           </CyberButton>
@@ -89,23 +89,23 @@ export default function AdminSidebar({
       </div>
 
       {/* User Info */}
-      <div className='p-4 border-b border-slate-800'>
+      <div className='border-b border-slate-800 p-4'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center'>
-            <div className='w-8 h-8 bg-slate-800 border border-purple-600 flex items-center justify-center mr-3'>
+            <div className='mr-3 flex size-8 items-center justify-center border border-purple-600 bg-slate-800'>
               <UserIcon className='text-purple-400' size={16} />
             </div>
             <div>
-              <div className='text-sm text-slate-200 font-mono'>
+              <div className='font-mono text-sm text-slate-200'>
                 {user.username?.toUpperCase() ?? 'EDIT_TO_CHANGE_YOUR_NAME'}
               </div>
-              <div className='text-xs text-slate-400 font-mono'>
+              <div className='font-mono text-xs text-slate-400'>
                 {user.isAdmin ? 'ADMIN_LEVEL' : 'USER_LEVEL'}
               </div>
             </div>
           </div>
           <Link href='/admin/edit-profile'>
-            <CyberButton variant='outline' size='icon' className='h-7 w-7'>
+            <CyberButton variant='outline' size='icon' className='size-7'>
               <Edit size={14} className='text-purple-400' />
             </CyberButton>
           </Link>
@@ -114,7 +114,7 @@ export default function AdminSidebar({
 
       {/* Navigation */}
       <div className='p-4'>
-        <div className='text-xs text-slate-500 font-mono mb-2'>NAVIGATION</div>
+        <div className='mb-2 font-mono text-xs text-slate-500'>NAVIGATION</div>
         {navItems.map((item) => {
           const isActive =
             pathname === item.href || pathname.startsWith(item.href);
@@ -122,16 +122,16 @@ export default function AdminSidebar({
           return (
             <Link key={item.id} href={item.href} passHref>
               <div
-                className={`flex items-center w-full p-3 mb-2 text-left ${
+                className={`mb-2 flex w-full items-center p-3 text-left ${
                   isActive
-                    ? 'bg-purple-900/30 border border-purple-600 text-purple-300'
+                    ? 'border border-purple-600 bg-purple-900/30 text-purple-300'
                     : 'border border-slate-800 text-slate-400 hover:border-purple-600 hover:text-purple-300'
                 } transition-colors`}
               >
                 <span className='mr-3'>{item.icon}</span>
                 <span className='font-mono text-sm'>{item.label}</span>
                 {isActive && (
-                  <span className='w-1 h-1 bg-green-400 ml-auto'></span>
+                  <span className='ml-auto size-1 bg-green-400'></span>
                 )}
               </div>
             </Link>
@@ -140,11 +140,11 @@ export default function AdminSidebar({
       </div>
 
       {/* System Status */}
-      <div className='p-4 mt-auto border-t border-slate-800'>
-        <div className='text-xs text-slate-500 font-mono mb-2'>
+      <div className='mt-auto border-t border-slate-800 p-4'>
+        <div className='mb-2 font-mono text-xs text-slate-500'>
           SYSTEM_STATUS
         </div>
-        <div className='bg-slate-800/50 p-3 border border-slate-700'>
+        <div className='border border-slate-700 bg-slate-800/50 p-3'>
           <CyberProgress
             label='CPU_USAGE'
             value={24}

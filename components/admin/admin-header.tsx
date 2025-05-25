@@ -23,7 +23,7 @@ export default function AdminHeader({
       )}
     >
       {loading ? (
-        <Skeleton className='h-40 sm:h-56 w-full bg-slate-800/50' />
+        <Skeleton className='h-40 w-full bg-slate-800/50 sm:h-56' />
       ) : (
         <CyberHeading as='h2'>{title}</CyberHeading>
       )}

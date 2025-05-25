@@ -81,29 +81,29 @@ export function CyberConfirmDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className='bg-slate-900 border-2 border-slate-800 text-slate-200 p-0 max-w-md mx-auto'>
+      <DialogContent className='mx-auto max-w-md border-2 border-slate-800 bg-slate-900 p-0 text-slate-200'>
         {/* Decorative elements */}
-        <div className='absolute -top-1 -left-1 w-3 h-3 bg-purple-600'></div>
-        <div className='absolute -bottom-1 -right-1 w-3 h-3 bg-green-400'></div>
+        <div className='absolute -left-1 -top-1 size-3 bg-purple-600'></div>
+        <div className='absolute -bottom-1 -right-1 size-3 bg-green-400'></div>
 
-        <DialogHeader className='p-4  relative'>
+        <DialogHeader className='relative  p-4'>
           <div className='flex items-center'>
             <div
-              className={`w-10 h-10 ${bgColor} border ${borderColor} flex items-center justify-center mr-4`}
+              className={`size-10 ${bgColor} border ${borderColor} mr-4 flex items-center justify-center`}
             >
               {icon}
             </div>
-            <DialogTitle className='text-xl font-bold text-slate-200 font-mono'>
+            <DialogTitle className='font-mono text-xl font-bold text-slate-200'>
               {title}
             </DialogTitle>
           </div>
         </DialogHeader>
 
-        <DialogDescription className='p-4 pt-2 text-slate-300 mb-6 border border-slate-800 bg-slate-800/50'>
+        <DialogDescription className='mb-6 border border-slate-800 bg-slate-800/50 p-4 pt-2 text-slate-300'>
           {description}
         </DialogDescription>
 
-        <DialogFooter className='p-4 flex justify-end space-x-4'>
+        <DialogFooter className='flex justify-end space-x-4 p-4'>
           <CyberButton variant='outline' onClick={onClose} disabled={isLoading}>
             {cancelText}
           </CyberButton>

@@ -53,7 +53,7 @@ export function CyberFormField({
       </Label>
       <div className='relative'>
         {icon && (
-          <div className='absolute left-0 top-0 bottom-0 w-10 flex items-center justify-center border-r border-slate-700'>
+          <div className='absolute inset-y-0 left-0 flex w-10 items-center justify-center border-r border-slate-700'>
             {icon}
           </div>
         )}

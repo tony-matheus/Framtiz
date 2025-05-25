@@ -23,7 +23,7 @@ const CyberSwitch = React.forwardRef<
         "before:absolute before:inset-[3px] before:z-10 before:content-[''] before:bg-slate-800 data-[state=checked]:before:bg-green-900/50"
       )}
     >
-      <span className='absolute z-20 h-1 w-1 rounded-none bg-slate-400 data-[state=checked]:bg-green-400 animate-pulse' />
+      <span className='absolute z-20 size-1 animate-pulse rounded-none bg-slate-400 data-[state=checked]:bg-green-400' />
     </SwitchPrimitives.Thumb>
   </SwitchPrimitives.Root>
 ));

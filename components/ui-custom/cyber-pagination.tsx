@@ -94,7 +94,7 @@ export function CyberPagination({
               )}
               aria-label='Go to previous page'
             >
-              <ChevronLeft className='h-4 w-4' />
+              <ChevronLeft className='size-4' />
             </button>
           </PaginationItem>
         )}
@@ -102,7 +102,7 @@ export function CyberPagination({
         {pages.map((page, i) =>
           page === -1 ? (
             <PaginationItem key={`ellipsis-${i}`}>
-              <PaginationEllipsis className='h-8 w-8 flex items-center justify-center text-slate-500' />
+              <PaginationEllipsis className='flex size-8 items-center justify-center text-slate-500' />
             </PaginationItem>
           ) : (
             <PaginationItem key={page}>
@@ -134,7 +134,7 @@ export function CyberPagination({
               )}
               aria-label='Go to next page'
             >
-              <ChevronRight className='h-4 w-4' />
+              <ChevronRight className='size-4' />
             </button>
           </PaginationItem>
         )}

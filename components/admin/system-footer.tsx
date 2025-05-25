@@ -20,25 +20,25 @@ export default function SystemFooter({
     <div className='mt-12 border-t border-slate-800 pt-4'>
       <div className='flex flex-wrap gap-6 text-xs'>
         <div className='flex items-center'>
-          <Terminal size={14} className='text-purple-400 mr-2' />
-          <span className='text-slate-400 font-mono'>SYSTEM_VERSION: </span>
-          <span className='text-purple-300 font-mono ml-1'>
+          <Terminal size={14} className='mr-2 text-purple-400' />
+          <span className='font-mono text-slate-400'>SYSTEM_VERSION: </span>
+          <span className='ml-1 font-mono text-purple-300'>
             {systemStatus.version || '2.4.1'}
           </span>
         </div>
         <div className='flex items-center'>
           {'💜💚'}
-          <span className='text-slate-400 font-mono ml-2'>
+          <span className='ml-2 font-mono text-slate-400'>
             MADE_WITH_LOVE_BY:{' '}
           </span>
-          <span className='text-green-400 font-mono ml-1'>
+          <span className='ml-1 font-mono text-green-400'>
             TONY &quot;LINGUIÇA&quot; LIMA
           </span>
         </div>
         <div className='flex items-center'>
-          <Zap size={14} className='text-green-400 mr-2' />
-          <span className='text-slate-400 font-mono'>CONNECTION: </span>
-          <span className='text-green-400 font-mono ml-1'>
+          <Zap size={14} className='mr-2 text-green-400' />
+          <span className='font-mono text-slate-400'>CONNECTION: </span>
+          <span className='ml-1 font-mono text-green-400'>
             {systemStatus.connection}
           </span>
         </div>

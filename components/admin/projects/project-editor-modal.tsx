@@ -95,14 +95,14 @@ export default function ProjectEditorModal({
     <>
       {/* Backdrop */}
       <div
-        className='fixed inset-0 bg-black/80 backdrop-blur-sm z-50'
+        className='fixed inset-0 z-50 bg-black/80 backdrop-blur-sm'
         onClick={onClose}
         style={{ animation: 'fadeIn 0.2s ease-out' }}
       />
 
       {/* Modal */}
       <div
-        className={`fixed z-50 bg-slate-900 border-2 border-slate-800 w-[95%] max-w-4xl max-h-[90vh] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col ${className}`}
+        className={`fixed left-1/2 top-1/2 z-50 flex max-h-[90vh] w-[95%] max-w-4xl -translate-x-1/2 -translate-y-1/2 flex-col border-2 border-slate-800 bg-slate-900 ${className}`}
         style={{
           boxShadow: '0 10px 25px rgba(0, 0, 0, 0.5)',
           animation: 'scaleIn 0.3s ease-out',
@@ -110,15 +110,15 @@ export default function ProjectEditorModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Decorative elements */}
-        <div className='absolute -top-1 -left-1 w-3 h-3 bg-purple-600'></div>
-        <div className='absolute -bottom-1 -right-1 w-3 h-3 bg-green-400'></div>
-        <div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-600 to-transparent'></div>
-        <div className='absolute bottom-0 right-0 w-full h-1 bg-gradient-to-l from-green-400 to-transparent'></div>
+        <div className='absolute -left-1 -top-1 size-3 bg-purple-600'></div>
+        <div className='absolute -bottom-1 -right-1 size-3 bg-green-400'></div>
+        <div className='absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-purple-600 to-transparent'></div>
+        <div className='absolute bottom-0 right-0 h-1 w-full bg-gradient-to-l from-green-400 to-transparent'></div>
 
         {/* Header */}
-        <div className='flex items-center justify-between p-4 border-b border-slate-800 bg-slate-900 z-10'>
-          <h2 className='text-xl font-bold text-slate-200 font-mono flex items-center'>
-            <div className='w-2 h-2 bg-green-400 mr-2 animate-pulse'></div>
+        <div className='z-10 flex items-center justify-between border-b border-slate-800 bg-slate-900 p-4'>
+          <h2 className='flex items-center font-mono text-xl font-bold text-slate-200'>
+            <div className='mr-2 size-2 animate-pulse bg-green-400'></div>
             EDITING: {editingRepo.title.toUpperCase()}
           </h2>
           <CyberButton variant='outline' size='icon' onClick={onClose}>
@@ -128,30 +128,30 @@ export default function ProjectEditorModal({
 
         {/* Content - scrollable area */}
         <div
-          className='p-4 flex-1 overflow-y-auto'
+          className='flex-1 overflow-y-auto p-4'
           style={{ scrollbarWidth: 'thin', scrollbarColor: '#8b5cf6 #1e293b' }}
         >
-          <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+          <div className='grid grid-cols-1 gap-6 lg:grid-cols-3'>
             {/* Preview panel */}
-            <CyberCard className='lg:col-span-1 h-fit'>
+            <CyberCard className='h-fit lg:col-span-1'>
               <CyberCardContent>
-                <h3 className='text-lg font-mono text-slate-200 mb-4 flex items-center'>
-                  <div className='w-2 h-2 bg-purple-400 mr-2'></div>
+                <h3 className='mb-4 flex items-center font-mono text-lg text-slate-200'>
+                  <div className='mr-2 size-2 bg-purple-400'></div>
                   PROJECT_PREVIEW
                 </h3>
-                <div className='aspect-video bg-slate-800 border border-slate-700 mb-4 flex items-center justify-center text-slate-500'>
+                <div className='mb-4 flex aspect-video items-center justify-center border border-slate-700 bg-slate-800 text-slate-500'>
                   {editingRepo.image_url ? (
                     <img
                       src={editingRepo.image_url || '/placeholder.svg'}
                       alt={editingRepo.title}
-                      className='w-full h-full object-cover'
+                      className='size-full object-cover'
                     />
                   ) : (
                     <span>No Preview Available</span>
                   )}
                 </div>
                 <div className='space-y-2'>
-                  <div className='text-lg text-slate-200 font-mono'>
+                  <div className='font-mono text-lg text-slate-200'>
                     {editingRepo.title}
                   </div>
                   <div className='text-sm text-slate-400'>
@@ -166,7 +166,7 @@ export default function ProjectEditorModal({
               <CyberCardContent>
                 <div className='space-y-6'>
                   <div>
-                    <label className='block text-slate-400 text-sm font-mono mb-2'>
+                    <label className='mb-2 block font-mono text-sm text-slate-400'>
                       PROJECT_TITLE
                     </label>
                     <input
@@ -174,19 +174,19 @@ export default function ProjectEditorModal({
                       name='name'
                       value={editingRepo.name}
                       onChange={handleInputChange}
-                      className='w-full bg-slate-800 border border-slate-700 p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors'
+                      className='w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600'
                     />
                   </div>
 
                   <div>
-                    <div className='flex justify-between items-center mb-2'>
-                      <label className='block text-slate-400 text-sm font-mono'>
+                    <div className='mb-2 flex items-center justify-between'>
+                      <label className='block font-mono text-sm text-slate-400'>
                         PROJECT_DESCRIPTION
                       </label>
                       <button
                         onClick={generateDescription}
                         disabled={isGeneratingDescription}
-                        className='flex items-center text-xs text-purple-300 hover:text-green-400 transition-colors'
+                        className='flex items-center text-xs text-purple-300 transition-colors hover:text-green-400'
                       >
                         {isGeneratingDescription ? (
                           <>
@@ -209,13 +209,13 @@ export default function ProjectEditorModal({
                       value={editingRepo.description}
                       onChange={handleInputChange}
                       rows={4}
-                      className='w-full bg-slate-800 border border-slate-700 p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors'
+                      className='w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600'
                     />
                   </div>
 
                   <div className='grid grid-cols-2 gap-4'>
                     <div>
-                      <label className='block text-slate-400 text-sm font-mono mb-2'>
+                      <label className='mb-2 block font-mono text-sm text-slate-400'>
                         TECH_STACK
                       </label>
                       <input
@@ -223,11 +223,11 @@ export default function ProjectEditorModal({
                         name='language'
                         value={editingRepo.language}
                         onChange={handleInputChange}
-                        className='w-full bg-slate-800 border border-slate-700 p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors'
+                        className='w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600'
                       />
                     </div>
                     <div>
-                      <label className='block text-slate-400 text-sm font-mono mb-2'>
+                      <label className='mb-2 block font-mono text-sm text-slate-400'>
                         PROJECT_LEVEL
                       </label>
                       <input
@@ -237,20 +237,20 @@ export default function ProjectEditorModal({
                           editingRepo.level ||
                           `LVL ${Math.floor(Math.random() * 30) + 70}`
                         }
-                        className='w-full bg-slate-800 border border-slate-700 p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors'
+                        className='w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600'
                       />
                     </div>
                   </div>
 
                   <div className='grid grid-cols-2 gap-4'>
                     <div>
-                      <label className='block text-slate-400 text-sm font-mono mb-2'>
+                      <label className='mb-2 block font-mono text-sm text-slate-400'>
                         PROJECT_STATUS
                       </label>
                       <select
                         name='status'
                         defaultValue={editingRepo.status || 'ONLINE'}
-                        className='w-full bg-slate-800 border border-slate-700 p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors'
+                        className='w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600'
                       >
                         <option value='ONLINE'>ONLINE</option>
                         <option value='STABLE'>STABLE</option>
@@ -260,14 +260,14 @@ export default function ProjectEditorModal({
                       </select>
                     </div>
                     <div>
-                      <label className='block text-slate-400 text-sm font-mono mb-2'>
+                      <label className='mb-2 block font-mono text-sm text-slate-400'>
                         GITHUB_URL
                       </label>
                       <input
                         type='text'
                         name='githubUrl'
                         defaultValue={`https://github.com/janedeveloper/${editingRepo.name}`}
-                        className='w-full bg-slate-800 border border-slate-700 p-3 text-slate-200 focus:border-purple-600 outline-none transition-colors'
+                        className='w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600'
                       />
                     </div>
                   </div>

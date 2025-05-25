@@ -30,8 +30,8 @@ export default function ProjectCreation({
   } = useCreateProjectsWithLogging(logContainerRef, onSave);
 
   return (
-    <div className='bg-gradient-to-r from-purple-600 to-green-400 p-[1px] rounded-t transition-all overflow-hidden'>
-      <div className='bg-slate-900 rounded-t p-4'>
+    <div className='overflow-hidden rounded-t bg-gradient-to-r from-purple-600 to-green-400 p-px transition-all'>
+      <div className='rounded-t bg-slate-900 p-4'>
         <div
           className={cn(
             'mb-6 justify-between items-end',
@@ -63,7 +63,7 @@ export default function ProjectCreation({
           ))}
         </div>
 
-        <div className='flex justify-between items-center '>
+        <div className='flex items-center justify-between '>
           <p className='text-slate-300'>
             <span className='font-mono'>{selectedRepos.length}</span> repos
             selected

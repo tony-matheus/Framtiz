@@ -29,12 +29,12 @@ export default function EmptyState({
       transition={{ duration: 0.5 }}
     >
       <CyberCard>
-        <CyberCardContent className='p-8 flex flex-col items-center justify-center text-center'>
-          <div className='w-16 h-16 bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 text-slate-400'>
+        <CyberCardContent className='flex flex-col items-center justify-center p-8 text-center'>
+          <div className='mb-4 flex size-16 items-center justify-center border border-slate-700 bg-slate-800 text-slate-400'>
             {icon}
           </div>
-          <h3 className='text-lg font-mono text-slate-200 mb-2'>{title}</h3>
-          <p className='text-slate-400 max-w-md mb-6'>{description}</p>
+          <h3 className='mb-2 font-mono text-lg text-slate-200'>{title}</h3>
+          <p className='mb-6 max-w-md text-slate-400'>{description}</p>
 
           {actionLabel && onAction && (
             <CyberButton

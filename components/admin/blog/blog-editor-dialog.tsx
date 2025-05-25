@@ -105,12 +105,12 @@ export default function BlogEditorDialog({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
         showDismiss={false}
-        className='bg-slate-900 border-2 border-slate-800 text-slate-200 p-0 max-w-md mx-auto min-w-full sm:min-w-[80vw]'
+        className='mx-auto min-w-full max-w-md border-2 border-slate-800 bg-slate-900 p-0 text-slate-200 sm:min-w-[80vw]'
       >
         {/* Header */}
         <DialogHeader>
-          <div className='flex items-center justify-between p-4 border-b border-slate-800 bg-slate-900 z-10'>
-            <DialogTitle className='text-xl font-bold text-slate-200 font-mono flex items-center'>
+          <div className='z-10 flex items-center justify-between border-b border-slate-800 bg-slate-900 p-4'>
+            <DialogTitle className='flex items-center font-mono text-xl font-bold text-slate-200'>
               <FileText className='mr-2 text-purple-400' size={20} />
               <span>{blog ? 'EDIT_BLOG' : 'CREATE_BLOG'}</span>
             </DialogTitle>
@@ -135,7 +135,7 @@ export default function BlogEditorDialog({
         </DialogHeader>
 
         {/* Content - scrollable area */}
-        <div className='p-4 flex-1 overflow-y-auto'>
+        <div className='flex-1 overflow-y-auto p-4'>
           <div className='space-y-6'>
             <CyberInput
               id='title'
@@ -148,7 +148,7 @@ export default function BlogEditorDialog({
             <div className='flex items-center space-x-4'>
               <Label
                 htmlFor='status'
-                className='text-slate-400 text-sm font-mono'
+                className='font-mono text-sm text-slate-400'
               >
                 ACTIVE_STATUS
               </Label>
@@ -158,7 +158,7 @@ export default function BlogEditorDialog({
                   checked={published}
                   onCheckedChange={setPublished}
                 />
-                <span className='text-sm text-slate-300 font-mono'>
+                <span className='font-mono text-sm text-slate-300'>
                   {published ? 'PUBLISHED' : 'DRAFT'}
                 </span>
               </div>
@@ -168,7 +168,7 @@ export default function BlogEditorDialog({
         </div>
 
         {/* Footer */}
-        <div className='flex justify-end gap-3 p-4 border-t border-slate-800 bg-slate-900'>
+        <div className='flex justify-end gap-3 border-t border-slate-800 bg-slate-900 p-4'>
           <CyberButton variant='outline' onClick={() => onOpenChange(false)}>
             CANCEL
           </CyberButton>

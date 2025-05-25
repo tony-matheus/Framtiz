@@ -35,19 +35,19 @@ export default function GithubConnection({
   return (
     <CyberCard className={cn('p-8 ', className)}>
       <CyberCardContent>
-        <div className='flex flex-col items-center justify-between mb-4 md:mx-auto md:max-w-[400] lg:max-w-[600]'>
-          <Github className='text-purple-400 mr-2' size={100} />
-          <Heading as='h2' className='font-mono mt-8'>
+        <div className='mb-4 flex flex-col items-center justify-between md:mx-auto md:max-w-[400] lg:max-w-[600]'>
+          <Github className='mr-2 text-purple-400' size={100} />
+          <Heading as='h2' className='mt-8 font-mono'>
             GITHUB_CONNECTION
           </Heading>
-          <p className='text-sm font-mono text-slate-200 mt-4'>
+          <p className='mt-4 font-mono text-sm text-slate-200'>
             Type your github username to sync repos from your account.
           </p>
           {connected ? (
             <CyberDataDisplay
               label='USERNAME'
               value={githubUsername}
-              className='w-full mt-4'
+              className='mt-4 w-full'
             />
           ) : (
             <CyberInput
@@ -57,13 +57,13 @@ export default function GithubConnection({
             />
           )}
           {!!error && (
-            <p className='text-sm font-mono text-red-200 my-4'>
+            <p className='my-4 font-mono text-sm text-red-200'>
               Something went wrong! try again later
             </p>
           )}
 
           {isSuccess && (
-            <p className='text-sm font-mono text-red-200 my-4'>
+            <p className='my-4 font-mono text-sm text-red-200'>
               Github username saved!
             </p>
           )}

@@ -98,9 +98,9 @@ export default function FloatingNav() {
       >
         {/* Toggle Button */}
         <motion.button
-          className={`w-14 h-14 bg-slate-900 border-2 ${
+          className={`size-14 border-2 bg-slate-900 ${
             glitchActive ? 'border-red-500' : 'border-purple-600'
-          } text-white flex items-center justify-center z-10 relative`}
+          } relative z-10 flex items-center justify-center text-white`}
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ borderColor: '#10b981' }}
           whileTap={{ scale: 0.95 }}
@@ -124,7 +124,7 @@ export default function FloatingNav() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.8 }}
               transition={{ duration: 0.3 }}
-              className={`absolute bottom-16 right-0 bg-slate-900 border-2 ${
+              className={`absolute bottom-16 right-0 border-2 bg-slate-900 ${
                 glitchActive ? 'border-red-500' : 'border-purple-600'
               } min-w-[280px]`}
             >
@@ -132,12 +132,12 @@ export default function FloatingNav() {
               <div className='border-b border-slate-800 p-3'>
                 <div className='flex items-center justify-between'>
                   <div className='flex items-center'>
-                    <div className='w-2 h-2 bg-green-400 mr-2 animate-pulse'></div>
-                    <div className='text-xs text-green-400 font-mono'>
+                    <div className='mr-2 size-2 animate-pulse bg-green-400'></div>
+                    <div className='font-mono text-xs text-green-400'>
                       SYSTEM_TERMINAL
                     </div>
                   </div>
-                  <div className='text-xs text-slate-500 font-mono'>v0.0.1</div>
+                  <div className='font-mono text-xs text-slate-500'>v0.0.1</div>
                 </div>
               </div>
 
@@ -145,13 +145,13 @@ export default function FloatingNav() {
               <div className='border-b border-slate-800 p-3'>
                 <div className='flex items-center justify-between'>
                   <div className='flex items-center'>
-                    <Shield size={14} className='text-purple-400 mr-2' />
-                    <div className='text-xs text-slate-300 font-mono'>
+                    <Shield size={14} className='mr-2 text-purple-400' />
+                    <div className='font-mono text-xs text-slate-300'>
                       SECURITY_STATUS
                     </div>
                   </div>
                   <div
-                    className={`text-xs font-mono ${
+                    className={`font-mono text-xs ${
                       glitchActive ? 'text-red-500' : 'text-green-400'
                     }`}
                   >
@@ -204,11 +204,11 @@ export default function FloatingNav() {
               <PowerStatus percentage={percentage} status={getPowerStatus()} />
 
               {/* Decorative elements */}
-              <div className='absolute -top-1 -left-1 w-3 h-3 bg-purple-600'></div>
-              <div className='absolute -bottom-1 -right-1 w-3 h-3 bg-green-400'></div>
+              <div className='absolute -left-1 -top-1 size-3 bg-purple-600'></div>
+              <div className='absolute -bottom-1 -right-1 size-3 bg-green-400'></div>
 
               {/* Grid overlay for hacking aesthetic */}
-              <div className='absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(139,92,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.05)_1px,transparent_1px)] bg-[size:10px_10px] z-[-1]'></div>
+              <div className='pointer-events-none absolute inset-0 z-[-1] bg-[linear-gradient(rgba(139,92,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.05)_1px,transparent_1px)]'></div>
             </motion.div>
           )}
         </AnimatePresence>

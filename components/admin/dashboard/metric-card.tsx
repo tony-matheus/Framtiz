@@ -42,7 +42,7 @@ export default function MetricCard({
   return (
     <CyberCard>
       <CyberCardContent>
-        <Heading as='h5' className=' text-slate-200 mb-4 font-mono'>
+        <Heading as='h5' className=' mb-4 font-mono text-slate-200'>
           <div className={cn('w-2 h-2  mr-2 inline-flex', colorStyles.bg)} />
           {title}
         </Heading>
@@ -51,7 +51,7 @@ export default function MetricCard({
           {value}
         </Heading>
         <p className='text-sm text-slate-400'>{subtitle}</p>
-        <CyberProgress status={status} value={65} className='mt-4 mb-2' />
+        <CyberProgress status={status} value={65} className='mb-2 mt-4' />
         <p className='text-xs text-green-400'>{info}</p>
       </CyberCardContent>
     </CyberCard>

@@ -189,7 +189,7 @@ export default function BlogContentEditor({
               ref={textareaRef}
               value={content}
               onChange={(e) => onContentChange(e.target.value)}
-              className='w-full h-[400px] bg-slate-800 border border-slate-700 p-4 text-slate-200 focus:border-purple-600 outline-none transition-colors font-mono resize-none'
+              className='h-[400px] w-full resize-none border border-slate-700 bg-slate-800 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600'
               placeholder='Write your blog post in Markdown... Drag and drop images to upload'
               onPaste={handlePaste}
             />
@@ -215,7 +215,7 @@ export default function BlogContentEditor({
             )}
 
             {/* Drag overlay hint */}
-            <div className='text-xs text-slate-500 pointer-events-none'>
+            <div className='pointer-events-none text-xs text-slate-500'>
               Drag & drop images to upload
             </div>
           </div>
@@ -228,7 +228,7 @@ export default function BlogContentEditor({
               {content ? (
                 <ReactMarkdown>{content === '' ? null : content}</ReactMarkdown>
               ) : (
-                <div className='text-slate-500 italic'>
+                <div className='italic text-slate-500'>
                   No content to preview
                 </div>
               )}

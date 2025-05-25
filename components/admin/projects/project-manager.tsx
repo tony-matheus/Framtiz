@@ -107,15 +107,15 @@ export default function ProjectManager({
 
   return (
     <div className='space-y-8'>
-      <div className='flex justify-between items-center'>
-        <h2 className='text-2xl font-bold bg-gradient-to-r from-purple-600 to-green-400 bg-clip-text text-transparent'>
+      <div className='flex items-center justify-between'>
+        <h2 className='bg-gradient-to-r from-purple-600 to-green-400 bg-clip-text text-2xl font-bold text-transparent'>
           PROJECT_MANAGEMENT
         </h2>
         <div className='flex gap-4'>
           <button
             onClick={refreshProjects}
             disabled={isLoading}
-            className='px-4 py-2 bg-slate-800 border border-purple-600 text-purple-300 flex items-center hover:bg-purple-900/30 transition-colors'
+            className='flex items-center border border-purple-600 bg-slate-800 px-4 py-2 text-purple-300 transition-colors hover:bg-purple-900/30'
           >
             <RefreshCw
               size={16}
@@ -125,7 +125,7 @@ export default function ProjectManager({
           </button>
           <button
             onClick={handleCreateProject}
-            className='px-4 py-2 bg-slate-800 border border-green-600 text-green-300 flex items-center hover:bg-green-900/30 transition-colors'
+            className='flex items-center border border-green-600 bg-slate-800 px-4 py-2 text-green-300 transition-colors hover:bg-green-900/30'
           >
             <Plus size={16} className='mr-2' />
             <span className='font-mono text-sm'>NEW_PROJECT</span>
@@ -135,14 +135,14 @@ export default function ProjectManager({
 
       {/* Search */}
       <div className='relative'>
-        <div className='absolute left-0 top-0 bottom-0 w-10 flex items-center justify-center border-r border-slate-700'>
+        <div className='absolute inset-y-0 left-0 flex w-10 items-center justify-center border-r border-slate-700'>
           <Search size={16} className='text-slate-500' />
         </div>
         <input
           type='text'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className='w-full bg-slate-800 border border-slate-700 p-3 pl-12 text-slate-200 focus:border-purple-600 outline-none transition-colors'
+          className='w-full border border-slate-700 bg-slate-800 p-3 pl-12 text-slate-200 outline-none transition-colors focus:border-purple-600'
           placeholder='Search projects...'
         />
       </div>
@@ -160,8 +160,8 @@ export default function ProjectManager({
       )}
 
       {/* Projects List */}
-      <div className='bg-slate-900 border border-slate-800'>
-        <div className='grid grid-cols-[1fr_auto] gap-4 p-3 border-b border-slate-800 text-xs text-slate-400 font-mono'>
+      <div className='border border-slate-800 bg-slate-900'>
+        <div className='grid grid-cols-[1fr_auto] gap-4 border-b border-slate-800 p-3 font-mono text-xs text-slate-400'>
           <div>PROJECT</div>
           <div>ACTIONS</div>
         </div>
@@ -174,7 +174,7 @@ export default function ProjectManager({
           filteredProjects.map((project) => (
             <motion.div
               key={project.id}
-              className='grid grid-cols-[1fr_auto] gap-4 p-3 border-b border-slate-800 items-center hover:bg-slate-800/50'
+              className='grid grid-cols-[1fr_auto] items-center gap-4 border-b border-slate-800 p-3 hover:bg-slate-800/50'
               whileHover={{ backgroundColor: 'rgba(30, 41, 59, 0.5)' }}
             >
               <div>
@@ -183,19 +183,19 @@ export default function ProjectManager({
                     {project.title}
                   </h3>
                   {project.featured && (
-                    <span className='ml-2 px-2 py-0.5 bg-purple-900/30 border border-purple-600 text-purple-300 text-xs'>
+                    <span className='ml-2 border border-purple-600 bg-purple-900/30 px-2 py-0.5 text-xs text-purple-300'>
                       FEATURED
                     </span>
                   )}
                 </div>
-                <div className='text-xs text-slate-400 mt-1'>
+                <div className='mt-1 text-xs text-slate-400'>
                   {project.description}
                 </div>
-                <div className='flex flex-wrap gap-1 mt-2'>
+                <div className='mt-2 flex flex-wrap gap-1'>
                   {project.tech_stack.map((tech, index) => (
                     <span
                       key={index}
-                      className='px-2 py-0.5 bg-slate-800 text-xs text-purple-300 border border-purple-900'
+                      className='border border-purple-900 bg-slate-800 px-2 py-0.5 text-xs text-purple-300'
                     >
                       {tech}
                     </span>
@@ -207,7 +207,7 @@ export default function ProjectManager({
                   onClick={() =>
                     handleToggleFeatured(project.id, project.featured)
                   }
-                  className={`p-2 border ${
+                  className={`border p-2 ${
                     project.featured
                       ? 'border-yellow-600 text-yellow-400 hover:bg-yellow-900/20'
                       : 'border-slate-700 text-slate-400 hover:bg-slate-800'
@@ -222,14 +222,14 @@ export default function ProjectManager({
                 </button>
                 <button
                   onClick={() => handleEditProject(project)}
-                  className='p-2 border border-slate-700 text-slate-400 hover:border-purple-600 hover:text-purple-300 hover:bg-purple-900/20 transition-colors'
+                  className='border border-slate-700 p-2 text-slate-400 transition-colors hover:border-purple-600 hover:bg-purple-900/20 hover:text-purple-300'
                   title='Edit project'
                 >
                   <Edit size={16} />
                 </button>
                 <button
                   onClick={() => handleDeleteProject(project.id)}
-                  className='p-2 border border-slate-700 text-slate-400 hover:border-red-600 hover:text-red-300 hover:bg-red-900/20 transition-colors'
+                  className='border border-slate-700 p-2 text-slate-400 transition-colors hover:border-red-600 hover:bg-red-900/20 hover:text-red-300'
                   title='Delete project'
                 >
                   <Trash2 size={16} />

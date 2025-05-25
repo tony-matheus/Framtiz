@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils';
 import { Search } from 'lucide-react';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
+import CyberInput from '../cyber-input';
 
 interface CyberSearchInputProps {
   term?: string;
@@ -42,14 +43,13 @@ export default function CyberSearchInput({
 
   return (
     <div className={cn('relative flex-1', className)}>
-      <div className='absolute left-0 top-0 bottom-0 w-10 flex items-center justify-center border-r border-slate-700'>
+      <div className='absolute inset-y-0 left-0 flex w-10 items-center justify-center border-r border-slate-700'>
         <Search size={16} className='text-slate-500' />
       </div>
-      <input
+      <CyberInput
         type='text'
         value={searchTerm}
         onChange={(e) => handleTyping(e.target.value)}
-        className='w-full bg-slate-800 border border-slate-700 p-3 pl-12 text-slate-200 focus:border-purple-600 outline-none transition-colors'
         placeholder={placeholder}
       />
     </div>
