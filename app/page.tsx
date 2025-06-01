@@ -11,7 +11,7 @@ import { serverProjectService } from '@/lib/services/project-service';
 import { serverBlogService } from '@/lib/services/blog-service';
 
 export default async function Home() {
-  const projects = await serverProjectService.getAllProjects();
+  const { projects } = await serverProjectService.getAllProjects();
   const { blogs } = await serverBlogService.getAllBlogs();
   const user = await serverAuthService.getCurrentUser();
 

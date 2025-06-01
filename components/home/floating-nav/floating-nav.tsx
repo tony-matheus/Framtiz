@@ -11,8 +11,8 @@ const LOGOUT_NAV_ITEMS = [
   {
     icon: <Home size={18} />,
     label: 'BLOG',
-    href: '/',
-    status: 'INACTIVE',
+    href: '/blog',
+    status: 'ACTIVE',
   },
   {
     icon: <Mail size={18} />,
