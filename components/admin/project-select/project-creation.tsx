@@ -1,7 +1,7 @@
 import { GithubRepo } from '@/app/api/github/repos/route';
 import { CyberButton } from '@/components/ui-custom/cyber-button';
 import { CyberProgress } from '@/components/ui-custom/cyber-progress';
-import { useCreateProjectsWithLogging } from '@/lib/hooks/projects/use-create-projects';
+import { useCreateProjectsWithLogging } from '@/hooks/projects/mutations/use-create-projects';
 import { cn } from '@/lib/utils';
 import { RefreshCw, Save, X } from 'lucide-react';
 import { useRef } from 'react';

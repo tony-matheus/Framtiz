@@ -49,6 +49,7 @@ export default function CyberSearchInput({
       <CyberInput
         type='text'
         value={searchTerm}
+        className='p-3 pl-12'
         onChange={(e) => handleTyping(e.target.value)}
         placeholder={placeholder}
       />

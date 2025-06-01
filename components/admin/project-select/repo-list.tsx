@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import RepoSelector from '@/components/admin/project-select/repo-selector';
-import { useGithubRepos } from '@/lib/hooks/github/use-github-repos';
+import { useGithubRepos } from '@/hooks/github/use-github-repos';
 import { GithubRepo } from '@/app/api/github/repos/route';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberPagination } from '@/components/ui-custom/cyber-pagination';

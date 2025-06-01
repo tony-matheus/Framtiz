@@ -4,7 +4,7 @@ import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberDataDisplay } from '@/components/ui-custom/cyber-data-display';
 import CyberInput from '@/components/ui-custom/cyber-input';
 import Heading from '@/components/ui/typography/heading';
-import { useUpdateProfile } from '@/lib/hooks/profile/use-update-profile';
+import { useUpdateProfile } from '@/hooks/profile/use-update-profile';
 import { cn } from '@/lib/utils';
 import { Github, RefreshCw } from 'lucide-react';
 import { useState } from 'react';

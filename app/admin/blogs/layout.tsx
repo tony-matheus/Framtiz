@@ -6,7 +6,7 @@ import { getQueryClient } from '@/lib/helpers/get-query-client';
 
 import ReactQueryProvider from '@/lib/contexts/react-query-provider';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import { blogQueryOptions } from '@/lib/hooks/blogs/fetch/blog-options';
+import { blogQueryOptions } from '@/hooks/blogs/fetch/blog-options';
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const user = await serverAuthService.getCurrentUser();

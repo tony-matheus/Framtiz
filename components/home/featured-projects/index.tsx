@@ -1,6 +1,6 @@
 'use client';
 
-import { useOneTimeAnimation } from '@/lib/hooks/use-one-time-animations';
+import { useOneTimeAnimation } from '@/hooks/use-one-time-animations';
 import { motion } from 'framer-motion';
 import ProjectCard from './project-card';
 import { Project } from '@/lib/services/project-service';

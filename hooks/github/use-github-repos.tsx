@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import {
   fetchGitHubRepos,
   RepoRequestOutput,
-} from '../../services/github/repos-service';
+} from '../../lib/services/github/repos-service';
 import { GithubRepo } from '@/app/api/github/repos/route';
 
 type UseGithubReposResult = {

@@ -30,13 +30,19 @@ export default function BlogItem({
   };
 
   return (
-    <CyberCard className='h-full'>
+    <CyberCard
+      className='group h-full transition-[colors,shadow,transform]
+ duration-300 ease-in-out hover:translate-y-[-5px] hover:border-purple-600 hover:shadow-accent'
+    >
       <CyberCardContent className='flex h-full flex-col justify-between'>
-        <div className='mb-3 flex items-start justify-between'>
-          <Heading as='h3' className='h-[84] font-mono text-lg text-slate-200'>
+        <div className='mb-3 flex items-start justify-between gap-2'>
+          <Heading
+            as='h3'
+            className='h-[84] overflow-hidden font-mono text-lg text-slate-200'
+          >
             {blog.title}
           </Heading>
-          <div className=' flex items-center gap-2'>
+          <div className='flex shrink-0 items-center gap-2'>
             <CyberSwitch
               id='status'
               checked={published}

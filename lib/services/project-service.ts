@@ -1,5 +1,6 @@
 import { createServerSupabaseClient } from '../supabase/server';
 import { getSupabaseClient } from '../supabase/client';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 export type Project = {
   id: number;
@@ -16,24 +17,52 @@ export type Project = {
   updated_at?: string;
 };
 
+interface GetAllProjectsOptions {
+  title?: string;
+  page?: number;
+  limit?: number;
+}
+
+const getAllProjects = async (
+  supabaseClient: SupabaseClient,
+  { title, page = 1, limit = 10 }: GetAllProjectsOptions
+): Promise<{ projects: Project[]; totalPages: number }> => {
+  let query = supabaseClient.from('projects').select('*', { count: 'exact' });
+
+  if (title) {
+    query = query.ilike('title', `%${title}%`);
+  }
+
+  const from = (page - 1) * limit;
+  const to = from + limit - 1;
+
+  query = query.range(from, to);
+
+  const { data, count, error } = await query.order('created_at', {
+    ascending: false,
+  });
+
+  if (error) {
+    throw new Error(
+      `Error fetching projects: ${error.message || error.details}`
+    );
+  }
+
+  const totalPages = Math.ceil((count || 1) / limit);
+
+  return { projects: data as Project[], totalPages };
+};
+
 export type ProjectInput = Omit<Project, 'id' | 'created_at' | 'updated_at'>;
 
 // Server-side functions
 export const serverProjectService = {
-  async getAllProjects(): Promise<Project[]> {
+  async getAllProjects(
+    options: GetAllProjectsOptions = {}
+  ): Promise<{ projects: Project[]; totalPages: number }> {
     const supabase = await createServerSupabaseClient();
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .order('featured', { ascending: false })
-      .order('created_at', { ascending: false });
 
-    if (error) {
-      console.error('Error fetching projects:', error);
-      return [];
-    }
-
-    return data as Project[];
+    return await getAllProjects(supabase, options);
   },
 
   async getFeaturedProjects(): Promise<Project[]> {
@@ -126,19 +155,11 @@ export const clientProjectService = {
     return true;
   },
 
-  async getAllProjects(): Promise<Project[]> {
+  async getAllProjects(
+    options: GetAllProjectsOptions = {}
+  ): Promise<{ projects: Project[]; totalPages: number }> {
     const supabase = getSupabaseClient();
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .order('featured', { ascending: false })
-      .order('created_at', { ascending: false });
 
-    if (error) {
-      console.error('Error fetching projects:', error);
-      return [];
-    }
-
-    return data as Project[];
+    return await getAllProjects(supabase, options);
   },
 };

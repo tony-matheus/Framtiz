@@ -1,5 +1,7 @@
 'use client';
 
+import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
+import { CyberPagination } from '@/components/ui-custom/cyber-pagination';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -8,24 +10,39 @@ import { Plus } from 'lucide-react';
 import ProjectEditorModal from '@/components/admin/projects/project-editor-modal';
 import { CyberConfirmDialog } from '@/components/ui-custom/cyber-confirm-dialog';
 import EmptyState from '@/components/admin/empty-state';
-import { useProjectContext } from './contexts/project-context';
 import { Project } from '@/lib/services/project-service';
 import ProjectCard from '@/components/admin/projects/project-card';
-import { useDeleteProject } from '@/lib/hooks/projects/use-delete-projects';
+import { useDeleteProject } from '@/hooks/projects/mutations/use-delete-projects';
+import { useQueryClient } from '@tanstack/react-query';
+import { useSuspenseFetchProjects } from '@/hooks/projects/fetch/use-suspense-fetch-projects';
+import CyberSearchInput from '@/components/ui-custom/inputs/cyber-search-input';
 
 export default function ProjectsPage() {
-  const {
-    state: { projects },
-    dispatch,
-  } = useProjectContext();
+  const queryClient = useQueryClient();
 
+  const [term, setTerm] = useState('');
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [currentProject, setCurrentProject] = useState<Project | null>(null);
 
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
   const [proejctToDelete, setProjectToDelete] = useState<Project | null>(null);
 
-  const { mutateAsync, isPending: isDeleting } = useDeleteProject();
+  const { mutateAsync: mutateDestroy, isPending: isDeleting } =
+    useDeleteProject();
+
+  const { projects, totalPages, currentPage, goToPage } =
+    useSuspenseFetchProjects({
+      initialPage: 1,
+      title: term,
+      limit: 2,
+    });
+
+  const refetchPage = (page: number, term = '') => {
+    queryClient.refetchQueries({
+      queryKey: ['blogs', term, page],
+      exact: true,
+    });
+  };
 
   const router = useRouter();
 
@@ -39,12 +56,22 @@ export default function ProjectsPage() {
     setIsDeleteConfirmOpen(true);
   };
 
+  const handleSaveProject = () => {
+    setIsEditorOpen(false);
+    if (currentProject) {
+      refetchPage(currentPage, term);
+      return setCurrentProject(null);
+    }
+    goToPage(1);
+    refetchPage(1, '');
+  };
+
   const confirmDeleteProject = async () => {
     if (!proejctToDelete) return;
 
-    await mutateAsync(proejctToDelete.id);
+    await mutateDestroy(proejctToDelete.id);
 
-    dispatch({ type: 'DELETE_PROJECT', projectId: proejctToDelete.id });
+    refetchPage(currentPage, term);
     setIsDeleteConfirmOpen(false);
   };
 
@@ -61,6 +88,7 @@ export default function ProjectsPage() {
           transition={{ duration: 0.5 }}
           className='mb-4 flex flex-col items-start justify-end gap-4 py-4 md:flex-row md:items-center'
         >
+          <CyberSearchInput onSearch={setTerm} />
           <CyberButton
             variant='primary'
             leftIcon={<Plus size={16} />}
@@ -73,23 +101,43 @@ export default function ProjectsPage() {
 
         {/* Selected Projects */}
         {projects.length > 0 ? (
-          <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
-            {projects.map((project) => (
+          <>
+            <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+              {projects.map((project) => (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  key={project.id}
+                >
+                  <ProjectCard
+                    {...project}
+                    githubUrl={project.github_url}
+                    onEdit={() => handleEditProject(project)}
+                    onDelete={() => handleDeleteProject(project)}
+                  />
+                </motion.div>
+              ))}
+            </div>
+            {totalPages > 1 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                key={project.id}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className='mb-12 mt-8'
               >
-                <ProjectCard
-                  {...project}
-                  githubUrl={project.github_url}
-                  onEdit={() => handleEditProject(project)}
-                  onDelete={() => handleDeleteProject(project)}
-                />
+                <CyberCard className='mx-auto inline-block'>
+                  <CyberCardContent className='p-2 sm:p-4'>
+                    <CyberPagination
+                      totalPages={totalPages}
+                      currentPage={currentPage}
+                      onPageChange={goToPage}
+                    />
+                  </CyberCardContent>
+                </CyberCard>
               </motion.div>
-            ))}
-          </div>
+            )}
+          </>
         ) : (
           <EmptyState
             title='NO_PROJECTS_SELECTED'
@@ -106,7 +154,7 @@ export default function ProjectsPage() {
           isOpen={isEditorOpen}
           onClose={() => setIsEditorOpen(false)}
           selectedRepo={currentProject}
-          onSave={() => {}}
+          onSave={handleSaveProject}
           className='cyber-project-editor'
         />
       )}

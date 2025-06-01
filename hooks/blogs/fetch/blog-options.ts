@@ -20,7 +20,7 @@ export async function fetchBlogs({
     params: { title, page, limit },
   });
 
-  return { blogs: data, totalPages: headers['x-total-pages'] };
+  return { blogs: data, totalPages: Number(headers['x-total-pages']) };
 }
 
 export const blogQueryOptions = ({

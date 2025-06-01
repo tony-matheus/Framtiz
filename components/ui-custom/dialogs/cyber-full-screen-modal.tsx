@@ -52,7 +52,7 @@ export function CyberFullScreenModal({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3, type: 'spring', damping: 20 }}
-            className='cyber-modal fixed inset-4 z-50 flex flex-col border-2 border-slate-800 bg-slate-900'
+            className='fixed inset-4 z-50 flex flex-col border-2 border-slate-800 bg-slate-900'
             onClick={(e) => e.stopPropagation()}
           >
             {/* Decorative elements */}

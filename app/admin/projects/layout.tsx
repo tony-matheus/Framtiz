@@ -1,9 +1,11 @@
 import type { ReactNode } from 'react';
 
-import { serverProjectService } from '@/lib/services/project-service';
-import { ProjectProvider } from './contexts/project-context';
 import { redirect } from 'next/navigation';
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
+import { getQueryClient } from '@/lib/helpers/get-query-client';
+import { projectQueryOptions } from '@/hooks/projects/fetch/project-options';
+import ReactQueryProvider from '@/lib/contexts/react-query-provider';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 export default async function ProjectsLayout({
   children,
@@ -15,9 +17,22 @@ export default async function ProjectsLayout({
   if (!user) {
     redirect('/admin/login');
   }
-  const projects = await serverProjectService.getAllProjects();
+
+  const queryClient = getQueryClient();
+
+  await queryClient.prefetchQuery(
+    projectQueryOptions({
+      page: 1,
+      title: '',
+      limit: 2,
+    })
+  );
 
   return (
-    <ProjectProvider initialProjects={projects}>{children}</ProjectProvider>
+    <ReactQueryProvider>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        {children}
+      </HydrationBoundary>
+    </ReactQueryProvider>
   );
 }

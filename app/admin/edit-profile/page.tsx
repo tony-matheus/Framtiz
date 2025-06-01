@@ -11,7 +11,7 @@ import { CyberDataDisplay } from '@/components/ui-custom/cyber-data-display';
 import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
 import { Separator } from '@/components/ui/separator';
 import { useUserContext } from '../../../lib/contexts/user-context';
-import { useUpdateProfile } from '@/lib/hooks/profile/use-update-profile';
+import { useUpdateProfile } from '@/hooks/profile/use-update-profile';
 
 export default function EditProfile() {
   const user = useUserContext();

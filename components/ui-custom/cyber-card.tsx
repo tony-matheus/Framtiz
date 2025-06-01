@@ -28,7 +28,6 @@ export function CyberCard({
     <Card
       className={cn(
         'bg-slate-900 border-slate-800 text-slate-200 relative group',
-        // withCornerAccents && 'cyber-card-with-accents',
         className
       )}
     >

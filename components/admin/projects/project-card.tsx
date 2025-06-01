@@ -26,7 +26,10 @@ export default function ProjectCard({
   onDelete,
 }: ProjectCardProps) {
   return (
-    <CyberCard className='cyber-card-with-accents group h-full transition-colors hover:border-purple-600'>
+    <CyberCard
+      className='group h-full transition-[colors,shadow,transform]
+ duration-300 ease-in-out hover:translate-y-[-5px] hover:border-purple-600 hover:shadow-accent'
+    >
       <CyberCardContent>
         <div className='mb-3 flex items-start justify-between'>
           <Heading as='h5' className='h-[84] font-mono'>

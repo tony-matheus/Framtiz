@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useOneTimeAnimation } from '@/lib/hooks/use-one-time-animations';
+import { useOneTimeAnimation } from '@/hooks/use-one-time-animations';
 import FloatingParticles from './floating-particles';
 import ExperienceCard from './experience-card';
 

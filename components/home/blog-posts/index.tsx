@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useOneTimeAnimation } from '@/lib/hooks/use-one-time-animations';
+import { useOneTimeAnimation } from '@/hooks/use-one-time-animations';
 import { Blog } from '@/lib/services/blog-service';
 import BlogPost from './blog-post';
 

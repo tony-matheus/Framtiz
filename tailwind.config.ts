@@ -85,6 +85,10 @@ const config: Config = {
       animation: {
         float: 'float 3s ease-in-out infinite',
       },
+      boxShadow: {
+        accent:
+          '0 10px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(16, 185, 129, 0.04)',
+      },
       keyframes: {
         float: {
           '0%, 100%': {

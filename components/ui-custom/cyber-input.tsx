@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import { Input } from '../ui/input';
+import { cn } from '@/lib/utils';
 
 interface CyberInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -7,7 +8,7 @@ interface CyberInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const CyberInput = forwardRef<HTMLInputElement, CyberInputProps>(
-  ({ label, type = 'text', ...props }: CyberInputProps, ref) => {
+  ({ label, type = 'text', className, ...props }: CyberInputProps, ref) => {
     return (
       <div className='w-full'>
         {!!label && (
@@ -18,7 +19,10 @@ const CyberInput = forwardRef<HTMLInputElement, CyberInputProps>(
         <Input
           ref={ref}
           type={type}
-          className='w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600'
+          className={cn(
+            'w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600',
+            className
+          )}
           {...props}
         />
       </div>

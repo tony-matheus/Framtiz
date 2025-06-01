@@ -7,12 +7,12 @@ import { Plus } from 'lucide-react';
 import { CyberButton } from '@/components/ui-custom/cyber-button';
 import BlogEditorDialog from '@/components/admin/blog/blog-editor-dialog';
 import { Blog } from '@/lib/services/blog-service';
-import { useDestroyBlog } from '@/lib/hooks/blogs/mutations/use-destroy-blog';
-import { useUpdateBlog } from '@/lib/hooks/blogs/mutations/use-update-blog';
+import { useDestroyBlog } from '@/hooks/blogs/mutations/use-destroy-blog';
+import { useUpdateBlog } from '@/hooks/blogs/mutations/use-update-blog';
 import BlogList from '@/components/admin/blog/blog-list';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberPagination } from '@/components/ui-custom/cyber-pagination';
-import { useSuspenseFetchBlogs } from '@/lib/hooks/blogs/fetch/use-suspense-fetch-blogs';
+import { useSuspenseFetchBlogs } from '@/hooks/blogs/fetch/use-suspense-fetch-blogs';
 import { useQueryClient } from '@tanstack/react-query';
 import CyberSearchInput from '@/components/ui-custom/inputs/cyber-search-input';
 
