@@ -31,8 +31,8 @@ export default function ProjectCard({
  duration-300 ease-in-out hover:translate-y-[-5px] hover:border-purple-600 hover:shadow-accent'
     >
       <CyberCardContent>
-        <div className='mb-3 flex items-start justify-between'>
-          <Heading as='h5' className='h-[84] font-mono'>
+        <div className='mb-3 flex items-start justify-between gap-2'>
+          <Heading as='h4' className='h-[84] font-mono'>
             {title}
           </Heading>
           <div className='flex gap-2'>
@@ -45,9 +45,9 @@ export default function ProjectCard({
               <Edit size={14} />
             </CyberButton>
             <CyberButton
-              variant='outline'
+              variant='destructive'
               size='icon'
-              className='size-7'
+              className='size-7 text-red-500'
               onClick={onDelete}
             >
               <Trash2 size={14} />

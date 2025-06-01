@@ -157,7 +157,7 @@ export default function AdminSidebar({
         <Separator className='my-4 bg-slate-800' />
 
         <CyberButton
-          variant='danger'
+          variant='destructive'
           onClick={onLogout}
           className='w-full justify-start'
           leftIcon={<LogOut size={18} />}

@@ -39,7 +39,7 @@ export function CyberErrorState({
 
         {onRetry && (
           <CyberButton
-            variant='danger'
+            variant='destructive'
             onClick={onRetry}
             leftIcon={<RefreshCw size={16} />}
           >

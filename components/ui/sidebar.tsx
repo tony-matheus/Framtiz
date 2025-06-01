@@ -531,9 +531,10 @@ const sidebarMenuButtonVariants = cva(
           'border border-slate-800 bg-background text-slate-400 hover:border-purple-600 hover:text-purple-300 hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))] data-[active=true]:border-purple-600 data-[active=true]:bg-purple-900/30 data-[active=true]:text-purple-300 data-[active=true]:hover:bg-purple-900/20',
       },
       size: {
-        default: 'h-8 text-sm',
-        sm: 'h-7 text-xs',
-        lg: 'h-12 text-sm group-data-[collapsible=icon]:!p-0',
+        default: 'h-9 px-4 py-2 text-sm',
+        sm: 'h-8 px-3 text-xs',
+        lg: 'h-11 px-6 text-base',
+        icon: 'size-9 ',
       },
     },
     defaultVariants: {
@@ -563,7 +564,7 @@ const SidebarMenuButton = React.forwardRef<
     },
     ref
   ) => {
-    const Comp = asChild ? Slot : 'button';
+    const Comp = asChild ? Slot : Button;
     const { isMobile, state } = useSidebar();
 
     const button = (

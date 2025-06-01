@@ -108,11 +108,15 @@ export default function AdminSidebar({ onLogout, user }: AdminSidebarProps) {
                   </SidebarMenuItem>
                 );
               })}
-
-              <Separator className='my-4 bg-slate-800' />
-
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup className='mt-auto px-4 py-2'>
+          <SidebarGroupContent className='flex flex-col gap-2'>
+            <SidebarMenu>
               <CyberButton
-                variant='danger'
+                variant='destructive'
+                size='lg'
                 onClick={onLogout}
                 className='w-full justify-start'
                 leftIcon={<LogOut size={18} />}

@@ -19,7 +19,6 @@ export function CyberFullScreenModal({
   title,
   children,
 }: CyberFullScreenModalProps) {
-  // Lock body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';

@@ -105,7 +105,7 @@ export default function BlogEditorDialog({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
         showDismiss={false}
-        className='mx-auto min-w-full max-w-md border-2 border-slate-800 bg-slate-900 p-0 text-slate-200 sm:min-w-[80vw]'
+        className='mx-auto max-w-[100vw] border-2 border-slate-800 bg-slate-900 p-0 text-slate-200 sm:min-w-[80vw] sm:max-w-[90vw]'
       >
         {/* Header */}
         <DialogHeader>

@@ -24,7 +24,6 @@ export default async function ProjectsLayout({
     projectQueryOptions({
       page: 1,
       title: '',
-      limit: 2,
     })
   );
 

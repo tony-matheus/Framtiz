@@ -6,22 +6,25 @@ import { Blog } from '@/lib/services/blog-service';
 import { CyberSwitch } from '@/components/ui-custom/cyber-switch';
 import { useState } from 'react';
 import Heading from '@/components/ui/typography/heading';
+import { Edit, Trash2 } from 'lucide-react';
 
-export interface BlogItemProps {
+export interface BlogCardProps {
   blog: Blog;
   onEdit: (blog: Blog) => void;
   onDelete: (blog: Blog) => void;
   onPublishChange: (blog: Blog, published: boolean) => void;
   isDeleting: boolean;
+  isDisabled: boolean;
 }
 
-export default function BlogItem({
+export default function BlogCard({
   blog,
   onPublishChange,
   onEdit,
   onDelete,
   isDeleting,
-}: BlogItemProps) {
+  isDisabled,
+}: BlogCardProps) {
   const [published, setPublished] = useState(blog.published ?? false);
 
   const handlePublishChange = (blog: Blog, published: boolean) => {
@@ -37,41 +40,43 @@ export default function BlogItem({
       <CyberCardContent className='flex h-full flex-col justify-between'>
         <div className='mb-3 flex items-start justify-between gap-2'>
           <Heading
-            as='h3'
+            as='h4'
             className='h-[84] overflow-hidden font-mono text-lg text-slate-200'
           >
             {blog.title}
           </Heading>
-          <div className='flex shrink-0 items-center gap-2'>
-            <CyberSwitch
-              id='status'
-              checked={published}
-              onCheckedChange={(value) => handlePublishChange(blog, value)}
-              disabled={isDeleting}
-            />
-            <span className='font-mono text-sm text-slate-300'>
-              {published ? 'PUBLISHED' : 'DRAFT'}
-            </span>
+          <div className='flex gap-2'>
+            <CyberButton
+              variant='outline'
+              size='icon'
+              className='size-7'
+              onClick={() => onEdit(blog)}
+              disabled={isDisabled}
+            >
+              <Edit size={14} />
+            </CyberButton>
+            <CyberButton
+              variant='destructive'
+              size='icon'
+              className='size-7 text-red-500'
+              onClick={() => onDelete(blog)}
+              isLoading={isDeleting}
+              disabled={isDisabled}
+            >
+              <Trash2 size={14} />
+            </CyberButton>
           </div>
         </div>
-        <div className='flex items-center justify-between border-t border-slate-800 pt-2 text-xs text-slate-500'>
-          <CyberButton
-            variant='outline'
-            size='sm'
-            onClick={() => onEdit(blog)}
+        <div className='flex shrink-0 items-center gap-2'>
+          <CyberSwitch
+            id='status'
+            checked={published}
+            onCheckedChange={(value) => handlePublishChange(blog, value)}
             disabled={isDeleting}
-          >
-            EDIT
-          </CyberButton>
-          <CyberButton
-            className='ml-auto'
-            variant='danger'
-            size='sm'
-            onClick={() => onDelete(blog)}
-            isLoading={isDeleting}
-          >
-            DELETE
-          </CyberButton>
+          />
+          <span className='font-mono text-sm text-slate-300'>
+            {published ? 'PUBLISHED' : 'DRAFT'}
+          </span>
         </div>
       </CyberCardContent>
     </CyberCard>

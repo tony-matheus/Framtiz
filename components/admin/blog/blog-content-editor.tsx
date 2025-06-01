@@ -4,7 +4,6 @@ import type React from 'react';
 
 import { useState, useRef } from 'react';
 import { Edit3, Eye } from 'lucide-react';
-import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { cn } from '@/lib/utils';
 import ReactMarkdown from 'react-markdown';
 
@@ -182,9 +181,9 @@ export default function BlogContentEditor({
       </div>
 
       {/* Editor / Preview */}
-      <div className='min-h-[400px]'>
+      <div className='flex min-h-[400px]'>
         {activeTab === 'edit' ? (
-          <div className='relative'>
+          <div className='relative flex-1'>
             <textarea
               ref={textareaRef}
               value={content}
@@ -192,6 +191,7 @@ export default function BlogContentEditor({
               className='h-[400px] w-full resize-none border border-slate-700 bg-slate-800 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600'
               placeholder='Write your blog post in Markdown... Drag and drop images to upload'
               onPaste={handlePaste}
+              name='content'
             />
 
             {/* Drop Zone for file uploads */}
@@ -220,20 +220,25 @@ export default function BlogContentEditor({
             </div>
           </div>
         ) : (
-          <CyberCard
-            withCornerAccents={false}
-            className='h-[400px] overflow-auto'
-          >
-            <CyberCardContent className='prose prose-invert max-w-none'>
-              {content ? (
-                <ReactMarkdown>{content === '' ? null : content}</ReactMarkdown>
-              ) : (
-                <div className='italic text-slate-500'>
-                  No content to preview
-                </div>
-              )}
-            </CyberCardContent>
-          </CyberCard>
+          <div className='w-full'>
+            <div className='prose h-[400px] w-full overflow-auto [&>pre]:max-w-[40ch] md:[&>pre]:max-w-prose'>
+              <ReactMarkdown>{content === '' ? null : content}</ReactMarkdown>
+            </div>
+          </div>
+          // <CyberCard
+          //   withCornerAccents={false}
+          //   className='h-[400px] flex-1 overflow-auto'
+          // >
+          //   <CyberCardContent className='prose-invert max-w-none lg:max-w-[100ch]'>
+          //     {content ? (
+          //       <ReactMarkdown>{content === '' ? null : content}</ReactMarkdown>
+          //     ) : (
+          //       <div className='italic text-slate-500'>
+          //         No content to preview
+          //       </div>
+          //     )}
+          //   </CyberCardContent>
+          // </CyberCard>
         )}
       </div>
     </>

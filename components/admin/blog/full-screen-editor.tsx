@@ -1,12 +1,19 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Save, Minimize2, FileText } from 'lucide-react';
 import { CyberButton } from '@/components/ui-custom/cyber-button';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberSwitch } from '@/components/ui-custom/cyber-switch';
 import { Label } from '@/components/ui/label';
 import ReactMarkdown from 'react-markdown';
+import CyberInput from '@/components/ui-custom/cyber-input';
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '@/components/ui/resizable';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface FullScreenEditorProps {
   title: string;
@@ -31,43 +38,7 @@ export default function FullScreenEditor({
   onClose,
   isSaving,
 }: FullScreenEditorProps) {
-  const [splitPosition, setSplitPosition] = useState(50); // Default to 50% split
-  const [isDragging, setIsDragging] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const dividerRef = useRef<HTMLDivElement>(null);
-
-  // Handle mouse events for resizing
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging || !container) return;
-
-      const containerRect = container.getBoundingClientRect();
-      const newPosition =
-        ((e.clientX - containerRect.left) / containerRect.width) * 100;
-
-      // Limit the position between 20% and 80%
-      const limitedPosition = Math.max(20, Math.min(80, newPosition));
-      setSplitPosition(limitedPosition);
-    };
-
-    const handleMouseUp = () => {
-      setIsDragging(false);
-    };
-
-    if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-    }
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [isDragging]);
-
+  const isMobile = useIsMobile();
   // Handle keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -92,16 +63,16 @@ export default function FullScreenEditor({
       {/* Header */}
       <div className='flex items-center justify-between border-b border-slate-800 bg-slate-900 p-4'>
         <div className='flex items-center gap-4'>
-          <h2 className='flex items-center font-mono text-xl font-bold text-slate-200'>
+          <h2 className='flex items-center font-mono text-xl font-bold text-slate-200 '>
             <FileText className='mr-2 text-purple-400' size={20} />
-            <span>FULL_SCREEN_EDITOR</span>
+            <span>EDITOR</span>
           </h2>
-          <div className='flex items-center gap-2'>
-            <input
+          <div className='hidden items-center gap-2 md:flex'>
+            <CyberInput
               type='text'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className='w-64 border bg-slate-800 p-2 text-slate-200 shadow-inner shadow-slate-700 outline-none transition-colors focus:shadow-purple-600'
+              className='w-34'
               placeholder='Enter blog title...'
             />
           </div>
@@ -110,7 +81,7 @@ export default function FullScreenEditor({
           <div className='flex items-center space-x-2'>
             <Label
               htmlFor='fs-status'
-              className='font-mono text-sm text-slate-400'
+              className='hidden font-mono text-sm text-slate-400 md:block'
             >
               ACTIVE_STATUS
             </Label>
@@ -131,10 +102,12 @@ export default function FullScreenEditor({
               onClick={onSave}
               isLoading={isSaving}
               loadingText='SAVING...'
-              leftIcon={<Save size={16} />}
               disabled={!title.trim()}
             >
-              SAVE_BLOG
+              <span className='md:mr-2'>
+                <Save size={16} />
+              </span>
+              <span className='hidden md:inline-flex'>SAVE_BLOG</span>
             </CyberButton>
             <CyberButton
               variant='outline'
@@ -148,43 +121,18 @@ export default function FullScreenEditor({
         </div>
       </div>
 
-      {/* Split-pane layout */}
-      <div ref={containerRef} className='relative flex flex-1 overflow-hidden'>
-        {/* Editor pane */}
-        <div
-          className='h-full overflow-auto border-r border-slate-800 bg-slate-900'
-          style={{ width: `${splitPosition}%` }}
-        >
+      <ResizablePanelGroup direction={isMobile ? 'vertical' : 'horizontal'}>
+        <ResizablePanel defaultSize={50}>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className='size-full resize-none border-0 bg-slate-800 p-4 font-mono text-slate-200 focus:outline-none'
+            className='hidden size-full resize-none border-0 bg-slate-800 p-4 font-mono text-slate-200 focus:outline-none md:inline-block'
             placeholder='Write your blog post in Markdown...'
           />
-        </div>
 
-        {/* Resizable divider */}
-        <div
-          ref={dividerRef}
-          className={`h-full w-1 cursor-col-resize bg-slate-700 hover:bg-purple-600 active:bg-purple-600 ${
-            isDragging ? 'bg-purple-600' : ''
-          }`}
-          onMouseDown={() => setIsDragging(true)}
-        >
-          <div className='absolute left-0 top-1/2 flex h-10 w-5 -translate-y-1/2 items-center justify-center rounded-sm bg-slate-700 hover:bg-purple-600'>
-            <div className='mx-0.5 h-4 w-0.5 bg-slate-500'></div>
-            <div className='mx-0.5 h-4 w-0.5 bg-slate-500'></div>
-          </div>
-        </div>
-
-        {/* Preview pane */}
-        <div
-          className='h-full overflow-auto'
-          style={{ width: `${100 - splitPosition}%` }}
-        >
           <CyberCard
             withCornerAccents={false}
-            className='h-full rounded-none border-0'
+            className='block h-full overflow-auto rounded-none border-0 md:hidden'
           >
             <CyberCardContent className='prose prose-invert max-w-none p-6'>
               {content ? (
@@ -196,11 +144,38 @@ export default function FullScreenEditor({
               )}
             </CyberCardContent>
           </CyberCard>
-        </div>
-      </div>
+        </ResizablePanel>
 
+        <ResizableHandle
+          withHandle
+          className='w-1 bg-gradient-to-b from-purple-600 to-green-400 '
+        />
+
+        <ResizablePanel defaultSize={50}>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className='inline-block size-full resize-none border-0 bg-slate-800 p-4 font-mono text-slate-200 focus:outline-none md:hidden'
+            placeholder='Write your blog post in Markdown...'
+          />
+          <CyberCard
+            withCornerAccents={false}
+            className='hidden h-full overflow-auto rounded-none border-0  md:block'
+          >
+            <CyberCardContent className='prose prose-invert max-w-none p-6'>
+              {content ? (
+                <ReactMarkdown>{content}</ReactMarkdown>
+              ) : (
+                <div className='italic text-slate-500'>
+                  No content to preview
+                </div>
+              )}
+            </CyberCardContent>
+          </CyberCard>
+        </ResizablePanel>
+      </ResizablePanelGroup>
       {/* Keyboard shortcuts info */}
-      <div className='absolute bottom-4 left-4 rounded border border-slate-800 bg-slate-900/80 p-2 text-xs text-slate-500'>
+      <div className='absolute bottom-4 right-4 hidden rounded border border-slate-800 bg-slate-900/80 p-2 text-xs text-slate-500 md:block'>
         <div className='font-mono'>KEYBOARD_SHORTCUTS:</div>
         <div className='mt-1 flex gap-4'>
           <span>ESC - Exit Full Screen</span>

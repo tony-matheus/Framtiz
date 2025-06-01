@@ -1,17 +1,20 @@
 import { motion } from 'framer-motion';
 
 import { Blog } from '@/lib/services/blog-service';
-import BlogItem, { BlogItemProps } from '@/components/admin/blog/blog-item';
+import BlogCard, { BlogCardProps } from '@/components/admin/blog/blog-card';
 import { FileText } from 'lucide-react';
 import EmptyState from '../empty-state';
 
-export interface BlogListProps extends Omit<BlogItemProps, 'blog'> {
+export interface BlogListProps
+  extends Omit<BlogCardProps, 'blog' | 'isDeleting' | 'isDisabled'> {
   blogs?: Blog[];
   onAdd: () => void;
+  deletingId?: number | null;
 }
 export default function BlogList({
   blogs = [],
   onAdd,
+  deletingId,
   ...restProps
 }: BlogListProps) {
   return (
@@ -33,7 +36,12 @@ export default function BlogList({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <BlogItem blog={blog} {...restProps} />
+              <BlogCard
+                blog={blog}
+                isDeleting={deletingId == blog.id}
+                isDisabled={deletingId != null}
+                {...restProps}
+              />
             </motion.div>
           ))}
         </div>

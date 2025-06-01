@@ -22,9 +22,9 @@ export default function BlogPage() {
   const [term, setTerm] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentBlog, setCurrentBlog] = useState<Blog | null>(null);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
 
-  const { mutateAsync: mutateDestroy, isPending: isDeleting } =
-    useDestroyBlog();
+  const { mutateAsync: mutateDestroy } = useDestroyBlog();
 
   const { mutate: updateBlog } = useUpdateBlog();
 
@@ -61,7 +61,9 @@ export default function BlogPage() {
   };
 
   const handleDeleteBlog = async (blog: Blog) => {
+    setDeletingId(blog.id);
     await mutateDestroy(blog.id);
+    setDeletingId(null);
     refetchPage(currentPage, term);
   };
 
@@ -79,7 +81,7 @@ export default function BlogPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className='mb-4 flex flex-col items-start justify-between gap-4 py-4 md:flex-row md:items-center'
+          className='mb-4 flex  items-start justify-between gap-4 py-4  md:items-center'
         >
           <CyberSearchInput onSearch={setTerm} />
 
@@ -98,7 +100,7 @@ export default function BlogPage() {
           onAdd={handleAddBlog}
           onEdit={handleEditBlog}
           onDelete={handleDeleteBlog}
-          isDeleting={isDeleting}
+          deletingId={deletingId}
           onPublishChange={(blog) => handleToggleStatus(blog)}
         />
 

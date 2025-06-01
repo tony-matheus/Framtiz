@@ -376,15 +376,6 @@ textarea::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* Improve video element styling in markdown preview */
-.prose video {
-  max-width: 100%;
-  height: auto;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  border: 1px solid #334155;
-}
-
 /* Image placeholder in markdown */
 .image-placeholder {
   display: inline-block;

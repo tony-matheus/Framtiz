@@ -1,7 +1,6 @@
 'use client';
 
 import CyberHeading from '@/components/ui-custom/cyber-heading';
-import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
@@ -33,10 +32,6 @@ export default function SidebarHeader({
     >
       <div className='flex w-full items-center gap-1 lg:gap-2 '>
         <SidebarTrigger className='-ml-1' />
-        <Separator
-          orientation='vertical'
-          className='mx-2 data-[orientation=vertical]:h-4'
-        />
         <div
           className={cn(
             'border-l-4 pl-4',

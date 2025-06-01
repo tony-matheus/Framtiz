@@ -34,7 +34,6 @@ export default function ProjectsPage() {
     useSuspenseFetchProjects({
       initialPage: 1,
       title: term,
-      limit: 2,
     });
 
   const refetchPage = (page: number, term = '') => {
@@ -102,7 +101,7 @@ export default function ProjectsPage() {
         {/* Selected Projects */}
         {projects.length > 0 ? (
           <>
-            <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+            <div className='grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4'>
               {projects.map((project) => (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
