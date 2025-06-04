@@ -19,8 +19,6 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
     });
   };
 
-  console.log(blog);
-
   return (
     <>
       <Link href={`/blog/${blog.id}`}>

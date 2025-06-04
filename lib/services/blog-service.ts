@@ -8,6 +8,8 @@ export type Blog = {
   content?: string;
   published?: boolean;
   created_at?: string;
+  excerpt?: string;
+  read_time?: number;
   updated_at?: string;
 };
 

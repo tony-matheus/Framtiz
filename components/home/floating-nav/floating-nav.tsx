@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Fragment } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, User, Mail, Terminal, Shield } from 'lucide-react';
+import { Home, User, Mail, Terminal, Shield, Newspaper } from 'lucide-react';
 import NavItem, { NavItemsProps } from './nav-item';
 import PowerStatus from './power-status';
 import { clientAuthService } from '@/lib/services/auth/client-auth-service';
@@ -10,6 +10,12 @@ import { clientAuthService } from '@/lib/services/auth/client-auth-service';
 const LOGOUT_NAV_ITEMS = [
   {
     icon: <Home size={18} />,
+    label: 'HOME',
+    href: '/',
+    status: 'ACTIVE',
+  },
+  {
+    icon: <Newspaper size={18} />,
     label: 'BLOG',
     href: '/blog',
     status: 'ACTIVE',
@@ -26,12 +32,6 @@ const LOGGED_IN_NAV_ITEMS = [
   {
     icon: <Home size={18} />,
     label: 'ADMIN',
-    href: '/admin',
-    status: 'ACTIVE',
-  },
-  {
-    icon: <User size={18} />,
-    label: 'USER_PROFILE',
     href: '/admin',
     status: 'ACTIVE',
   },

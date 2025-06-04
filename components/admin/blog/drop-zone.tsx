@@ -3,7 +3,7 @@
 import type React from 'react';
 
 import { useState, useRef, useEffect } from 'react';
-import { Upload, X } from 'lucide-react';
+import { CircleX, Upload, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface DropZoneProps {
@@ -102,7 +102,7 @@ export default function DropZone({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className='fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm'
+        className='absolute inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm'
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
@@ -119,6 +119,22 @@ export default function DropZone({
           }`}
         >
           <div className='relative'>
+            {process.env.NEXT_PUBLIC_IMAGE_DROP_ENABLED === 'true' ? (
+              <Upload
+                size={48}
+                className={`${
+                  isDragging ? 'text-purple-400' : 'text-slate-400'
+                }`}
+              />
+            ) : (
+              <CircleX
+                size={48}
+                className={`${
+                  isDragging ? 'text-purple-400' : 'text-slate-400'
+                }`}
+              />
+            )}
+
             <Upload
               size={48}
               className={`${isDragging ? 'text-purple-400' : 'text-slate-400'}`}
@@ -135,10 +151,16 @@ export default function DropZone({
           </div>
           <div className='text-center'>
             <h3 className='mb-1 font-mono text-lg text-slate-200'>
-              {isDragging ? 'DROP_TO_UPLOAD' : 'DRAG_FILES_HERE'}
+              {process.env.NEXT_PUBLIC_IMAGE_DROP_ENABLED === 'true' ? (
+                <>{isDragging ? 'DROP_TO_UPLOAD' : 'DRAG_FILES_HERE'}</>
+              ) : (
+                'NOT_SUPPORTED'
+              )}
             </h3>
             <p className='max-w-md text-sm text-slate-400'>
-              Drop images or videos to upload and insert them into your content
+              {process.env.NEXT_PUBLIC_IMAGE_DROP_ENABLED === 'true'
+                ? `Drop images or videos to upload and insert them into your\u00A0content`
+                : 'Drop image or video not supported yet'}
             </p>
           </div>
           <button

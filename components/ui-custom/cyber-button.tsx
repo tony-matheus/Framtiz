@@ -49,9 +49,10 @@ export const CyberButton = forwardRef<HTMLButtonElement, CyberButtonProps>(
       <Comp
         ref={ref}
         className={cn(
-          'bg-transparent transition-colors font-mono flex items-center justify-center',
+          'bg-transparent transition-colors font-mono flex items-center justify-center ripple ripple-hover',
           variantStyles[variant],
-          className
+          className,
+          isLoading ? 'ripple-loop' : ''
         )}
         size={size}
         disabled={isLoading || props.disabled}
