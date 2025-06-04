@@ -4,6 +4,7 @@ import type React from 'react';
 
 import { useEffect, useState } from 'react';
 import { Save, X, FileText, Maximize2, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { CyberButton } from '@/components/ui-custom/cyber-button';
 import { CyberSwitch } from '@/components/ui-custom/cyber-switch';
 import { Label } from '@/components/ui/label';
@@ -160,9 +161,14 @@ export default function BlogEditorDialog({
         </DialogHeader>
 
         {/* Content - scrollable area */}
-        <div className='flex-1 overflow-y-auto p-4'>
-          <div className='space-y-4'>
-            <div className='flex flex-col gap-2 md:flex-row md:items-center'>
+        <div className='custom-scrollbar flex-1 overflow-y-auto p-4'>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className='space-y-4'
+          >
+            <div className='flex flex-col gap-4 md:flex-row md:items-end'>
               <CyberInput
                 id='title'
                 type='text'
@@ -171,7 +177,7 @@ export default function BlogEditorDialog({
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder='Enter blog title...'
               />
-              <div className='w-[164] shrink-0'>
+              <div className='w-40 shrink-0'>
                 <Label htmlFor='status' className='mb-2 block'>
                   ACTIVE_STATUS
                 </Label>
@@ -195,19 +201,20 @@ export default function BlogEditorDialog({
                 Generate the following with AI
               </p>
 
-              <CyberButton
-                onClick={handleClick}
-                disabled={isGenerating}
-                size='sm'
-                className={cn(isGenerating ? 'ripple-loop' : '')}
-              >
-                <Sparkles
-                  className={cn('ml-2', isGenerating ? 'animate-shine' : false)}
-                />
-                Generate with AI
-              </CyberButton>
+              <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.02 }}>
+                <CyberButton
+                  onClick={handleClick}
+                  size='sm'
+                  variant='outline'
+                  isLoading={isGenerating}
+                  loadingText='GENERATING...'
+                  leftIcon={<Sparkles size={16} />}
+                >
+                  Generate with AI
+                </CyberButton>
+              </motion.div>
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-12 md:gap-2'>
+            <div className='grid grid-cols-1 gap-4 md:grid-cols-12'>
               <div className='col-span-8'>
                 <Label htmlFor='excerpt' className='mb-2 block'>
                   EXCERPT
@@ -218,7 +225,7 @@ export default function BlogEditorDialog({
                   name='content'
                   disabled={isGenerating}
                   onChange={(e) => setExcerpt(e.target.value)}
-                  className='h-[100px] w-full resize-none border border-slate-700 bg-slate-800 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600'
+                  className='h-24 w-full resize-none border border-slate-700 bg-slate-800 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600'
                   placeholder={
                     isGenerating ? 'Generating' : 'Write a short description'
                   }
@@ -226,11 +233,10 @@ export default function BlogEditorDialog({
               </div>
               <div className='col-span-4 mt-2 md:mt-0'>
                 <CyberInput
-                  id='title'
+                  id='read-time'
                   type='string'
                   label='READ_TIME'
-                  value={`${readTime} min`}
-                  // onChange={(e) => setTitle(e.target.value)}
+                  value={readTime ? `${readTime} min` : ''}
                   placeholder='Read Time'
                   disabled
                 />
@@ -254,29 +260,6 @@ export default function BlogEditorDialog({
           >
             SAVE_BLOG
           </CyberButton>
-
-          {/* Add inline keyframe animations */}
-          <style jsx>{`
-            @keyframes fadeIn {
-              from {
-                opacity: 0;
-              }
-              to {
-                opacity: 1;
-              }
-            }
-
-            @keyframes scaleIn {
-              from {
-                transform: translate(-50%, -50%) scale(0.95);
-                opacity: 0;
-              }
-              to {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-              }
-            }
-          `}</style>
         </DialogFooter>
       </DialogContent>
     </Dialog>
