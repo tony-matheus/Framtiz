@@ -89,6 +89,7 @@ const experiences = [
 ].reverse();
 
 const CARD_HEIGHT = 166;
+const CARD_WIDTH = 288;
 const SPACING = 32;
 
 const getBlockHeight = (cardNumbers: number) => {
@@ -99,27 +100,6 @@ const getCardTopPosition = (cardNumber: number) => {
   return cardNumber * (CARD_HEIGHT + SPACING * (4 / 3));
 };
 
-// SVG path generator for curved connections
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const generateCurvePath = (
-  start: { x: number; y: number },
-  end: { x: number; y: number },
-  containerWidth: number,
-  containerHeight: number
-) => {
-  const startX = (start.x / 100) * containerWidth;
-  const startY = (start.y / 100) * containerHeight;
-  const endX = (end.x / 100) * containerWidth;
-  const endY = (end.y / 100) * containerHeight;
-
-  // Control points for smooth curves
-  const midX = (startX + endX) / 2;
-  const controlOffset = Math.abs(endY - startY) * 0.3;
-
-  return `M ${startX} ${startY} Q ${midX} ${
-    startY - controlOffset
-  } ${endX} ${endY}`;
-};
 
 export default function ExperienceTimeline() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -137,22 +117,37 @@ export default function ExperienceTimeline() {
   });
 
   const cardPositions = useMemo(() => {
+    if (!containerDimensions.width)
+      return experiences.map((_, index) => ({
+        left: index % 2 === 0 ? '50%' : undefined,
+        right: index % 2 !== 0 ? '50%' : undefined,
+      }));
+
     const used: { left: number[]; right: number[] } = { left: [], right: [] };
 
+    const halfWidth = CARD_WIDTH / 2;
+    const margin = 18; // include dot size and some padding
+    const minOffset = halfWidth + margin;
+    const maxOffset = containerDimensions.width - halfWidth - margin;
+
     const getOffset = (side: 'left' | 'right') => {
-      let offset = Math.floor(Math.random() * 15 + 5); // 5% - 20%
+      if (maxOffset <= minOffset) return minOffset;
+      let offset =
+        Math.random() * (maxOffset - minOffset) + minOffset;
       let attempts = 0;
 
+      const minGap = CARD_WIDTH + margin * 2;
+
       while (
-        used[side].some((o) => Math.abs(o - offset) < 10) &&
+        used[side].some((o) => Math.abs(o - offset) < minGap) &&
         attempts < 20
       ) {
-        offset = Math.floor(Math.random() * 15 + 5);
+        offset = Math.random() * (maxOffset - minOffset) + minOffset;
         attempts += 1;
       }
 
       used[side].push(offset);
-      return `${offset}%`;
+      return offset;
     };
 
     return experiences.map((_, index) => {
@@ -164,7 +159,7 @@ export default function ExperienceTimeline() {
         right: !isLeft ? offset : undefined,
       };
     });
-  }, []);
+  }, [containerDimensions.width]);
 
   // Parallax transforms for different layers
   const foregroundY = useTransform(scrollYProgress, [0, 1], ['0%', '5%']);
@@ -177,21 +172,29 @@ export default function ExperienceTimeline() {
         if (!ref) return { x: 0, y: 0 };
         const rect = ref.getBoundingClientRect();
         return {
-          x: rect.left - containerRect.left + rect.width / 2,
-          y: rect.top - containerRect.top + rect.height / 2,
+          x: rect.left - containerRect.left,
+          y: rect.top - containerRect.top,
         };
       });
       setCardCoords(coords);
-      setContainerDimensions({
-        width: containerRect.width,
-        height: containerRect.height,
+      setContainerDimensions((prev) => {
+        if (
+          prev.width === containerRect.width &&
+          prev.height === containerRect.height
+        ) {
+          return prev;
+        }
+        return {
+          width: containerRect.width,
+          height: containerRect.height,
+        };
       });
     };
 
     updatePositions();
     window.addEventListener('resize', updatePositions);
     return () => window.removeEventListener('resize', updatePositions);
-  }, []);
+  }, [cardPositions]);
 
   return (
     <section
@@ -313,7 +316,7 @@ export default function ExperienceTimeline() {
                     cardRefs.current[index] = el;
                   }}
                   key={experience.id}
-                  className='group absolute cursor-pointer relative before:pointer-events-none before:absolute before:-inset-6 before:rounded-lg before:bg-slate-700/10 before:content-[""]'
+                  className='group absolute cursor-pointer relative'
                   style={{
                     left: cardPositions[index].left,
                     right: cardPositions[index].right,
