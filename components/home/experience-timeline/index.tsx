@@ -125,7 +125,7 @@ export default function ExperienceTimeline() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const { ref, shouldAnimate } = useOneTimeAnimation(0.1);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [containerDimensions] = useState({
+  const [containerDimensions, setContainerDimensions] = useState({
     width: 0,
     height: 0,
   });
@@ -137,13 +137,31 @@ export default function ExperienceTimeline() {
   });
 
   const cardPositions = useMemo(() => {
+    const used: { left: number[]; right: number[] } = { left: [], right: [] };
+
+    const getOffset = (side: 'left' | 'right') => {
+      let offset = Math.floor(Math.random() * 15 + 5); // 5% - 20%
+      let attempts = 0;
+
+      while (
+        used[side].some((o) => Math.abs(o - offset) < 10) &&
+        attempts < 20
+      ) {
+        offset = Math.floor(Math.random() * 15 + 5);
+        attempts += 1;
+      }
+
+      used[side].push(offset);
+      return `${offset}%`;
+    };
+
     return experiences.map((_, index) => {
-      const isEven = index % 2 === 0;
-      const offset = `${Math.floor(Math.random() * 15 + 1)}%`;
+      const isLeft = index % 2 === 0;
+      const offset = getOffset(isLeft ? 'left' : 'right');
 
       return {
-        left: isEven ? offset : undefined,
-        right: !isEven ? offset : undefined,
+        left: isLeft ? offset : undefined,
+        right: !isLeft ? offset : undefined,
       };
     });
   }, []);
@@ -153,18 +171,21 @@ export default function ExperienceTimeline() {
 
   useEffect(() => {
     const updatePositions = () => {
+      if (!containerRef.current) return;
+      const containerRect = containerRef.current.getBoundingClientRect();
       const coords = cardRefs.current.map((ref) => {
-        console.log({ ref });
         if (!ref) return { x: 0, y: 0 };
         const rect = ref.getBoundingClientRect();
-        const containerRect = containerRef.current!.getBoundingClientRect();
-
         return {
           x: rect.left - containerRect.left + rect.width / 2,
           y: rect.top - containerRect.top + rect.height / 2,
         };
       });
       setCardCoords(coords);
+      setContainerDimensions({
+        width: containerRect.width,
+        height: containerRect.height,
+      });
     };
 
     updatePositions();
@@ -292,7 +313,7 @@ export default function ExperienceTimeline() {
                     cardRefs.current[index] = el;
                   }}
                   key={experience.id}
-                  className='group absolute cursor-pointer'
+                  className='group absolute cursor-pointer relative before:pointer-events-none before:absolute before:-inset-6 before:rounded-lg before:bg-slate-700/10 before:content-[""]'
                   style={{
                     left: cardPositions[index].left,
                     right: cardPositions[index].right,
@@ -300,22 +321,22 @@ export default function ExperienceTimeline() {
                     transform: 'translate(-50%, -50%)',
                   }}
                   initial={{ opacity: 0, scale: 0, rotate: -10 }}
-                  animate={
-                    shouldAnimate
-                      ? {
-                          opacity: 1,
-                          scale: 1,
-                          rotate: 0,
-                        }
-                      : {
-                          opacity: 0,
-                          scale: 0,
-                          rotate: -10,
-                        }
-                  }
+                  animate={{
+                    opacity: shouldAnimate ? 1 : 0,
+                    scale: shouldAnimate ? 1 : 0,
+                    rotate: shouldAnimate ? 0 : -10,
+                    y: shouldAnimate ? [0, -10, 0] : 0,
+                  }}
                   transition={{
-                    duration: 0.6,
-                    delay: index * 0.2,
+                    opacity: { duration: 0.6, delay: index * 0.2 },
+                    scale: { duration: 0.6, delay: index * 0.2 },
+                    rotate: { duration: 0.6, delay: index * 0.2 },
+                    y: {
+                      duration: 4,
+                      repeat: Infinity,
+                      repeatType: 'mirror',
+                      delay: index * 0.2,
+                    },
                     type: 'spring',
                     stiffness: 100,
                   }}
