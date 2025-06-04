@@ -125,7 +125,7 @@ export default function ExperienceTimeline() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const { ref, shouldAnimate } = useOneTimeAnimation(0.1);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [containerDimensions] = useState({
+  const [containerDimensions, setContainerDimensions] = useState({
     width: 0,
     height: 0,
   });
@@ -137,13 +137,31 @@ export default function ExperienceTimeline() {
   });
 
   const cardPositions = useMemo(() => {
+    const used: { left: number[]; right: number[] } = { left: [], right: [] };
+
+    const getOffset = (side: 'left' | 'right') => {
+      let offset = Math.floor(Math.random() * 15 + 5); // 5% - 20%
+      let attempts = 0;
+
+      while (
+        used[side].some((o) => Math.abs(o - offset) < 10) &&
+        attempts < 20
+      ) {
+        offset = Math.floor(Math.random() * 15 + 5);
+        attempts += 1;
+      }
+
+      used[side].push(offset);
+      return `${offset}%`;
+    };
+
     return experiences.map((_, index) => {
-      const isEven = index % 2 === 0;
-      const offset = `${Math.floor(Math.random() * 15 + 1)}%`;
+      const isLeft = index % 2 === 0;
+      const offset = getOffset(isLeft ? 'left' : 'right');
 
       return {
-        left: isEven ? offset : undefined,
-        right: !isEven ? offset : undefined,
+        left: isLeft ? offset : undefined,
+        right: !isLeft ? offset : undefined,
       };
     });
   }, []);
@@ -153,6 +171,9 @@ export default function ExperienceTimeline() {
 
   useEffect(() => {
     const updatePositions = () => {
+      if (!containerRef.current) return;
+      const containerRect = containerRef.current.getBoundingClientRect();
+
       const coords = cardRefs.current.map((ref) => {
         console.log({ ref });
         if (!ref) return { x: 0, y: 0 };
@@ -165,6 +186,10 @@ export default function ExperienceTimeline() {
         };
       });
       setCardCoords(coords);
+      setContainerDimensions({
+        width: containerRect.width,
+        height: containerRect.height,
+      });
     };
 
     updatePositions();
