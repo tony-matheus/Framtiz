@@ -13,8 +13,7 @@ export default function BlogCard({ blog }: BlogCardProps) {
       <CyberCard>
         <div className='relative h-48 overflow-hidden rounded-t-xl'>
           <Image
-            // src={blog.image || '/placeholder.svg'}
-            src={'/placeholder.svg'}
+            src={blog.image_url || '/placeholder.svg'}
             alt={blog.title}
             fill
             className='object-cover transition-transform duration-500 group-hover:scale-105'

@@ -1,6 +1,18 @@
-import { FileCode, Github, Newspaper, UserIcon } from 'lucide-react';
+import {
+  ChartLineIcon,
+  FileCode,
+  Github,
+  Newspaper,
+  UserIcon,
+} from 'lucide-react';
 
 export const NAV_ITEMS = [
+  {
+    id: 'dashboard',
+    label: 'DASHBOARD',
+    icon: <ChartLineIcon size={18} />,
+    href: '/admin/dashboard',
+  },
   {
     id: 'blog',
     label: 'BLOGS',

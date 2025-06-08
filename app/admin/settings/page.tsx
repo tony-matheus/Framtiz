@@ -1,8 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Lock, Sparkles } from 'lucide-react';
-import AdminHeader from '@/components/admin/admin-header';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
 
@@ -12,15 +10,6 @@ import { CyberSwitch } from '@/components/ui-custom/cyber-switch';
 export default function SettingsPage() {
   return (
     <div>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className='mb-8'
-      >
-        <AdminHeader title='SETTINGS' />
-      </motion.div>
-
       {/* Settings panels */}
       <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
         <CyberCard>

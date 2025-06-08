@@ -1,23 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
-import AdminHeader from '@/components/admin/admin-header';
 import MetricCard from '@/components/admin/dashboard/metric-card';
 import { CyberProgress } from '@/components/ui-custom/cyber-progress';
 
 export default function DashboardPage() {
   return (
     <div>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className='mb-8'
-      >
-        <AdminHeader title='PORTFOLIO_METRICS' />
-      </motion.div>
-
       {/* Dashboard content */}
       <div className='mb-8 grid grid-cols-1 gap-6 md:grid-cols-3'>
         <MetricCard

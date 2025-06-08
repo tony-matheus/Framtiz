@@ -34,8 +34,7 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
           {/* Image */}
           <div className='relative h-64 overflow-hidden rounded-xl md:h-96'>
             <Image
-              // src={blog.image || '/placeholder.svg'}
-              src={'/placeholder.svg'}
+              src={blog.image_url || '/placeholder.svg'}
               alt={blog.title}
               fill
               className='object-cover transition-transform duration-700 group-hover:scale-105'

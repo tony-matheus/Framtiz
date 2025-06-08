@@ -135,8 +135,7 @@ export default function Blog() {
             {/* Header Image */}
             <div className='relative h-64 overflow-hidden md:h-80'>
               <Image
-                // src={blog.image || '/placeholder.svg'}
-                src={'/placeholder.svg'}
+                src={blog.image_url || '/placeholder.svg'}
                 alt={blog.title}
                 fill
                 className='object-cover'
