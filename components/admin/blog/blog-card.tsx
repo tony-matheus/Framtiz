@@ -7,12 +7,14 @@ import { CyberSwitch } from '@/components/ui-custom/cyber-switch';
 import { useState } from 'react';
 import Heading from '@/components/ui/typography/heading';
 import { Edit, Trash2 } from 'lucide-react';
+import ImagePreviewUpload from './image-preview-upload';
 
 export interface BlogCardProps {
   blog: Blog;
   onEdit: (blog: Blog) => void;
   onDelete: (blog: Blog) => void;
   onPublishChange: (blog: Blog, published: boolean) => void;
+  onFileUpload: (blog: Blog, imageUrl: string) => void;
   isDeleting: boolean;
   isDisabled: boolean;
 }
@@ -20,6 +22,7 @@ export interface BlogCardProps {
 export default function BlogCard({
   blog,
   onPublishChange,
+  onFileUpload,
   onEdit,
   onDelete,
   isDeleting,
@@ -34,14 +37,14 @@ export default function BlogCard({
 
   return (
     <CyberCard
-      className='group h-full transition-[colors,shadow,transform]
- duration-300 ease-in-out hover:translate-y-[-5px] hover:border-purple-600 hover:shadow-accent'
+      className='h-full transition-[colors,shadow,transform]
+ duration-300 ease-in-out hover:border-purple-600 hover:shadow-accent'
     >
-      <CyberCardContent className='flex h-full flex-col justify-between'>
-        <div className='mb-3 flex items-start justify-between gap-2'>
+      <CyberCardContent className='flex h-full flex-col justify-between gap-4'>
+        <div className='flex items-start justify-between gap-2'>
           <Heading
             as='h4'
-            className='h-[84] overflow-hidden font-mono text-lg text-slate-200'
+            className=' overflow-hidden font-mono text-lg text-slate-200'
           >
             {blog.title}
           </Heading>
@@ -67,6 +70,10 @@ export default function BlogCard({
             </CyberButton>
           </div>
         </div>
+        <ImagePreviewUpload
+          currentImageUrl={blog.image_url}
+          onFileUpload={(imageUrl) => onFileUpload(blog, imageUrl)}
+        />
         <div className='flex shrink-0 items-center gap-2'>
           <CyberSwitch
             id='status'

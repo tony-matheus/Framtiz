@@ -5,12 +5,13 @@ import { SupabaseClient } from '@supabase/supabase-js';
 export type Blog = {
   id: number;
   title: string;
-  content?: string;
-  published?: boolean;
-  created_at?: string;
-  excerpt?: string;
+  content?: string | null;
+  published?: boolean | null;
+  created_at?: string | null;
+  excerpt?: string | null;
   read_time?: number;
-  updated_at?: string;
+  updated_at?: string | null;
+  image_url?: string | null;
 };
 
 interface GetAllBlogsOptions {

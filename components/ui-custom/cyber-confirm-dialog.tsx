@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { CyberButton } from './cyber-button';
 
-type ConfirmVariant = 'danger' | 'warning' | 'info' | 'success';
+type ConfirmVariant = 'destructive' | 'warning' | 'info' | 'success';
 
 interface CyberConfirmDialogProps {
   isOpen: boolean;
@@ -34,10 +34,11 @@ export function CyberConfirmDialog({
   description,
   confirmText = 'CONFIRM',
   cancelText = 'CANCEL',
-  variant = 'danger',
+  variant = 'destructive',
   isLoading = false,
 }: CyberConfirmDialogProps) {
-  // Lock body scroll when modal is open
+  console.log(variant);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -51,11 +52,11 @@ export function CyberConfirmDialog({
   }, [isOpen]);
 
   const variantConfig = {
-    danger: {
+    destructive: {
       icon: <AlertTriangle className='text-red-400' size={24} />,
       bgColor: 'bg-red-900/30',
       borderColor: 'border-red-600',
-      buttonVariant: 'danger' as const,
+      buttonVariant: 'destructive' as const,
     },
     warning: {
       icon: <AlertTriangle className='text-yellow-400' size={24} />,

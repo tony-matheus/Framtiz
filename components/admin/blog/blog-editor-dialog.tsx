@@ -78,6 +78,7 @@ export default function BlogEditorDialog({
       title,
       content,
       published: published,
+      excerpt,
     });
 
     onSave?.(savedBlog);
@@ -162,7 +163,7 @@ export default function BlogEditorDialog({
         {/* Content - scrollable area */}
         <div className='flex-1 overflow-y-auto p-4'>
           <div className='space-y-4'>
-            <div className='flex flex-col gap-2 md:flex-row md:items-center'>
+            <div className='flex flex-col gap-4 md:flex-row md:items-center'>
               <CyberInput
                 id='title'
                 type='text'
@@ -207,35 +208,20 @@ export default function BlogEditorDialog({
                 Generate with AI
               </CyberButton>
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-12 md:gap-2'>
-              <div className='col-span-8'>
-                <Label htmlFor='excerpt' className='mb-2 block'>
-                  EXCERPT
-                </Label>
-                <textarea
-                  id='excerpt'
-                  value={isGenerating ? '' : excerpt}
-                  name='content'
-                  disabled={isGenerating}
-                  onChange={(e) => setExcerpt(e.target.value)}
-                  className='h-[100px] w-full resize-none border border-slate-700 bg-slate-800 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600'
-                  placeholder={
-                    isGenerating ? 'Generating' : 'Write a short description'
-                  }
-                />
-              </div>
-              <div className='col-span-4 mt-2 md:mt-0'>
-                <CyberInput
-                  id='title'
-                  type='string'
-                  label='READ_TIME'
-                  value={`${readTime} min`}
-                  // onChange={(e) => setTitle(e.target.value)}
-                  placeholder='Read Time'
-                  disabled
-                />
-              </div>
-            </div>
+            <Label htmlFor='excerpt' className='mb-2 block'>
+              EXCERPT
+            </Label>
+            <textarea
+              id='excerpt'
+              value={isGenerating ? '' : excerpt}
+              name='content'
+              disabled={isGenerating}
+              onChange={(e) => setExcerpt(e.target.value)}
+              className='h-[100px] w-full resize-none border border-slate-700 bg-slate-800 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600'
+              placeholder={
+                isGenerating ? 'Generating' : 'Write a short description'
+              }
+            />
           </div>
         </div>
 

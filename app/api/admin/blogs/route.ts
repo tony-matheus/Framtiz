@@ -44,8 +44,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const projectData = await request.json();
-    const parsedData = BlogInputSchema.safeParse(projectData);
+    const data = await request.json();
+    const parsedData = BlogInputSchema.safeParse(data);
 
     if (!parsedData.success) {
       return NextResponse.json(

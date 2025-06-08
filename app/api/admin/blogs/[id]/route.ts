@@ -1,4 +1,4 @@
-import { BlogInput } from '@/lib/schemas/blog-schemas';
+import { BlogInputSchema } from '@/lib/schemas/blog-schemas';
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
 import { serverBlogService } from '@/lib/services/blog-service';
 import { NextResponse } from 'next/server';
@@ -13,6 +13,7 @@ export async function GET(
     if (!isAdmin) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+
     const { id } = await params;
 
     if (isNaN(id)) {
@@ -33,7 +34,7 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: number } }
 ) {
   try {
     const isAdmin = await serverAuthService.isAdmin();
@@ -42,7 +43,7 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const id = Number.parseInt(params.id);
+    const { id } = await params;
 
     if (isNaN(id)) {
       return NextResponse.json(
@@ -51,18 +52,19 @@ export async function PUT(
       );
     }
 
-    const blogData: BlogInput = await request.json();
+    const data = await request.json();
+    const parsedData = BlogInputSchema.safeParse(data);
 
-    if (!blogData.title || blogData.published === null || !blogData.content) {
+    if (!parsedData.success) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
-    const data = serverBlogService.updateBlog(id, blogData);
+    const responseData = serverBlogService.updateBlog(id, parsedData.data);
 
-    return NextResponse.json(data);
+    return NextResponse.json(responseData);
   } catch (error) {
     console.error('Error updating blog:', error);
     return NextResponse.json(

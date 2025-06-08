@@ -26,7 +26,7 @@ export default function BlogPage() {
 
   const { mutateAsync: mutateDestroy } = useDestroyBlog();
 
-  const { mutate: updateBlog } = useUpdateBlog();
+  const { mutateAsync: updateBlog } = useUpdateBlog();
 
   const { blogs, totalPages, currentPage, goToPage } = useSuspenseFetchBlogs({
     initialPage: 1,
@@ -43,6 +43,15 @@ export default function BlogPage() {
   const handleAddBlog = () => {
     setCurrentBlog(null);
     setIsDialogOpen(true);
+  };
+
+  const handleUploadImage = async (blog: Blog, imageUrl: string) => {
+    await updateBlog({
+      ...blog,
+      image_url: imageUrl,
+    });
+
+    refetchPage(currentPage, term);
   };
 
   const handleSaveBlog = () => {
@@ -100,6 +109,7 @@ export default function BlogPage() {
           onAdd={handleAddBlog}
           onEdit={handleEditBlog}
           onDelete={handleDeleteBlog}
+          onFileUpload={handleUploadImage}
           deletingId={deletingId}
           onPublishChange={(blog) => handleToggleStatus(blog)}
         />

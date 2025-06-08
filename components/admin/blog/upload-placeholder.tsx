@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Loader2, AlertCircle, FileType } from 'lucide-react';
-import { formatFileSize } from '@/lib/services/storage/upload-service';
+import { formatFileSize } from '@/lib/supabase/storage/upload-client';
 
 interface UploadPlaceholderProps {
   id: string;

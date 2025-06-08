@@ -167,7 +167,7 @@ export default function ProjectsPage() {
         description={`Are you sure you want to remove ${proejctToDelete?.title} from your portfolio? This action cannot be undone.`}
         confirmText='DELETE_PROJECT'
         cancelText='CANCEL'
-        variant='danger'
+        variant='destructive'
         isLoading={isDeleting}
       />
     </>

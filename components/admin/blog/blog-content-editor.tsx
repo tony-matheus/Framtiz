@@ -10,11 +10,11 @@ import ReactMarkdown from 'react-markdown';
 import DropZone from './drop-zone';
 import UploadPlaceholder from './upload-placeholder';
 import {
-  uploadFile,
+  uploadImage,
   generateUploadId,
   isImageFile,
   isVideoFile,
-} from '@/lib/services/storage/upload-service';
+} from '@/lib/supabase/storage/upload-client';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 
 type UploadingFile = {
@@ -95,14 +95,14 @@ export default function BlogContentEditor({
         );
       }, 300);
 
-      const response = await uploadFile(file);
+      const { imageUrl } = await uploadImage({ file });
 
       clearInterval(progressInterval);
 
       setUploadingFiles((prev) =>
         prev.map((item) =>
           item.id === uploadId
-            ? { ...item, progress: 100, status: 'success', url: response.url }
+            ? { ...item, progress: 100, status: 'success', url: imageUrl }
             : item
         )
       );
@@ -110,8 +110,8 @@ export default function BlogContentEditor({
       const fileType = file.type.startsWith('image/') ? 'image' : 'video';
       const markdownText =
         fileType === 'image'
-          ? `![${file.name}](${response.url})`
-          : `<video controls src="${response.url}" title="${file.name}"></video>`;
+          ? `![${file.name}](${imageUrl})`
+          : `<video controls src="${imageUrl}" title="${file.name}"></video>`;
 
       onContentChange((prev) => prev.replace(placeholderText, markdownText));
 

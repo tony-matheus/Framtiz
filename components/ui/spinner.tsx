@@ -1,7 +1,13 @@
-export default function Spinner() {
+import { cn } from '@/lib/utils';
+
+interface SpinnerProps {
+  className?: string | undefined | null;
+}
+
+export default function Spinner({ className }: SpinnerProps) {
   return (
     <svg
-      className='size-4 animate-spin'
+      className={cn('size-4 animate-spin', className)}
       xmlns='http://www.w3.org/2000/svg'
       fill='none'
       viewBox='0 0 24 24'

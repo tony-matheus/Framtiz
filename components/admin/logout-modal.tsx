@@ -32,7 +32,7 @@ export default function LogoutModal({ isOpen, onClose }: LogoutModalProps) {
       description='Are you sure you want to terminate your current session? All unsaved changes will be lost.'
       confirmText='CONFIRM_LOGOUT'
       cancelText='CANCEL'
-      variant='danger'
+      variant='destructive'
       isLoading={isLoggingOut}
     />
   );

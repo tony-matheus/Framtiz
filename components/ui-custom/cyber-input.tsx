@@ -5,7 +5,6 @@ import { Label } from '../ui/label';
 
 interface CyberInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  value: string;
 }
 
 const CyberInput = forwardRef<HTMLInputElement, CyberInputProps>(

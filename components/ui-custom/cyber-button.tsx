@@ -6,7 +6,13 @@ import { Slot } from '@radix-ui/react-slot';
 import Spinner from '../ui/spinner';
 
 interface CyberButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'destructive' | 'outline' | 'warning';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'destructive'
+    | 'outline'
+    | 'warning'
+    | 'ghost';
   size?: 'default' | 'sm' | 'lg' | 'icon';
   asChild?: boolean;
   isLoading?: boolean;
@@ -43,6 +49,8 @@ export const CyberButton = forwardRef<HTMLButtonElement, CyberButtonProps>(
       destructive: 'border-2 border-red-600 text-red-300 hover:bg-red-900/30',
       outline:
         'border border-slate-700 text-slate-300 hover:border-purple-600 hover:text-purple-300',
+      ghost:
+        'bg-transparent text-slate-300 hover:bg-purple-900/30 rounded-full hover:text-purple-300',
     };
 
     return (

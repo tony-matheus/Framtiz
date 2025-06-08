@@ -175,7 +175,6 @@ export default function ExperienceTimeline() {
       const containerRect = containerRef.current.getBoundingClientRect();
 
       const coords = cardRefs.current.map((ref) => {
-        console.log({ ref });
         if (!ref) return { x: 0, y: 0 };
         const rect = ref.getBoundingClientRect();
         const containerRect = containerRef.current!.getBoundingClientRect();
