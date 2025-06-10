@@ -26,7 +26,7 @@ export const useGithubRepos = (
   const { data, isError, isPending } = useQuery<RepoRequestOutput>({
     queryKey: ['github-repos', page],
     queryFn: () => fetchGitHubRepos({ page, limit }),
-    staleTime: 1000 * 60,
+    staleTime: 60,
   });
 
   const loadNextPage = () => {

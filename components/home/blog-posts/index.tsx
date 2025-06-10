@@ -125,8 +125,8 @@ export default function BlogPosts({ blogs }: BlogPostsProps) {
                 key={post.id}
                 id={post.id}
                 title={post.title}
-                date={post.created_at}
-                image='/placeholder.svg'
+                date={post.updated_at ?? ''}
+                image={post.image_url ?? '/placeholder.svg'}
               />
             ))}
           </motion.div>

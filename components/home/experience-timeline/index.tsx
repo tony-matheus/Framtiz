@@ -5,8 +5,11 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useOneTimeAnimation } from '@/hooks/use-one-time-animations';
 import FloatingParticles from './floating-particles';
 import ExperienceCard from './experience-card';
+import { Experience } from '@/lib/schemas/experience-schemas';
+import { getFormattedDate } from '@/lib/helpers/daytime';
 
-const experiences = [
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const experiencesWill = [
   {
     id: 1,
     company: 'Universidade de Fortaleza',
@@ -99,29 +102,11 @@ const getCardTopPosition = (cardNumber: number) => {
   return cardNumber * (CARD_HEIGHT + SPACING * (4 / 3));
 };
 
-// SVG path generator for curved connections
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const generateCurvePath = (
-  start: { x: number; y: number },
-  end: { x: number; y: number },
-  containerWidth: number,
-  containerHeight: number
-) => {
-  const startX = (start.x / 100) * containerWidth;
-  const startY = (start.y / 100) * containerHeight;
-  const endX = (end.x / 100) * containerWidth;
-  const endY = (end.y / 100) * containerHeight;
-
-  // Control points for smooth curves
-  const midX = (startX + endX) / 2;
-  const controlOffset = Math.abs(endY - startY) * 0.3;
-
-  return `M ${startX} ${startY} Q ${midX} ${
-    startY - controlOffset
-  } ${endX} ${endY}`;
-};
-
-export default function ExperienceTimeline() {
+export default function ExperienceTimeline({
+  experiences,
+}: {
+  experiences: Experience[];
+}) {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const { ref, shouldAnimate } = useOneTimeAnimation(0.1);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -135,6 +120,12 @@ export default function ExperienceTimeline() {
     target: containerRef,
     offset: ['start end', 'end start'],
   });
+
+  const getPeriod = (experience: Experience) => {
+    return `${getFormattedDate(experience.startDate)} - ${getFormattedDate(
+      experience.endDate ?? new Date()
+    )}`;
+  };
 
   const cardPositions = useMemo(() => {
     const used: { left: number[]; right: number[] } = { left: [], right: [] };
@@ -353,7 +344,10 @@ export default function ExperienceTimeline() {
                   <div className='absolute -left-2 -top-2 size-4 rounded-full border-2 border-slate-900 bg-gradient-to-br from-purple-500 to-green-400 transition-transform duration-300 group-hover:scale-125' />
 
                   {/* Card */}
-                  <ExperienceCard {...experience} />
+                  <ExperienceCard
+                    period={getPeriod(experience)}
+                    {...experience}
+                  />
 
                   {/* Floating Timeline Indicator */}
                   <motion.div
@@ -366,7 +360,7 @@ export default function ExperienceTimeline() {
                     }
                     transition={{ delay: index * 0.2 + 0.5 }}
                   >
-                    {experience.period.split(' - ')[0]}
+                    {getPeriod(experience)}
                   </motion.div>
                 </motion.div>
               ))}

@@ -32,6 +32,7 @@ export const serverAuthService = {
       avatarUrl: profile.avatar_url,
       isAdmin: profile.is_admin,
       githubUsername: profile.github_username,
+      profileId: profile.id,
     };
   },
 

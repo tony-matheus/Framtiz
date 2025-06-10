@@ -9,10 +9,14 @@ import ScrollProgress from '@/components/home/scroll-progress';
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
 import { serverProjectService } from '@/lib/services/project-service';
 import { serverBlogService } from '@/lib/services/blog-service';
+import { serverExperienceService } from '@/lib/services/experience-service';
 
 export default async function Home() {
   const { projects } = await serverProjectService.getAllProjects();
+
   const { blogs } = await serverBlogService.getAllBlogs();
+  const { experiences } = await serverExperienceService.getAll();
+
   const user = await serverAuthService.getCurrentUser();
 
   return (
@@ -33,7 +37,7 @@ export default async function Home() {
       />
       <FeaturedProjects projects={projects} />
       <BlogPosts blogs={blogs} />
-      <ExperienceTimeline />
+      <ExperienceTimeline experiences={experiences} />
       <Footer />
     </main>
   );

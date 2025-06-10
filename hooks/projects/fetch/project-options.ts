@@ -36,5 +36,5 @@ export const projectQueryOptions = ({
     queryKey: ['projects', title ?? '', page],
     queryFn: () => fetchProjects({ title, page, limit }),
     placeholderData: keepPreviousData,
-    staleTime: 60_000,
+    // staleTime: 60_000,
   });

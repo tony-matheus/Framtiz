@@ -36,5 +36,5 @@ export const blogQueryOptions = ({
     queryKey: ['blogs', title ?? '', page],
     queryFn: () => fetchBlogs({ title, page, limit }),
     placeholderData: keepPreviousData,
-    staleTime: 60_000,
+    // staleTime: 60_000,
   });

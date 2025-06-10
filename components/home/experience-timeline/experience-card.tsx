@@ -1,7 +1,6 @@
-import { Award, Building, Calendar, MapPin } from 'lucide-react';
+import { Building, Calendar, MapPin } from 'lucide-react';
 
 interface ExperienceCardProps {
-  type: string;
   position: string;
   company: string;
   description: string;
@@ -10,7 +9,6 @@ interface ExperienceCardProps {
 }
 
 export default function ExperienceCard({
-  type,
   position,
   company,
   description,
@@ -22,11 +20,7 @@ export default function ExperienceCard({
       {/* Header */}
       <div className='mb-3 flex items-start'>
         <div className='mr-3 flex size-8 items-center justify-center border border-slate-600 bg-slate-700 transition-colors duration-300 group-hover:border-purple-500'>
-          {type === 'education' ? (
-            <Award className='size-4 text-purple-400' />
-          ) : (
-            <Building className='size-4 text-green-400' />
-          )}
+          <Building className='size-4 text-green-400' />
         </div>
         <div className='min-w-0 flex-1'>
           <h3 className='text-sm font-semibold leading-tight text-slate-100 transition-colors duration-300 group-hover:text-purple-300'>

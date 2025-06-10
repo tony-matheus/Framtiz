@@ -206,7 +206,7 @@ export default function ProjectEditorModal({
                     </div>
                     <textarea
                       name='description'
-                      value={editingRepo.description}
+                      value={editingRepo.description ?? ''}
                       onChange={handleInputChange}
                       rows={4}
                       className='w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600'

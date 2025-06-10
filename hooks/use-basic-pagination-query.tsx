@@ -43,7 +43,7 @@ export function useBasicPaginationQuery<T>({
   const { data, isFetching, isError } = useQuery({
     queryKey: [...queryKey, page],
     queryFn: () => queryFn({ page, limit }),
-    staleTime: 1000 * 60,
+    staleTime: 60,
     ...queryOptions,
   });
 

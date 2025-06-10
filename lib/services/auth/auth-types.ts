@@ -6,6 +6,7 @@ export type User = {
   avatarUrl?: string;
   isAdmin: boolean;
   githubUsername?: string;
+  profileId: number;
 };
 
 export type SignUpData = {

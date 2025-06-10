@@ -3,14 +3,26 @@ import { Edit2, Trash2, Calendar, MapPin, Building } from 'lucide-react';
 import { CyberButton } from '@/components/ui-custom/cyber-button';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
-import { EMPLOYMENT_TYPES } from './constants';
 import { formatElapsedDuration, getFormattedDate } from '@/lib/helpers/daytime';
+import { EMPLOYMENT_TYPES, Experience } from '@/lib/schemas/experience-schemas';
 
-export default function ExperienceCard({ experience, onEdit, onDelete }) {
+interface ExperienceCardProps {
+  experience: Experience;
+  onEdit: (arg0: Experience) => void;
+  onDelete: (arg0: Experience) => void;
+  deleting?: boolean;
+}
+
+export default function ExperienceCard({
+  experience,
+  onEdit,
+  onDelete,
+  deleting = false,
+}: ExperienceCardProps) {
   return (
     <CyberCard key={experience.id}>
       <CyberCardContent className='p-6'>
-        <div className='mb-4 flex items-start justify-between'>
+        <div className='flex items-start justify-between'>
           <div className='flex-1'>
             <div className='mb-2 flex items-center gap-3'>
               <h4 className='font-mono text-lg text-slate-200'>
@@ -37,7 +49,7 @@ export default function ExperienceCard({ experience, onEdit, onDelete }) {
                 {experience.location}
               </div>
             </div>
-            <div className='mb-3 flex items-center gap-1 font-mono text-sm text-slate-500'>
+            <div className=' flex items-center gap-1 font-mono text-sm text-slate-500'>
               <Calendar size={14} />
               {getFormattedDate(experience.startDate)} -{' '}
               {experience.endDate
@@ -52,9 +64,11 @@ export default function ExperienceCard({ experience, onEdit, onDelete }) {
                 )
               </span>
             </div>
-            <p className='text-sm leading-relaxed text-slate-300'>
-              {experience.description}
-            </p>
+            {!!experience.description && (
+              <p className='mb-3 text-sm leading-relaxed text-slate-300'>
+                {experience.description}
+              </p>
+            )}
           </div>
           <div className='ml-4 flex gap-2'>
             <CyberButton
@@ -68,9 +82,10 @@ export default function ExperienceCard({ experience, onEdit, onDelete }) {
             <CyberButton
               size='sm'
               variant='outline'
-              onClick={() => onDelete(experience.id)}
+              onClick={() => onDelete(experience)}
               leftIcon={<Trash2 size={14} />}
               className='border-red-800 text-red-400 hover:bg-red-900/20'
+              isLoading={deleting}
             >
               DELETE
             </CyberButton>
