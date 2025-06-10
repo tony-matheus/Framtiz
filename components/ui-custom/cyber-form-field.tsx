@@ -1,7 +1,6 @@
 'use client';
 
 import type React from 'react';
-
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -25,6 +24,7 @@ interface CyberFormFieldProps {
   multiline?: boolean;
   rows?: number;
   icon?: ReactNode;
+  error?: string;
 }
 
 export function CyberFormField({
@@ -42,7 +42,10 @@ export function CyberFormField({
   multiline = false,
   rows = 4,
   icon,
+  error,
 }: CyberFormFieldProps) {
+  const hasError = Boolean(error);
+
   return (
     <div className={cn('space-y-2', className)}>
       <Label
@@ -67,7 +70,10 @@ export function CyberFormField({
             onChange={onChange}
             rows={rows}
             className={cn(
-              'w-full bg-slate-800 border border-slate-700 text-slate-200 focus-visible:border-purple-600 focus-visible:ring-0 focus-visible:ring-offset-0',
+              'w-full bg-slate-800 border text-slate-200 focus-visible:ring-0 focus-visible:ring-offset-0',
+              hasError
+                ? 'border-red-500 focus-visible:border-red-500'
+                : 'border-slate-700 focus-visible:border-purple-600',
               icon && 'pl-12',
               inputClassName
             )}
@@ -83,7 +89,10 @@ export function CyberFormField({
             value={value}
             onChange={onChange}
             className={cn(
-              'w-full bg-slate-800 border border-slate-700 text-slate-200 focus-visible:border-purple-600 focus-visible:ring-0 focus-visible:ring-offset-0',
+              'w-full bg-slate-800 border text-slate-200 focus-visible:ring-0 focus-visible:ring-offset-0',
+              hasError
+                ? 'border-red-500 focus-visible:border-red-500'
+                : 'border-slate-700 focus-visible:border-purple-600',
               icon && 'pl-12',
               inputClassName
             )}
@@ -92,6 +101,8 @@ export function CyberFormField({
           />
         )}
       </div>
+
+      {hasError && <p className='font-mono text-xs text-red-500'>{error}</p>}
     </div>
   );
 }

@@ -31,7 +31,7 @@ export const NAV_ITEMS = [
     id: 'profile',
     label: 'PROFILE',
     icon: <UserIcon size={18} />,
-    href: '/admin/edit-profile',
+    href: '/admin/edit-profile/profile',
     removeFromSideBar: true,
   },
   {

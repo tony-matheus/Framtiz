@@ -14,7 +14,7 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { User } from '@/lib/services/auth/auth-types';
-import { Edit, LogOut, UserIcon } from 'lucide-react';
+import { LogOut, Settings, UserIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -69,9 +69,9 @@ export default function AdminSidebar({ onLogout, user }: AdminSidebarProps) {
                     </div>
                   </div>
                 </div>
-                <Link href='/admin/edit-profile'>
+                <Link href='/admin/edit-profile/profile'>
                   <CyberButton variant='outline' size='icon' className='size-7'>
-                    <Edit size={14} className='text-purple-400' />
+                    <Settings size={14} className='text-purple-400' />
                   </CyberButton>
                 </Link>
               </div>
