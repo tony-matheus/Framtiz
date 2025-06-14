@@ -1,4 +1,5 @@
 import { Calendar } from 'lucide-react';
+import Image from 'next/image';
 
 interface BlogPostProps {
   id: number;
@@ -11,15 +12,18 @@ export default function BlogPost({ id, title, image, date }: BlogPostProps) {
   return (
     <article
       key={id}
-      className='group w-96 flex-none cursor-pointer transition-transform duration-500 hover:-translate-y-2'
+      className='group w-full flex-none cursor-pointer transition-transform duration-500 hover:-translate-y-2 md:w-96'
     >
       {/* Image Container */}
       <div className='relative mb-6 h-64 overflow-hidden border border-slate-700 bg-slate-800 transition-colors duration-300 group-hover:border-slate-600'>
-        <img
-          src={image}
-          alt={title}
-          className='size-full object-cover transition-transform duration-700 group-hover:scale-105'
-        />
+        <div className='size-full '>
+          <Image
+            src={image}
+            alt={title}
+            className='object-cover transition-transform duration-700 group-hover:scale-105'
+            fill
+          />
+        </div>
         <div className='absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent'></div>
 
         {/* Category Badge */}
@@ -31,7 +35,7 @@ export default function BlogPost({ id, title, image, date }: BlogPostProps) {
       </div>
 
       {/* Content */}
-      <div className='space-y-4 px-2'>
+      <div className='space-y-4'>
         {/* Meta Information */}
         {date && (
           <div className='flex items-center gap-4 text-sm text-slate-500'>

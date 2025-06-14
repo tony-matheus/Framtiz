@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect, Fragment, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Home, User, Mail, Terminal, Shield, Newspaper } from 'lucide-react';
 import NavItem, { NavItemsProps } from './nav-item';
 import PowerStatus from './power-status';
 import { clientAuthService } from '@/lib/services/auth/client-auth-service';
+import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const LOGOUT_NAV_ITEMS = [
   {
@@ -44,11 +46,12 @@ const LOGGED_IN_NAV_ITEMS = [
 ] satisfies NavItemsProps[];
 
 export default function FloatingNav() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [glitchActive, setGlitchActive] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [percentage, setPercentage] = useState(50);
   const [loggedIn, setLoggedIn] = useState(false);
+  const isMobile = useIsMobile();
 
   // Check if user is admin
   useEffect(() => {
@@ -60,6 +63,10 @@ export default function FloatingNav() {
 
     checkAdmin();
   }, []);
+
+  useEffect(() => {
+    setIsOpen(!isMobile);
+  }, [isMobile]);
 
   // Random glitch effect
   useEffect(() => {
@@ -79,6 +86,10 @@ export default function FloatingNav() {
     }
   }, [percentage]);
 
+  useLayoutEffect(() => {
+    setIsOpen(true);
+  }, []);
+
   const getPowerStatus = () => {
     if (percentage < 20) {
       return 'low';
@@ -89,7 +100,7 @@ export default function FloatingNav() {
   };
 
   return (
-    <div className='fixed bottom-6 right-6 z-50'>
+    <div className='fixed bottom-auto right-4 top-6 z-50 md:bottom-6 md:top-auto'>
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -124,9 +135,10 @@ export default function FloatingNav() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.8 }}
               transition={{ duration: 0.3 }}
-              className={`absolute bottom-16 right-0 border-2 bg-slate-900 ${
+              className={cn(
+                `absolute right-0 top-16 bottom-auto border-2 bg-slate-900 md:top-auto md:bottom-16 w-[calc(100vw-32px)] md:w-auto md:min-w-[280px] overflow-hidden`,
                 glitchActive ? 'border-red-500' : 'border-purple-600'
-              } min-w-[280px]`}
+              )}
             >
               {/* Header */}
               <div className='border-b border-slate-800 p-3'>

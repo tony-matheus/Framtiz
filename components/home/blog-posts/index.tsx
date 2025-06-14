@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { useOneTimeAnimation } from '@/hooks/use-one-time-animations';
 import { Blog } from '@/lib/services/blog-service';
 import BlogPost from './blog-post';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 interface BlogPostsProps {
   blogs: Blog[];
@@ -58,11 +60,11 @@ export default function BlogPosts({ blogs }: BlogPostsProps) {
   return (
     <section
       ref={ref}
-      className='w-full border-y border-slate-800 bg-slate-950'
+      className='w-full border-y border-slate-800 bg-slate-950 font-mono'
       id='blog'
     >
-      <div className='overflow-hidden py-24'>
-        <div className='container mx-auto px-4'>
+      <div className='container mx-auto overflow-hidden py-24'>
+        <div className='px-4'>
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={
@@ -71,10 +73,10 @@ export default function BlogPosts({ blogs }: BlogPostsProps) {
             transition={{ duration: 1, ease: 'easeOut' }}
             className='mb-16 text-center'
           >
-            <h2 className='mb-6 text-4xl font-light text-slate-100 md:text-6xl'>
-              Latest Insights
+            <h2 className='mb-6  text-4xl text-slate-100 md:text-6xl'>
+              LATEST INSIGHTS
             </h2>
-            <p className='mx-auto max-w-2xl text-xl font-light text-slate-400'>
+            <p className='mx-auto max-w-2xl font-mono text-xl text-slate-400'>
               Thoughts on technology, development, and innovation.
             </p>
           </motion.div>
@@ -116,7 +118,7 @@ export default function BlogPosts({ blogs }: BlogPostsProps) {
             }
             transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
             ref={carouselRef}
-            className='scrollbar-hide flex gap-8 overflow-x-auto scroll-smooth px-16'
+            className='scrollbar-hide flex flex-col gap-8 scroll-smooth px-4 md:flex-row md:overflow-x-auto md:px-8'
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             // onScroll={updateScrollButtons}
           >
@@ -154,12 +156,15 @@ export default function BlogPosts({ blogs }: BlogPostsProps) {
           transition={{ duration: 0.8, delay: 0.6 }}
           className='mt-16 text-center'
         >
-          <a
+          <Link
             href='/blog'
-            className='font-light text-slate-400 underline-offset-4 transition-colors duration-300 hover:text-slate-300 hover:underline'
+            className='font-mono text-slate-400 underline-offset-4 transition-colors duration-300 hover:text-slate-300 hover:underline'
           >
-            View all articles
-          </a>
+            <div className='inline-flex items-center gap-2'>
+              View all articles
+              <ArrowRight />
+            </div>
+          </Link>
         </motion.div>
       </div>
     </section>

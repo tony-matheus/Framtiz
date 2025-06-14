@@ -1,20 +1,17 @@
 import BlogPosts from '@/components/home/blog-posts';
 import ExperienceTimeline from '@/components/home/experience-timeline';
-import FeaturedProjects from '@/components/home/featured-projects';
+import HeroMotion from '@/components/home/experiments/hero-motion/hero-motion';
 import FloatingNav from '@/components/home/floating-nav/floating-nav';
 import Footer from '@/components/home/footer';
-import Hero, { Profile } from '@/components/home/hero';
+import { Profile } from '@/components/home/hero';
 
 import ScrollProgress from '@/components/home/scroll-progress';
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
-import { serverProjectService } from '@/lib/services/project-service';
 import { serverBlogService } from '@/lib/services/blog-service';
 import { serverExperienceService } from '@/lib/services/experience-service';
 
 export default async function Home() {
-  const { projects } = await serverProjectService.getAllProjects();
-
-  const { blogs } = await serverBlogService.getAllBlogs();
+  const { blogs } = await serverBlogService.getAllBlogs({ limit: 4 });
   const { experiences } = await serverExperienceService.getAll();
 
   const user = await serverAuthService.getCurrentUser();
@@ -23,19 +20,19 @@ export default async function Home() {
     <main className='min-h-screen bg-slate-950 text-slate-50'>
       <ScrollProgress />
       <FloatingNav />
-      <Hero
+      <HeroMotion
         profile={
           {
             id: 1,
-            name: user?.username ?? 'William Frantz',
-            description: 'Senior Anti-cheat engineer at Riot Games',
+            name: 'Willian Frantz',
+            description: `Senior Anti-cheat engineer at Riot\u00A0Games`,
             github_url: user?.githubUsername
               ? `https://github.com/${user?.githubUsername}`
               : null,
           } as Profile
         }
       />
-      <FeaturedProjects projects={projects} />
+      {/* <FeaturedProjects projects={projects} /> */}
       <BlogPosts blogs={blogs} />
       <ExperienceTimeline experiences={experiences} />
       <Footer />
