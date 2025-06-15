@@ -22,7 +22,7 @@ export const serverBlogService = {
       .single();
 
     if (error) {
-      throw new Error(`Error creating blog: ${error.message || error.details}`);
+      throw new Error(`Error fetching blog: ${error.message || error.details}`);
     }
 
     return data as Blog;
