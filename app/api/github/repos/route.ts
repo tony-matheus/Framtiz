@@ -59,8 +59,6 @@ export async function GET(req: NextRequest) {
       per_page,
     });
 
-    console.log(repos);
-
     const pagination = extractGithubPaginationData(headers.link);
     const parsed = RepoArraySchema.safeParse(repos);
 

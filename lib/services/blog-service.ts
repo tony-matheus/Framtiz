@@ -45,7 +45,10 @@ const getAllBlogs = async (
 
   const totalPages = Math.ceil((count || 1) / limit);
 
-  return { blogs: data as Blog[], totalPages };
+  return {
+    blogs: data as Blog[],
+    totalPages,
+  };
 };
 
 export const serverBlogService = {

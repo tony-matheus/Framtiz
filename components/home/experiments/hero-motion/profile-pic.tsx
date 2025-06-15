@@ -12,8 +12,6 @@ export default function ProfilePic() {
   const [damageAnim, setDamageAnim] = useState(false);
   const [showHeal, setShowHeal] = useState(false);
 
-  console.log(hp);
-
   const handleClick = () => {
     if (damageAnim || hp <= 0) return; // prevent spam
 
@@ -26,7 +24,7 @@ export default function ProfilePic() {
       // Heal logic if < 50
       if (nextHp < 50 && Math.random() > 0.8) {
         const healed = Math.floor(Math.random() * 10) + 5;
-        console.log({ healed });
+
         setTimeout(() => {
           setHp((afterHit) => Math.min(100, afterHit + healed));
           setShowHeal(true);

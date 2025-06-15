@@ -187,29 +187,33 @@ export default function FloatingNav() {
                   </Fragment>
                 ))}
 
-                {LOGGED_IN_NAV_ITEMS.map((item, index) => (
-                  <Fragment key={index}>
-                    {/* Don't show admin link if not admin */}
-                    {(item.label !== 'USER_PROFILE' || isAdmin) && (
-                      <NavItem
-                        className='mb-2'
-                        {...item}
-                        status={glitchActive ? 'INACTIVE' : item.status}
-                      />
-                    )}
-                  </Fragment>
-                ))}
+                {loggedIn && (
+                  <>
+                    {LOGGED_IN_NAV_ITEMS.map((item, index) => (
+                      <Fragment key={index}>
+                        {/* Don't show admin link if not admin */}
+                        {(item.label !== 'USER_PROFILE' || isAdmin) && (
+                          <NavItem
+                            className='mb-2'
+                            {...item}
+                            status={glitchActive ? 'INACTIVE' : item.status}
+                          />
+                        )}
+                      </Fragment>
+                    ))}
+                  </>
+                )}
 
                 {/* Login/Signup links if not admin */}
-                {!loggedIn && (
+                {/* {!loggedIn && (
                   <NavItem
-                    label='Login'
+                    label='LOGIN'
                     href='/admin/login'
                     status='ACTIVE'
                     icon={<User size={18} />}
                     className='mb-2'
                   />
-                )}
+                )} */}
               </div>
 
               {/* Power status */}

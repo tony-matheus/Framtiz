@@ -32,7 +32,6 @@ export const useFetchExperiences = ({
   const { data, isPending, isError } = useQuery(
     experienceQueryOptions({ title, page, limit })
   );
-  console.log(data, isPending);
 
   return {
     experiences: data?.experiences ?? [],

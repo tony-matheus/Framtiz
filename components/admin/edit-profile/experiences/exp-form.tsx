@@ -55,7 +55,6 @@ export default function ExpForm({
   });
 
   const handleConfirm = (exp: ExperienceInput) => {
-    console.log(exp);
     onSubmit(exp);
   };
 

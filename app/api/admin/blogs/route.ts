@@ -5,12 +5,6 @@ import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
   try {
-    const isAdmin = await serverAuthService.isAdmin();
-
-    if (!isAdmin) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const { searchParams } = new URL(request.url);
 
     const options = {
@@ -21,6 +15,12 @@ export async function GET(request: Request) {
 
     const { blogs, totalPages: totalPages } =
       await serverBlogService.getAllBlogs(options);
+
+    // const simpleResponse = searchParams.get('simple_response') === 'true';
+
+    // const result = simpleResponse
+    //   ? blogs.map(({ content, ...rest }) => rest) // remove `content` field
+    //   : blogs;
 
     const response = NextResponse.json(blogs, { status: 200 });
     response.headers.set('x-page', options.page.toString());

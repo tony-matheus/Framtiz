@@ -65,7 +65,6 @@ export default function BlogEditorDialog({
     try {
       const { data } = await generateData(content);
 
-      console.log();
       setReadTime(data.read_time);
       setExcerpt(data.excerpt);
     } catch (error) {

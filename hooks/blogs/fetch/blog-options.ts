@@ -11,13 +11,15 @@ export async function fetchBlogs({
   title,
   page,
   limit,
+  simpleResponse = false,
 }: {
   title?: string;
   page: number;
   limit: number;
+  simpleResponse?: boolean;
 }): Promise<PaginatedBlogResponse> {
   const { data, headers } = await axios.get<Blog[]>('/api/admin/blogs', {
-    params: { title, page, limit },
+    params: { title, page, limit, simple_response: simpleResponse },
   });
 
   return { blogs: data, totalPages: Number(headers['x-total-pages']) };

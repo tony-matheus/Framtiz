@@ -1,5 +1,3 @@
-// lib/services/ai-blog-service.ts
-
 import OpenAI from 'openai';
 import { BLOG_PROMPTS } from './contants/potential-prompts';
 import { formatBlogMessage } from './helpers/format-blog-message';

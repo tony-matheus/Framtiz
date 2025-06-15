@@ -10,7 +10,6 @@ async function uploadImage({ id, image }: { id: number; image: File }) {
     formData
   );
 
-  console.log(rest);
   return data;
 }
 

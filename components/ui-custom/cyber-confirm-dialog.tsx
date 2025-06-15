@@ -37,8 +37,6 @@ export function CyberConfirmDialog({
   variant = 'destructive',
   isLoading = false,
 }: CyberConfirmDialogProps) {
-  console.log(variant);
-
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';

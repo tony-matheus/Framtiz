@@ -105,7 +105,7 @@ export const clientProjectService = {
     const { data, error } = await supabase
       .from('projects')
       .insert({
-        project,
+        ...project,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       })
