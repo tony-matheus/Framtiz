@@ -78,6 +78,7 @@ export default function BlogEditorDialog({
       content,
       published: published,
       excerpt,
+      image_url: null,
     });
 
     onSave?.(savedBlog);
