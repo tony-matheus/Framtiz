@@ -1,4 +1,4 @@
-import { Blog } from '@/lib/services/blog-service';
+import { Blog } from '@/lib/services/blog-service/helpers';
 import { AnyUseMutationOptions, useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 

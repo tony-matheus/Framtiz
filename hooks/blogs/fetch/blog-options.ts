@@ -1,4 +1,5 @@
-import { Blog } from '@/lib/services/blog-service';
+import { clientBlogService } from '@/lib/services/blog-service/client';
+import { Blog } from '@/lib/services/blog-service/helpers';
 import { keepPreviousData, queryOptions } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -25,6 +26,36 @@ export async function fetchBlogs({
   return { blogs: data, totalPages: Number(headers['x-total-pages']) };
 }
 
+export async function fetchPublicBlogs({
+  title,
+  page,
+  limit,
+  simpleResponse = false,
+}: {
+  title?: string;
+  page: number;
+  limit: number;
+  simpleResponse?: boolean;
+}) {
+  const { blogs, totalPages } = await clientBlogService.getAll({
+    title,
+    page,
+    limit,
+  });
+
+  return {
+    blogs: simpleResponse
+      ? blogs.map(({ id, title, excerpt, read_time }) => ({
+          id,
+          title,
+          excerpt,
+          read_time,
+        }))
+      : blogs,
+    totalPages,
+  };
+}
+
 export const blogQueryOptions = ({
   title,
   page,
@@ -37,6 +68,22 @@ export const blogQueryOptions = ({
   queryOptions({
     queryKey: ['blogs', title ?? '', page],
     queryFn: () => fetchBlogs({ title, page, limit }),
+    placeholderData: keepPreviousData,
+    // staleTime: 60_000,
+  });
+
+export const publicBlogQueryOptions = ({
+  title,
+  page,
+  limit = 10,
+}: {
+  title?: string;
+  page: number;
+  limit?: number;
+}) =>
+  queryOptions({
+    queryKey: ['blogs_supabase', title ?? '', page],
+    queryFn: () => fetchPublicBlogs({ title, page, limit }),
     placeholderData: keepPreviousData,
     // staleTime: 60_000,
   });

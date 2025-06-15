@@ -3,7 +3,7 @@
 import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useOneTimeAnimation } from '@/hooks/use-one-time-animations';
-import { Blog } from '@/lib/services/blog-service';
+import { Blog } from '@/lib/services/blog-service/helpers';
 import BlogPost from './blog-post';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';

@@ -7,7 +7,7 @@ import { Profile } from '@/components/home/hero';
 
 import ScrollProgress from '@/components/home/scroll-progress';
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
-import { serverBlogService } from '@/lib/services/blog-service';
+import { serverBlogService } from '@/lib/services/blog-service/server';
 import { serverExperienceService } from '@/lib/services/experience-service';
 
 export default async function Home() {

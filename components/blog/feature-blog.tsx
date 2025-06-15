@@ -1,4 +1,4 @@
-import { Blog } from '@/lib/services/blog-service';
+import { Blog } from '@/lib/services/blog-service/helpers';
 import { ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
 import { CyberCard } from '../ui-custom/cyber-card';
 import { CyberStatusBadge } from '../ui-custom/cyber-status-badge';

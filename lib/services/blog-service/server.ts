@@ -1,55 +1,7 @@
-import { BlogInput } from '../schemas/blog-schemas';
-import { createServerSupabaseClient } from '../supabase/server';
-import { SupabaseClient } from '@supabase/supabase-js';
+import { BlogInput } from '../../schemas/blog-schemas';
 
-export type Blog = {
-  id: number;
-  title: string;
-  content?: string | null;
-  published?: boolean | null;
-  created_at?: string | null;
-  excerpt?: string | null;
-  read_time?: number;
-  updated_at?: string | null;
-  image_url?: string | null;
-};
-
-interface GetAllBlogsOptions {
-  title?: string;
-  page?: number;
-  limit?: number;
-}
-
-const getAllBlogs = async (
-  supabaseClient: SupabaseClient,
-  { title, page = 1, limit = 10 }: GetAllBlogsOptions
-): Promise<{ blogs: Blog[]; totalPages: number }> => {
-  let query = supabaseClient.from('blogs').select('*', { count: 'exact' });
-
-  if (title) {
-    query = query.ilike('title', `%${title}%`);
-  }
-
-  const from = (page - 1) * limit;
-  const to = from + limit - 1;
-
-  query = query.range(from, to);
-
-  const { data, count, error } = await query.order('created_at', {
-    ascending: false,
-  });
-
-  if (error) {
-    throw new Error(`Error fetching blogs: ${error.message || error.details}`);
-  }
-
-  const totalPages = Math.ceil((count || 1) / limit);
-
-  return {
-    blogs: data as Blog[],
-    totalPages,
-  };
-};
+import { createServerSupabaseClient } from '../../supabase/server';
+import { Blog, getAllBlogs, GetAllBlogsOptions } from './helpers';
 
 export const serverBlogService = {
   async getAllBlogs(
@@ -124,15 +76,5 @@ export const serverBlogService = {
     }
 
     return true;
-  },
-};
-
-export const clientBlogService = {
-  async getAllBlos(
-    options: GetAllBlogsOptions
-  ): Promise<{ blogs: Blog[]; totalPages: number }> {
-    const supabase = await createServerSupabaseClient();
-
-    return getAllBlogs(supabase, options);
   },
 };

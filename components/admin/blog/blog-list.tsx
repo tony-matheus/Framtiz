@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-import { Blog } from '@/lib/services/blog-service';
+import { Blog } from '@/lib/services/blog-service/helpers';
 import BlogCard, { BlogCardProps } from '@/components/admin/blog/blog-card';
 import { FileText } from 'lucide-react';
 import EmptyState from '../empty-state';

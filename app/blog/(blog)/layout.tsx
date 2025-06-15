@@ -1,6 +1,6 @@
 import FloatingNav from '@/components/home/floating-nav/floating-nav';
 import Footer from '@/components/home/footer';
-import { blogQueryOptions } from '@/hooks/blogs/fetch/blog-options';
+import { publicBlogQueryOptions } from '@/hooks/blogs/fetch/blog-options';
 import ReactQueryProvider from '@/lib/contexts/react-query-provider';
 import { getQueryClient } from '@/lib/helpers/get-query-client';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
@@ -10,7 +10,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery(
-    blogQueryOptions({
+    publicBlogQueryOptions({
       page: 1,
       title: '',
     })

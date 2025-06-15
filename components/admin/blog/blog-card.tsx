@@ -2,7 +2,7 @@
 
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberButton } from '@/components/ui-custom/cyber-button';
-import { Blog } from '@/lib/services/blog-service';
+import { Blog } from '@/lib/services/blog-service/helpers';
 import { CyberSwitch } from '@/components/ui-custom/cyber-switch';
 import { useState } from 'react';
 import Heading from '@/components/ui/typography/heading';

@@ -1,4 +1,4 @@
-import { Blog } from '@/lib/services/blog-service';
+import { Blog } from '@/lib/services/blog-service/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CyberCard, CyberCardContent } from '../ui-custom/cyber-card';

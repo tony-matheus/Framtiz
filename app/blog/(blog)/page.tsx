@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useSuspenseFetchBlogs } from '@/hooks/blogs/fetch/use-suspense-fetch-blogs';
 import BlogHeader from '@/components/blog/blog-header';
 import FeatureBlog from '@/components/blog/feature-blog';
 import { Search } from 'lucide-react';
@@ -9,11 +8,13 @@ import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberPagination } from '@/components/ui-custom/cyber-pagination';
 
 import BlogCard from '@/components/blog/blog-card';
+import { useSuspenseFetchBlogsPublic } from '@/hooks/blogs/fetch/use-suspense-fetch-blogs-public';
 
 export default function Blog() {
-  const { blogs, totalPages, currentPage, goToPage } = useSuspenseFetchBlogs({
-    initialPage: 1,
-  });
+  const { blogs, totalPages, currentPage, goToPage } =
+    useSuspenseFetchBlogsPublic({
+      initialPage: 1,
+    });
 
   return (
     <div>
@@ -26,14 +27,16 @@ export default function Blog() {
       >
         <BlogHeader />
       </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className='mb-16'
-      >
-        <FeatureBlog blog={blogs[0]} />
-      </motion.div>
+      {blogs.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className='mb-16'
+        >
+          <FeatureBlog blog={blogs[0]} />
+        </motion.div>
+      )}
 
       {blogs.length > 0 ? (
         <>

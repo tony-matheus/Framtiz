@@ -17,7 +17,7 @@ import {
 import FullScreenEditor from './full-screen-editor';
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { useCreateBlog } from '@/hooks/blogs/mutations/use-create-blog';
-import { Blog } from '@/lib/services/blog-service';
+import { Blog } from '@/lib/services/blog-service/helpers';
 import { useUpdateBlog } from '@/hooks/blogs/mutations/use-update-blog';
 import BlogContentEditor from './blog-content-editor';
 import CyberInput from '@/components/ui-custom/cyber-input';

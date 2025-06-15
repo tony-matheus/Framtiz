@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { blogQueryOptions } from './blog-options';
-import { Blog } from '@/lib/services/blog-service';
-
+import { Blog } from '@/lib/services/blog-service/helpers';
 export type UseFetchBlogsResult = {
   blogs: Blog[];
   currentPage: number;

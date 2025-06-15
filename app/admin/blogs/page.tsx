@@ -6,7 +6,7 @@ import { Plus } from 'lucide-react';
 
 import { CyberButton } from '@/components/ui-custom/cyber-button';
 import BlogEditorDialog from '@/components/admin/blog/blog-editor-dialog';
-import { Blog } from '@/lib/services/blog-service';
+import { Blog } from '@/lib/services/blog-service/helpers';
 import { useDestroyBlog } from '@/hooks/blogs/mutations/use-destroy-blog';
 import { useUpdateBlog } from '@/hooks/blogs/mutations/use-update-blog';
 import BlogList from '@/components/admin/blog/blog-list';
