@@ -9,6 +9,9 @@ export async function GET(request: Request) {
 
     const options = {
       title: searchParams.get('title') || undefined,
+      published: searchParams.get('published')
+        ? Boolean(searchParams.get('published'))
+        : null,
       page: parseInt(searchParams.get('page') || '1'),
       limit: parseInt(searchParams.get('limit') || '10'),
     };
@@ -21,10 +24,13 @@ export async function GET(request: Request) {
     response.headers.set('x-total-pages', totalPages.toString());
 
     return response;
-  } catch (error) {
-    console.error('Error fetching blogs:', error);
+  } catch (err) {
+    console.error('Error fetching blogs:', err);
+
     return NextResponse.json(
-      { error: error || 'Internal server error' },
+      {
+        error: err instanceof Error ? err.message : 'Unexpected error occurred',
+      },
       { status: 500 }
     );
   }
@@ -39,7 +45,7 @@ export async function POST(request: Request) {
     }
 
     const data = await request.json();
-    console.log(data);
+
     const parsedData = BlogInputSchema.safeParse(data);
 
     if (!parsedData.success) {
@@ -52,9 +58,13 @@ export async function POST(request: Request) {
     const blog = await serverBlogService.createBlog(parsedData.data);
 
     return NextResponse.json(blog);
-  } catch (error) {
+  } catch (err) {
+    console.error('Error in /blogs route:', err);
+
     return NextResponse.json(
-      { error: error ?? 'Internal server error' },
+      {
+        error: err instanceof Error ? err.message : 'Unexpected error occurred',
+      },
       { status: 500 }
     );
   }

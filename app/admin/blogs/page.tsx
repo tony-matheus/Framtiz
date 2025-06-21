@@ -12,9 +12,9 @@ import { useUpdateBlog } from '@/hooks/blogs/mutations/use-update-blog';
 import BlogList from '@/components/admin/blog/blog-list';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberPagination } from '@/components/ui-custom/cyber-pagination';
-import { useSuspenseFetchBlogs } from '@/hooks/blogs/fetch/use-suspense-fetch-blogs';
 import { useQueryClient } from '@tanstack/react-query';
 import CyberSearchInput from '@/components/ui-custom/inputs/cyber-search-input';
+import { useFetchBlogs } from '@/hooks/blogs/fetch/use-fetch-blogs';
 
 export default function BlogPage() {
   const queryClient = useQueryClient();
@@ -28,10 +28,12 @@ export default function BlogPage() {
 
   const { mutateAsync: updateBlog } = useUpdateBlog();
 
-  const { blogs, totalPages, currentPage, goToPage } = useSuspenseFetchBlogs({
-    initialPage: 1,
-    title: term,
-  });
+  const { blogs, totalPages, currentPage, goToPage, isLoading } = useFetchBlogs(
+    {
+      initialPage: 1,
+      title: term,
+    }
+  );
 
   const refetchPage = (page: number, term = '') => {
     queryClient.refetchQueries({
@@ -92,7 +94,7 @@ export default function BlogPage() {
           transition={{ duration: 0.5 }}
           className='mb-4 flex  items-start justify-between gap-4 py-4  md:items-center'
         >
-          <CyberSearchInput onSearch={setTerm} />
+          <CyberSearchInput onSearch={setTerm} placeholder='Type to search…' />
 
           <CyberButton
             variant='primary'
@@ -103,8 +105,8 @@ export default function BlogPage() {
             ADD_BLOG
           </CyberButton>
         </motion.div>
-
         <BlogList
+          loading={isLoading}
           blogs={blogs}
           onAdd={handleAddBlog}
           onEdit={handleEditBlog}
@@ -137,6 +139,10 @@ export default function BlogPage() {
       <BlogEditorDialog
         isOpen={isDialogOpen}
         onOpenChange={setIsDialogOpen}
+        onCancel={() => {
+          setIsDialogOpen(false);
+          setCurrentBlog(null);
+        }}
         onSave={handleSaveBlog}
         blog={currentBlog}
       />

@@ -3,6 +3,7 @@ import { Search } from 'lucide-react';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import CyberInput from '../cyber-input';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface CyberSearchInputProps {
   term?: string;
@@ -17,6 +18,9 @@ export default function CyberSearchInput({
   className,
   placeholder,
 }: CyberSearchInputProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [searchTerm, setSearchTerm] = useState<string>(term ?? '');
 
   const debouncedSearch = useDebouncedCallback((newTerm: string) => {
@@ -26,14 +30,15 @@ export default function CyberSearchInput({
   }, 500);
 
   const saveSearchParams = (newTerm: string) => {
-    const url = new URL(window.location.href);
+    const params = new URLSearchParams(searchParams.toString());
 
     if (newTerm) {
-      url.searchParams.set('query', newTerm);
+      params.set('query', newTerm);
     } else {
-      url.searchParams.delete('query');
+      params.delete('query');
     }
-    window.history.replaceState({}, '', url.toString());
+
+    router.replace(`?${params.toString()}`);
   };
 
   const handleTyping = (newTerm: string) => {
@@ -43,7 +48,7 @@ export default function CyberSearchInput({
 
   return (
     <div className={cn('relative flex-1', className)}>
-      <div className='absolute inset-y-0 left-0 flex w-10 items-center justify-center border-r border-slate-700'>
+      <div className='absolute inset-y-0 left-0 z-10 flex w-10 items-center justify-center border-r border-slate-700'>
         <Search size={16} className='text-slate-500' />
       </div>
       <CyberInput

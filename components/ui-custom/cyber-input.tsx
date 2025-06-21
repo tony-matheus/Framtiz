@@ -16,8 +16,8 @@ const CyberInput = forwardRef<HTMLInputElement, CyberInputProps>(
     return (
       <div className='w-full'>
         {!!label && <Label className='mb-2 block'>{label}</Label>}
-        <div className='relative'>
-          {icon && (
+        <div className='relative w-full'>
+          {!!icon && (
             <div className='absolute inset-y-0 left-0 flex w-10 items-center justify-center border-r border-slate-700'>
               {icon}
             </div>
@@ -27,7 +27,7 @@ const CyberInput = forwardRef<HTMLInputElement, CyberInputProps>(
             type={type}
             className={cn(
               'w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600',
-              icon && 'pl-12',
+              !!icon && 'pl-12',
               className
             )}
             {...props}

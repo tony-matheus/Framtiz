@@ -49,9 +49,7 @@ export function CyberCardHeader({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <CardHeader className={cn('px-4 py-3', className)}>{children}</CardHeader>
-  );
+  return <CardHeader className={cn('p-4', className)}>{children}</CardHeader>;
 }
 
 export function CyberCardContent({
@@ -61,9 +59,7 @@ export function CyberCardContent({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <CardContent className={cn('px-4 py-3', className)}>{children}</CardContent>
-  );
+  return <CardContent className={cn('p-4', className)}>{children}</CardContent>;
 }
 
 export function CyberCardFooter({
@@ -73,7 +69,5 @@ export function CyberCardFooter({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <CardFooter className={cn('px-4 py-3', className)}>{children}</CardFooter>
-  );
+  return <CardFooter className={cn('p-4', className)}>{children}</CardFooter>;
 }

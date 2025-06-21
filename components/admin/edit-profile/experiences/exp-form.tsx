@@ -5,7 +5,7 @@ import {
   CyberFormLabel,
   CyberFormMessage,
   CyberFormProvider,
-} from '@/components/ui-custom/cyber-form';
+} from '@/components/ui-custom/cyber-form/cyber-form';
 import CyberInput from '@/components/ui-custom/cyber-input';
 import {
   CyberSelect,

@@ -1,12 +1,11 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useOneTimeAnimation } from '@/hooks/use-one-time-animations';
 import { Blog } from '@/lib/services/blog-service/helpers';
-import BlogPost from './blog-post';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import BlogCard from '@/components/blog/blog-card';
 
 interface BlogPostsProps {
   blogs: Blog[];
@@ -14,48 +13,6 @@ interface BlogPostsProps {
 
 export default function BlogPosts({ blogs }: BlogPostsProps) {
   const { ref, shouldAnimate } = useOneTimeAnimation(0.2);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  // const [currentIndex, setCurrentIndex] = useState(0);
-  // const [canScrollLeft, setCanScrollLeft] = useState(false);
-  // const [canScrollRight, setCanScrollRight] = useState(true);
-
-  // const updateScrollButtons = () => {
-  //   if (carouselRef.current) {
-  //     const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-  //     setCanScrollLeft(scrollLeft > 0);
-  //     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-  //   }
-  // };
-
-  // const scrollToIndex = (index: number) => {
-  //   if (carouselRef.current) {
-  //     const cardWidth = 400 + 32; // card width + gap
-  //     carouselRef.current.scrollTo({
-  //       left: index * cardWidth,
-  //       behavior: 'smooth',
-  //     });
-  //     setCurrentIndex(index);
-  //   }
-  // };
-
-  // const scrollLeft = () => {
-  //   const newIndex = Math.max(0, currentIndex - 1);
-  //   scrollToIndex(newIndex);
-  // };
-
-  // const scrollRight = () => {
-  //   const newIndex = Math.min(blogPosts.length - 1, currentIndex + 1);
-  //   scrollToIndex(newIndex);
-  // };
-
-  useEffect(() => {
-    const carousel = carouselRef.current;
-    if (carousel) {
-      // carousel.addEventListener('scroll', updateScrollButtons);
-      // updateScrollButtons();
-      // return () => carousel.removeEventListener('scroll', updateScrollButtons);
-    }
-  }, []);
 
   return (
     <section
@@ -64,23 +21,19 @@ export default function BlogPosts({ blogs }: BlogPostsProps) {
       id='blog'
     >
       <div className='container mx-auto overflow-hidden py-24'>
-        <div className='px-4'>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={
-              shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
-            }
-            transition={{ duration: 1, ease: 'easeOut' }}
-            className='mb-16 text-center'
-          >
-            <h2 className='mb-6  text-4xl text-slate-100 md:text-6xl'>
-              LATEST INSIGHTS
-            </h2>
-            <p className='mx-auto max-w-2xl font-mono text-xl text-slate-400'>
-              Thoughts on technology, development, and innovation.
-            </p>
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
+          className='mb-16 text-center'
+        >
+          <h2 className='mb-6  text-4xl text-slate-100 md:text-6xl'>
+            LATEST INSIGHTS
+          </h2>
+          <p className='mx-auto max-w-2xl font-mono text-xl text-slate-400'>
+            Thoughts on technology, development, and innovation.
+          </p>
+        </motion.div>
 
         {/* Carousel Container */}
         <div className='relative'>
@@ -117,19 +70,11 @@ export default function BlogPosts({ blogs }: BlogPostsProps) {
               shouldAnimate ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }
             }
             transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
-            ref={carouselRef}
-            className='scrollbar-hide flex flex-col gap-8 scroll-smooth px-4 md:flex-row md:overflow-x-auto md:px-8'
+            className='scrollbar-hide flex flex-row gap-8 overflow-x-auto scroll-smooth'
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            // onScroll={updateScrollButtons}
           >
-            {blogs.map((post) => (
-              <BlogPost
-                key={post.id}
-                id={post.id}
-                title={post.title}
-                date={post.updated_at ?? ''}
-                image={post.image_url ?? '/placeholder.svg'}
-              />
+            {blogs.map((blog) => (
+              <BlogCard key={blog.id} blog={blog} className='w-96 shrink-0' />
             ))}
           </motion.div>
 

@@ -7,7 +7,8 @@ type Props = {
 };
 
 export default async function Page({ params }: Props) {
-  const blogId = Number(params.slug);
+  const { slug } = await params;
+  const blogId = Number(slug);
 
   if (isNaN(blogId)) {
     notFound();
@@ -15,6 +16,11 @@ export default async function Page({ params }: Props) {
 
   try {
     const blog = await serverBlogService.getBlog(blogId);
+
+    if (!blog.published) {
+      throw new Error('Not published');
+    }
+
     return <BlogPost blog={blog} />;
   } catch {
     notFound();

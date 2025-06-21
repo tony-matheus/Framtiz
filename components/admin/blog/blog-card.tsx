@@ -44,7 +44,7 @@ export default function BlogCard({
         <div className='flex items-start justify-between gap-2'>
           <Heading
             as='h4'
-            className=' overflow-hidden font-mono text-lg text-slate-200'
+            className=' h-[84px] overflow-hidden font-mono text-lg text-slate-200'
           >
             {blog.title}
           </Heading>

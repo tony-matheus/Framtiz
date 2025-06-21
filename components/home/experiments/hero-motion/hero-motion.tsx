@@ -74,7 +74,7 @@ export default function HeroMotion({ profile }: ProjectShowcaseProps) {
           repeat: Number.POSITIVE_INFINITY,
           repeatType: 'reverse',
         }}
-        className='absolute bottom-4 left-1/2 -translate-x-1/2'
+        className='absolute inset-x-auto bottom-4'
       >
         <ArrowDown className='size-6 text-purple-400' />
       </motion.div>

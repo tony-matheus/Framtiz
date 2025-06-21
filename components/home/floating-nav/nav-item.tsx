@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
 export interface NavItemsProps {
   href: string;
@@ -8,6 +9,7 @@ export interface NavItemsProps {
   label: string;
   status: 'ACTIVE' | 'WARNING' | 'INACTIVE';
   className?: string;
+  selected?: boolean;
 }
 
 const COLOR_MAP = {
@@ -46,14 +48,12 @@ export default function NavItem({
   label,
   status = 'ACTIVE',
   className = '',
+  selected = false,
 }: NavItemsProps) {
   return (
     <motion.div
       className={className}
       whileHover={{ x: 5 }}
-      whileTap={
-        status !== 'INACTIVE' ? { scale: 0.98 } : { x: [0, -5, 5, -5, 5, 0] }
-      }
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.2 }}
@@ -61,13 +61,16 @@ export default function NavItem({
       <NavLinkWrapper
         href={href}
         status={status}
-        className='group flex cursor-pointer items-center justify-between border border-slate-800 p-3 transition-colors hover:border-purple-600 hover:bg-slate-800/50'
+        className={cn(
+          'group flex cursor-pointer items-center justify-between border  p-3 transition-colors border-slate-800',
+          selected
+            ? 'bg-purple-800 text-slate-300 hover:text-green-400 font-bold hover:border-green-400 '
+            : 'text-slate-300 hover:bg-slate-800/50 hover:text-green-400  hover:border-purple-600 '
+        )}
       >
         <div className='flex items-center'>
-          <span className='mr-3 text-purple-400 transition-colors group-hover:text-green-400'>
-            {icon}
-          </span>
-          <span className='font-mono text-sm text-slate-300'>{label}</span>
+          <span className='mr-3 transition-colors'>{icon}</span>
+          <span className='font-mono text-sm'>{label}</span>
         </div>
         <div className='flex items-center'>
           <span

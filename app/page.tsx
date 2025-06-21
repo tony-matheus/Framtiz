@@ -11,7 +11,10 @@ import { serverBlogService } from '@/lib/services/blog-service/server';
 import { serverExperienceService } from '@/lib/services/experience-service';
 
 export default async function Home() {
-  const { blogs } = await serverBlogService.getAllBlogs({ limit: 4 });
+  const { blogs } = await serverBlogService.getAllBlogs({
+    limit: 4,
+    published: true,
+  });
   const { experiences } = await serverExperienceService.getAll();
 
   const user = await serverAuthService.getCurrentUser();
@@ -32,7 +35,6 @@ export default async function Home() {
           } as Profile
         }
       />
-      {/* <FeaturedProjects projects={projects} /> */}
       <BlogPosts blogs={blogs} />
       <ExperienceTimeline experiences={experiences} />
       <Footer />

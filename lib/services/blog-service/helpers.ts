@@ -4,7 +4,7 @@ export type Blog = {
   id: number;
   title: string;
   content?: string | null;
-  published?: boolean | null;
+  published?: boolean;
   created_at?: string | null;
   excerpt?: string | null;
   read_time?: number;
@@ -16,16 +16,21 @@ export interface GetAllBlogsOptions {
   title?: string;
   page?: number;
   limit?: number;
+  published?: boolean | null;
 }
 
 export const getAllBlogs = async (
   supabaseClient: SupabaseClient,
-  { title, page = 1, limit = 10 }: GetAllBlogsOptions
+  { title, published, page = 1, limit = 10 }: GetAllBlogsOptions
 ): Promise<{ blogs: Blog[]; totalPages: number }> => {
   let query = supabaseClient.from('blogs').select('*', { count: 'exact' });
 
   if (title) {
     query = query.ilike('title', `%${title}%`);
+  }
+
+  if (published !== null && published !== undefined) {
+    query = query.eq('published', published);
   }
 
   const from = (page - 1) * limit;

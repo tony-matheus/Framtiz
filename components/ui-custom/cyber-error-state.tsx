@@ -9,6 +9,7 @@ interface CyberErrorStateProps {
   message?: string;
   onRetry?: () => void;
   className?: string;
+  compress?: boolean;
 }
 
 export function CyberErrorState({

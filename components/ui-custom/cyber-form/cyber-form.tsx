@@ -1,7 +1,7 @@
 import * as FormPrimitive from '@/components/ui/form';
 import * as LabelPrimitive from '@radix-ui/react-label';
 
-import { CyberLabel } from './cyber-label';
+import { CyberLabel } from '../cyber-label';
 import { cn } from '@/lib/utils';
 import { forwardRef } from 'react';
 
@@ -18,7 +18,7 @@ const CyberFormItem = forwardRef<
   return (
     <FormPrimitive.FormItem
       ref={ref}
-      className={cn('space-y-2', className)}
+      className={cn(className ?? 'space-y-2')}
       {...props}
     />
   );
@@ -37,7 +37,7 @@ const CyberFormDescription = forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn('text-[0.8rem] text-muted-foreground', className)}
+      className={cn('text-xs text-muted-foreground relative', className)}
       {...props}
     />
   );
@@ -51,15 +51,15 @@ const CyberFormMessage = forwardRef<
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message ?? '') : children;
 
-  if (!body) {
-    return null;
-  }
-
   return (
     <p
       ref={ref}
       id={formMessageId}
-      className={cn('text-xs font-medium text-destructive', className)}
+      className={cn(
+        'text-xs font-medium text-red-400 mt-0',
+        body ? '' : 'text-red-400',
+        className
+      )}
       {...props}
     >
       {body}
@@ -77,7 +77,7 @@ const CyberFormLabel = forwardRef<
   return (
     <CyberLabel
       ref={ref}
-      className={cn(error && 'text-destructive', className, 'mb-2 blockn')}
+      className={cn(error && 'text-destructive', 'mb-2 blockn', className)}
       htmlFor={formItemId}
       {...props}
     />

@@ -2,34 +2,33 @@
 
 import type React from 'react';
 
-import { useEffect, useState } from 'react';
-import { Save, X, FileText, Maximize2, Sparkles } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { X, FileText, Maximize2 } from 'lucide-react';
 import { CyberButton } from '@/components/ui-custom/cyber-button';
-import { CyberSwitch } from '@/components/ui-custom/cyber-switch';
-import { Label } from '@/components/ui/label';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-} from '@/components/ui/dialog';
-import FullScreenEditor from './full-screen-editor';
+import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { useCreateBlog } from '@/hooks/blogs/mutations/use-create-blog';
 import { Blog } from '@/lib/services/blog-service/helpers';
 import { useUpdateBlog } from '@/hooks/blogs/mutations/use-update-blog';
-import BlogContentEditor from './blog-content-editor';
-import CyberInput from '@/components/ui-custom/cyber-input';
 import { CyberErrorState } from '@/components/ui-custom/cyber-error-state';
-import { cn } from '@/lib/utils';
-import { useGenerateBlogContent } from '@/hooks/blogs/mutations/use-generate-content';
-import { Separator } from '@/components/ui/separator';
+import BlogForm from './blog-form';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { BlogInput, BlogInputSchema } from '@/lib/schemas/blog-schemas';
+import { CyberFormProvider } from '@/components/ui-custom/cyber-form/cyber-form';
+import FullScreenEditor from './full-screen-editor';
+import { mergeRight } from 'ramda';
+import { useDebouncedCallback } from 'use-debounce';
+
+const STORAGE_KEY = 'BLOG_FORM_STORAGE_KEY';
+// sessionStorage.getItem('BLOG_FORM_STORAGE_KEY')
 
 interface BlogEditorDialogProps {
   isOpen: boolean;
   onOpenChange: (arg0: boolean) => void;
   onSave: (arg0: Blog) => void;
+  onCancel: () => void;
   blog?: Blog | null;
 }
 
@@ -38,13 +37,52 @@ export default function BlogEditorDialog({
   onOpenChange,
   onSave,
   blog,
+  onCancel,
 }: BlogEditorDialogProps) {
-  const [title, setTitle] = useState(blog?.title || '');
-  const [content, setContent] = useState(blog?.content || '');
-  const [excerpt, setExcerpt] = useState(blog?.excerpt || '');
-  const [readTime, setReadTime] = useState<number | null>(null);
-  const [published, setPublished] = useState(blog?.published ?? false);
   const [isMaximized, setIsMaximized] = useState(false);
+
+  const toggleMaximize = () => setIsMaximized(!isMaximized);
+
+  const debouncedSave = useDebouncedCallback((values: BlogInput) => {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(values));
+  }, 500);
+
+  const { subscribe, ...blogForm } = useForm<BlogInput>({
+    resolver: zodResolver(BlogInputSchema),
+    defaultValues: {
+      title: '',
+      published: false,
+      content: null,
+      excerpt: null,
+      image_url: null,
+      ...blog,
+    },
+  });
+  const unsubscribeRef = useRef<ReturnType<typeof subscribe> | null>(null);
+
+  const lastSubscribedId = useRef<number | 'create'>(null);
+
+  useEffect(() => {
+    if (unsubscribeRef.current) return;
+
+    const idToTrack = blog?.id ?? 'create';
+
+    if (lastSubscribedId.current !== idToTrack) {
+      lastSubscribedId.current = idToTrack;
+      unsubscribeRef.current = subscribe({
+        formState: { values: true },
+        callback: ({ values }) => debouncedSave(values),
+      });
+    }
+
+    return () => {
+      if (unsubscribeRef.current) {
+        unsubscribeRef.current();
+        unsubscribeRef.current = null;
+        lastSubscribedId.current = null;
+      }
+    };
+  }, [blog?.id, subscribe, debouncedSave]);
 
   const {
     mutateAsync: createBlog,
@@ -58,213 +96,133 @@ export default function BlogEditorDialog({
     isError: isErrorUpdating,
   } = useUpdateBlog();
 
-  const { mutateAsync: generateData, isPending: isGenerating } =
-    useGenerateBlogContent();
-
-  const handleClick = async () => {
-    try {
-      const { data } = await generateData(content);
-
-      setReadTime(data.read_time);
-      setExcerpt(data.excerpt);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-  const handleCreateBlog = async () => {
-    const savedBlog = await createBlog({
-      title,
-      content,
-      published: published,
-      excerpt,
-      image_url: null,
-    });
+  const handleCreateBlog = async (blogInput: BlogInput) => {
+    const savedBlog = await createBlog(blogInput);
 
     onSave?.(savedBlog);
   };
 
-  const handleUpdateBlog = async () => {
+  const handleUpdateBlog = async (blogInput: BlogInput) => {
     if (!blog) return;
 
     const savedBlog = await updateBlog({
       id: blog?.id,
-      title,
-      content,
-      published: published,
+      ...blogInput,
     });
 
     onSave?.(savedBlog);
   };
 
-  const toggleMaximize = () => {
-    setIsMaximized(!isMaximized);
+  const onSubmit = (blogInput: BlogInput) => {
+    sessionStorage.removeItem(STORAGE_KEY);
+
+    if (blog) {
+      return handleUpdateBlog(blogInput);
+    }
+
+    handleCreateBlog(blogInput);
+  };
+
+  const handleCancel = () => {
+    blogForm.reset({
+      title: ' ',
+      published: false,
+      content: null,
+      excerpt: null,
+      image_url: null,
+    });
+    sessionStorage.removeItem(STORAGE_KEY);
+
+    onOpenChange(false);
+    onCancel();
   };
 
   useEffect(() => {
-    setTitle(blog?.title || '');
-    setContent(blog?.content || '');
-    setPublished(blog?.published ?? false);
-  }, [blog]);
+    if (!isOpen) return;
 
-  if (isErrorCreating || isErrorUpdating) {
-    return <CyberErrorState />;
-  }
+    const storedData =
+      typeof window !== 'undefined'
+        ? sessionStorage.getItem(STORAGE_KEY)
+        : null;
 
-  if (isMaximized) {
-    return (
-      <FullScreenEditor
-        title={title}
-        setTitle={setTitle}
-        content={content}
-        setContent={setContent}
-        published={published}
-        setPublished={setPublished}
-        onSave={blog ? handleUpdateBlog : handleCreateBlog}
-        onClose={() => setIsMaximized(false)}
-        isSaving={isCreating || isUpdating}
-      />
-    );
-  }
+    const data = storedData ? JSON.parse(storedData) : {};
+
+    const defaults = {
+      published: false,
+      content: null,
+      excerpt: null,
+      image_url: null,
+    };
+
+    if (blog) {
+      const merged =
+        data?.id === blog.id
+          ? mergeRight(defaults, mergeRight(blog, data))
+          : mergeRight(defaults, blog);
+
+      blogForm.reset(merged);
+    } else if (!data?.id) {
+      blogForm.reset(mergeRight(defaults, data));
+    } else {
+      blogForm.reset(defaults);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, blog]);
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent
-        showDismiss={false}
-        className='mx-auto max-h-[90dvh] max-w-[100vw] overflow-y-auto border-2 border-slate-800 bg-slate-900 p-0 text-slate-200 sm:min-w-[80vw] sm:max-w-[90vw]'
-      >
-        {/* Header */}
-        <DialogHeader>
-          <div className='z-10 flex items-center justify-between border-b border-slate-800 bg-slate-900 p-4'>
-            <DialogTitle className='flex items-center font-mono text-xl font-bold text-slate-200'>
-              <FileText className='mr-2 text-purple-400' size={20} />
-              <span>{blog ? 'EDIT_BLOG' : 'CREATE_BLOG'}</span>
-            </DialogTitle>
-            <div className='flex items-center gap-2'>
-              <CyberButton
-                variant='outline'
-                size='icon'
-                onClick={toggleMaximize}
-                title='Maximize Editor'
-              >
-                <Maximize2 size={18} />
-              </CyberButton>
-              <CyberButton
-                variant='outline'
-                size='icon'
-                onClick={() => onOpenChange(false)}
-              >
-                <X size={18} />
-              </CyberButton>
-            </div>
-          </div>
-        </DialogHeader>
-
-        {/* Content - scrollable area */}
-        <div className='flex-1 overflow-y-auto p-4'>
-          <div className='space-y-4'>
-            <div className='flex flex-col gap-4 md:flex-row md:items-center'>
-              <CyberInput
-                id='title'
-                type='text'
-                label='BLOG_TITLE'
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder='Enter blog title...'
-              />
-              <div className='w-[164] shrink-0'>
-                <Label htmlFor='status' className='mb-2 block'>
-                  ACTIVE_STATUS
-                </Label>
+    <CyberFormProvider {...blogForm} subscribe={subscribe}>
+      {isMaximized ? (
+        <FullScreenEditor
+          form={{ ...blogForm, subscribe }}
+          onSubmit={onSubmit}
+          onMinimize={() => setIsMaximized(false)}
+          onCancel={() => {
+            setIsMaximized(false);
+            onOpenChange(false);
+            onCancel();
+          }}
+          loading={isUpdating || isCreating}
+          editing={!!blog}
+        />
+      ) : (
+        <Dialog open={isOpen} onOpenChange={onOpenChange}>
+          <DialogContent
+            showDismiss={false}
+            className='mx-auto max-h-[95dvh] max-w-[100vw] overflow-y-auto overflow-x-hidden border-2 border-slate-800 bg-slate-900 p-0 text-slate-200 sm:min-w-[80vw] sm:max-w-[95vw]'
+          >
+            {/* Header */}
+            <DialogHeader>
+              <div className='z-10 flex items-center justify-between border-b border-slate-800 bg-slate-900 p-4'>
+                <DialogTitle className='flex items-center font-mono text-xl font-bold text-slate-200'>
+                  <FileText className='mr-2 text-purple-400' size={20} />
+                  <span>{blog ? 'EDIT_BLOG' : 'CREATE_BLOG'}</span>
+                </DialogTitle>
                 <div className='flex items-center gap-2'>
-                  <CyberSwitch
-                    id='status'
-                    size='compact'
-                    checked={published}
-                    onCheckedChange={setPublished}
-                  />
-                  <span className='font-mono text-sm text-slate-300'>
-                    {published ? 'PUBLISHED' : 'DRAFT'}
-                  </span>
+                  <CyberButton
+                    variant='outline'
+                    size='icon'
+                    onClick={toggleMaximize}
+                    title='Maximize Editor'
+                  >
+                    <Maximize2 size={18} />
+                  </CyberButton>
+                  <CyberButton variant='outline' size='icon' onClick={onCancel}>
+                    <X size={18} />
+                  </CyberButton>
                 </div>
               </div>
-            </div>
-            <BlogContentEditor content={content} onContentChange={setContent} />
-            <Separator className='h-[1] bg-gradient-to-r from-purple-500 to-green-400' />
-            <div className='flex items-center justify-between'>
-              <p className='font-mono text-xs'>
-                Generate the following with AI
-              </p>
-
-              <CyberButton
-                onClick={handleClick}
-                disabled={isGenerating}
-                size='sm'
-                className={cn(isGenerating ? 'ripple-loop' : '')}
-              >
-                <Sparkles
-                  className={cn('ml-2', isGenerating ? 'animate-shine' : false)}
-                />
-                Generate with AI
-              </CyberButton>
-            </div>
-            <Label htmlFor='excerpt' className='mb-2 block'>
-              EXCERPT
-            </Label>
-            <textarea
-              id='excerpt'
-              value={isGenerating ? '' : excerpt}
-              name='content'
-              disabled={isGenerating}
-              onChange={(e) => setExcerpt(e.target.value)}
-              className='h-[100px] w-full resize-none border border-slate-700 bg-slate-800 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600'
-              placeholder={
-                isGenerating ? 'Generating' : 'Write a short description'
-              }
+            </DialogHeader>
+            {(isErrorCreating || isErrorUpdating) && <CyberErrorState />}
+            <BlogForm
+              form={{ ...blogForm, subscribe }}
+              onSubmit={onSubmit}
+              onCancel={handleCancel}
+              loading={isUpdating || isCreating}
+              editing={!!blog}
             />
-          </div>
-        </div>
-
-        {/* Footer */}
-        <DialogFooter className='flex flex-row justify-end gap-3 border-t border-slate-800 bg-slate-900 p-4 '>
-          <CyberButton variant='outline' onClick={() => onOpenChange(false)}>
-            CANCEL
-          </CyberButton>
-          <CyberButton
-            variant='secondary'
-            onClick={blog ? handleUpdateBlog : handleCreateBlog}
-            isLoading={isCreating || isUpdating}
-            loadingText='SAVING...'
-            leftIcon={<Save size={16} />}
-            disabled={!title.trim()}
-          >
-            SAVE_BLOG
-          </CyberButton>
-
-          {/* Add inline keyframe animations */}
-          <style jsx>{`
-            @keyframes fadeIn {
-              from {
-                opacity: 0;
-              }
-              to {
-                opacity: 1;
-              }
-            }
-
-            @keyframes scaleIn {
-              from {
-                transform: translate(-50%, -50%) scale(0.95);
-                opacity: 0;
-              }
-              to {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-              }
-            }
-          `}</style>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </DialogContent>
+        </Dialog>
+      )}
+    </CyberFormProvider>
   );
 }

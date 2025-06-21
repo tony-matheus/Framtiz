@@ -8,19 +8,26 @@ export type PaginatedBlogResponse = {
   totalPages: number;
 };
 
+export type FetchBlogsProps = {
+  title?: string;
+  page: number;
+  limit?: number;
+  published?: boolean | null;
+};
+
+export type SimpleResponseBlogProps = {
+  simpleResponse?: boolean;
+} & FetchBlogsProps;
+
 export async function fetchBlogs({
   title,
   page,
   limit,
+  published = null,
   simpleResponse = false,
-}: {
-  title?: string;
-  page: number;
-  limit: number;
-  simpleResponse?: boolean;
-}): Promise<PaginatedBlogResponse> {
+}: SimpleResponseBlogProps): Promise<PaginatedBlogResponse> {
   const { data, headers } = await axios.get<Blog[]>('/api/admin/blogs', {
-    params: { title, page, limit, simple_response: simpleResponse },
+    params: { title, page, limit, published, simple_response: simpleResponse },
   });
 
   return { blogs: data, totalPages: Number(headers['x-total-pages']) };
@@ -30,17 +37,14 @@ export async function fetchPublicBlogs({
   title,
   page,
   limit,
+  published = null,
   simpleResponse = false,
-}: {
-  title?: string;
-  page: number;
-  limit: number;
-  simpleResponse?: boolean;
-}) {
+}: SimpleResponseBlogProps) {
   const { blogs, totalPages } = await clientBlogService.getAll({
     title,
     page,
     limit,
+    published,
   });
 
   return {
@@ -60,30 +64,22 @@ export const blogQueryOptions = ({
   title,
   page,
   limit = 10,
-}: {
-  title?: string;
-  page: number;
-  limit?: number;
-}) =>
+  published = null,
+}: FetchBlogsProps) =>
   queryOptions({
     queryKey: ['blogs', title ?? '', page],
-    queryFn: () => fetchBlogs({ title, page, limit }),
+    queryFn: () => fetchBlogs({ title, page, limit, published }),
     placeholderData: keepPreviousData,
-    // staleTime: 60_000,
   });
 
 export const publicBlogQueryOptions = ({
   title,
   page,
   limit = 10,
-}: {
-  title?: string;
-  page: number;
-  limit?: number;
-}) =>
+  published = null,
+}: FetchBlogsProps) =>
   queryOptions({
     queryKey: ['blogs_supabase', title ?? '', page],
-    queryFn: () => fetchPublicBlogs({ title, page, limit }),
+    queryFn: () => fetchPublicBlogs({ title, page, limit, published }),
     placeholderData: keepPreviousData,
-    // staleTime: 60_000,
   });

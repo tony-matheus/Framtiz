@@ -31,8 +31,6 @@ const getAllExperiences = async (
 
   const { data, count, error } = await query;
 
-  console.log({ data, profileId, error });
-
   if (error) {
     throw new Error(
       `Error fetching experiences: ${error.message || error.details}`

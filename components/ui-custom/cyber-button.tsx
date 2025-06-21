@@ -69,15 +69,13 @@ export const CyberButton = forwardRef<HTMLButtonElement, CyberButtonProps>(
         {isLoading ? (
           <>
             <Spinner />
-            {size != 'icon' && (
-              <span className='ml-2'>{loadingText || children}</span>
-            )}
+            {size != 'icon' && <span>{loadingText || children}</span>}
           </>
         ) : (
           <>
-            {leftIcon && <span className='mr-2'>{leftIcon}</span>}
+            {leftIcon && <span>{leftIcon}</span>}
             {children}
-            {rightIcon && <span className='ml-2'>{rightIcon}</span>}
+            {rightIcon && <span>{rightIcon}</span>}
           </>
         )}
       </Comp>

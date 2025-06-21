@@ -1,7 +1,7 @@
 'use client';
 
 import ReactMarkdown from 'react-markdown';
-import { motion } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 import {
   ArrowLeft,
   Calendar,
@@ -12,7 +12,6 @@ import {
   User,
 } from 'lucide-react';
 
-import { useEffect, useState } from 'react';
 import { CyberButton } from '@/components/ui-custom/cyber-button';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -20,46 +19,21 @@ import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
 import { Blog } from '@/lib/services/blog-service/helpers';
 
 export default function BlogPost({ blog }: { blog: Blog }) {
-  // const [isBookmarked, setIsBookmarked] = useState(false);
-  const [readingProgress, setReadingProgress] = useState(0);
-
-  // Track reading progress
-  useEffect(() => {
-    const updateReadingProgress = () => {
-      const scrollTop = window.scrollY;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / docHeight) * 100;
-      setReadingProgress(Math.min(100, Math.max(0, progress)));
-    };
-
-    window.addEventListener('scroll', updateReadingProgress);
-    return () => window.removeEventListener('scroll', updateReadingProgress);
-  }, []);
-
-  // const handleShare = () => {
-  //   if (navigator.share && blog) {
-  //     navigator.share({
-  //       title: blog.title,
-  //       // text: blog.excerpt,
-  //       url: window.location.href,
-  //     });
-  //   } else {
-  //     // Fallback to copying URL
-  //     navigator.clipboard.writeText(window.location.href);
-  //   }
-  // };
+  const { scrollYProgress } = useScroll();
 
   return (
     <div>
       {/* Reading Progress Bar */}
       <div className='fixed left-0 top-0 z-50 h-1 w-full bg-slate-800'>
-        <div
-          className='h-full bg-gradient-to-r from-purple-600 to-green-400 transition-all duration-150'
-          style={{ width: `${readingProgress}%` }}
+        <motion.div
+          id='scroll-indicator'
+          className='fixed inset-0 h-1 bg-gradient-to-r from-purple-600 to-green-400'
+          style={{
+            scaleX: scrollYProgress,
+            originX: 0,
+          }}
         />
       </div>
-
       {/* Decorative elements */}
       <div className='absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-purple-600 to-green-400'></div>
       <div className='absolute right-0 top-0 h-40 w-1 bg-purple-600'></div>
@@ -75,33 +49,16 @@ export default function BlogPost({ blog }: { blog: Blog }) {
         transition={{ duration: 0.5 }}
         className='sticky top-0 z-40 border-b border-slate-800 bg-slate-950/90 backdrop-blur-sm'
       >
-        <div className='container mx-auto p-4'>
+        <div className=' mx-auto p-4'>
           <div className='flex items-center justify-between'>
-            <Link href='/blog'>
-              <CyberButton variant='outline' leftIcon={<ArrowLeft size={16} />}>
-                BACK_TO_BLOG
-              </CyberButton>
+            <Link
+              href='/blog'
+              className='group inline-flex items-center text-sm text-slate-400 transition-colors duration-300 hover:text-purple-400'
+              prefetch={true}
+            >
+              <ArrowLeft className='mr-2 size-4 transition-transform group-hover:-translate-x-1' />
+              <span className='font-mono'> BACK_TO_BLOG</span>
             </Link>
-
-            <div className='flex items-center gap-3'>
-              {/* <CyberButton
-                variant='outline'
-                size='icon'
-                onClick={() => setIsBookmarked(!isBookmarked)}
-                className={
-                  isBookmarked ? 'border-green-400 text-green-400' : ''
-                }
-              >
-                <Bookmark
-                  size={16}
-                  className={isBookmarked ? 'fill-current' : ''}
-                />
-              </CyberButton> */}
-
-              {/* <CyberButton variant='outline' size='icon' onClick={handleShare}>
-                <Share2 size={16} />
-              </CyberButton> */}
-            </div>
           </div>
         </div>
       </motion.div>
@@ -213,85 +170,13 @@ export default function BlogPost({ blog }: { blog: Blog }) {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className='prose prose-invert prose-lg max-w-none'
               >
-                <div className='cyber-markdown'>
-                  <ReactMarkdown
-                    components={{
-                      h1: ({ children }) => (
-                        <h1 className='mb-6 border-b border-slate-800 pb-3 text-3xl font-bold text-purple-300'>
-                          {children}
-                        </h1>
-                      ),
-                      h2: ({ children }) => (
-                        <h2 className='mb-4 mt-8 text-2xl font-bold text-green-400'>
-                          {children}
-                        </h2>
-                      ),
-                      h3: ({ children }) => (
-                        <h3 className='mb-3 mt-6 text-xl font-bold text-purple-400'>
-                          {children}
-                        </h3>
-                      ),
-                      p: ({ children }) => (
-                        <p className='mb-6 leading-relaxed text-slate-300'>
-                          {children}
-                        </p>
-                      ),
-                      ul: ({ children }) => (
-                        <ul className='mb-6 list-none space-y-2'>{children}</ul>
-                      ),
-                      li: ({ children }) => (
-                        <li className='flex items-start text-slate-300'>
-                          <span className='mr-3 mt-2 size-2 shrink-0 bg-green-400'></span>
-                          <span>{children}</span>
-                        </li>
-                      ),
-                      ol: ({ children }) => (
-                        <ol className='counter-reset-[cyber-counter] mb-6 list-none space-y-2'>
-                          {children}
-                        </ol>
-                      ),
-                      code: ({ children, className }) => {
-                        const isBlock = className?.includes('language-');
-
-                        if (isBlock) {
-                          return (
-                            <div className='relative mb-6 overflow-x-auto border border-slate-700 bg-slate-800 p-4'>
-                              <div className='absolute right-2 top-2 font-mono text-xs text-slate-500'>
-                                {className
-                                  ?.replace('language-', '')
-                                  .toUpperCase()}
-                              </div>
-                              <pre className='font-mono text-sm text-slate-300'>
-                                <code>{children}</code>
-                              </pre>
-                            </div>
-                          );
-                        }
-
-                        return (
-                          <code className='border border-slate-700 bg-slate-800 px-2 py-1 font-mono text-sm text-purple-300'>
-                            {children}
-                          </code>
-                        );
-                      },
-                      blockquote: ({ children }) => (
-                        <blockquote className='mb-6 border-l-4 border-green-400 bg-slate-800/30 py-2 pl-4 italic text-slate-300'>
-                          {children}
-                        </blockquote>
-                      ),
-                      strong: ({ children }) => (
-                        <strong className='font-bold text-purple-300'>
-                          {children}
-                        </strong>
-                      ),
-                      em: ({ children }) => (
-                        <em className='italic text-green-400'>{children}</em>
-                      ),
-                    }}
-                  >
-                    {blog.content}
-                  </ReactMarkdown>
-                </div>
+                {blog.content ? (
+                  <ReactMarkdown>{blog.content}</ReactMarkdown>
+                ) : (
+                  <div className='italic text-slate-500'>
+                    No content to preview
+                  </div>
+                )}
               </motion.div>
 
               {/* Article Footer */}
@@ -305,20 +190,6 @@ export default function BlogPost({ blog }: { blog: Blog }) {
                   <div className='font-mono text-sm text-slate-400'>
                     END_OF_FILE • ARTICLE_COMPLETE
                   </div>
-
-                  {/* <div className='flex items-center gap-3'>
-                    <CyberButton variant='outline' onClick={handleShare}>
-                      <Share2 size={16} className='mr-2' />
-                      SHARE_ARTICLE
-                    </CyberButton>
-
-                    <Link href='/blog'>
-                      <CyberButton variant='primary'>
-                        MORE_ARTICLES
-                        <ArrowLeft size={16} className='ml-2 rotate-180' />
-                      </CyberButton>
-                    </Link>
-                  </div> */}
                 </div>
               </motion.div>
             </div>
@@ -330,7 +201,7 @@ export default function BlogPost({ blog }: { blog: Blog }) {
           </div>
 
           {/* Page Navigation */}
-          <div className='mt-8 flex items-center justify-between'>
+          <div className='mt-8 hidden items-center justify-between'>
             <CyberButton
               variant='outline'
               className='cursor-not-allowed opacity-50'

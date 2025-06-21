@@ -34,14 +34,17 @@ export default function AdminSidebar({ onLogout, user }: AdminSidebarProps) {
         <SidebarMenu>
           <SidebarMenuItem>
             <div className='flex items-center'>
-              <div className='mr-3 flex size-10 items-center justify-center border-2 border-purple-900 bg-transparent'>
+              <Link
+                href='/'
+                className='mr-3 flex size-10 items-center justify-center border-2 border-purple-900 bg-transparent'
+              >
                 <Image
                   src='/logo/logo-dark.png'
                   width={28}
                   height={28}
                   alt='Framtiz logo'
                 />
-              </div>
+              </Link>
               <div>
                 <div className='font-mono text-sm text-green-400'>FRAMTIZ</div>
                 <div className='font-mono text-xs text-slate-400'>v0.0.1</div>

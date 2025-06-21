@@ -5,6 +5,7 @@ import { CyberStatusBadge } from '../ui-custom/cyber-status-badge';
 import Image from 'next/image';
 import { CyberButton } from '../ui-custom/cyber-button';
 import Link from 'next/link';
+import { getTimeToReadText } from '@/lib/helpers/get-time-to-read-text';
 
 interface FeatureBlogProps {
   blog: Blog;
@@ -27,7 +28,7 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
           withCornerAccents
         >
           {/* Featured badge */}
-          <div className='absolute left-4 top-4 z-10'>
+          <div className='absolute left-8 top-8 z-10'>
             <CyberStatusBadge status='success'>FEATURED</CyberStatusBadge>
           </div>
 
@@ -47,7 +48,7 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
 
           {/* Content overlay */}
           <div className='absolute inset-x-0 bottom-0 rounded-xl p-6 md:p-8'>
-            <div className='mb-4 flex flex-wrap gap-2'>
+            <div className='mb-4 hidden flex-wrap gap-2'>
               {/* {blog.tags.slice(0, 3).map((tag) => ( */}
               {['Performance', 'Optimization', 'Web Vitals', 'Monitoring']
                 .slice(0, 3)
@@ -78,7 +79,7 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
                 </div>
                 <div className='flex items-center'>
                   <Clock size={16} className='mr-2 text-purple-400' />
-                  {/* {blog.readTime} */}2 min
+                  {getTimeToReadText({ text: blog.content })}
                 </div>
               </div>
 

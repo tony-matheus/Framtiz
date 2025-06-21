@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/no-contradicting-classname */
 import FloatingNav from '@/components/home/floating-nav/floating-nav';
 import Footer from '@/components/home/footer';
 import { publicBlogQueryOptions } from '@/hooks/blogs/fetch/blog-options';
@@ -13,6 +14,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
     publicBlogQueryOptions({
       page: 1,
       title: '',
+      published: true,
     })
   );
 
@@ -20,9 +22,8 @@ export default async function Layout({ children }: { children: ReactNode }) {
     <ReactQueryProvider>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className='min-h-screen bg-slate-950 text-slate-50'>
-          <div className='container relative z-10 mx-auto px-4 py-8'>
-            {children}
-          </div>
+          <div className='pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.03)_1px,transparent_1px)] bg-[size:30px_30px]' />
+          {children}
           <Footer />
           <FloatingNav />
         </div>

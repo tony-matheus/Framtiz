@@ -2,12 +2,13 @@
 
 import { useState, useEffect, Fragment, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, User, Mail, Terminal, Shield, Newspaper } from 'lucide-react';
+import { Home, User, Terminal, Newspaper } from 'lucide-react';
 import NavItem, { NavItemsProps } from './nav-item';
 import PowerStatus from './power-status';
 import { clientAuthService } from '@/lib/services/auth/client-auth-service';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { usePathname } from 'next/navigation';
 
 const LOGOUT_NAV_ITEMS = [
   {
@@ -22,12 +23,12 @@ const LOGOUT_NAV_ITEMS = [
     href: '/blog',
     status: 'ACTIVE',
   },
-  {
-    icon: <Mail size={18} />,
-    label: 'CONTACT',
-    href: '/',
-    status: 'INACTIVE',
-  },
+  // {
+  //   icon: <Mail size={18} />,
+  //   label: 'CONTACT',
+  //   href: '/',
+  //   status: 'INACTIVE',
+  // },
 ] satisfies NavItemsProps[];
 
 const LOGGED_IN_NAV_ITEMS = [
@@ -52,7 +53,7 @@ export default function FloatingNav() {
   const [percentage, setPercentage] = useState(50);
   const [loggedIn, setLoggedIn] = useState(false);
   const isMobile = useIsMobile();
-
+  const pathname = usePathname();
   // Check if user is admin
   useEffect(() => {
     const checkAdmin = async () => {
@@ -153,67 +154,50 @@ export default function FloatingNav() {
                 </div>
               </div>
 
-              {/* Security status */}
-              <div className='border-b border-slate-800 p-3'>
-                <div className='flex items-center justify-between'>
-                  <div className='flex items-center'>
-                    <Shield size={14} className='mr-2 text-purple-400' />
-                    <div className='font-mono text-xs text-slate-300'>
-                      SECURITY_STATUS
-                    </div>
-                  </div>
-                  <div
-                    className={`font-mono text-xs ${
-                      glitchActive ? 'text-red-500' : 'text-green-400'
-                    }`}
-                  >
-                    {glitchActive ? 'COMPROMISED' : 'SECURED'}
-                  </div>
-                </div>
-              </div>
-
               {/* Navigation */}
               <div className='p-2'>
-                {LOGOUT_NAV_ITEMS.map((item, index) => (
-                  <Fragment key={index}>
-                    {/* Don't show admin link if not admin */}
-                    {(item.label !== 'USER_PROFILE' || isAdmin) && (
-                      <NavItem
-                        className='mb-2'
-                        {...item}
-                        status={glitchActive ? 'INACTIVE' : item.status}
-                      />
-                    )}
-                  </Fragment>
-                ))}
+                {LOGOUT_NAV_ITEMS.map((item, index) => {
+                  const selected =
+                    pathname === item.href ||
+                    (pathname.startsWith(item.href) && item.href !== '/');
+
+                  return (
+                    <Fragment key={index}>
+                      {/* Don't show admin link if not admin */}
+                      {(item.label !== 'USER_PROFILE' || isAdmin) && (
+                        <NavItem
+                          className='mb-2'
+                          {...item}
+                          status={glitchActive ? 'INACTIVE' : item.status}
+                          selected={selected}
+                        />
+                      )}
+                    </Fragment>
+                  );
+                })}
 
                 {loggedIn && (
                   <>
-                    {LOGGED_IN_NAV_ITEMS.map((item, index) => (
-                      <Fragment key={index}>
-                        {/* Don't show admin link if not admin */}
-                        {(item.label !== 'USER_PROFILE' || isAdmin) && (
-                          <NavItem
-                            className='mb-2'
-                            {...item}
-                            status={glitchActive ? 'INACTIVE' : item.status}
-                          />
-                        )}
-                      </Fragment>
-                    ))}
+                    {LOGGED_IN_NAV_ITEMS.map((item, index) => {
+                      const selected =
+                        pathname === item.href ||
+                        pathname.startsWith(item.href);
+                      return (
+                        <Fragment key={index}>
+                          {/* Don't show admin link if not admin */}
+                          {(item.label !== 'USER_PROFILE' || isAdmin) && (
+                            <NavItem
+                              className='mb-2'
+                              {...item}
+                              status={glitchActive ? 'INACTIVE' : item.status}
+                              selected={selected}
+                            />
+                          )}
+                        </Fragment>
+                      );
+                    })}
                   </>
                 )}
-
-                {/* Login/Signup links if not admin */}
-                {/* {!loggedIn && (
-                  <NavItem
-                    label='LOGIN'
-                    href='/admin/login'
-                    status='ACTIVE'
-                    icon={<User size={18} />}
-                    className='mb-2'
-                  />
-                )} */}
               </div>
 
               {/* Power status */}
