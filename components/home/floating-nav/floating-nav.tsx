@@ -8,7 +8,8 @@ import PowerStatus from './power-status';
 import { clientAuthService } from '@/lib/services/auth/client-auth-service';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
+import { getSupabaseClient } from '@/lib/supabase/client';
 
 const LOGOUT_NAV_ITEMS = [
   {
@@ -41,8 +42,8 @@ const LOGGED_IN_NAV_ITEMS = [
   {
     icon: <User size={18} />,
     label: 'LOGOUT',
-    href: '/admin',
-    status: 'INACTIVE',
+    href: '/auth/logout',
+    status: 'ACTIVE',
   },
 ] satisfies NavItemsProps[];
 
@@ -54,7 +55,13 @@ export default function FloatingNav() {
   const [loggedIn, setLoggedIn] = useState(false);
   const isMobile = useIsMobile();
   const pathname = usePathname();
-  // Check if user is admin
+
+  const handleLogout = async () => {
+    const supabase = getSupabaseClient();
+    await supabase.auth.signOut();
+    redirect('/');
+  };
+
   useEffect(() => {
     const checkAdmin = async () => {
       const user = await clientAuthService.getCurrentUser();
@@ -69,7 +76,6 @@ export default function FloatingNav() {
     setIsOpen(!isMobile);
   }, [isMobile]);
 
-  // Random glitch effect
   useEffect(() => {
     const glitchInterval = setInterval(() => {
       if (Math.random() > 0.8) {

@@ -1,8 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { CyberConfirmDialog } from '@/components/ui-custom/cyber-confirm-dialog';
 import { useState } from 'react';
+import { getSupabaseClient } from '@/lib/supabase/client';
 
 interface LogoutModalProps {
   isOpen: boolean;
@@ -10,17 +11,14 @@ interface LogoutModalProps {
 }
 
 export default function LogoutModal({ isOpen, onClose }: LogoutModalProps) {
-  const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setIsLoggingOut(true);
-    // Simulate logout
-    setTimeout(() => {
-      router.push('/admin');
-      setIsLoggingOut(false);
-      onClose();
-    }, 1000);
+    const supabase = getSupabaseClient();
+    await supabase.auth.signOut();
+    setIsLoggingOut(false);
+    redirect('/');
   };
 
   return (

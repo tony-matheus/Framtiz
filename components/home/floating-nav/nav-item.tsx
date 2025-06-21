@@ -10,6 +10,7 @@ export interface NavItemsProps {
   status: 'ACTIVE' | 'WARNING' | 'INACTIVE';
   className?: string;
   selected?: boolean;
+  onClick?: () => void;
 }
 
 const COLOR_MAP = {

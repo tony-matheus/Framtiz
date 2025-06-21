@@ -65,7 +65,7 @@ export default function AdminSidebar({ onLogout, user }: AdminSidebarProps) {
                   <div>
                     <div className='font-mono text-sm text-slate-200'>
                       {user.username?.toUpperCase() ??
-                        'EDIT_TO_CHANGE_YOUR_NAME'}
+                        'EDIT TO CHANGE YOUR NAME'}
                     </div>
                     <div className='font-mono text-xs text-slate-400'>
                       {user.isAdmin ? 'ADMIN_LEVEL' : 'USER_LEVEL'}
