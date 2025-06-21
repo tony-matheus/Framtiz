@@ -10,7 +10,7 @@ export default function BlogListSkeletonizer() {
           className='flex h-full flex-col justify-between gap-4 border border-slate-800 p-4'
         >
           <div className='flex items-start justify-between gap-4'>
-            <div className='h-[100] w-full space-y-2'>
+            <div className='h-[100px] w-full space-y-2'>
               <Skeleton className='h-6' />
               <Skeleton className='h-6' />
               <Skeleton className='h-6' />
@@ -24,7 +24,7 @@ export default function BlogListSkeletonizer() {
               </Skeleton>
             </div>
           </div>
-          <Skeleton className='flex h-[158] items-center justify-center'>
+          <Skeleton className='flex h-[158px] items-center justify-center'>
             <ImageIcon size={48} />
           </Skeleton>
 

@@ -37,7 +37,7 @@ export default function RepoList() {
           <Skeleton
             className={cn(
               'w-full border-b border-slate-300/50 bg-slate-800/50',
-              index === 0 ? 'h-[41]' : 'h-[57]'
+              index === 0 ? 'h-[41px]' : 'h-[57px]'
             )}
           />
         </motion.div>

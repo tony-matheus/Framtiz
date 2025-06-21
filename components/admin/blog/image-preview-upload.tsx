@@ -106,7 +106,7 @@ export default function ImagePreviewUpload({
                 <CyberButton
                   variant='ghost'
                   size='icon'
-                  className='absolute top-[-36] size-7 text-red-500 opacity-0 transition-all hover:bg-red-900/30 hover:text-red-500 group-hover/wrapper:top-3 group-hover/wrapper:opacity-100'
+                  className='absolute top-[-36px] size-7 text-red-500 opacity-0 transition-all hover:bg-red-900/30 hover:text-red-500 group-hover/wrapper:top-3 group-hover/wrapper:opacity-100'
                   onClick={(e) => {
                     e.preventDefault();
                     handleDelete();

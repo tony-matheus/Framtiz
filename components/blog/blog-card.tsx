@@ -33,7 +33,7 @@ export default function BlogCard({ blog, className }: BlogCardProps) {
         </div>
 
         <CyberCardContent className='rounded-none'>
-          <h3 className='mb-3 line-clamp-2 h-[56] text-xl font-bold text-slate-200 transition-colors duration-300 group-hover:text-purple-300'>
+          <h3 className='mb-3 line-clamp-2 h-[56px] text-xl font-bold text-slate-200 transition-colors duration-300 group-hover:text-purple-300'>
             {blog.title}
           </h3>
 

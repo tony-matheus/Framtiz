@@ -32,7 +32,7 @@ export default function ProjectCard({
     >
       <CyberCardContent>
         <div className='mb-3 flex items-start justify-between gap-2'>
-          <Heading as='h4' className='h-[84] font-mono'>
+          <Heading as='h4' className='h-[84px] font-mono'>
             {title}
           </Heading>
           <div className='flex gap-2'>

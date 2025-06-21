@@ -35,7 +35,7 @@ export default function GithubConnection({
   return (
     <CyberCard className={cn('p-8 ', className)}>
       <CyberCardContent>
-        <div className='mb-4 flex flex-col items-center justify-between md:mx-auto md:max-w-[400] lg:max-w-[600]'>
+        <div className='mb-4 flex flex-col items-center justify-between md:mx-auto md:max-w-[400px] lg:max-w-[600px]'>
           <Github className='mr-2 text-purple-400' size={100} />
           <Heading as='h2' className='mt-8 font-mono'>
             GITHUB_CONNECTION
