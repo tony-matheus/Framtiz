@@ -75,12 +75,12 @@ export default function ProjectCreation({
               leftIcon={<X size={16} />}
               onClick={onClean}
             >
-              {successful ? 'CLOSE' : 'CLEAN_SELECTION'}
+              {successful ? 'CLOSE' : 'CLEAR_SELECTION'}
             </CyberButton>
 
             {!successful && (
               <CyberButton
-                variant={hasError ? 'danger' : 'secondary'}
+                variant={hasError ? 'destructive' : 'secondary'}
                 leftIcon={
                   hasError ? <RefreshCw size={16} /> : <Save size={16} />
                 }

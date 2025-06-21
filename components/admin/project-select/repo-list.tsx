@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import RepoSelector from '@/components/admin/project-select/repo-selector';
 import { useGithubRepos } from '@/hooks/github/use-github-repos';
@@ -13,8 +13,6 @@ import ProjectCreation from './project-creation';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
-const indexOfFirstItem = 0;
-const indexOfLastItem = 12;
 const ITEM_PER_PAGE = 10;
 
 export default function RepoList() {
@@ -96,30 +94,27 @@ export default function RepoList() {
               />
             </CyberCardContent>
           </CyberCard>
-
-          <div className='mt-4 text-center font-mono text-xs text-slate-400'>
-            SHOWING {indexOfFirstItem + 1}-
-            {Math.min(indexOfLastItem, selectedRepos.length)} OF{' '}
-            {selectedRepos.length} REPOS
-          </div>
         </motion.div>
       )}
 
       {/* Bottom action bar */}
-      {selectedRepos.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className='sticky bottom-0 z-10 px-4'
-        >
-          <ProjectCreation
-            selectedRepos={selectedRepos}
-            onSave={() => {}}
-            onClean={() => setSelectedRepos([])}
-          />
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {selectedRepos.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
+            className='absolute inset-x-0 bottom-4 z-10 px-4'
+          >
+            <ProjectCreation
+              selectedRepos={selectedRepos}
+              onSave={() => {}}
+              onClean={() => setSelectedRepos([])}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

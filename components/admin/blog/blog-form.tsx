@@ -122,7 +122,7 @@ export default function BlogForm({
               )}
             />
 
-            <Separator className='h-[1px] bg-gradient-to-r from-purple-500 to-green-400' />
+            <Separator className='h-px bg-gradient-to-r from-purple-500 to-green-400' />
             <div className='flex items-center justify-between'>
               <p className='font-mono text-xs'>
                 Generate the following with AI
