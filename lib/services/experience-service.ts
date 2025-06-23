@@ -99,7 +99,17 @@ export const serverExperienceService = {
     const supabase = await createServerSupabaseClient();
     const { data, error } = await supabase
       .from('experiences')
-      .update({ ...experience, updated_at: new Date().toISOString() })
+      .update({
+        company: experience.company,
+        position: experience.position,
+        location: experience.location,
+        employment_type: experience.employmentType,
+        start_date: experience.startDate,
+        end_date: experience.endDate,
+        is_current_position: experience.isCurrentPosition,
+        description: experience.description,
+        updated_at: new Date().toISOString(),
+      })
       .eq('id', id)
       .select()
       .single();
