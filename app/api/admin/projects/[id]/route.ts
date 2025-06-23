@@ -8,7 +8,8 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const id = Number.parseInt(params.id);
+    const { id: paramID } = await params;
+    const id = Number.parseInt(paramID);
 
     if (isNaN(id)) {
       return NextResponse.json(
@@ -54,7 +55,8 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const id = Number.parseInt(params.id);
+    const { id: paramID } = await params;
+    const id = Number.parseInt(paramID);
 
     if (isNaN(id)) {
       return NextResponse.json(
@@ -131,7 +133,8 @@ export async function PATCH(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const id = Number.parseInt(params.id);
+    const { id: paramID } = await params;
+    const id = Number.parseInt(paramID);
 
     if (isNaN(id)) {
       return NextResponse.json(
@@ -179,7 +182,8 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const id = Number.parseInt(params.id);
+    const { id: paramID } = await params;
+    const id = Number.parseInt(paramID);
 
     if (isNaN(id)) {
       return NextResponse.json(

@@ -53,15 +53,16 @@ export async function POST(request: Request) {
       );
     }
 
-    const blog = await serverExperienceService.create(
-      parsedData.data,
-      user.profileId
-    );
+    const blog = await serverExperienceService.create(parsedData.data);
 
     return NextResponse.json(blog);
-  } catch (error) {
+  } catch (err) {
+    console.error('Error fetching experiences:', err);
+
     return NextResponse.json(
-      { error: error ?? 'Internal server error' },
+      {
+        error: err instanceof Error ? err.message : 'Unexpected error occurred',
+      },
       { status: 500 }
     );
   }

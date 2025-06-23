@@ -78,12 +78,12 @@ export default function CyberTabs({
       onValueChange={onTabChange}
       className='w-full'
     >
-      <CyberTabsList className='mb-8 grid w-full grid-cols-3 gap-2'>
+      <CyberTabsList className='mb-8 flex w-full items-center gap-2'>
         {tabs.map(({ name, component, asChild }) => (
           <CyberTabsTrigger
             key={name}
             value={name}
-            className='flex items-center gap-2'
+            className='flex flex-1 items-center gap-2'
             asChild={asChild}
           >
             {component}

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Briefcase, User, Users } from 'lucide-react';
+import { Briefcase, User } from 'lucide-react';
 import CyberTabs from '@/components/ui-custom/cyber-tabs';
 
 export default function EditProfileTabs({ tabName }: { tabName?: string }) {
@@ -22,19 +22,19 @@ export default function EditProfileTabs({ tabName }: { tabName?: string }) {
               </Link>
             ),
           },
-          {
-            name: 'socials',
-            asChild: true,
-            component: (
-              <Link
-                href='/admin/edit-profile/socials'
-                className='flex items-center gap-2'
-              >
-                <Users size={16} />
-                <span className='hidden sm:inline'>SOCIALS</span>
-              </Link>
-            ),
-          },
+          // {
+          //   name: 'socials',
+          //   asChild: true,
+          //   component: (
+          //     <Link
+          //       href='/admin/edit-profile/socials'
+          //       className='flex items-center gap-2'
+          //     >
+          //       <Users size={16} />
+          //       <span className='hidden sm:inline'>SOCIALS</span>
+          //     </Link>
+          //   ),
+          // },
           {
             name: 'experience',
             asChild: true,
