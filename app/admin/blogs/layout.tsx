@@ -12,7 +12,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
   const user = await serverAuthService.getCurrentUser();
 
   if (!user) {
-    redirect('/admin/login');
+    redirect('/auth/login');
   }
 
   const queryClient = getQueryClient();

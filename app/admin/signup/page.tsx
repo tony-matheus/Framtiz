@@ -43,7 +43,7 @@ export default function SignupPage() {
     }
 
     // Redirect to login page
-    router.push('/admin/login');
+    router.push('/auth/login');
   };
 
   return (

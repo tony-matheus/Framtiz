@@ -6,20 +6,15 @@ import { SupabaseClient } from '@supabase/supabase-js';
 interface GetAllExperiencesOptions {
   page?: number;
   limit?: number;
-  profileId?: number;
 }
 
 const getAllExperiences = async (
   supabaseClient: SupabaseClient,
-  { page = 1, limit = 10, profileId }: GetAllExperiencesOptions
+  { page = 1, limit = 10 }: GetAllExperiencesOptions
 ): Promise<{ experiences: Experience[]; totalPages: number }> => {
   let query = supabaseClient
     .from('experiences')
     .select('*', { count: 'exact' });
-
-  if (profileId) {
-    query = query.eq('profile_id', profileId);
-  }
 
   const from = (page - 1) * limit;
   const to = from + limit - 1;
@@ -70,10 +65,7 @@ export const serverExperienceService = {
     return data as Experience;
   },
 
-  async create(
-    experience: ExperienceInput,
-    profileId: number
-  ): Promise<Experience> {
+  async create(experience: ExperienceInput): Promise<Experience> {
     const supabase = await createServerSupabaseClient();
 
     const { data, error } = await supabase
@@ -87,7 +79,6 @@ export const serverExperienceService = {
         end_date: experience.endDate,
         is_current_position: experience.isCurrentPosition,
         description: experience.description,
-        profile_id: profileId,
         inserted_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       })

@@ -21,7 +21,7 @@ export default function ExperienceCard({
 }: ExperienceCardProps) {
   return (
     <CyberCard key={experience.id}>
-      <CyberCardContent className='p-6'>
+      <CyberCardContent>
         <div className='flex items-start justify-between'>
           <div className='flex-1'>
             <div className='mb-2 flex items-center gap-3'>
@@ -65,29 +65,26 @@ export default function ExperienceCard({
               </span>
             </div>
             {!!experience.description && (
-              <p className='mb-3 text-sm leading-relaxed text-slate-300'>
+              <p className='text-sm leading-relaxed text-slate-300'>
                 {experience.description}
               </p>
             )}
           </div>
           <div className='ml-4 flex gap-2'>
             <CyberButton
-              size='sm'
+              size='icon'
               variant='outline'
               onClick={() => onEdit(experience)}
-              leftIcon={<Edit2 size={14} />}
             >
-              EDIT
+              <Edit2 size={14} />
             </CyberButton>
             <CyberButton
-              size='sm'
-              variant='outline'
+              size='icon'
+              variant='destructive'
               onClick={() => onDelete(experience)}
-              leftIcon={<Trash2 size={14} />}
-              className='border-red-800 text-red-400 hover:bg-red-900/20'
               isLoading={deleting}
             >
-              DELETE
+              <Trash2 size={14} />
             </CyberButton>
           </div>
         </div>

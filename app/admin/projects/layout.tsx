@@ -15,7 +15,7 @@ export default async function ProjectsLayout({
   const user = await serverAuthService.getCurrentUser();
 
   if (!user) {
-    redirect('/admin/login');
+    redirect('/auth/login');
   }
 
   const queryClient = getQueryClient();

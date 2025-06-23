@@ -42,14 +42,14 @@ export async function updateSession(request: NextRequest) {
   if (
     !user &&
     !request.nextUrl.pathname.startsWith('/api') &&
-    !request.nextUrl.pathname.startsWith('/admin/login') &&
+    !request.nextUrl.pathname.startsWith('/auth/login') &&
     !request.nextUrl.pathname.startsWith('/auth/logout') &&
     !request.nextUrl.pathname.startsWith('/blog') &&
     request.nextUrl.pathname !== '/'
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
-    url.pathname = '/admin/login';
+    url.pathname = '/auth/login';
     return NextResponse.redirect(url);
   }
 

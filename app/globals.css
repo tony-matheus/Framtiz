@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes shine {
+@keyframes shine-rotate {
   0% {
     transform: rotate(0deg) scale(1);
     filter: drop-shadow(0 0 0px #7c3aed);
@@ -19,8 +19,24 @@
   }
 }
 
-.animate-shine {
-  animation: shine 1s infinite ease-in-out;
+.animate-shine-rotate {
+  animation: shine-rotate 1s infinite ease-in-out;
+}
+
+@layer utilities {
+  .animate-shine {
+    background-size: 200% auto;
+    animation: shine 2.5s linear infinite;
+  }
+
+  @keyframes shine {
+    0% {
+      background-position: -200% 0%;
+    }
+    100% {
+      background-position: 200% 0%;
+    }
+  }
 }
 
 :root {

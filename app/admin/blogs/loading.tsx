@@ -9,7 +9,7 @@ export default async function Loading() {
         <Skeleton className='h-9 w-36' />
       </div>
 
-      <div className='mx-auto grid max-w-[90rem] grid-cols-1 gap-6 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6'>
+      <div className='mx-auto grid max-w-[90rem] grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
         <BlogListSkeletonizer />
       </div>
     </div>

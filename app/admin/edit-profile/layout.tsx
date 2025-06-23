@@ -13,7 +13,7 @@ export default async function Layout({
   const user = await serverAuthService.getCurrentUser();
 
   if (!user) {
-    redirect('/admin/login');
+    redirect('/auth/login');
   }
 
   return (

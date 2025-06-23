@@ -57,7 +57,7 @@ export const CyberButton = forwardRef<HTMLButtonElement, CyberButtonProps>(
       <Comp
         ref={ref}
         className={cn(
-          'bg-transparent transition-colors font-mono flex items-center justify-center ripple ripple-hover',
+          'bg-transparent transition-colors font-mono flex items-center justify-center ripple ripple-hover break-words',
           variantStyles[variant],
           className,
           isLoading ? 'ripple-loop' : ''

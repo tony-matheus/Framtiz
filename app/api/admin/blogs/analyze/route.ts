@@ -9,9 +9,13 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, data: JSON.parse(response) });
   } catch (error) {
-    console.error('AI Blog Error:', error);
+    console.error('Error fetching blogs:', error);
+
     return NextResponse.json(
-      { success: false, error: (error as Error).message },
+      {
+        error:
+          error instanceof Error ? error.message : 'Unexpected error occurred',
+      },
       { status: 500 }
     );
   }

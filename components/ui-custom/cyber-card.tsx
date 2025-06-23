@@ -27,7 +27,7 @@ export function CyberCard({
   return (
     <Card
       className={cn(
-        'bg-slate-900 border-slate-800 text-slate-200 relative group',
+        'bg-slate-900 rounded-none border-slate-800 text-slate-200 relative group',
         className
       )}
     >

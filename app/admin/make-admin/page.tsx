@@ -20,7 +20,7 @@ export default function MakeAdminPage() {
       setUser(currentUser);
 
       if (!currentUser) {
-        router.push('/admin/login');
+        router.push('/auth/login');
       }
     };
 

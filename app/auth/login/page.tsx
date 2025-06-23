@@ -6,6 +6,14 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Lock, User, AlertTriangle, RefreshCw } from 'lucide-react';
 import { login } from './actions';
+import { z } from 'zod';
+
+export const ExperienceInputSchema = z.object({
+  email: z.string().min(1),
+  password: z.string().min(1),
+});
+
+export type ExperienceInput = z.infer<typeof ExperienceInputSchema>;
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');

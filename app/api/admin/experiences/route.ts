@@ -14,7 +14,6 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const options = {
-      profileId: user.profileId,
       page: parseInt(searchParams.get('page') || '1'),
       limit: parseInt(searchParams.get('limit') || '30'),
     };

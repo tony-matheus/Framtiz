@@ -69,8 +69,9 @@ export default function ExperiencePage() {
           variant='secondary'
           leftIcon={<Plus size={16} />}
           onClick={() => setDialogOpen(true)}
+          className='px-2 md:px-4'
         >
-          ADD_EXPERIENCE
+          <span className='hidden md:inline'>ADD_EXPERIENCE</span>
         </CyberButton>
       </div>
 

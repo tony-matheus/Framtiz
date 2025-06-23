@@ -39,7 +39,7 @@ export const experienceQueryOptions = ({
     queryKey: ['experiences', page, limit, title],
     queryFn: () => fetchExperiences({ title, page, limit }),
     placeholderData: keepPreviousData,
+    retry: 3,
     // staleTime: 60_000,
-    // retry: 3,
     // enabled: false,
   });
