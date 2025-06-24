@@ -13,6 +13,7 @@ import { Experience } from '@/lib/schemas/experience-schemas';
 import { useDestroyExperience } from '@/hooks/experiences/mutations/use-destroy-experience';
 import { useFetchExperiences } from '@/hooks/experiences/fetch/use-fetch-experiences';
 import { Skeleton } from '@/components/ui/skeleton';
+import { toast } from 'sonner';
 
 export default function ExperiencePage() {
   const queryClient = useQueryClient();
@@ -37,6 +38,9 @@ export default function ExperiencePage() {
   const handleDelete = async (exp: Experience) => {
     setDeletingId(exp.id);
     await mutateDestroy(exp.id);
+    toast.success('SYSTEM_ACTION: COMPLETED', {
+      description: 'Experience successfully deleted!',
+    });
     setDeletingId(null);
     refetchPage();
   };

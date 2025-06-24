@@ -4,38 +4,37 @@ import type React from 'react';
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Lock, User, AlertTriangle, RefreshCw } from 'lucide-react';
+import { Lock, User, AlertTriangle } from 'lucide-react';
 import { login } from './actions';
-import { z } from 'zod';
-
-export const ExperienceInputSchema = z.object({
-  email: z.string().min(1),
-  password: z.string().min(1),
-});
-
-export type ExperienceInput = z.infer<typeof ExperienceInputSchema>;
+import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CyberFormProvider } from '@/components/ui-custom/cyber-form/cyber-form';
+import { LoginInput, LoginInputSchema } from '@/lib/services/auth/auth-types';
+import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { CyberFormInput } from '@/components/ui-custom/cyber-form/fields';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const loginForm = useForm<LoginInput>({
+    resolver: zodResolver(LoginInputSchema),
+  });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (values: LoginInput) => {
     setError('');
-
-    if (!email || !password) {
-      setError('All fields are required');
-      return;
-    }
-
     setIsLoading(true);
 
-    await login({
-      email,
-      password,
-    });
+    try {
+      await login(values);
+    } catch {
+      setError(
+        'Nem tenta não hacker imundo safado!!!!!! traduz essa merda aqui se tu for bom'
+      );
+      toast.error('Access denied!');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -77,64 +76,52 @@ export default function LoginPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit}>
-          <div className='mb-6'>
-            <label className='mb-2 block font-mono text-sm text-slate-400'>
-              EMAIL
-            </label>
-            <div className='relative'>
-              <div className='absolute inset-y-0 left-0 flex w-10 items-center justify-center border-r border-slate-700'>
-                <User size={16} className='text-slate-500' />
-              </div>
-              <input
-                type='email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className='w-full border border-slate-700 bg-slate-800 p-3 pl-12 text-slate-200 outline-none transition-colors focus:border-purple-600'
-                placeholder='Enter email'
+        <CyberFormProvider {...loginForm}>
+          <form onSubmit={loginForm.handleSubmit(handleSubmit)}>
+            <div className='mb-6 space-y-4'>
+              <CyberFormInput
+                name='email'
+                label='EMAIL'
+                icon={<User size={16} className='text-slate-500' />}
               />
-            </div>
-          </div>
-
-          <div className='mb-6'>
-            <label className='mb-2 block font-mono text-sm text-slate-400'>
-              PASSWORD
-            </label>
-            <div className='relative'>
-              <div className='absolute inset-y-0 left-0 flex w-10 items-center justify-center border-r border-slate-700'>
-                <Lock size={16} className='text-slate-500' />
-              </div>
-              <input
+              <CyberFormInput
+                name='password'
                 type='password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className='w-full border border-slate-700 bg-slate-800 p-3 pl-12 text-slate-200 outline-none transition-colors focus:border-purple-600'
-                placeholder='Enter password'
+                label='PASSWORD'
+                icon={<Lock size={16} className='text-slate-500' />}
               />
             </div>
-          </div>
 
-          <button
-            type='submit'
-            disabled={isLoading}
-            className='flex w-full items-center justify-center border-2 border-purple-600 bg-transparent p-3 font-medium text-purple-300 transition-all duration-300 hover:bg-purple-900/30'
-          >
-            {isLoading ? (
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{
-                  duration: 1,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: 'linear',
-                }}
-              >
-                <RefreshCw className='size-5' />
-              </motion.div>
-            ) : (
-              <span className='font-mono'>AUTHENTICATE</span>
-            )}
-          </button>
-        </form>
+            <CyberButton
+              type='submit'
+              size='lg'
+              className='w-full'
+              isLoading={isLoading}
+            >
+              AUTHENTICATE
+            </CyberButton>
+            {/* <button
+              type='submit'
+              disabled={isLoading}
+              className='flex w-full items-center justify-center border-2 border-purple-600 bg-transparent p-3 font-medium text-purple-300 transition-all duration-300 hover:bg-purple-900/30'
+            >
+              {isLoading ? (
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{
+                    duration: 1,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: 'linear',
+                  }}
+                >
+                  <RefreshCw className='size-5' />
+                </motion.div>
+              ) : (
+                <span className='font-mono'>AUTHENTICATE</span>
+              )}
+            </button> */}
+          </form>
+        </CyberFormProvider>
 
         <div className='mt-6 text-center'>
           <p className='font-mono text-xs text-slate-500'>

@@ -15,6 +15,7 @@ import { CyberPagination } from '@/components/ui-custom/cyber-pagination';
 import { useQueryClient } from '@tanstack/react-query';
 import CyberSearchInput from '@/components/ui-custom/inputs/cyber-search-input';
 import { useFetchBlogs } from '@/hooks/blogs/fetch/use-fetch-blogs';
+import { toast } from 'sonner';
 
 export default function BlogPage() {
   const queryClient = useQueryClient();
@@ -24,9 +25,20 @@ export default function BlogPage() {
   const [currentBlog, setCurrentBlog] = useState<Blog | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
-  const { mutateAsync: mutateDestroy } = useDestroyBlog();
+  const { mutateAsync: mutateDestroy } = useDestroyBlog({
+    onSuccess: () => {
+      toast.success('SYSTEM_ACTION: COMPLETED', {
+        description: 'Experience successfully destroyed!',
+      });
+    },
+    onError: () => {
+      toast.error('SYSTEM_ACTION: FAILED', {
+        description: "Experience couldn't be destroyed!",
+      });
+    },
+  });
 
-  const { mutateAsync: updateBlog } = useUpdateBlog();
+  const { mutateAsync: updateBlog } = useUpdateBlog({});
 
   const { blogs, totalPages, currentPage, goToPage, isLoading } = useFetchBlogs(
     {
@@ -74,6 +86,9 @@ export default function BlogPage() {
   const handleDeleteBlog = async (blog: Blog) => {
     setDeletingId(blog.id);
     await mutateDestroy(blog.id);
+    toast.success('SYSTEM_ACTION: COMPLETED', {
+      description: 'Blog successfully deleted!',
+    });
     setDeletingId(null);
     refetchPage(currentPage, term);
   };

@@ -1,5 +1,5 @@
 import { getSupabaseClient } from '@/lib/supabase/client';
-import { SignInData, SignUpData, User } from './auth-types';
+import { LoginInput, SignUpData, User } from './auth-types';
 
 // Client-side functions
 export const clientAuthService = {
@@ -27,7 +27,7 @@ export const clientAuthService = {
   },
 
   async signIn(
-    data: SignInData
+    data: LoginInput
   ): Promise<{ success: boolean; error?: string }> {
     const supabase = getSupabaseClient();
 
@@ -72,6 +72,7 @@ export const clientAuthService = {
     return {
       id: user.id,
       email: user.email!,
+      profileId: profile.id,
       username: profile.username,
       fullName: profile.full_name,
       avatarUrl: profile.avatar_url,

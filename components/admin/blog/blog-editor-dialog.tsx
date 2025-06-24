@@ -20,6 +20,7 @@ import { CyberFormProvider } from '@/components/ui-custom/cyber-form/cyber-form'
 import FullScreenEditor from './full-screen-editor';
 import { mergeRight } from 'ramda';
 import { useDebouncedCallback } from 'use-debounce';
+import { toast } from 'sonner';
 
 const STORAGE_KEY = 'BLOG_FORM_STORAGE_KEY';
 // sessionStorage.getItem('BLOG_FORM_STORAGE_KEY')
@@ -88,13 +89,35 @@ export default function BlogEditorDialog({
     mutateAsync: createBlog,
     isPending: isCreating,
     isError: isErrorCreating,
-  } = useCreateBlog();
+  } = useCreateBlog({
+    onSuccess: () => {
+      toast.success('SYSTEM_ACTION: COMPLETED', {
+        description: 'Experience successfully created!',
+      });
+    },
+    onError: () => {
+      toast.error('SYSTEM_ACTION: FAILED', {
+        description: "Experience couldn't be created!",
+      });
+    },
+  });
 
   const {
     mutateAsync: updateBlog,
     isPending: isUpdating,
     isError: isErrorUpdating,
-  } = useUpdateBlog();
+  } = useUpdateBlog({
+    onSuccess: () => {
+      toast.success('SYSTEM_ACTION: COMPLETED', {
+        description: 'Experience successfully updated!',
+      });
+    },
+    onError: () => {
+      toast.error('SYSTEM_ACTION: FAILED', {
+        description: "Experience couldn't be updated!",
+      });
+    },
+  });
 
   const handleCreateBlog = async (blogInput: BlogInput) => {
     const savedBlog = await createBlog(blogInput);

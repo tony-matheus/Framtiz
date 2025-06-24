@@ -8,6 +8,7 @@ import {
   ExperienceInput,
   ExperienceInputSchema,
 } from '@/lib/schemas/experience-schemas';
+import { toast } from 'sonner';
 
 interface ExperienceFormDialogProps
   extends Omit<ExperienceFormProps, 'onSubmit' | 'defaultValues' | 'loading'> {
@@ -33,10 +34,18 @@ export default function ExperienceFormDialog({
   const handleSubmit = async (values: ExperienceInput) => {
     if (experience) {
       await updateExperience({ ...experience, ...values });
+      toast.success('SYSTEM_ACTION: COMPLETED', {
+        description: 'Experience updated',
+        position: 'bottom-right',
+      });
       return onSave?.();
     }
 
     await createExperience(values);
+    toast.success('SYSTEM_ACTION: COMPLETED', {
+      description: `Experience ${values.position} created`,
+      position: 'bottom-right',
+    });
     onSave?.();
   };
 

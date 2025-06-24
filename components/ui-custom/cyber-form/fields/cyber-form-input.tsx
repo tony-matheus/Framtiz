@@ -10,12 +10,13 @@ import {
 import { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
-type CyberFormInputProps<T extends FieldValues> = UseControllerProps<T> & {
-  className?: string;
-  label?: string;
-  icon?: ReactNode;
-  placeholder?: string;
-};
+type CyberFormInputProps<T extends FieldValues> = UseControllerProps<T> &
+  React.InputHTMLAttributes<HTMLInputElement> & {
+    className?: string;
+    label?: string;
+    icon?: ReactNode;
+    placeholder?: string;
+  };
 
 export default function CyberFormInput<T extends FieldValues>({
   name,
@@ -24,6 +25,7 @@ export default function CyberFormInput<T extends FieldValues>({
   icon,
   placeholder,
   className,
+  ...rest
 }: CyberFormInputProps<T>) {
   return (
     <CyberFormField
@@ -43,6 +45,7 @@ export default function CyberFormInput<T extends FieldValues>({
               )}
               value={field.value ?? ''}
               placeholder={placeholder}
+              {...rest}
             />
           </CyberFormControl>
           <CyberFormMessage />
