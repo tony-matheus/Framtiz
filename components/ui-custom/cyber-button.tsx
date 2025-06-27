@@ -13,7 +13,7 @@ interface CyberButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     | 'outline'
     | 'warning'
     | 'ghost';
-  size?: 'default' | 'sm' | 'lg' | 'icon';
+  size?: 'default' | 'sm' | 'lg' | 'xl' | 'icon';
   asChild?: boolean;
   isLoading?: boolean;
   loadingText?: string;

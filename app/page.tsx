@@ -1,4 +1,5 @@
 import BlogPosts from '@/components/home/blog-posts';
+import ContactSection from '@/components/home/contact-info';
 import ExperienceTimeline from '@/components/home/experience-timeline';
 import HeroMotion from '@/components/home/experiments/hero-motion/hero-motion';
 import FloatingNav from '@/components/home/floating-nav/floating-nav';
@@ -37,6 +38,7 @@ export default async function Home() {
       />
       <BlogPosts blogs={blogs} />
       <ExperienceTimeline experiences={experiences} />
+      <ContactSection />
       <Footer />
     </main>
   );

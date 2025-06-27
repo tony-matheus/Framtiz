@@ -56,9 +56,19 @@ export default function HeroMotion({ profile }: ProjectShowcaseProps) {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <CyberButton size='lg' variant='outline' className='mx-auto'>
+            <CyberButton
+              size='lg'
+              variant='outline'
+              className='mx-auto'
+              onClick={() => {
+                const el = document.getElementById('contact');
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
               <span className='mr-2'>INITIALIZE CONTACT</span>
-              <span className='size-2 animate-pulse bg-green-400'></span>
+              <ArrowDown />
             </CyberButton>
           </motion.div>
         </div>

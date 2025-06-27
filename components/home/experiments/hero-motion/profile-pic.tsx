@@ -44,7 +44,7 @@ export default function ProfilePic() {
 
   return (
     <CyberCard
-      className='mb-8 inline-flex overflow-hidden'
+      className='mb-8 inline-flex overflow-hidden rounded-md'
       withCornerAccents={false}
     >
       <CyberCardContent className='relative size-60 p-0'>
