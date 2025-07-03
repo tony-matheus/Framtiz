@@ -20,7 +20,7 @@ export default function BlogPosts({ blogs }: BlogPostsProps) {
       className='w-full border-y border-slate-800 bg-slate-950 font-mono'
       id='blog'
     >
-      <div className='container mx-auto overflow-hidden py-24'>
+      <div className='container mx-auto overflow-hidden px-4 py-24 md:px-8'>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
@@ -35,34 +35,7 @@ export default function BlogPosts({ blogs }: BlogPostsProps) {
           </p>
         </motion.div>
 
-        {/* Carousel Container */}
         <div className='relative'>
-          {/* Navigation Buttons
-          <button
-            onClick={scrollLeft}
-            disabled={!canScrollLeft}
-            className={cn(
-              'absolute left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-slate-800/90 backdrop-blur-sm border border-slate-700 flex items-center justify-center transition-all duration-300 hover:scale-110',
-              canScrollLeft
-                ? 'text-slate-300 hover:bg-slate-700/90 hover:text-white hover:border-slate-600'
-                : 'text-slate-600 cursor-not-allowed opacity-50'
-            )}
-          >
-            <ChevronLeft className='w-6 h-6' />
-          </button>
-
-          <button
-            onClick={scrollRight}
-            disabled={!canScrollRight}
-            className={`absolute right-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-slate-800/90 backdrop-blur-sm border border-slate-700 flex items-center justify-center transition-all duration-300 hover:scale-110 ${
-              canScrollRight
-                ? 'text-slate-300 hover:bg-slate-700/90 hover:text-white hover:border-slate-600'
-                : 'text-slate-600 cursor-not-allowed opacity-50'
-            }`}
-          >
-            <ChevronRight className='w-6 h-6' />
-          </button> */}
-
           {/* Carousel */}
           <motion.div
             initial={{ opacity: 0, x: 100 }}
@@ -70,28 +43,13 @@ export default function BlogPosts({ blogs }: BlogPostsProps) {
               shouldAnimate ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }
             }
             transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
-            className='scrollbar-hide flex flex-row gap-8 overflow-x-auto scroll-smooth'
+            className='scrollbar-hide flex h-auto  min-h-0 flex-col gap-4 overflow-x-auto scroll-smooth xl:h-[460px] xl:flex-row xl:gap-8 xl:overflow-x-visible'
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {blogs.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} className='w-96 shrink-0' />
+              <BlogCard key={blog.id} blog={blog} className='xl:w-96' />
             ))}
           </motion.div>
-
-          {/* Pagination Dots
-          <div className='flex justify-center mt-12 gap-2'>
-            {blogPosts.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => scrollToIndex(index)}
-                className={`h-2 rounded-full transition-all duration-300 hover:scale-125 ${
-                  index === currentIndex
-                    ? 'bg-purple-500 w-8'
-                    : 'bg-slate-600 hover:bg-slate-500 w-2'
-                }`}
-              />
-            ))}
-          </div> */}
         </div>
 
         {/* Simple View More Link */}

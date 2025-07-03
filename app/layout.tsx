@@ -14,7 +14,39 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Framtiz',
+  title: 'Willian "rubyeex" Frantz | Anti-Cheat Engineer, Portfolio & Blog',
+  description:
+    "Explore Willian Frantz's portfolio, CV, and blog. Anti-Cheat Engineer passionate about software security, reverse engineering, and scalable systems.",
+  keywords:
+    'Willian Frantz, rubyeex, Anti-Cheat Engineer, Software Engineer, Portfolio, Blog, Reverse Engineering, Security',
+  creator: 'Willian Frantz',
+  metadataBase: new URL('https://rubyeex.dev'),
+
+  openGraph: {
+    title: 'Willian "rubyeex" Frantz | Anti-Cheat Engineer, Portfolio & Blog',
+    description:
+      "Explore Willian Frantz's portfolio, CV, and blog. Anti-Cheat Engineer passionate about software security, reverse engineering, and scalable systems.",
+    url: 'https://rubyeex.dev',
+    siteName: 'rubyeex.dev',
+    images: [
+      {
+        url: 'https://rubyeex.dev/will.png',
+        width: 1200,
+        height: 630,
+        alt: 'Willian Frantz Profile Picture',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@frantz_willian',
+    creator: '@frantz_willian',
+    title: 'Willian "rubyeex" Frantz | Anti-Cheat Engineer, Portfolio & Blog',
+    description:
+      "Explore Willian Frantz's portfolio, CV, and blog. Anti-Cheat Engineer passionate about software security, reverse engineering, and scalable systems.",
+    images: ['https://rubyeex.dev/will.png'],
+  },
 };
 
 export default function RootLayout({

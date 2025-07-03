@@ -173,7 +173,7 @@ export default function ExperimentHero() {
             }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 2, duration: 0.5 }}
-            className='absolute right-4 top-10 z-30 '
+            className='absolute right-4 top-10 z-30 hidden'
           >
             <div className='max-w-xs border-l-4 border-green-400 bg-slate-900/90 p-4 backdrop-blur-sm sm:right-10'>
               <button

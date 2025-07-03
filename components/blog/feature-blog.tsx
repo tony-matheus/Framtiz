@@ -24,7 +24,7 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
     <>
       <Link href={`/blog/${blog.id}`}>
         <CyberCard
-          className='group relative cursor-pointer border-purple-500/80 transition-colors duration-300 hover:border-purple-600'
+          className='group relative cursor-pointer rounded-t-xl border-purple-500/80 transition-colors duration-300 hover:border-purple-600'
           withCornerAccents
         >
           {/* Featured badge */}
@@ -47,7 +47,7 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
           </div>
 
           {/* Content overlay */}
-          <div className='absolute inset-x-0 bottom-0 rounded-xl p-6 md:p-8'>
+          <div className='absolute inset-x-0 bottom-0 rounded-xl p-4 md:p-6'>
             <div className='mb-4 hidden flex-wrap gap-2'>
               {/* {blog.tags.slice(0, 3).map((tag) => ( */}
               {['Performance', 'Optimization', 'Web Vitals', 'Monitoring']
@@ -71,8 +71,8 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
                 {blog.excerpt}
               </p> */}
 
-            <div className='flex items-center justify-between'>
-              <div className='flex items-center gap-6 text-sm text-slate-400'>
+            <div className='flex items-center justify-between gap-2'>
+              <div className='flex items-center gap-2 text-sm text-slate-400 md:gap-6'>
                 <div className='flex items-center'>
                   <Calendar size={16} className='mr-2 text-green-400' />
                   {formatDate(blog.updated_at!)}
@@ -83,11 +83,22 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
                 </div>
               </div>
 
-              <CyberButton>
+              <CyberButton
+                className='hidden md:inline'
+                variant='secondary'
+                rightIcon={
+                  <ArrowRight
+                    size={16}
+                    className=' transition-transform group-hover:translate-x-1'
+                  />
+                }
+              >
                 READ_ARTICLE
+              </CyberButton>
+              <CyberButton size='icon' variant='secondary'>
                 <ArrowRight
                   size={16}
-                  className='ml-2 transition-transform group-hover:translate-x-1'
+                  className=' transition-transform group-hover:translate-x-1'
                 />
               </CyberButton>
             </div>
