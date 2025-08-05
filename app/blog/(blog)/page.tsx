@@ -6,6 +6,7 @@ import FeatureBlog from '@/components/blog/feature-blog';
 import { Search } from 'lucide-react';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberPagination } from '@/components/ui-custom/cyber-pagination';
+import PageTracker from '@/components/analytics/page-tracker';
 
 import BlogCard from '@/components/blog/blog-card';
 import { useSuspenseFetchBlogsPublic } from '@/hooks/blogs/fetch/use-suspense-fetch-blogs-public';
@@ -18,6 +19,7 @@ export default function Blog() {
 
   return (
     <div className='relative'>
+      <PageTracker />
       <div className='absolute inset-0 bg-gradient-to-br from-purple-900/20 via-slate-950/80 to-green-900/20' />
 
       <div className='container relative z-10 mx-auto px-2 py-6'>

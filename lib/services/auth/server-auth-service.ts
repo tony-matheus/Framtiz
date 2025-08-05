@@ -14,13 +14,13 @@ export const serverAuthService = {
       return null;
     }
 
-    const { data: profile } = await supabase
+    const { data: profile, ...rest } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', user.id)
       .single();
 
-    if (!user) {
+    if (!profile) {
       return null;
     }
 

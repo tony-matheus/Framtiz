@@ -17,12 +17,19 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
 import { Blog } from '@/lib/services/blog-service/helpers';
+import PageTracker from '@/components/analytics/page-tracker';
 
 export default function BlogPost({ blog }: { blog: Blog }) {
   const { scrollYProgress } = useScroll();
 
   return (
     <div>
+      <PageTracker
+        metadata={{
+          slug: blog.id,
+          title: blog.title,
+        }}
+      />
       {/* Reading Progress Bar */}
       <div className='fixed left-0 top-0 z-50 h-1 w-full bg-slate-800'>
         <motion.div

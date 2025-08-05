@@ -4,7 +4,7 @@ import BlogListSkeletonizer from '@/components/admin/blog/blog-list-skeletonizer
 export default async function Loading() {
   return (
     <div>
-      <div className='mb-4 flex  items-start justify-between gap-4 py-4 md:items-center'>
+      <div className='mb-4 flex items-start justify-between gap-4 py-4 md:items-center'>
         <Skeleton className='h-9 flex-1' />
         <Skeleton className='h-9 w-36' />
       </div>
