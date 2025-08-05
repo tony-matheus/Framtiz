@@ -4,6 +4,7 @@ import {
   Github,
   Newspaper,
   UserIcon,
+  BarChart3,
 } from 'lucide-react';
 
 export const NAV_ITEMS = [
@@ -24,6 +25,12 @@ export const NAV_ITEMS = [
     label: 'PROJECTS',
     icon: <FileCode size={18} />,
     href: '/admin/projects',
+  },
+  {
+    id: 'analytics',
+    label: 'ANALYTICS',
+    icon: <BarChart3 size={18} />,
+    href: '/admin/analytics',
   },
 
   // hidden

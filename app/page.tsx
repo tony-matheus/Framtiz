@@ -5,6 +5,7 @@ import HeroMotion from '@/components/home/experiments/hero-motion/hero-motion';
 import FloatingNav from '@/components/home/floating-nav/floating-nav';
 import Footer from '@/components/home/footer';
 import { Profile } from '@/components/home/hero';
+import PageTracker from '@/components/analytics/page-tracker';
 
 import ScrollProgress from '@/components/home/scroll-progress';
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
@@ -22,6 +23,7 @@ export default async function Home() {
 
   return (
     <main className='min-h-screen bg-slate-950 text-slate-50'>
+      <PageTracker />
       <ScrollProgress />
       <FloatingNav />
       <HeroMotion
