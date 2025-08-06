@@ -21,7 +21,7 @@ export default function BlogCard({ blog, className }: BlogCardProps) {
         withCornerAccents={false}
         className='flex h-full flex-col rounded-none'
       >
-        <div className='relative hidden h-48 overflow-hidden xl:block'>
+        <div className='relative block h-48 overflow-hidden'>
           <Image
             src={blog.image_url || '/placeholder.svg'}
             alt={blog.title}
@@ -59,14 +59,6 @@ export default function BlogCard({ blog, className }: BlogCardProps) {
                   </p>
                 </div>
               )}
-            </div>
-            <div className='relative h-[53px] w-[80px] shrink-0  md:h-[107px] md:w-[160px] xl:hidden'>
-              <Image
-                src={blog.image_url || '/placeholder.svg'}
-                alt={blog.title}
-                fill
-                className='object-cover transition-transform duration-500 group-hover:scale-105'
-              />
             </div>
           </div>
           {/* Meta info */}
