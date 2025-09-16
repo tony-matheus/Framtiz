@@ -23,7 +23,6 @@ import { useDebouncedCallback } from 'use-debounce';
 import { toast } from 'sonner';
 
 const STORAGE_KEY = 'BLOG_FORM_STORAGE_KEY';
-// sessionStorage.getItem('BLOG_FORM_STORAGE_KEY')
 
 interface BlogEditorDialogProps {
   isOpen: boolean;
@@ -211,7 +210,7 @@ export default function BlogEditorDialog({
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
           <DialogContent
             showDismiss={false}
-            className='mx-auto max-h-[95dvh] max-w-[100vw] overflow-y-auto overflow-x-hidden border-2 border-slate-800 bg-slate-900 p-0 text-slate-200 sm:min-w-[80vw] sm:max-w-[95vw]'
+            className='mx-auto max-h-[95dvh] max-w-[95vw] overflow-y-auto overflow-x-hidden border-2 border-slate-800 bg-slate-900 p-0 text-slate-200 xl:min-w-[50vw] xl:max-w-[60vw]'
           >
             {/* Header */}
             <DialogHeader>

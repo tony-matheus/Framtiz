@@ -2,11 +2,8 @@ import type { ReactNode } from 'react';
 
 import { serverAuthService } from '@/lib/services/auth/server-auth-service';
 import { redirect } from 'next/navigation';
-import { getQueryClient } from '@/lib/helpers/get-query-client';
 
 import ReactQueryProvider from '@/lib/contexts/react-query-provider';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import { blogQueryOptions } from '@/hooks/blogs/fetch/blog-options';
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const user = await serverAuthService.getCurrentUser();
@@ -15,20 +12,5 @@ export default async function Layout({ children }: { children: ReactNode }) {
     redirect('/auth/login');
   }
 
-  const queryClient = getQueryClient();
-
-  await queryClient.prefetchQuery(
-    blogQueryOptions({
-      page: 1,
-      title: '',
-    })
-  );
-
-  return (
-    <ReactQueryProvider>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        {children}
-      </HydrationBoundary>
-    </ReactQueryProvider>
-  );
+  return <ReactQueryProvider>{children}</ReactQueryProvider>;
 }

@@ -158,6 +158,7 @@ export default function BlogContentEditor({
       <div className='border-b border-slate-800'>
         <div className='flex space-x-1'>
           <button
+            type='button'
             onClick={() => setActiveTab('edit')}
             className={cn(
               'px-4 py-2 font-mono text-sm flex items-center gap-2',
@@ -170,6 +171,7 @@ export default function BlogContentEditor({
             EDIT
           </button>
           <button
+            type='button'
             onClick={() => setActiveTab('preview')}
             className={cn(
               'px-4 py-2 font-mono text-sm flex items-center gap-2',
