@@ -6,16 +6,6 @@ import { Toaster as Sonner } from 'sonner';
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
-const gridOverlay = `
-  before:content-['']
-  before:absolute
-  before:inset-0
-  before:pointer-events-none
-  before:bg-[linear-gradient(rgba(139,92,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.1)_1px,transparent_1px)]
-  before:bg-[size:10px_10px]
-  before:z-[-1]
-`;
-
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = 'system' } = useTheme();
 
@@ -26,8 +16,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast: cn(
-            'group toast group-[.toaster]:bg-[#020617]/90 group-[.toaster]:text-purple-400 group-[.toaster]:border-purple-400 group-[.toaster]:border-border group-[.toaster]:shadow-lg !border-0 !border-l-4 !backdrop-blur-sm !rounded-none',
-            gridOverlay
+            'group toast group-[.toaster]:bg-[#020617]/90 group-[.toaster]:text-purple-400 group-[.toaster]:border-purple-400 group-[.toaster]:border-border group-[.toaster]:shadow-lg !border-0 !border-l-4 !backdrop-blur-sm !rounded-none'
           ),
           description: 'text-sm',
           actionButton:
