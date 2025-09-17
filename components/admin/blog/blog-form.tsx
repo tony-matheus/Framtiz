@@ -117,9 +117,7 @@ export default function BlogForm({
               render={({ field }) => (
                 <BlogContentEditor
                   content={field.value ?? ''}
-                  onContentChange={() => {
-                    field.onChange();
-                  }}
+                  onContentChange={field.onChange}
                 />
               )}
             />
@@ -131,6 +129,7 @@ export default function BlogForm({
               </p>
 
               <CyberButton
+                type='button'
                 onClick={handleClick}
                 disabled={isGenerating}
                 size='sm'
