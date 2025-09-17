@@ -118,7 +118,7 @@ export default function BlogForm({
                 <BlogContentEditor
                   content={field.value ?? ''}
                   onContentChange={() => {
-                    // field.onChange();
+                    field.onChange();
                   }}
                 />
               )}
