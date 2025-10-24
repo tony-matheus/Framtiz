@@ -187,14 +187,14 @@ export default function BlogContentEditor({
       </div>
 
       {/* Editor / Preview */}
-      <div className='relative flex min-h-[400px]'>
+      <div className='relative flex min-h-[450px]'>
         {activeTab === 'edit' ? (
-          <div className='relative flex-1'>
+          <div className='relative flex h-[450px] flex-1 flex-col'>
             <textarea
               ref={textareaRef}
               value={content}
               onChange={(e) => onContentChange(e.target.value)}
-              className='h-[400px] w-full resize-none border border-slate-700 bg-slate-800 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600'
+              className='w-full flex-1 resize-none border border-slate-700 bg-slate-800 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600'
               placeholder='Write your blog post in Markdown... Drag and drop images to upload'
               onPaste={handlePaste}
               name='content'
@@ -226,16 +226,11 @@ export default function BlogContentEditor({
             </div>
           </div>
         ) : (
-          // <div className='w-full'>
-          //   <div className='prose h-[400px] w-full overflow-auto [&>pre]:max-w-[40ch] md:[&>pre]:max-w-prose'>
-          //     <ReactMarkdown>{content === '' ? null : content}</ReactMarkdown>
-          //   </div>
-          // </div>
           <CyberCard
             withCornerAccents={false}
-            className='prose h-[400px] w-full flex-1 overflow-auto [&>pre]:max-w-[40ch] md:[&>pre]:max-w-prose'
+            className='prose h-[450px] w-full flex-1 overflow-auto [&_pre]:max-w-[40ch] md:[&_pre]:max-w-prose'
           >
-            <CyberCardContent className='prose-invert max-w-none lg:max-w-[100ch]'>
+            <CyberCardContent className='prose-invert max-w-full lg:max-w-[100ch]'>
               {content ? (
                 <ReactMarkdown>{content === '' ? null : content}</ReactMarkdown>
               ) : (
