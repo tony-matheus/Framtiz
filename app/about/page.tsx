@@ -32,7 +32,7 @@ export default function AboutPage() {
               work.
             </p>
 
-            <p className='mx-auto max-w-[60ch] font-mono text-slate-200 lg:mx-auto lg:max-w-max'>
+            <p className='mx-auto max-w-[60ch] font-mono text-slate-200'>
               From building anti-cheat pipelines for{' '}
               <strong>Riot&apos;s&nbsp;Vanguard</strong> to reverse-engineering
               old consoles for fun, I thrive at the intersection of curiosity
