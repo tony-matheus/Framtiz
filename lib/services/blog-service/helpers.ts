@@ -23,7 +23,10 @@ export const getAllBlogs = async (
   supabaseClient: SupabaseClient,
   { title, published, page = 1, limit = 10 }: GetAllBlogsOptions
 ): Promise<{ blogs: Blog[]; totalPages: number }> => {
-  let query = supabaseClient.from('blogs').select('*', { count: 'exact' });
+  let query = supabaseClient
+    .from('blogs')
+    .select('*', { count: 'exact' })
+    .eq('is_about', false);
 
   if (title) {
     query = query.ilike('title', `%${title}%`);

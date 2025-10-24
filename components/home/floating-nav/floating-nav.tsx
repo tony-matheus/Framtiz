@@ -24,6 +24,12 @@ const LOGOUT_NAV_ITEMS = [
     href: '/blog',
     status: 'ACTIVE',
   },
+  {
+    icon: <User size={18} />,
+    label: 'ABOUT',
+    href: '/about',
+    status: 'ACTIVE',
+  },
   // {
   //   icon: <Mail size={18} />,
   //   label: 'CONTACT',

@@ -7,7 +7,21 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RotateCcw } from 'lucide-react';
 
-export default function ProfilePic() {
+type ProfilePicProps = {
+  size?: 'lg' | 'md' | 'sm';
+  circular?: boolean;
+};
+
+const sizeMap = {
+  lg: 'size-80',
+  md: 'size-60',
+  sm: 'size-32',
+};
+
+export default function ProfilePic({
+  size = 'md',
+  circular = false,
+}: ProfilePicProps) {
   const [hp, setHp] = useState(100);
   const [damageAnim, setDamageAnim] = useState(false);
   const [showHeal, setShowHeal] = useState(false);
@@ -44,10 +58,13 @@ export default function ProfilePic() {
 
   return (
     <CyberCard
-      className='mb-8 inline-flex overflow-hidden rounded-md'
+      className={cn(
+        'mb-8 inline-flex overflow-hidden',
+        circular ? 'rounded-full' : 'rounded-md'
+      )}
       withCornerAccents={false}
     >
-      <CyberCardContent className='relative size-60 p-0'>
+      <CyberCardContent className={cn('relative p-0', sizeMap[size])}>
         {/* HP Bar */}
         <motion.div
           layout
@@ -87,7 +104,10 @@ export default function ProfilePic() {
                     delay: i * 0.1,
                     ease: 'easeOut',
                   }}
-                  className='absolute bottom-4 left-1/2 z-20 size-2 rounded-full bg-green-400'
+                  className={cn(
+                    'absolute bottom-4 left-1/2 z-20 size-2 rounded-full bg-green-400',
+                    circular ? 'rounded-full' : 'rounded-md'
+                  )}
                   style={{
                     marginLeft: `${Math.random() * 60 - 30}px`,
                   }}
@@ -107,7 +127,10 @@ export default function ProfilePic() {
           <motion.div
             animate={damageAnim ? { x: [-5, 5, -5, 5, 0] } : {}}
             transition={{ duration: 0.3 }}
-            className='relative size-full overflow-hidden rounded-[4px] bg-white'
+            className={cn(
+              'relative size-full overflow-hidden bg-white',
+              circular ? 'rounded-full' : 'rounded-[4px]'
+            )}
           >
             <Image
               src='/will.png'
