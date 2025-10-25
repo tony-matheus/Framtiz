@@ -46,6 +46,8 @@ export async function updateSession(request: NextRequest) {
     !request.nextUrl.pathname.startsWith('/auth/logout') &&
     !request.nextUrl.pathname.startsWith('/blog') &&
     !request.nextUrl.pathname.startsWith('/about') &&
+    !request.nextUrl.pathname.startsWith('/robots.txt') &&
+    !request.nextUrl.pathname.startsWith('/sitemap.xml') &&
     request.nextUrl.pathname !== '/'
   ) {
     // no user, potentially respond by redirecting the user to the login page

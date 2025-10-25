@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: 'rubyeex.dev',
     images: [
       {
-        url: 'https://rubyeex.dev/will.png',
+        url: 'https://rubyeex.dev/will-compressed.png',
         width: 1200,
         height: 630,
         alt: 'Willian Frantz Profile Picture',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: 'Willian "rubyeex" Frantz | Anti-Cheat Engineer, Portfolio & Blog',
     description:
       "Explore Willian Frantz's portfolio, CV, and blog. Anti-Cheat Engineer passionate about software security, reverse engineering, and scalable systems.",
-    images: ['https://rubyeex.dev/will.png'],
+    images: ['https://rubyeex.dev/will-compressed.png'],
   },
 };
 

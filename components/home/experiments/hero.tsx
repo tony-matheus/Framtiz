@@ -26,7 +26,7 @@ export function ParallaxBackground() {
       <div
         className='absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-75 will-change-transform'
         style={{
-          backgroundImage: `url('/will.png?height=1080&width=1920')`,
+          backgroundImage: `url('/will-compressed.png?height=1080&width=1920')`,
           transform: `translate(${offset.x}px, ${offset.y}px)`,
           maskImage:
             'radial-gradient(ellipse at center, black 60%, transparent 100%)',
