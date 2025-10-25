@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /blog
+Allow: /blog/*
+
+# Disallow admin and auth routes
+Disallow: /admin
+Disallow: /auth
+Disallow: /api
+
+# Disallow error pages
+Disallow: /error
+
+# Allow specific static assets
+Allow: /favicon.ico
+Allow: /_next/static/
+Allow: /public/
+
+# Sitemap location
+Sitemap: https://rubyeex.dev/sitemap.xml

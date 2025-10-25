@@ -136,6 +136,7 @@ export default function ProfilePic({
               src='/will.png'
               alt='Willian Frantz'
               className='object-cover'
+              priority
               fill
             />
           </motion.div>

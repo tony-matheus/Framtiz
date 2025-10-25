@@ -62,9 +62,10 @@ export default function FloatingNav() {
   const isMobile = useIsMobile();
   const pathname = usePathname();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleLogout = async () => {
     const supabase = getSupabaseClient();
-    await supabase.auth.signOut();
+    await supabase?.auth.signOut();
     redirect('/');
   };
 
@@ -113,12 +114,16 @@ export default function FloatingNav() {
   };
 
   return (
-    <div className='fixed bottom-auto right-4 top-6 z-50 md:bottom-6 md:top-auto'>
+    <div
+      className='fixed bottom-auto right-4 top-6 z-50 md:bottom-6 md:top-auto'
+      style={{ position: 'fixed' }}
+    >
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
         className='relative'
+        style={{ position: 'relative' }}
       >
         {/* Toggle Button */}
         <motion.button
@@ -132,6 +137,7 @@ export default function FloatingNav() {
           <motion.div
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.3 }}
+            style={{ position: 'relative' }}
           >
             <Terminal
               size={24}
