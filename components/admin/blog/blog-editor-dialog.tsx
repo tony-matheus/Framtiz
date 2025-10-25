@@ -4,7 +4,7 @@ import type React from 'react';
 
 import { useEffect, useRef, useState } from 'react';
 import { X, FileText, Maximize2 } from 'lucide-react';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 
 import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
 import { DialogTitle } from '@radix-ui/react-dialog';
@@ -220,17 +220,17 @@ export default function BlogEditorDialog({
                   <span>{blog ? 'EDIT_BLOG' : 'CREATE_BLOG'}</span>
                 </DialogTitle>
                 <div className='flex items-center gap-2'>
-                  <CyberButton
+                  <Button
                     variant='outline'
                     size='icon'
                     onClick={toggleMaximize}
                     title='Maximize Editor'
                   >
                     <Maximize2 size={18} />
-                  </CyberButton>
-                  <CyberButton variant='outline' size='icon' onClick={onCancel}>
+                  </Button>
+                  <Button variant='outline' size='icon' onClick={onCancel}>
                     <X size={18} />
-                  </CyberButton>
+                  </Button>
                 </div>
               </div>
             </DialogHeader>

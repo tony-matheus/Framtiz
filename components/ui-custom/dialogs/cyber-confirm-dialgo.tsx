@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { CyberButton } from '../cyber-button';
+import { Button } from '../../ui/button';
 
 type ConfirmVariant = 'danger' | 'warning' | 'info' | 'success';
 
@@ -90,16 +90,16 @@ export function CyberConfirmDialog({
         </DialogDescription>
 
         <DialogFooter className='flex justify-end space-x-4 p-6 pt-0'>
-          <CyberButton variant='outline' onClick={onClose} disabled={isLoading}>
+          <Button variant='outline' onClick={onClose} disabled={isLoading}>
             {cancelText}
-          </CyberButton>
-          <CyberButton
+          </Button>
+          <Button
             variant={buttonVariant}
             onClick={onConfirm}
             isLoading={isLoading}
           >
             {confirmText}
-          </CyberButton>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

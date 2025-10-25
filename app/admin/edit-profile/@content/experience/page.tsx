@@ -4,7 +4,7 @@ import type React from 'react';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import ExperienceEmptyState from '@/components/admin/edit-profile/experiences/experience-empty-state';
 import ExperienceCard from '@/components/admin/edit-profile/experiences/experience-card';
 import ExperienceFormDialog from '@/components/admin/edit-profile/experiences/exp-form-dialog';
@@ -69,14 +69,14 @@ export default function ExperiencePage() {
             Manage your professional work history and career progression.
           </p>
         </div>
-        <CyberButton
+        <Button
           variant='secondary'
           leftIcon={<Plus size={16} />}
           onClick={() => setDialogOpen(true)}
           className='px-2 md:px-4'
         >
           <span className='hidden md:inline'>ADD_EXPERIENCE</span>
-        </CyberButton>
+        </Button>
       </div>
 
       {/* Experience List */}

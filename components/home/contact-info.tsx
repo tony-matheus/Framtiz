@@ -3,7 +3,7 @@
 import { useOneTimeAnimation } from '@/hooks/use-one-time-animations';
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Twitter, ExternalLink } from 'lucide-react';
-import { CyberButton } from '../ui-custom/cyber-button';
+import { Button } from '../ui/button';
 
 const socialLinks = [
   {
@@ -118,7 +118,7 @@ export default function ContactSection() {
               transition={{ duration: 0.6, delay: 0.5 }}
               className='order-2 md:order-1'
             >
-              <CyberButton
+              <Button
                 size='xl'
                 className='w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white transition-all duration-300 hover:scale-105  hover:from-purple-500 hover:to-purple-600 hover:shadow-lg hover:shadow-purple-500/25'
                 onClick={handleEmailClick}
@@ -126,7 +126,7 @@ export default function ContactSection() {
                 <Mail className='size-5 transition-transform duration-300 group-hover:rotate-12' />
                 <span>Send Email</span>
                 <ExternalLink className='size-4 opacity-70 transition-opacity duration-300 group-hover:opacity-100' />
-              </CyberButton>
+              </Button>
             </motion.div>
 
             {/* Social Links */}

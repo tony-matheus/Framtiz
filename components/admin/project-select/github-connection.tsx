@@ -1,4 +1,4 @@
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 
 import { CyberDataDisplay } from '@/components/ui-custom/cyber-data-display';
@@ -69,14 +69,14 @@ export default function GithubConnection({
           )}
 
           <div className='mt-8 flex justify-end'>
-            <CyberButton
+            <Button
               onClick={handleSubmit}
               variant='primary'
               leftIcon={<RefreshCw size={16} />}
               isLoading={isPending}
             >
               SAVE_AND_SYNC_REPOSITORIES
-            </CyberButton>
+            </Button>
           </div>
         </div>
       </CyberCardContent>

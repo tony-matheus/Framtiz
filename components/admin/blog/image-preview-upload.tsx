@@ -1,6 +1,6 @@
 'use client';
 
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import Spinner from '@/components/ui/spinner';
 import useStorage from '@/hooks/storage/use-storage';
 import { cn } from '@/lib/utils';
@@ -92,7 +92,7 @@ export default function ImagePreviewUpload({
 
             {previewUrl ? (
               <div className='absolute right-2 top-2 z-50 flex flex-col items-center gap-1'>
-                <CyberButton
+                <Button
                   variant='ghost'
                   size='icon'
                   className='absolute size-7 opacity-0 transition-opacity group-hover/image:top-0 group-hover/wrapper:opacity-100'
@@ -102,8 +102,8 @@ export default function ImagePreviewUpload({
                   }}
                 >
                   <Pencil size={14} />
-                </CyberButton>
-                <CyberButton
+                </Button>
+                <Button
                   variant='ghost'
                   size='icon'
                   className='absolute top-[-36px] size-7 text-red-500 opacity-0 transition-all hover:bg-red-900/30 hover:text-red-500 group-hover/wrapper:top-3 group-hover/wrapper:opacity-100'
@@ -113,7 +113,7 @@ export default function ImagePreviewUpload({
                   }}
                 >
                   <Trash2 size={14} />
-                </CyberButton>
+                </Button>
               </div>
             ) : (
               <div className='rounded-full bg-slate-950/30 p-4'>

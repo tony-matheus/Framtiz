@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CyberFormProvider } from '@/components/ui-custom/cyber-form/cyber-form';
 import { LoginInput, LoginInputSchema } from '@/lib/services/auth/auth-types';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { CyberFormInput } from '@/components/ui-custom/cyber-form/fields';
 
 export default function LoginPage() {
@@ -92,14 +92,14 @@ export default function LoginPage() {
               />
             </div>
 
-            <CyberButton
+            <Button
               type='submit'
               size='lg'
               className='w-full'
               isLoading={isLoading}
             >
               AUTHENTICATE
-            </CyberButton>
+            </Button>
             {/* <button
               type='submit'
               disabled={isLoading}

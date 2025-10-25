@@ -1,6 +1,6 @@
 import type React from 'react';
 import { Edit2, Trash2, Calendar, MapPin, Building } from 'lucide-react';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
 import { formatElapsedDuration, getFormattedDate } from '@/lib/helpers/daytime';
@@ -71,21 +71,21 @@ export default function ExperienceCard({
             )}
           </div>
           <div className='ml-4 flex gap-2'>
-            <CyberButton
+            <Button
               size='icon'
               variant='outline'
               onClick={() => onEdit(experience)}
             >
               <Edit2 size={14} />
-            </CyberButton>
-            <CyberButton
+            </Button>
+            <Button
               size='icon'
               variant='destructive'
               onClick={() => onDelete(experience)}
               isLoading={deleting}
             >
               <Trash2 size={14} />
-            </CyberButton>
+            </Button>
           </div>
         </div>
       </CyberCardContent>

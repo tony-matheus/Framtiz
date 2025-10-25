@@ -3,7 +3,7 @@
 import { useCanvasEffect } from '@/hooks/use-canvas-effect';
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import Skills from './skills';
 import ProfilePic from './profile-pic';
 
@@ -56,7 +56,7 @@ export default function HeroMotion({ profile }: ProjectShowcaseProps) {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <CyberButton
+            <Button
               size='lg'
               variant='outline'
               className='mx-auto'
@@ -69,7 +69,7 @@ export default function HeroMotion({ profile }: ProjectShowcaseProps) {
             >
               <span className='mr-2'>INITIALIZE CONTACT</span>
               <ArrowDown />
-            </CyberButton>
+            </Button>
           </motion.div>
         </div>
       </div>

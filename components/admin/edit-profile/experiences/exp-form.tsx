@@ -22,10 +22,10 @@ import {
   CyberPopoverContent,
   CyberPopoverTrigger,
 } from '@/components/ui-custom/cyber-popover';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
-import { Calendar } from '@/components/ui/calendar';
+import { Calendar } from '@/components/ui/primitives/calendar';
 import { CyberCheckbox } from '@/components/ui-custom/cyber-checkbox';
 import { Textarea } from '@/components/ui/textarea';
 import {
@@ -155,7 +155,7 @@ export default function ExpForm({
                 <CyberPopover>
                   <CyberPopoverTrigger asChild>
                     <CyberFormControl>
-                      <CyberButton
+                      <Button
                         variant='outline'
                         className={cn(
                           'w-full justify-start text-left h-9 font-mono bg-slate-800 border-slate-700 hover:border-slate-600',
@@ -169,7 +169,7 @@ export default function ExpForm({
                         ) : (
                           <span>Pick a date</span>
                         )}
-                      </CyberButton>
+                      </Button>
                     </CyberFormControl>
                   </CyberPopoverTrigger>
                   <CyberPopoverContent className='w-auto p-0' align='start'>
@@ -200,7 +200,7 @@ export default function ExpForm({
                   <CyberPopover>
                     <CyberPopoverTrigger asChild>
                       <CyberFormControl>
-                        <CyberButton
+                        <Button
                           variant='outline'
                           className={cn(
                             'w-full justify-start text-left font-mono h-9 bg-slate-800 border-slate-700 hover:border-slate-600',
@@ -215,7 +215,7 @@ export default function ExpForm({
                           ) : (
                             <span>Pick a date</span>
                           )}
-                        </CyberButton>
+                        </Button>
                       </CyberFormControl>
                     </CyberPopoverTrigger>
                     <CyberPopoverContent className='w-auto p-0' align='start'>
@@ -276,18 +276,18 @@ export default function ExpForm({
           )}
         />
         <div className='flex justify-end gap-4 border-t border-slate-800 bg-slate-900 pt-4 '>
-          <CyberButton
+          <Button
             type='button'
             variant='outline'
             onClick={onCancel}
             disabled={loading}
           >
             CANCEL
-          </CyberButton>
+          </Button>
 
-          <CyberButton type='submit' variant='secondary' isLoading={loading}>
+          <Button type='submit' variant='secondary' isLoading={loading}>
             {editingId ? 'UPDATE_EXPERIENCE' : 'ADD_EXPERIENCE'}
-          </CyberButton>
+          </Button>
         </div>
       </form>
     </CyberFormProvider>

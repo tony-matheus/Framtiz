@@ -4,7 +4,7 @@ import type React from 'react';
 import { useEffect } from 'react';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CyberButton } from '../cyber-button';
+import { Button } from '../../ui/button';
 
 interface CyberFullScreenModalProps {
   isOpen: boolean;
@@ -66,9 +66,9 @@ export function CyberFullScreenModal({
                 <div className='mr-2 size-2 animate-pulse bg-green-400'></div>
                 {title}
               </h2>
-              <CyberButton variant='outline' size='icon' onClick={onClose}>
+              <Button variant='outline' size='icon' onClick={onClose}>
                 <X size={18} />
-              </CyberButton>
+              </Button>
             </div>
 
             {/* Content - scrollable area */}

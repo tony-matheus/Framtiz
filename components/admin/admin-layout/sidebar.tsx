@@ -1,6 +1,6 @@
 'use client';
 
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import {
   Sidebar,
@@ -72,9 +72,9 @@ export default function AdminSidebar({ onLogout, user }: AdminSidebarProps) {
                   </div>
                 </div>
                 <Link href='/admin/edit-profile/profile'>
-                  <CyberButton variant='outline' size='icon' className='size-7'>
+                  <Button variant='outline' size='icon' className='size-7'>
                     <Settings size={14} className='text-purple-400' />
-                  </CyberButton>
+                  </Button>
                 </Link>
               </div>
             </SidebarMenu>
@@ -116,7 +116,7 @@ export default function AdminSidebar({ onLogout, user }: AdminSidebarProps) {
         <SidebarGroup className='mt-auto px-4 py-2'>
           <SidebarGroupContent className='flex flex-col gap-2'>
             <SidebarMenu>
-              <CyberButton
+              <Button
                 variant='destructive'
                 size='lg'
                 onClick={onLogout}
@@ -124,7 +124,7 @@ export default function AdminSidebar({ onLogout, user }: AdminSidebarProps) {
                 leftIcon={<LogOut size={18} />}
               >
                 LOGOUT
-              </CyberButton>
+              </Button>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

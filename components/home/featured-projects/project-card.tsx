@@ -1,4 +1,4 @@
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { Github, Share } from 'lucide-react';
 // import Image from 'next/image';
 
@@ -67,13 +67,13 @@ export default function ProjectCard({
               </a>
             )}
 
-            <CyberButton
+            <Button
               size='sm'
               onClick={onClick}
               // className='flex items-center px-3 py-2 bg-slate-800/90 hover:bg-slate-700/90 text-slate-300 hover:text-white transition-all duration-300 text-sm backdrop-blur-sm border border-slate-700 hover:border-slate-600'
             >
               <Share className='size-4' />
-            </CyberButton>
+            </Button>
           </div>
         </div>
       </div>

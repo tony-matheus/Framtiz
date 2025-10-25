@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/dialog';
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { ReactNode } from 'react';
-import { CyberButton } from '../cyber-button';
+import { Button } from '../../ui/button';
 import { Save, X } from 'lucide-react';
 
 interface SimpleDialogProps {
@@ -44,19 +44,19 @@ export default function SimpleDialog({
               {!!icon && <span className='mr-2 text-purple-400'>{icon}</span>}
               <span>{title}</span>
             </DialogTitle>
-            <CyberButton
+            <Button
               variant='outline'
               size='icon'
               onClick={() => onOpenChange(false)}
             >
               <X size={18} />
-            </CyberButton>
+            </Button>
           </div>
         </DialogHeader>
         {children}
         {!hideFooter && (
           <DialogFooter className='flex flex-row justify-end gap-3 border-t border-slate-800 bg-slate-900 p-4 '>
-            <CyberButton
+            <Button
               variant='outline'
               onClick={() => {
                 onCancel();
@@ -64,8 +64,8 @@ export default function SimpleDialog({
               }}
             >
               CANCEL
-            </CyberButton>
-            <CyberButton
+            </Button>
+            <Button
               variant='secondary'
               onClick={onConfirm}
               isLoading={isLoading}
@@ -74,7 +74,7 @@ export default function SimpleDialog({
               disabled={!title.trim()}
             >
               SAVE
-            </CyberButton>
+            </Button>
           </DialogFooter>
         )}
       </DialogContent>

@@ -1,7 +1,7 @@
 'use client';
 
 import { AlertTriangle, RefreshCw } from 'lucide-react';
-import { CyberButton } from './cyber-button';
+import { Button } from '../ui/button';
 import { motion } from 'framer-motion';
 
 interface CyberErrorStateProps {
@@ -39,13 +39,13 @@ export function CyberErrorState({
         <p className='mb-6 max-w-md text-slate-300'>{message}</p>
 
         {onRetry && (
-          <CyberButton
+          <Button
             variant='destructive'
             onClick={onRetry}
             leftIcon={<RefreshCw size={16} />}
           >
             RETRY_CONNECTION
-          </CyberButton>
+          </Button>
         )}
       </div>
 

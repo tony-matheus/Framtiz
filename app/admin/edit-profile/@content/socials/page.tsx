@@ -20,7 +20,7 @@ import {
   HelpCircle,
 } from 'lucide-react';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { CyberFormField } from '@/components/ui-custom/cyber-form-field';
 import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
 
@@ -230,14 +230,14 @@ export default function SocialsTab() {
             Manage your social media presence and professional networks.
           </p>
         </div>
-        <CyberButton
+        <Button
           variant='secondary'
           leftIcon={<Plus size={16} />}
           onClick={() => setShowAddForm(true)}
           disabled={availablePlatforms.length === 0}
         >
           ADD_SOCIAL
-        </CyberButton>
+        </Button>
       </div>
 
       {/* Add Social Form */}
@@ -287,14 +287,14 @@ export default function SocialsTab() {
               />
             </div>
             <div className='mt-4 flex gap-2'>
-              <CyberButton
+              <Button
                 variant='secondary'
                 onClick={handleAddSocial}
                 disabled={!newSocial.platformId || !newSocial.username}
               >
                 ADD_SOCIAL
-              </CyberButton>
-              <CyberButton
+              </Button>
+              <Button
                 variant='outline'
                 onClick={() => {
                   setShowAddForm(false);
@@ -302,7 +302,7 @@ export default function SocialsTab() {
                 }}
               >
                 CANCEL
-              </CyberButton>
+              </Button>
             </div>
           </CyberCardContent>
         </CyberCard>
@@ -354,19 +354,19 @@ export default function SocialsTab() {
                               className='flex-1 border border-slate-700 bg-slate-900 p-2 font-mono text-sm text-slate-200 focus:border-purple-500 focus:outline-none'
                               placeholder={platform.placeholder}
                             />
-                            <CyberButton
+                            <Button
                               size='sm'
                               onClick={() => handleSaveEdit(social.id)}
                             >
                               SAVE
-                            </CyberButton>
-                            <CyberButton
+                            </Button>
+                            <Button
                               size='sm'
                               variant='outline'
                               onClick={handleCancelEdit}
                             >
                               CANCEL
-                            </CyberButton>
+                            </Button>
                           </div>
                         ) : (
                           <div className='mt-1 flex items-center gap-2'>
@@ -389,7 +389,7 @@ export default function SocialsTab() {
                       </div>
                     </div>
                     <div className='flex items-center gap-2'>
-                      <CyberButton
+                      <Button
                         size='sm'
                         variant='outline'
                         onClick={() => handleToggleActive(social.id)}
@@ -402,16 +402,16 @@ export default function SocialsTab() {
                         }
                       >
                         {social.isActive ? 'HIDE' : 'SHOW'}
-                      </CyberButton>
-                      <CyberButton
+                      </Button>
+                      <Button
                         size='sm'
                         variant='outline'
                         onClick={() => handleEdit(social)}
                         leftIcon={<Edit2 size={14} />}
                       >
                         EDIT
-                      </CyberButton>
-                      <CyberButton
+                      </Button>
+                      <Button
                         size='sm'
                         variant='outline'
                         onClick={() => handleDelete(social.id)}
@@ -419,7 +419,7 @@ export default function SocialsTab() {
                         className='border-red-800 text-red-400 hover:bg-red-900/20'
                       >
                         DELETE
-                      </CyberButton>
+                      </Button>
                     </div>
                   </div>
                 </CyberCardContent>

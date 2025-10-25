@@ -5,7 +5,7 @@ import type React from 'react';
 import { motion } from 'framer-motion';
 import { FolderOpen, Plus } from 'lucide-react';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 
 interface EmptyStateProps {
   title?: string;
@@ -37,13 +37,13 @@ export default function EmptyState({
           <p className='mb-6 max-w-md text-slate-400'>{description}</p>
 
           {actionLabel && onAction && (
-            <CyberButton
+            <Button
               variant='primary'
               onClick={onAction}
               leftIcon={<Plus size={16} />}
             >
               {actionLabel}
-            </CyberButton>
+            </Button>
           )}
         </CyberCardContent>
       </CyberCard>

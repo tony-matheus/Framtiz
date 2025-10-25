@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
 
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import BlogEditorDialog from '@/components/admin/blog/blog-editor-dialog';
 import { Blog } from '@/lib/services/blog-service/helpers';
 import { useDestroyBlog } from '@/hooks/blogs/mutations/use-destroy-blog';
@@ -111,14 +111,14 @@ export default function BlogPage() {
         >
           <CyberSearchInput onSearch={setTerm} placeholder='Type to search…' />
 
-          <CyberButton
+          <Button
             variant='primary'
             leftIcon={<Plus size={16} />}
             onClick={handleAddBlog}
             className='md:self-end'
           >
             ADD_BLOG
-          </CyberButton>
+          </Button>
         </motion.div>
         <BlogList
           loading={isLoading}

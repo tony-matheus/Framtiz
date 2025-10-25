@@ -1,6 +1,6 @@
 'use client';
 
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 
 interface TimeFilterProps {
   timePeriod: '1d' | '7d' | '30d';
@@ -22,7 +22,7 @@ export default function TimeFilter({
       <span className='font-mono text-sm text-slate-400'>TIME_PERIOD:</span>
       <div className='flex rounded-lg bg-slate-800 p-1'>
         {TIME_PERIOD_OPTIONS.map((option) => (
-          <CyberButton
+          <Button
             key={option.value}
             variant={timePeriod === option.value ? 'primary' : 'ghost'}
             size='sm'
@@ -34,7 +34,7 @@ export default function TimeFilter({
             }`}
           >
             {option.label}
-          </CyberButton>
+          </Button>
         ))}
       </div>
     </div>

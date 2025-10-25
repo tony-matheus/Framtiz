@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { Save, Minimize2, FileText, X } from 'lucide-react';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import ReactMarkdown from 'react-markdown';
 import {
@@ -85,7 +85,7 @@ export default function FullScreenEditor({
         </div>
         <div className='flex items-center gap-4'>
           <div className='flex items-center gap-2'>
-            <CyberButton
+            <Button
               variant='secondary'
               type='submit'
               loadingText='SAVING...'
@@ -95,8 +95,8 @@ export default function FullScreenEditor({
               <span className='hidden md:inline-flex'>
                 {editing ? 'SAVE' : 'SAVE_DRAFT'}
               </span>
-            </CyberButton>
-            <CyberButton
+            </Button>
+            <Button
               variant='outline'
               size='icon'
               isLoading={loading}
@@ -104,8 +104,8 @@ export default function FullScreenEditor({
               title='Exit Full Screen'
             >
               <Minimize2 size={18} />
-            </CyberButton>
-            <CyberButton
+            </Button>
+            <Button
               variant='outline'
               size='icon'
               isLoading={loading}
@@ -113,7 +113,7 @@ export default function FullScreenEditor({
               title='Close'
             >
               <X size={18} />
-            </CyberButton>
+            </Button>
           </div>
         </div>
       </div>

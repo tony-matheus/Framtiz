@@ -91,7 +91,7 @@ export default function Blog() {
                   No articles match your search criteria. Try adjusting your
                   filters or search terms.
                 </p>
-                {/* <CyberButton
+                {/* <Button
                 variant='outline'
                 onClick={() => {
                   setSearchTerm('');
@@ -99,7 +99,7 @@ export default function Blog() {
                 }}
               >
                 CLEAR_FILTERS
-              </CyberButton> */}
+              </Button> */}
               </CyberCardContent>
             </CyberCard>
           </motion.div>

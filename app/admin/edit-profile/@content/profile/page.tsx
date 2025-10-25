@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { User, Save, Mail, MapPin, Github, Twitter } from 'lucide-react';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { CyberFormField } from '@/components/ui-custom/cyber-form-field';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { CyberDataDisplay } from '@/components/ui-custom/cyber-data-display';
 import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
 import { Separator } from '@/components/ui/separator';
@@ -147,7 +147,7 @@ export default function Profile() {
               </div>
 
               <div className='flex justify-end'>
-                <CyberButton
+                <Button
                   type='submit'
                   variant='secondary'
                   isLoading={isPending}
@@ -155,7 +155,7 @@ export default function Profile() {
                   leftIcon={<Save size={16} />}
                 >
                   SAVE_PROFILE
-                </CyberButton>
+                </Button>
               </div>
             </form>
           </CyberCardContent>

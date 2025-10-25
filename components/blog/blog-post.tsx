@@ -12,7 +12,7 @@ import {
   User,
 } from 'lucide-react';
 
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
@@ -209,25 +209,19 @@ export default function BlogPost({ blog }: { blog: Blog }) {
 
           {/* Page Navigation */}
           <div className='mt-8 hidden items-center justify-between'>
-            <CyberButton
-              variant='outline'
-              className='cursor-not-allowed opacity-50'
-            >
+            <Button variant='outline' className='cursor-not-allowed opacity-50'>
               <ChevronLeft size={16} className='mr-2' />
               PREV_ARTICLE
-            </CyberButton>
+            </Button>
 
             <div className='font-mono text-xs text-slate-500'>
               PAGE_01 / DIGITAL_ARCHIVE
             </div>
 
-            <CyberButton
-              variant='outline'
-              className='cursor-not-allowed opacity-50'
-            >
+            <Button variant='outline' className='cursor-not-allowed opacity-50'>
               NEXT_ARTICLE
               <ChevronRight size={16} className='ml-2' />
-            </CyberButton>
+            </Button>
           </div>
         </motion.div>
       </div>

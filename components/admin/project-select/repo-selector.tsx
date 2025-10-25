@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import CyberSearchInput from '@/components/ui-custom/inputs/cyber-search-input';
 
 interface RepoSelectorProps {
@@ -105,14 +105,14 @@ export default function RepoSelector({
                     })}
                   >
                     <TableCell>
-                      <CyberButton
+                      <Button
                         variant='outline'
                         size='icon'
                         onClick={() => toggleRepoSelection(repo)}
                         disabled={isDisabled}
                       >
                         {isSelected ? <Check size={16} /> : <Plus size={16} />}
-                      </CyberButton>
+                      </Button>
                     </TableCell>
                     <TableCell>
                       <a

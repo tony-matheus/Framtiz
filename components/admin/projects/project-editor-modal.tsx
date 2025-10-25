@@ -3,7 +3,7 @@
 import type React from 'react';
 import { useState, useEffect } from 'react';
 import { Save, Sparkles, RefreshCw, X } from 'lucide-react';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
 import { Project } from '@/lib/services/project-service';
 
@@ -121,9 +121,9 @@ export default function ProjectEditorModal({
             <div className='mr-2 size-2 animate-pulse bg-green-400'></div>
             EDITING: {editingRepo.title.toUpperCase()}
           </h2>
-          <CyberButton variant='outline' size='icon' onClick={onClose}>
+          <Button variant='outline' size='icon' onClick={onClose}>
             <X size={18} />
-          </CyberButton>
+          </Button>
         </div>
 
         {/* Content - scrollable area */}
@@ -273,10 +273,10 @@ export default function ProjectEditorModal({
                   </div>
 
                   <div className='flex justify-end gap-4'>
-                    <CyberButton variant='outline' onClick={onClose}>
+                    <Button variant='outline' onClick={onClose}>
                       CANCEL
-                    </CyberButton>
-                    <CyberButton
+                    </Button>
+                    <Button
                       onClick={saveChanges}
                       variant='secondary'
                       isLoading={isSaving}
@@ -284,7 +284,7 @@ export default function ProjectEditorModal({
                       leftIcon={<Save size={16} />}
                     >
                       SAVE_CHANGES
-                    </CyberButton>
+                    </Button>
                   </div>
                 </div>
               </CyberCardContent>

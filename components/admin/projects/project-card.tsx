@@ -1,7 +1,7 @@
 'use client';
 
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { Edit, Trash2, ExternalLink } from 'lucide-react';
 import { Project } from '@/lib/services/project-service';
 import Heading from '@/components/ui/typography/heading';
@@ -36,22 +36,22 @@ export default function ProjectCard({
             {title}
           </Heading>
           <div className='flex gap-2'>
-            <CyberButton
+            <Button
               variant='outline'
               size='icon'
               className='size-7'
               onClick={onEdit}
             >
               <Edit size={14} />
-            </CyberButton>
-            <CyberButton
+            </Button>
+            <Button
               variant='destructive'
               size='icon'
               className='size-7 text-red-500'
               onClick={onDelete}
             >
               <Trash2 size={14} />
-            </CyberButton>
+            </Button>
           </div>
         </div>
 

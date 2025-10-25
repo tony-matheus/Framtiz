@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import GithubConnection from '@/components/admin/project-select/github-connection';
 import { useUserContext } from '@/lib/contexts/user-context';
@@ -19,13 +19,13 @@ export default function ProjectSelectPage() {
   return (
     <div>
       <div className='mb-4 flex items-center justify-between gap-2'>
-        <CyberButton
+        <Button
           variant='outline'
           leftIcon={<ArrowLeft size={16} />}
           onClick={navigateBack}
         >
           BACK_TO_PROJECTS
-        </CyberButton>
+        </Button>
       </div>
       {user.githubUsername ? (
         <RepoList />

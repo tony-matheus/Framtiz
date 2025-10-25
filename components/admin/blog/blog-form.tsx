@@ -6,7 +6,7 @@ import { Controller, useForm, UseFormReturn } from 'react-hook-form';
 import BlogContentEditor from './blog-content-editor';
 
 import { Separator } from '@radix-ui/react-separator';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { Save, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useGenerateBlogContent } from '@/hooks/blogs/mutations/use-generate-content';
@@ -128,7 +128,7 @@ export default function BlogForm({
                 Generate the following with AI
               </p>
 
-              <CyberButton
+              <Button
                 type='button'
                 onClick={handleClick}
                 disabled={isGenerating}
@@ -139,7 +139,7 @@ export default function BlogForm({
                   className={cn('ml-2', isGenerating ? 'animate-shine' : false)}
                 />
                 Generate with AI
-              </CyberButton>
+              </Button>
             </div>
             <CyberFormTextarea
               control={blogForm.control}
@@ -155,7 +155,7 @@ export default function BlogForm({
         </div>
         <div className='sticky bottom-0 flex flex-row justify-end gap-3 border-t border-slate-800 bg-slate-900 p-4 sm:flex-row sm:justify-end sm:space-x-2 '>
           <input type='hidden' {...blogForm.register('published')} />
-          <CyberButton
+          <Button
             type='button'
             variant='outline'
             onClick={(e) => {
@@ -164,9 +164,9 @@ export default function BlogForm({
             }}
           >
             CANCEL
-          </CyberButton>
+          </Button>
           {editing ? (
-            <CyberButton
+            <Button
               type='submit'
               variant='secondary'
               isLoading={loading}
@@ -174,10 +174,10 @@ export default function BlogForm({
               leftIcon={<Save size={16} />}
             >
               SAVE_BLOG
-            </CyberButton>
+            </Button>
           ) : (
             <div className='inline-flex items-center gap-4'>
-              <CyberButton
+              <Button
                 type='submit'
                 variant='primary'
                 isLoading={loading}
@@ -186,8 +186,8 @@ export default function BlogForm({
                 onClick={() => blogForm.setValue('published', false)}
               >
                 SAVE_AS_DRAFT
-              </CyberButton>
-              <CyberButton
+              </Button>
+              <Button
                 type='submit'
                 variant='secondary'
                 isLoading={loading}
@@ -196,7 +196,7 @@ export default function BlogForm({
                 onClick={() => blogForm.setValue('published', true)}
               >
                 SAVE_AND_PUBLISHED
-              </CyberButton>
+              </Button>
             </div>
           )}
         </div>

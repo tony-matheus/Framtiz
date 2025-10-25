@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowDown, Terminal, Download, X } from 'lucide-react';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { useCanvasEffect } from '@/hooks/use-canvas-effect';
 
 export function ParallaxBackground() {
@@ -138,10 +138,10 @@ export default function ExperimentHero() {
               <Download className='mr-2 size-4 transition-transform group-hover:translate-y-1' />
               <span>DOWNLOAD CV</span>
             </button>
-            <CyberButton size='lg' className='group px-8 py-4'>
+            <Button size='lg' className='group px-8 py-4'>
               VIEW PROJECTS
               <ArrowDown className='size-4 transition-transform group-hover:translate-y-1' />
-            </CyberButton>
+            </Button>
           </motion.div>
         </div>
       </div>

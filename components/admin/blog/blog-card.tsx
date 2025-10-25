@@ -1,7 +1,7 @@
 'use client';
 
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
-import { CyberButton } from '@/components/ui-custom/cyber-button';
+import { Button } from '@/components/ui/button';
 import { Blog } from '@/lib/services/blog-service/helpers';
 import { CyberSwitch } from '@/components/ui-custom/cyber-switch';
 import { useState } from 'react';
@@ -49,7 +49,7 @@ export default function BlogCard({
             {blog.title}
           </Heading>
           <div className='flex gap-2'>
-            <CyberButton
+            <Button
               variant='outline'
               size='icon'
               className='size-7'
@@ -57,8 +57,8 @@ export default function BlogCard({
               disabled={isDisabled}
             >
               <Edit size={14} />
-            </CyberButton>
-            <CyberButton
+            </Button>
+            <Button
               variant='destructive'
               size='icon'
               className='size-7 text-red-500'
@@ -67,7 +67,7 @@ export default function BlogCard({
               disabled={isDisabled}
             >
               <Trash2 size={14} />
-            </CyberButton>
+            </Button>
           </div>
         </div>
         <ImagePreviewUpload

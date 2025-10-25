@@ -5,7 +5,7 @@
 // import { motion } from 'framer-motion';
 // import { useState } from 'react';
 // import { useRouter } from 'next/navigation';
-// import { CyberButton } from '@/components/ui-custom/cyber-button';
+// import { Button } from '@/components/ui-custom/cyber-button';
 // import { Plus } from 'lucide-react';
 // import ProjectEditorModal from '@/components/admin/projects/project-editor-modal';
 // import { CyberConfirmDialog } from '@/components/ui-custom/cyber-confirm-dialog';
@@ -93,14 +93,14 @@ export default async function ProjectsPage() {
 //           className='mb-4 flex flex-col items-start justify-end gap-4 py-4 md:flex-row md:items-center'
 //         >
 //           <CyberSearchInput onSearch={setTerm} />
-//           <CyberButton
+//           <Button
 //             variant='primary'
 //             leftIcon={<Plus size={16} />}
 //             onClick={navigateToProjectSelector}
 //             className='md:self-end'
 //           >
 //             ADD_PROJECT
-//           </CyberButton>
+//           </Button>
 //         </motion.div>
 
 //         {/* Selected Projects */}

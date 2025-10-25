@@ -3,7 +3,7 @@ import { ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
 import { CyberCard } from '../ui-custom/cyber-card';
 import { CyberStatusBadge } from '../ui-custom/cyber-status-badge';
 import Image from 'next/image';
-import { CyberButton } from '../ui-custom/cyber-button';
+import { Button } from '../ui/button';
 import Link from 'next/link';
 import { getTimeToReadText } from '@/lib/helpers/get-time-to-read-text';
 
@@ -83,7 +83,7 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
                 </div>
               </div>
 
-              <CyberButton
+              <Button
                 className='hidden md:inline'
                 variant='secondary'
                 rightIcon={
@@ -94,13 +94,13 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
                 }
               >
                 READ_ARTICLE
-              </CyberButton>
-              <CyberButton size='icon' variant='secondary'>
+              </Button>
+              <Button size='icon' variant='secondary'>
                 <ArrowRight
                   size={16}
                   className=' transition-transform group-hover:translate-x-1'
                 />
-              </CyberButton>
+              </Button>
             </div>
           </div>
         </CyberCard>
