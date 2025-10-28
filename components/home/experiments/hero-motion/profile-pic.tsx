@@ -133,7 +133,7 @@ export default function ProfilePic({
             )}
           >
             <Image
-              src='/will-compressed.png'
+              src='/will.jpg'
               alt='Willian Frantz'
               className='object-cover'
               priority

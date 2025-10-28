@@ -39,14 +39,14 @@ export async function generateMetadata({ params }: Props) {
               alt: blog.title,
             },
           ]
-        : ['https://rubyeex.dev/will-compressed.png'],
+        : ['https://rubyeex.dev/will.jpg'],
     },
     twitter: {
       title: blog.title,
       description:
         blog.excerpt ||
         'Read this article by Willian Frantz on software development, security, and technology.',
-      images: [blog.image_url || 'https://rubyeex.dev/will-compressed.png'],
+      images: [blog.image_url || 'https://rubyeex.dev/will.jpg'],
     },
   };
 }
