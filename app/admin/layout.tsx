@@ -1,15 +1,15 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react"
 
-import { serverAuthService } from '@/lib/services/auth/server-auth-service';
-import AdminLayout from '@/components/admin/admin-layout/admin-layout';
-import { redirect } from 'next/navigation';
+import { serverAuthService } from "@/lib/services/auth/server-auth-service"
+import AdminLayout from "@/components/admin/admin-layout/admin-layout"
+import { redirect } from "next/navigation"
 
 export default async function Layout({ children }: { children: ReactNode }) {
-  const user = await serverAuthService.getCurrentUser();
+  const user = await serverAuthService.getCurrentUser()
 
   if (!user) {
-    redirect('/auth/login');
+    redirect("/auth/login")
   }
 
-  return <AdminLayout user={user}>{children}</AdminLayout>;
+  return <AdminLayout user={user}>{children}</AdminLayout>
 }

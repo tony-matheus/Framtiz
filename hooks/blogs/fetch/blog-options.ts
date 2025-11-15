@@ -1,23 +1,23 @@
-import { clientBlogService } from '@/lib/services/blog-service/client';
-import { Blog } from '@/lib/services/blog-service/helpers';
-import { keepPreviousData, queryOptions } from '@tanstack/react-query';
-import axios from 'axios';
+import { clientBlogService } from "@/lib/services/blog-service/client"
+import { Blog } from "@/lib/services/blog-service/helpers"
+import { keepPreviousData, queryOptions } from "@tanstack/react-query"
+import axios from "axios"
 
 export type PaginatedBlogResponse = {
-  blogs: Blog[];
-  totalPages: number;
-};
+  blogs: Blog[]
+  totalPages: number
+}
 
 export type FetchBlogsProps = {
-  title?: string;
-  page: number;
-  limit?: number;
-  published?: boolean | null;
-};
+  title?: string
+  page: number
+  limit?: number
+  published?: boolean | null
+}
 
 export type SimpleResponseBlogProps = {
-  simpleResponse?: boolean;
-} & FetchBlogsProps;
+  simpleResponse?: boolean
+} & FetchBlogsProps
 
 export async function fetchBlogs({
   title,
@@ -26,11 +26,11 @@ export async function fetchBlogs({
   published = null,
   simpleResponse = false,
 }: SimpleResponseBlogProps): Promise<PaginatedBlogResponse> {
-  const { data, headers } = await axios.get<Blog[]>('/api/admin/blogs', {
+  const { data, headers } = await axios.get<Blog[]>("/api/admin/blogs", {
     params: { title, page, limit, published, simple_response: simpleResponse },
-  });
+  })
 
-  return { blogs: data, totalPages: Number(headers['x-total-pages']) };
+  return { blogs: data, totalPages: Number(headers["x-total-pages"]) }
 }
 
 export async function fetchPublicBlogs({
@@ -45,7 +45,7 @@ export async function fetchPublicBlogs({
     page,
     limit,
     published,
-  });
+  })
 
   return {
     blogs: simpleResponse
@@ -57,7 +57,7 @@ export async function fetchPublicBlogs({
         }))
       : blogs,
     totalPages,
-  };
+  }
 }
 
 export const blogQueryOptions = ({
@@ -67,10 +67,10 @@ export const blogQueryOptions = ({
   published = null,
 }: FetchBlogsProps) =>
   queryOptions({
-    queryKey: ['blogs', title ?? '', page],
+    queryKey: ["blogs", title ?? "", page],
     queryFn: () => fetchBlogs({ title, page, limit, published }),
     placeholderData: keepPreviousData,
-  });
+  })
 
 export const publicBlogQueryOptions = ({
   title,
@@ -79,7 +79,7 @@ export const publicBlogQueryOptions = ({
   published = null,
 }: FetchBlogsProps) =>
   queryOptions({
-    queryKey: ['blogs_supabase', title ?? '', page],
+    queryKey: ["blogs_supabase", title ?? "", page],
     queryFn: () => fetchPublicBlogs({ title, page, limit, published }),
     placeholderData: keepPreviousData,
-  });
+  })

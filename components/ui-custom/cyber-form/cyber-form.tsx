@@ -1,15 +1,15 @@
-import * as FormPrimitive from '@/components/ui/form';
-import * as LabelPrimitive from '@radix-ui/react-label';
+import * as FormPrimitive from "@/components/ui/form"
+import * as LabelPrimitive from "@radix-ui/react-label"
 
-import { CyberLabel } from '../cyber-label';
-import { cn } from '@/lib/utils';
-import { forwardRef } from 'react';
+import { CyberLabel } from "../cyber-label"
+import { cn } from "@/lib/utils"
+import { forwardRef } from "react"
 
-const CyberFormProvider = FormPrimitive.Form;
+const CyberFormProvider = FormPrimitive.Form
 
-const CyberFormField = FormPrimitive.FormField;
+const CyberFormField = FormPrimitive.FormField
 
-const useFormField = FormPrimitive.useFormField;
+const useFormField = FormPrimitive.useFormField
 
 const CyberFormItem = forwardRef<
   HTMLDivElement,
@@ -18,73 +18,73 @@ const CyberFormItem = forwardRef<
   return (
     <FormPrimitive.FormItem
       ref={ref}
-      className={cn(className ?? 'space-y-2')}
+      className={cn(className ?? "space-y-2")}
       {...props}
     />
-  );
-});
-CyberFormItem.displayName = 'CyberFormItem';
+  )
+})
+CyberFormItem.displayName = "CyberFormItem"
 
-const CyberFormControl = FormPrimitive.FormControl;
+const CyberFormControl = FormPrimitive.FormControl
 
 const CyberFormDescription = forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => {
-  const { formDescriptionId } = useFormField();
+  const { formDescriptionId } = useFormField()
 
   return (
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn('text-xs text-muted-foreground relative', className)}
+      className={cn("text-xs text-muted-foreground relative", className)}
       {...props}
     />
-  );
-});
-CyberFormDescription.displayName = 'CyberFormDescription';
+  )
+})
+CyberFormDescription.displayName = "CyberFormDescription"
 
 const CyberFormMessage = forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
-  const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message ?? '') : children;
+  const { error, formMessageId } = useFormField()
+  const body = error ? String(error?.message ?? "") : children
 
   return (
     <p
       ref={ref}
       id={formMessageId}
       className={cn(
-        'text-xs font-medium text-red-400 mt-0',
-        body ? '' : 'text-red-400',
-        className
+        "text-xs font-medium text-red-400 mt-0",
+        body ? "" : "text-red-400",
+        className,
       )}
       {...props}
     >
       {body}
     </p>
-  );
-});
-CyberFormMessage.displayName = 'CyberFormMessage';
+  )
+})
+CyberFormMessage.displayName = "CyberFormMessage"
 
 const CyberFormLabel = forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
 >(({ className, ...props }, ref) => {
-  const { error, formItemId } = useFormField();
+  const { error, formItemId } = useFormField()
 
   return (
     <CyberLabel
       ref={ref}
-      className={cn(error && 'text-destructive', 'mb-2 blockn', className)}
+      className={cn(error && "text-destructive", "mb-2 blockn", className)}
       htmlFor={formItemId}
       {...props}
     />
-  );
-});
+  )
+})
 
-CyberFormLabel.displayName = 'CyberFormLabel';
+CyberFormLabel.displayName = "CyberFormLabel"
 
 export {
   useFormField,
@@ -95,4 +95,4 @@ export {
   CyberFormDescription,
   CyberFormMessage,
   CyberFormField,
-};
+}

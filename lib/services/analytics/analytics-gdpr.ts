@@ -1,153 +1,153 @@
 export class AnalyticsGDPR {
   static hasUserConsent(): boolean {
-    if (typeof window === 'undefined') {
-      return false;
+    if (typeof window === "undefined") {
+      return false
     }
 
-    const consent = localStorage.getItem('analytics-consent');
-    return consent === 'true';
+    const consent = localStorage.getItem("analytics-consent")
+    return consent === "true"
   }
 
   static setUserConsent(consent: boolean): void {
-    if (typeof window === 'undefined') {
-      return;
+    if (typeof window === "undefined") {
+      return
     }
 
-    localStorage.setItem('analytics-consent', consent.toString());
+    localStorage.setItem("analytics-consent", consent.toString())
 
     window.dispatchEvent(
-      new CustomEvent('analytics-consent-changed', {
+      new CustomEvent("analytics-consent-changed", {
         detail: { consent },
-      })
-    );
+      }),
+    )
   }
 
   static shouldTrackAnalytics(): boolean {
     if (!this.hasUserConsent()) {
-      return false;
+      return false
     }
 
     if (this.isPrivacyRegion()) {
-      return this.hasUserConsent();
+      return this.hasUserConsent()
     }
 
     if (this.hasUserOptedOut()) {
-      return false;
+      return false
     }
 
-    return true;
+    return true
   }
 
   static isPrivacyRegion(): boolean {
-    if (typeof window === 'undefined') {
-      return false;
+    if (typeof window === "undefined") {
+      return false
     }
 
     try {
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const language = navigator.language;
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+      const language = navigator.language
 
-      const gdprRegions = ['Europe', 'EU'];
+      const gdprRegions = ["Europe", "EU"]
       const gdprLanguages = [
-        'de',
-        'fr',
-        'it',
-        'es',
-        'nl',
-        'pl',
-        'pt',
-        'sv',
-        'da',
-        'fi',
-        'no',
-      ];
+        "de",
+        "fr",
+        "it",
+        "es",
+        "nl",
+        "pl",
+        "pt",
+        "sv",
+        "da",
+        "fi",
+        "no",
+      ]
 
-      const ccpaRegions = ['America/Los_Angeles', 'America/New_York'];
+      const ccpaRegions = ["America/Los_Angeles", "America/New_York"]
 
       if (gdprRegions.some((region) => timezone.includes(region))) {
-        return true;
+        return true
       }
 
       if (gdprLanguages.some((lang) => language.startsWith(lang))) {
-        return true;
+        return true
       }
 
       if (ccpaRegions.includes(timezone)) {
-        return true;
+        return true
       }
 
-      return false;
+      return false
     } catch {
-      return false;
+      return false
     }
   }
 
   static hasUserOptedOut(): boolean {
-    if (typeof window === 'undefined') {
-      return false;
+    if (typeof window === "undefined") {
+      return false
     }
 
-    const optOut = localStorage.getItem('analytics-opt-out');
-    return optOut === 'true';
+    const optOut = localStorage.getItem("analytics-opt-out")
+    return optOut === "true"
   }
 
   static setUserOptOut(optOut: boolean): void {
-    if (typeof window === 'undefined') {
-      return;
+    if (typeof window === "undefined") {
+      return
     }
 
-    localStorage.setItem('analytics-opt-out', optOut.toString());
+    localStorage.setItem("analytics-opt-out", optOut.toString())
 
     if (optOut) {
-      this.setUserConsent(false);
+      this.setUserConsent(false)
     }
   }
 
   static anonymizeIP(ip: string): string {
-    if (!ip || typeof ip !== 'string') {
-      return '0.0.0.0';
+    if (!ip || typeof ip !== "string") {
+      return "0.0.0.0"
     }
 
-    if (ip.includes('.')) {
-      const parts = ip.split('.');
+    if (ip.includes(".")) {
+      const parts = ip.split(".")
       if (parts.length === 4) {
-        return `${parts[0]}.${parts[1]}.${parts[2]}.0`;
+        return `${parts[0]}.${parts[1]}.${parts[2]}.0`
       }
     }
 
-    if (ip.includes(':')) {
-      const parts = ip.split(':');
+    if (ip.includes(":")) {
+      const parts = ip.split(":")
       if (parts.length >= 4) {
-        return `${parts[0]}:${parts[1]}:${parts[2]}:${parts[3]}::`;
+        return `${parts[0]}:${parts[1]}:${parts[2]}:${parts[3]}::`
       }
     }
 
-    return '0.0.0.0';
+    return "0.0.0.0"
   }
 
   static sanitizeUserAgent(userAgent: string): string {
-    if (!userAgent || typeof userAgent !== 'string') {
-      return 'Unknown';
+    if (!userAgent || typeof userAgent !== "string") {
+      return "Unknown"
     }
 
     return userAgent
-      .replace(/\([^)]*\)/g, '')
-      .replace(/[0-9]+\.[0-9]+/g, 'X.X')
-      .replace(/\s+/g, ' ')
+      .replace(/\([^)]*\)/g, "")
+      .replace(/[0-9]+\.[0-9]+/g, "X.X")
+      .replace(/\s+/g, " ")
       .trim()
-      .substring(0, 100);
+      .substring(0, 100)
   }
 
   static getDataRetentionDays(): number {
-    return 730;
+    return 730
   }
 
   static shouldDeleteData(createdAt: string): boolean {
-    const retentionDays = this.getDataRetentionDays();
-    const dataAge = Date.now() - new Date(createdAt).getTime();
-    const maxAge = retentionDays * 24 * 60 * 60 * 1000;
+    const retentionDays = this.getDataRetentionDays()
+    const dataAge = Date.now() - new Date(createdAt).getTime()
+    const maxAge = retentionDays * 24 * 60 * 60 * 1000
 
-    return dataAge > maxAge;
+    return dataAge > maxAge
   }
 
   static getPrivacyNotice(): string {
@@ -159,17 +159,17 @@ Analytics Privacy Notice:
 - Data is retained for up to 2 years
 - You can opt out at any time
 - We comply with GDPR and other privacy regulations
-    `.trim();
+    `.trim()
   }
 
   static async requestDataDeletion(userIdentifier: string): Promise<boolean> {
     try {
-      console.log(`Data deletion requested for: ${userIdentifier}`);
+      console.log(`Data deletion requested for: ${userIdentifier}`)
 
-      return true;
+      return true
     } catch (error) {
-      console.error('Error requesting data deletion:', error);
-      return false;
+      console.error("Error requesting data deletion:", error)
+      return false
     }
   }
 }

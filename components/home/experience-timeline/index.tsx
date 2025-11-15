@@ -1,18 +1,18 @@
-'use client';
+"use client"
 
-import dynamic from 'next/dynamic';
-import { Experience } from '@/lib/schemas/experience-schemas';
+import dynamic from "next/dynamic"
+import { Experience } from "@/lib/schemas/experience-schemas"
 
-const Timeline = dynamic(() => import('./timeline'), { ssr: false });
+const Timeline = dynamic(() => import("./timeline"), { ssr: false })
 
 export default function ExperienceTimeline({
   experiences,
 }: {
-  experiences: Experience[];
+  experiences: Experience[]
 }) {
   return (
     <div>
       <Timeline experiences={experiences} />
     </div>
-  );
+  )
 }

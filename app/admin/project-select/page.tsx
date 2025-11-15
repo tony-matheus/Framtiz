@@ -1,26 +1,26 @@
-'use client';
+"use client"
 
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
-import GithubConnection from '@/components/admin/project-select/github-connection';
-import { useUserContext } from '@/lib/contexts/user-context';
-import RepoList from '@/components/admin/project-select/repo-list';
+import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { ArrowLeft } from "lucide-react"
+import GithubConnection from "@/components/admin/project-select/github-connection"
+import { useUserContext } from "@/lib/contexts/user-context"
+import RepoList from "@/components/admin/project-select/repo-list"
 
 export default function ProjectSelectPage() {
-  const user = useUserContext();
+  const user = useUserContext()
 
-  const router = useRouter();
+  const router = useRouter()
 
   const navigateBack = () => {
-    router.push('/admin/projects');
-  };
+    router.push("/admin/projects")
+  }
 
   return (
     <div>
-      <div className='mb-4 flex items-center justify-between gap-2'>
+      <div className="mb-4 flex items-center justify-between gap-2">
         <Button
-          variant='outline'
+          variant="outline"
           leftIcon={<ArrowLeft size={16} />}
           onClick={navigateBack}
         >
@@ -30,14 +30,14 @@ export default function ProjectSelectPage() {
       {user.githubUsername ? (
         <RepoList />
       ) : (
-        <div className=''>
+        <div className="">
           <GithubConnection
             connected={!!user.githubUsername}
             onSave={() => {}}
-            className='my-12'
+            className="my-12"
           />
         </div>
       )}
     </div>
-  );
+  )
 }

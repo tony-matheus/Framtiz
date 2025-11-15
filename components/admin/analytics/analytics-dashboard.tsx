@@ -1,27 +1,27 @@
-'use client';
-import { AnalyticsErrorBoundary } from './error-boundary';
-import TopBlogsSection from './top-blogs-section';
-import MetricsCards from './charts/metrics-cards';
-import BlogsTable from './blogs-table';
-import AnalyticsSkeleton from './analytics-skeleton';
-import AnalyticsErrorState from './analytics-error-state';
-import EmptyState from '../empty-state';
-import { DashboardData } from '@/lib/schemas/analytics-schemas';
+"use client"
+import { AnalyticsErrorBoundary } from "./error-boundary"
+import TopBlogsSection from "./top-blogs-section"
+import MetricsCards from "./charts/metrics-cards"
+import BlogsTable from "./blogs-table"
+import AnalyticsSkeleton from "./analytics-skeleton"
+import AnalyticsErrorState from "./analytics-error-state"
+import EmptyState from "../empty-state"
+import { DashboardData } from "@/lib/schemas/analytics-schemas"
 
 type AnalyticsDashboardProps = {
-  isLoading: boolean;
-  isError: boolean;
-  error: Error | null;
-  data: DashboardData | undefined;
-  refetch: () => void;
-};
+  isLoading: boolean
+  isError: boolean
+  error: Error | null
+  data: DashboardData | undefined
+  refetch: () => void
+}
 
 export default function AnalyticsDashboard(props: AnalyticsDashboardProps) {
   return (
     <AnalyticsErrorBoundary>
       <AnalyticsDashboardContent {...props} />
     </AnalyticsErrorBoundary>
-  );
+  )
 }
 
 function AnalyticsDashboardContent({
@@ -31,17 +31,17 @@ function AnalyticsDashboardContent({
   data,
   refetch,
 }: AnalyticsDashboardProps) {
-  if (isLoading) return <AnalyticsSkeleton />;
+  if (isLoading) return <AnalyticsSkeleton />
 
   if (isError)
     return (
       <AnalyticsErrorState errorMessage={error?.message} onRetry={refetch} />
-    );
+    )
 
-  if (!data) return <EmptyState title='No analytics data available' />;
+  if (!data) return <EmptyState title="No analytics data available" />
 
   return (
-    <div className='space-y-6'>
+    <div className="space-y-6">
       {/* Top Blogs Section */}
       <TopBlogsSection blogs={data.top_blogs} />
 
@@ -66,5 +66,5 @@ function AnalyticsDashboardContent({
       {/* Device Distribution */}
       {/* <DeviceChart data={data.device_data} /> */}
     </div>
-  );
+  )
 }

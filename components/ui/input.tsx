@@ -1,23 +1,40 @@
-import * as React from 'react';
+import { forwardRef, ReactNode } from "react"
+import { PrimitiveInput } from "./primitives/input"
+import { cn } from "@/lib/utils"
+import { Label } from "./label"
 
-import { cn } from '@/lib/utils';
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label?: string
+  icon?: ReactNode
+}
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
-  ({ className, type, ...props }, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ label, type = "text", className, icon, ...props }: InputProps, ref) => {
     return (
-      <input
-        type={type}
-        className={cn(
-          'flex h-9 w-full border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-          className
-        )}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
+      <div className="w-full">
+        {!!label && <Label className="mb-2 block">{label}</Label>}
+        <div className="relative w-full">
+          {!!icon && (
+            <div className="absolute inset-y-0 left-0 flex w-10 items-center justify-center border-r border-slate-700">
+              {icon}
+            </div>
+          )}
+          <PrimitiveInput
+            ref={ref}
+            type={type}
+            className={cn(
+              "w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600",
+              !!icon && "pl-12",
+              className,
+            )}
+            {...props}
+          />
+        </div>
+      </div>
+    )
+  },
+)
 
-Input.displayName = 'Input';
+Input.displayName = "Input"
 
-export { Input };
+export default Input

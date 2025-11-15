@@ -1,7 +1,7 @@
-import Link from 'next/link';
+import Link from "next/link"
 
-import { Briefcase, User } from 'lucide-react';
-import CyberTabs from '@/components/ui-custom/cyber-tabs';
+import { Briefcase, User } from "lucide-react"
+import CyberTabs from "@/components/ui-custom/cyber-tabs"
 
 export default function EditProfileTabs({ tabName }: { tabName?: string }) {
   return (
@@ -10,15 +10,15 @@ export default function EditProfileTabs({ tabName }: { tabName?: string }) {
         activeTabName={tabName}
         tabs={[
           {
-            name: 'profile',
+            name: "profile",
             asChild: true,
             component: (
               <Link
-                href='/admin/edit-profile/profile'
-                className='flex items-center gap-2'
+                href="/admin/edit-profile/profile"
+                className="flex items-center gap-2"
               >
                 <User size={16} />
-                <span className='hidden sm:inline'>PROFILE</span>
+                <span className="hidden sm:inline">PROFILE</span>
               </Link>
             ),
           },
@@ -36,20 +36,20 @@ export default function EditProfileTabs({ tabName }: { tabName?: string }) {
           //   ),
           // },
           {
-            name: 'experience',
+            name: "experience",
             asChild: true,
             component: (
               <Link
-                href='/admin/edit-profile/experience'
-                className='flex items-center gap-2'
+                href="/admin/edit-profile/experience"
+                className="flex items-center gap-2"
               >
                 <Briefcase size={16} />
-                <span className='hidden sm:inline'>EXPERIENCE</span>
+                <span className="hidden sm:inline">EXPERIENCE</span>
               </Link>
             ),
           },
         ]}
       />
     </nav>
-  );
+  )
 }

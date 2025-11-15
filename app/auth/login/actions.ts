@@ -1,23 +1,23 @@
-'use server';
+"use server"
 
-import { LoginInput } from '@/lib/services/auth/auth-types';
+import { LoginInput } from "@/lib/services/auth/auth-types"
 
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+import { createServerSupabaseClient } from "@/lib/supabase/server"
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 export async function login(data: LoginInput) {
-  const supabase = await createServerSupabaseClient();
+  const supabase = await createServerSupabaseClient()
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
   await supabase.auth.signInWithPassword({
     email: data.email,
     password: data.password,
-  });
+  })
 
-  revalidatePath('/', 'layout');
-  redirect('/');
+  revalidatePath("/", "layout")
+  redirect("/")
 }
 
 // export async function signup(formData: FormData) {

@@ -1,21 +1,21 @@
-import SimpleDialog from '@/components/ui-custom/dialogs/simple-dialog';
+import SimpleDialog from "@/components/ui/dialogs/simple-dialog"
 
-import ExpForm, { ExperienceFormProps } from './exp-form';
-import { useCreateExperience } from '@/hooks/experiences/mutations/use-create-experience';
-import { useUpdateExperience } from '@/hooks/experiences/mutations/use-update-experience';
+import ExpForm, { ExperienceFormProps } from "./exp-form"
+import { useCreateExperience } from "@/hooks/experiences/mutations/use-create-experience"
+import { useUpdateExperience } from "@/hooks/experiences/mutations/use-update-experience"
 import {
   Experience,
   ExperienceInput,
   ExperienceInputSchema,
-} from '@/lib/schemas/experience-schemas';
-import { toast } from 'sonner';
+} from "@/lib/schemas/experience-schemas"
+import { toast } from "sonner"
 
 interface ExperienceFormDialogProps
-  extends Omit<ExperienceFormProps, 'onSubmit' | 'defaultValues' | 'loading'> {
-  isOpen: boolean;
-  experience?: Experience | null;
-  onOpenChange: (arg0: boolean) => void;
-  onSave: () => void;
+  extends Omit<ExperienceFormProps, "onSubmit" | "defaultValues" | "loading"> {
+  isOpen: boolean
+  experience?: Experience | null
+  onOpenChange: (arg0: boolean) => void
+  onSave: () => void
 }
 
 export default function ExperienceFormDialog({
@@ -26,28 +26,28 @@ export default function ExperienceFormDialog({
   ...props
 }: ExperienceFormDialogProps) {
   const { mutateAsync: createExperience, isPending: isCreating } =
-    useCreateExperience();
+    useCreateExperience()
 
   const { mutateAsync: updateExperience, isPending: isUpdating } =
-    useUpdateExperience();
+    useUpdateExperience()
 
   const handleSubmit = async (values: ExperienceInput) => {
     if (experience) {
-      await updateExperience({ ...experience, ...values });
-      toast.success('SYSTEM_ACTION: COMPLETED', {
-        description: 'Experience updated',
-        position: 'bottom-right',
-      });
-      return onSave?.();
+      await updateExperience({ ...experience, ...values })
+      toast.success("SYSTEM_ACTION: COMPLETED", {
+        description: "Experience updated",
+        position: "bottom-right",
+      })
+      return onSave?.()
     }
 
-    await createExperience(values);
-    toast.success('SYSTEM_ACTION: COMPLETED', {
+    await createExperience(values)
+    toast.success("SYSTEM_ACTION: COMPLETED", {
       description: `Experience ${values.position} created`,
-      position: 'bottom-right',
-    });
-    onSave?.();
-  };
+      position: "bottom-right",
+    })
+    onSave?.()
+  }
 
   return (
     <SimpleDialog
@@ -55,7 +55,7 @@ export default function ExperienceFormDialog({
       onOpenChange={onOpenChange}
       onCancel={() => onOpenChange(false)}
       hideFooter
-      title={experience ? 'EDIT_EXPERIENCE' : 'ADD_NEW_EXPERIENCE'}
+      title={experience ? "EDIT_EXPERIENCE" : "ADD_NEW_EXPERIENCE"}
     >
       <ExpForm
         editingId={experience?.id}
@@ -67,5 +67,5 @@ export default function ExperienceFormDialog({
         {...props}
       />
     </SimpleDialog>
-  );
+  )
 }

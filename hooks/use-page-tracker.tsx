@@ -1,17 +1,17 @@
-import { isAnalyticsAvailable } from '@/lib/services/analytics/analytics-error-handler';
-import { usePathname } from 'next/navigation';
-import { useEffect, useRef } from 'react';
-import { useAnalyticsTrack } from './analytics/use-analytics-track';
+import { isAnalyticsAvailable } from "@/lib/services/analytics/analytics-error-handler"
+import { usePathname } from "next/navigation"
+import { useEffect, useRef } from "react"
+import { useAnalyticsTrack } from "./analytics/use-analytics-track"
 
 type PageTrackerProps = {
-  page?: string;
-  referrer?: string;
-  userAgent?: string;
-  country?: string;
-  device?: string;
-  from?: string;
-  metadata?: Record<string, unknown>;
-};
+  page?: string
+  referrer?: string
+  userAgent?: string
+  country?: string
+  device?: string
+  from?: string
+  metadata?: Record<string, unknown>
+}
 
 export default function usePageTracker({
   page,
@@ -22,56 +22,56 @@ export default function usePageTracker({
   from,
   metadata = {},
 }: PageTrackerProps) {
-  const pathname = usePathname();
-  const wasTracked = useRef(false);
-  const { mutate: trackAnalytics } = useAnalyticsTrack();
+  const pathname = usePathname()
+  const wasTracked = useRef(false)
+  const { mutate: trackAnalytics } = useAnalyticsTrack()
 
   const detectDevice = (currentUserAgent: string): string => {
-    const ua = currentUserAgent.toLowerCase();
+    const ua = currentUserAgent.toLowerCase()
     if (
-      ua.includes('mobile') ||
-      ua.includes('android') ||
-      ua.includes('iphone')
+      ua.includes("mobile") ||
+      ua.includes("android") ||
+      ua.includes("iphone")
     ) {
-      return 'mobile';
+      return "mobile"
     }
-    if (ua.includes('tablet') || ua.includes('ipad')) {
-      return 'tablet';
+    if (ua.includes("tablet") || ua.includes("ipad")) {
+      return "tablet"
     }
-    return 'desktop';
-  };
+    return "desktop"
+  }
 
   const getCountry = (): string => {
     try {
-      return navigator.language.split('-')[1]?.toUpperCase() || 'Unknown';
+      return navigator.language.split("-")[1]?.toUpperCase() || "Unknown"
     } catch {
-      return 'Unknown';
+      return "Unknown"
     }
-  };
+  }
 
   const getSource = (currentReferrer: string): string => {
     if (currentReferrer) {
       try {
-        const url = new URL(currentReferrer);
-        return url.hostname;
+        const url = new URL(currentReferrer)
+        return url.hostname
       } catch {
-        return 'direct';
+        return "direct"
       }
     }
-    return 'direct';
-  };
+    return "direct"
+  }
 
   useEffect(() => {
     if (!wasTracked.current) {
       const trackPageView = async () => {
         if (!isAnalyticsAvailable()) {
-          return;
+          return
         }
 
-        const currentPage = page ?? pathname;
+        const currentPage = page ?? pathname
 
-        const currentReferrer = referrer ?? document.referrer;
-        const currentUserAgent = userAgent ?? navigator.userAgent;
+        const currentReferrer = referrer ?? document.referrer
+        const currentUserAgent = userAgent ?? navigator.userAgent
 
         const analyticsData = {
           page: currentPage,
@@ -89,13 +89,13 @@ export default function usePageTracker({
             language: navigator.language,
             timestamp: new Date().toISOString(),
           },
-        };
+        }
 
-        trackAnalytics(analyticsData);
-        wasTracked.current = true;
-      };
+        trackAnalytics(analyticsData)
+        wasTracked.current = true
+      }
 
-      trackPageView();
+      trackPageView()
     }
   }, [
     pathname,
@@ -108,7 +108,7 @@ export default function usePageTracker({
     metadata,
     trackAnalytics,
     wasTracked,
-  ]);
+  ])
 
-  return null;
+  return null
 }

@@ -1,42 +1,42 @@
-'use client';
+"use client"
 
-import { useCanvasEffect } from '@/hooks/use-canvas-effect';
-import { motion } from 'framer-motion';
-import { ArrowDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import Skills from './skills';
-import ProfilePic from './profile-pic';
+import { useCanvasEffect } from "@/hooks/use-canvas-effect"
+import { motion } from "framer-motion"
+import { ArrowDown } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Skills from "./skills"
+import ProfilePic from "./profile-pic"
 
 export type Profile = {
-  id: number;
-  name: string;
-  description: string;
-  github_url: string;
-};
+  id: number
+  name: string
+  description: string
+  github_url: string
+}
 
 interface ProjectShowcaseProps {
-  profile: Profile;
+  profile: Profile
 }
 
 export default function HeroMotion({ profile }: ProjectShowcaseProps) {
-  const canvasRef = useCanvasEffect();
+  const canvasRef = useCanvasEffect()
 
   return (
-    <section className='relative flex h-screen items-center justify-center overflow-hidden'>
-      <canvas ref={canvasRef} className='absolute inset-0 z-10 opacity-40' />
+    <section className="relative flex h-screen items-center justify-center overflow-hidden">
+      <canvas ref={canvasRef} className="absolute inset-0 z-10 opacity-40" />
       {/* Decorative elements */}
-      <div className='absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-purple-600 to-green-400'></div>
-      <div className='absolute right-0 top-0 h-40 w-1 bg-purple-600'></div>
-      <div className='absolute bottom-0 left-0 h-1 w-40 bg-green-400'></div>
-      <div className='container z-10 mx-auto px-4 text-center'>
+      <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-purple-600 to-green-400"></div>
+      <div className="absolute right-0 top-0 h-40 w-1 bg-purple-600"></div>
+      <div className="absolute bottom-0 left-0 h-1 w-40 bg-green-400"></div>
+      <div className="container z-10 mx-auto px-4 text-center">
         <ProfilePic />
-        <div className='mx-auto max-w-3xl'>
+        <div className="mx-auto max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className='mb-6 inline-flex border-l-0 border-purple-600 bg-gradient-to-r from-purple-600 to-green-400 bg-clip-text pl-0 text-4xl font-bold text-transparent md:border-l-4 md:pl-4 md:text-6xl'>
+            <h1 className="mb-6 inline-flex border-l-0 border-purple-600 bg-gradient-to-r from-purple-600 to-green-400 bg-clip-text pl-0 text-4xl font-bold text-transparent md:border-l-4 md:pl-4 md:text-6xl">
               {profile.name}
             </h1>
           </motion.div>
@@ -46,7 +46,7 @@ export default function HeroMotion({ profile }: ProjectShowcaseProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h2 className='mx-auto mb-8 inline-flex border-l-0 border-green-400 pl-0 font-mono text-lg text-slate-300 md:border-l-4 md:pl-4 md:text-2xl'>
+            <h2 className="mx-auto mb-8 inline-flex border-l-0 border-green-400 pl-0 font-mono text-lg text-slate-300 md:border-l-4 md:pl-4 md:text-2xl">
               {profile.description}
             </h2>
           </motion.div>
@@ -57,17 +57,17 @@ export default function HeroMotion({ profile }: ProjectShowcaseProps) {
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             <Button
-              size='lg'
-              variant='outline'
-              className='mx-auto'
+              size="lg"
+              variant="outline"
+              className="mx-auto"
               onClick={() => {
-                const el = document.getElementById('contact');
+                const el = document.getElementById("contact")
                 if (el) {
-                  el.scrollIntoView({ behavior: 'smooth' });
+                  el.scrollIntoView({ behavior: "smooth" })
                 }
               }}
             >
-              <span className='mr-2'>INITIALIZE CONTACT</span>
+              <span className="mr-2">INITIALIZE CONTACT</span>
               <ArrowDown />
             </Button>
           </motion.div>
@@ -82,11 +82,11 @@ export default function HeroMotion({ profile }: ProjectShowcaseProps) {
           duration: 1,
           delay: 1,
           repeat: Number.POSITIVE_INFINITY,
-          repeatType: 'reverse',
+          repeatType: "reverse",
         }}
-        className='absolute inset-x-auto bottom-4'
+        className="absolute inset-x-auto bottom-4"
       >
-        <ArrowDown className='size-6 text-purple-400' />
+        <ArrowDown className="size-6 text-purple-400" />
       </motion.div>
       {/* Game-like notification */}
       {/* <motion.div
@@ -103,5 +103,5 @@ export default function HeroMotion({ profile }: ProjectShowcaseProps) {
         </div>
       </motion.div> */}
     </section>
-  );
+  )
 }
