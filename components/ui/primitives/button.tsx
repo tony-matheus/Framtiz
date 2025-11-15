@@ -4,8 +4,9 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
+// eslint-disable-next-line tailwindcss/no-contradicting-classname
 const buttonVariants = cva(
-  "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap text-sm font-medium outline-none transition-all duration-300 focus-visible:border-ring focus-visible:ring focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0 ripple ripple-hover break-words font-mono",
+  "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive ripple ripple-hover inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap break-words font-mono text-sm font-medium outline-none transition-all duration-300 focus-visible:border-ring focus-visible:ring focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -14,11 +15,11 @@ const buttonVariants = cva(
         destructive:
           'border-2 border-red-600 text-red-300 hover:bg-red-900/30 focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40',
         outline:
-          'border-2 border-slate-700 text-slate-300 hover:border-purple-600 hover:text-purple-300 bg-transparent text-purple-300 hover:bg-purple-900/30 dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
+          'border-2 border-slate-700 bg-transparent text-purple-300 text-slate-300 hover:border-purple-600 hover:bg-purple-900/30 hover:text-purple-300 dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
         secondary:
           'border-2 border-green-600 text-green-300 hover:bg-green-900/30',
         ghost:
-          'bg-transparent text-slate-300 hover:bg-purple-900/30 rounded-full hover:text-purple-300',
+          'rounded-full bg-transparent text-slate-300 hover:bg-purple-900/30 hover:text-purple-300',
         link: 'text-primary underline-offset-4 hover:underline',
         warning:
           'border-2 border-yellow-600 text-yellow-300 hover:bg-yellow-900/30',

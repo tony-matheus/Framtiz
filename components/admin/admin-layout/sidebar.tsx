@@ -47,7 +47,7 @@ export default function AdminSidebar({ onLogout, user }: AdminSidebarProps) {
               </Link>
               <div>
                 <div className='font-mono text-sm text-green-400'>FRAMTIZ</div>
-                <div className='font-mono text-xs text-slate-400'>v0.0.1</div>
+                <div className='font-mono text-xs text-slate-400'>v1.0.0</div>
               </div>
             </div>
           </SidebarMenuItem>

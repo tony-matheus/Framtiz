@@ -3,7 +3,6 @@
 import ReactMarkdown from 'react-markdown';
 import { motion, useScroll } from 'framer-motion';
 import {
-  ArrowLeft,
   Calendar,
   ChevronLeft,
   ChevronRight,
@@ -13,11 +12,11 @@ import {
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import Image from 'next/image';
 import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
 import { Blog } from '@/lib/services/blog-service/helpers';
 import PageTracker from '@/components/analytics/page-tracker';
+import BlogNavigation from './blog-navigation';
 
 export default function BlogPost({ blog }: { blog: Blog }) {
   const { scrollYProgress } = useScroll();
@@ -50,25 +49,7 @@ export default function BlogPost({ blog }: { blog: Blog }) {
       <div className='absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.03)_1px,transparent_1px)] '></div>
 
       {/* Navigation */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className='sticky top-0 z-40 border-b border-slate-800 bg-slate-950/90 backdrop-blur-sm'
-      >
-        <div className=' mx-auto p-4'>
-          <div className='flex items-center justify-between'>
-            <Link
-              href='/blog'
-              className='group inline-flex items-center text-sm text-slate-400 transition-colors duration-300 hover:text-purple-400'
-              prefetch={true}
-            >
-              <ArrowLeft className='mr-2 size-4 transition-transform group-hover:-translate-x-1' />
-              <span className='font-mono'> BACK_TO_BLOG</span>
-            </Link>
-          </div>
-        </div>
-      </motion.div>
+      <BlogNavigation link='/blog' text='BACK_TO_BLOG' />
 
       {/* Article Container - Digital Book Style */}
       <div className='container relative z-10 mx-auto max-w-4xl px-4 py-8'>

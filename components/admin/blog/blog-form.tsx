@@ -179,7 +179,7 @@ export default function BlogForm({
             <div className='inline-flex items-center gap-4'>
               <Button
                 type='submit'
-                variant='primary'
+                variant='default'
                 isLoading={loading}
                 loadingText='SAVING...'
                 leftIcon={<Save size={16} />}

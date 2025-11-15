@@ -38,7 +38,7 @@ export default function EmptyState({
 
           {actionLabel && onAction && (
             <Button
-              variant='primary'
+              variant='default'
               onClick={onAction}
               leftIcon={<Plus size={16} />}
             >

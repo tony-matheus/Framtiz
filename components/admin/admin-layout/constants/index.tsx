@@ -1,6 +1,6 @@
 import {
   ChartLineIcon,
-  FileCode,
+  // FileCode,
   Github,
   Newspaper,
   UserIcon,
@@ -19,12 +19,12 @@ export const NAV_ITEMS = [
     icon: <Newspaper size={18} />,
     href: '/admin/blogs',
   },
-  {
-    id: 'projects',
-    label: 'PROJECTS',
-    icon: <FileCode size={18} />,
-    href: '/admin/projects',
-  },
+  // {
+  //   id: 'projects',
+  //   label: 'PROJECTS',
+  //   icon: <FileCode size={18} />,
+  //   href: '/admin/projects',
+  // },
 
   // hidden
   {

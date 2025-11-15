@@ -71,7 +71,7 @@ export default function GithubConnection({
           <div className='mt-8 flex justify-end'>
             <Button
               onClick={handleSubmit}
-              variant='primary'
+              variant='default'
               leftIcon={<RefreshCw size={16} />}
               isLoading={isPending}
             >

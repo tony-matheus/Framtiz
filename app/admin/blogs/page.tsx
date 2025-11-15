@@ -112,7 +112,7 @@ export default function BlogPage() {
           <CyberSearchInput onSearch={setTerm} placeholder='Type to search…' />
 
           <Button
-            variant='primary'
+            variant='default'
             leftIcon={<Plus size={16} />}
             onClick={handleAddBlog}
             className='md:self-end'

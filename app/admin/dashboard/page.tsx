@@ -39,7 +39,6 @@ export default function DashboardPage() {
         data={data}
         refetch={refetch}
       />
-      ;
     </div>
   );
 }

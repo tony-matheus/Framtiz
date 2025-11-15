@@ -168,7 +168,7 @@ export default function FloatingNav() {
                       SYSTEM_TERMINAL
                     </div>
                   </div>
-                  <div className='font-mono text-xs text-slate-500'>v0.0.1</div>
+                  <div className='font-mono text-xs text-slate-500'>v1.0.0</div>
                 </div>
               </div>
 

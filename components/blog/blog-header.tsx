@@ -1,26 +1,9 @@
 import { motion } from 'framer-motion';
-import { BookOpen, ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
+import { BookOpen } from 'lucide-react';
 
 export default function BlogHeader() {
   return (
     <div className='relative z-30 pb-6'>
-      {/* Back to home link */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Link
-          href='/'
-          className='group inline-flex items-center text-sm text-green-400 transition-colors duration-300 hover:text-purple-400'
-          prefetch={true}
-        >
-          <ArrowLeft className='mr-2 size-4 transition-transform group-hover:-translate-x-1' />
-          <span className='font-mono'>BACK_TO_HOME</span>
-        </Link>
-      </motion.div>
-
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

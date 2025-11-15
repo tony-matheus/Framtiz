@@ -10,6 +10,7 @@ import PageTracker from '@/components/analytics/page-tracker';
 
 import BlogCard from '@/components/blog/blog-card';
 import { useSuspenseFetchBlogsPublic } from '@/hooks/blogs/fetch/use-suspense-fetch-blogs-public';
+import BlogNavigation from '@/components/blog/blog-navigation';
 
 export default function Blog() {
   const { blogs, totalPages, currentPage, goToPage } =
@@ -22,6 +23,7 @@ export default function Blog() {
       <PageTracker />
       <div className='absolute inset-0 bg-gradient-to-br from-purple-900/20 via-slate-950/80 to-green-900/20' />
 
+      <BlogNavigation link='/' text='BACK_TO_HOME' />
       <div className='container relative z-10 mx-auto px-2 py-6'>
         <BlogHeader />
 
