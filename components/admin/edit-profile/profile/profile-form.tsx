@@ -1,115 +1,115 @@
-'use client';
+"use client"
 
-import type React from 'react';
+import type React from "react"
 
-import { User, Save, Mail, MapPin, Github, Twitter } from 'lucide-react';
-import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
-import { CyberFormField } from '@/components/ui-custom/cyber-form-field';
-import { Button } from '@/components/ui/button';
-import { useUserContext } from '@/lib/contexts/user-context';
-import { useUpdateProfile } from '@/hooks/profile/use-update-profile';
-import { useState } from 'react';
+import { User, Save, Mail, MapPin, Github, Twitter } from "lucide-react"
+import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { CyberFormField } from "@/components/ui-custom/cyber-form-field"
+import { Button } from "@/components/ui/button"
+import { useUserContext } from "@/lib/contexts/user-context"
+import { useUpdateProfile } from "@/hooks/profile/use-update-profile"
+import { useState } from "react"
 
 export default function ProfileForm() {
-  const user = useUserContext();
-  const { mutate, isPending } = useUpdateProfile();
+  const user = useUserContext()
+  const { mutate, isPending } = useUpdateProfile()
   const [profile, setProfile] = useState({
     username: user.username,
     email: user.email,
-    role: 'ADMIN_LEVEL',
-    bio: 'Senior Full-stack developer.',
-    location: '',
+    role: "ADMIN_LEVEL",
+    bio: "Senior Full-stack developer.",
+    location: "",
     githubUsername: user.githubUsername,
-    twitter: '',
-  });
+    twitter: "",
+  })
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    const { name, value } = e.target;
-    setProfile({ ...profile, [name]: value });
-  };
+    const { name, value } = e.target
+    setProfile({ ...profile, [name]: value })
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     mutate({
       username: profile.username,
       github_username: profile.githubUsername,
-    });
-  };
+    })
+  }
 
   return (
-    <CyberCard className='md:col-span-2'>
+    <CyberCard className="md:col-span-2">
       <CyberCardContent>
-        <h3 className='mb-4 flex items-center font-mono text-lg text-slate-200'>
-          <div className='mr-2 size-2 bg-purple-400'></div>
+        <h3 className="mb-4 flex items-center font-mono text-lg text-slate-200">
+          <div className="mr-2 size-2 bg-purple-400"></div>
           EDIT_PROFILE
         </h3>
 
-        <form onSubmit={handleSubmit} className='space-y-6'>
-          <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <CyberFormField
-              label='USERNAME'
-              name='username'
+              label="USERNAME"
+              name="username"
               value={profile.username}
               onChange={handleInputChange}
-              icon={<User size={16} className='text-slate-500' />}
+              icon={<User size={16} className="text-slate-500" />}
             />
 
             <CyberFormField
-              label='EMAIL'
-              name='email'
-              type='email'
+              label="EMAIL"
+              name="email"
+              type="email"
               value={profile.email}
               onChange={handleInputChange}
-              icon={<Mail size={16} className='text-slate-500' />}
+              icon={<Mail size={16} className="text-slate-500" />}
             />
           </div>
 
           <CyberFormField
-            label='BIO'
-            name='bio'
+            label="BIO"
+            name="bio"
             value={profile.bio}
             onChange={handleInputChange}
             multiline
             rows={4}
           />
 
-          <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <CyberFormField
-              label='LOCATION'
-              name='location'
+              label="LOCATION"
+              name="location"
               value={profile.location}
               onChange={handleInputChange}
-              icon={<MapPin size={16} className='text-slate-500' />}
+              icon={<MapPin size={16} className="text-slate-500" />}
             />
           </div>
 
-          <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <CyberFormField
-              label='GITHUB'
-              name='githubUsername'
-              type='text'
+              label="GITHUB"
+              name="githubUsername"
+              type="text"
               value={profile.githubUsername}
               onChange={handleInputChange}
-              icon={<Github size={16} className='text-slate-500' />}
+              icon={<Github size={16} className="text-slate-500" />}
             />
 
             <CyberFormField
-              label='TWITTER'
-              name='twitter'
+              label="TWITTER"
+              name="twitter"
               value={profile.twitter}
               onChange={handleInputChange}
-              icon={<Twitter size={16} className='text-slate-500' />}
+              icon={<Twitter size={16} className="text-slate-500" />}
             />
           </div>
 
-          <div className='flex justify-end'>
+          <div className="flex justify-end">
             <Button
-              type='submit'
-              variant='secondary'
+              type="submit"
+              variant="secondary"
               isLoading={isPending}
-              loadingText='SAVING...'
+              loadingText="SAVING..."
               leftIcon={<Save size={16} />}
             >
               SAVE_PROFILE
@@ -118,5 +118,5 @@ export default function ProfileForm() {
         </form>
       </CyberCardContent>
     </CyberCard>
-  );
+  )
 }

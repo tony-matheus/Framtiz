@@ -1,18 +1,18 @@
-'use client';
+"use client"
 
-import { useRef, useEffect, useState } from 'react';
-import { useInView } from 'framer-motion';
+import { useRef, useEffect, useState } from "react"
+import { useInView } from "framer-motion"
 
 export function useOneTimeAnimation(threshold = 0.1) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: threshold });
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: threshold })
+  const [hasAnimated, setHasAnimated] = useState(false)
 
   useEffect(() => {
     if (isInView && !hasAnimated) {
-      setHasAnimated(true);
+      setHasAnimated(true)
     }
-  }, [isInView, hasAnimated]);
+  }, [isInView, hasAnimated])
 
-  return { ref, shouldAnimate: hasAnimated };
+  return { ref, shouldAnimate: hasAnimated }
 }

@@ -1,70 +1,70 @@
-'use client';
+"use client"
 
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useState } from "react"
+import { useQuery } from "@tanstack/react-query"
 import {
   DashboardOptions,
   DashboardData,
-} from '@/lib/schemas/analytics-schemas';
+} from "@/lib/schemas/analytics-schemas"
 
 type UseAnalyticsDashboardProps = {
-  timePeriod?: '1d' | '7d' | '30d';
-  initialPage?: number;
-  limit?: number;
-};
+  timePeriod?: "1d" | "7d" | "30d"
+  initialPage?: number
+  limit?: number
+}
 
 export type UseAnalyticsDashboardResult = {
-  data: DashboardData | undefined;
-  isLoading: boolean;
-  isError: boolean;
-  error: Error | null;
-  timePeriod: '1d' | '7d' | '30d';
-  setTimePeriod: (period: '1d' | '7d' | '30d') => void;
-  refetch: () => void;
-};
+  data: DashboardData | undefined
+  isLoading: boolean
+  isError: boolean
+  error: Error | null
+  timePeriod: "1d" | "7d" | "30d"
+  setTimePeriod: (period: "1d" | "7d" | "30d") => void
+  refetch: () => void
+}
 
 const analyticsDashboardQueryKey = (options: DashboardOptions) => [
-  'analytics-dashboard',
+  "analytics-dashboard",
   options.time_period,
   options.page,
   options.limit,
-];
+]
 
 const fetchAnalyticsDashboard = async (
-  options: DashboardOptions
+  options: DashboardOptions,
 ): Promise<DashboardData> => {
   const params = new URLSearchParams({
     time_period: options.time_period,
-    page: options.page?.toString() || '1',
-    limit: options.limit?.toString() || '10',
-  });
+    page: options.page?.toString() || "1",
+    limit: options.limit?.toString() || "10",
+  })
 
-  const response = await fetch(`/api/analytics/dashboard?${params}`);
+  const response = await fetch(`/api/analytics/dashboard?${params}`)
 
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
+    const errorData = await response.json().catch(() => ({}))
     throw new Error(
-      errorData.error || `HTTP ${response.status}: ${response.statusText}`
-    );
+      errorData.error || `HTTP ${response.status}: ${response.statusText}`,
+    )
   }
 
-  return response.json();
-};
+  return response.json()
+}
 
 export const useAnalyticsDashboard = ({
-  timePeriod = '1d',
+  timePeriod = "1d",
   initialPage = 1,
   limit = 10,
 }: UseAnalyticsDashboardProps = {}): UseAnalyticsDashboardResult => {
   const [currentTimePeriod, setCurrentTimePeriod] = useState<
-    '1d' | '7d' | '30d'
-  >(timePeriod);
+    "1d" | "7d" | "30d"
+  >(timePeriod)
 
   const options: DashboardOptions = {
     time_period: currentTimePeriod,
     page: initialPage,
     limit,
-  };
+  }
 
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: analyticsDashboardQueryKey(options),
@@ -75,11 +75,11 @@ export const useAnalyticsDashboard = ({
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-  });
+  })
 
-  const setTimePeriod = (period: '1d' | '7d' | '30d') => {
-    setCurrentTimePeriod(period);
-  };
+  const setTimePeriod = (period: "1d" | "7d" | "30d") => {
+    setCurrentTimePeriod(period)
+  }
 
   return {
     data,
@@ -89,5 +89,5 @@ export const useAnalyticsDashboard = ({
     timePeriod: currentTimePeriod,
     setTimePeriod,
     refetch,
-  };
-};
+  }
+}

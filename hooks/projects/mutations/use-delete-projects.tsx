@@ -1,13 +1,13 @@
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import { useMutation } from "@tanstack/react-query"
+import axios from "axios"
 
 async function deleteProject(id: number) {
-  const { data } = await axios.delete(`/api/admin/projects/${id}`);
+  const { data } = await axios.delete(`/api/admin/projects/${id}`)
 
-  return data;
+  return data
 }
 
 export const useDeleteProject = () =>
   useMutation({
     mutationFn: deleteProject,
-  });
+  })

@@ -1,29 +1,29 @@
-import OpenAI from 'openai';
-import { BLOG_PROMPTS } from './contants/potential-prompts';
-import { formatBlogMessage } from './helpers/format-blog-message';
+import OpenAI from "openai"
+import { BLOG_PROMPTS } from "./contants/potential-prompts"
+import { formatBlogMessage } from "./helpers/format-blog-message"
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
-});
+})
 
 export async function analyzeBlogContent(userText: string) {
   const response = await openai.responses.create({
-    model: 'gpt-4.1-nano',
+    model: "gpt-4.1-nano",
     input: [
       {
-        role: 'system',
+        role: "system",
         content: [
           {
-            type: 'input_text',
+            type: "input_text",
             text: BLOG_PROMPTS.SYSTEM,
           },
         ],
       },
       {
-        role: 'user',
+        role: "user",
         content: [
           {
-            type: 'input_text',
+            type: "input_text",
             text: formatBlogMessage({ text: userText }),
           },
         ],
@@ -42,31 +42,31 @@ export async function analyzeBlogContent(userText: string) {
     ],
     text: {
       format: {
-        type: 'json_schema',
-        name: 'document_output',
+        type: "json_schema",
+        name: "document_output",
         strict: true,
         schema: {
-          type: 'object',
+          type: "object",
           properties: {
             excerpt: {
-              type: 'string',
-              description: 'A short excerpt or summary of the document.',
+              type: "string",
+              description: "A short excerpt or summary of the document.",
             },
             title: {
-              type: 'string',
-              description: 'The title of the document.',
+              type: "string",
+              description: "The title of the document.",
             },
             read_time: {
-              type: 'number',
+              type: "number",
               description:
-                'Estimated time required to read the document, in minutes.',
+                "Estimated time required to read the document, in minutes.",
             },
             formatted_suggestion: {
-              type: 'string',
-              description: 'A formatted suggestion related to the document.',
+              type: "string",
+              description: "A formatted suggestion related to the document.",
             },
           },
-          required: ['excerpt', 'title', 'read_time', 'formatted_suggestion'],
+          required: ["excerpt", "title", "read_time", "formatted_suggestion"],
           additionalProperties: false,
         },
       },
@@ -78,7 +78,7 @@ export async function analyzeBlogContent(userText: string) {
     max_output_tokens: 2048,
     top_p: 1,
     store: true,
-  });
+  })
 
-  return response.output_text;
+  return response.output_text
 }

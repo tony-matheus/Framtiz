@@ -1,10 +1,10 @@
-'use client';
+"use client"
 
-import type React from 'react';
+import type React from "react"
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Plus, Edit2, Trash2, ExternalLink, Eye, EyeOff } from 'lucide-react';
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { Plus, Edit2, Trash2, ExternalLink, Eye, EyeOff } from "lucide-react"
 import {
   Github,
   Twitter,
@@ -18,186 +18,186 @@ import {
   BookOpen,
   Code,
   HelpCircle,
-} from 'lucide-react';
-import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
-import { Button } from '@/components/ui/button';
-import { CyberFormField } from '@/components/ui-custom/cyber-form-field';
-import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
+} from "lucide-react"
+import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { CyberFormField } from "@/components/ui-custom/cyber-form-field"
+import { CyberStatusBadge } from "@/components/ui-custom/cyber-status-badge"
 
 interface SocialPlatform {
-  id: string;
-  name: string;
-  icon: React.ReactNode;
-  baseUrl: string;
-  placeholder: string;
+  id: string
+  name: string
+  icon: React.ReactNode
+  baseUrl: string
+  placeholder: string
 }
 
 interface UserSocial {
-  id: string;
-  platformId: string;
-  username: string;
-  isActive: boolean;
+  id: string
+  platformId: string
+  username: string
+  isActive: boolean
 }
 
 const AVAILABLE_PLATFORMS: SocialPlatform[] = [
   {
-    id: 'github',
-    name: 'GitHub',
+    id: "github",
+    name: "GitHub",
     icon: <Github size={20} />,
-    baseUrl: 'https://github.com/',
-    placeholder: 'username',
+    baseUrl: "https://github.com/",
+    placeholder: "username",
   },
   {
-    id: 'twitter',
-    name: 'Twitter/X',
+    id: "twitter",
+    name: "Twitter/X",
     icon: <Twitter size={20} />,
-    baseUrl: 'https://twitter.com/',
-    placeholder: 'username',
+    baseUrl: "https://twitter.com/",
+    placeholder: "username",
   },
   {
-    id: 'linkedin',
-    name: 'LinkedIn',
+    id: "linkedin",
+    name: "LinkedIn",
     icon: <Linkedin size={20} />,
-    baseUrl: 'https://linkedin.com/in/',
-    placeholder: 'username',
+    baseUrl: "https://linkedin.com/in/",
+    placeholder: "username",
   },
   {
-    id: 'instagram',
-    name: 'Instagram',
+    id: "instagram",
+    name: "Instagram",
     icon: <Instagram size={20} />,
-    baseUrl: 'https://instagram.com/',
-    placeholder: 'username',
+    baseUrl: "https://instagram.com/",
+    placeholder: "username",
   },
   {
-    id: 'youtube',
-    name: 'YouTube',
+    id: "youtube",
+    name: "YouTube",
     icon: <Youtube size={20} />,
-    baseUrl: 'https://youtube.com/@',
-    placeholder: 'channelname',
+    baseUrl: "https://youtube.com/@",
+    placeholder: "channelname",
   },
   {
-    id: 'twitch',
-    name: 'Twitch',
+    id: "twitch",
+    name: "Twitch",
     icon: <Twitch size={20} />,
-    baseUrl: 'https://twitch.tv/',
-    placeholder: 'username',
+    baseUrl: "https://twitch.tv/",
+    placeholder: "username",
   },
   {
-    id: 'discord',
-    name: 'Discord',
+    id: "discord",
+    name: "Discord",
     icon: <MessageCircle size={20} />,
-    baseUrl: 'https://discord.com/users/',
-    placeholder: 'userid',
+    baseUrl: "https://discord.com/users/",
+    placeholder: "userid",
   },
   {
-    id: 'dribbble',
-    name: 'Dribbble',
+    id: "dribbble",
+    name: "Dribbble",
     icon: <Dribbble size={20} />,
-    baseUrl: 'https://dribbble.com/',
-    placeholder: 'username',
+    baseUrl: "https://dribbble.com/",
+    placeholder: "username",
   },
   {
-    id: 'behance',
-    name: 'Behance',
+    id: "behance",
+    name: "Behance",
     icon: <Figma size={20} />,
-    baseUrl: 'https://behance.net/',
-    placeholder: 'username',
+    baseUrl: "https://behance.net/",
+    placeholder: "username",
   },
   {
-    id: 'medium',
-    name: 'Medium',
+    id: "medium",
+    name: "Medium",
     icon: <BookOpen size={20} />,
-    baseUrl: 'https://medium.com/@',
-    placeholder: 'username',
+    baseUrl: "https://medium.com/@",
+    placeholder: "username",
   },
   {
-    id: 'devto',
-    name: 'Dev.to',
+    id: "devto",
+    name: "Dev.to",
     icon: <Code size={20} />,
-    baseUrl: 'https://dev.to/',
-    placeholder: 'username',
+    baseUrl: "https://dev.to/",
+    placeholder: "username",
   },
   {
-    id: 'stackoverflow',
-    name: 'Stack Overflow',
+    id: "stackoverflow",
+    name: "Stack Overflow",
     icon: <HelpCircle size={20} />,
-    baseUrl: 'https://stackoverflow.com/users/',
-    placeholder: 'userid',
+    baseUrl: "https://stackoverflow.com/users/",
+    placeholder: "userid",
   },
-];
+]
 
 export default function SocialsTab() {
   const [userSocials, setUserSocials] = useState<UserSocial[]>([
     {
-      id: '1',
-      platformId: 'github',
-      username: 'janedeveloper',
+      id: "1",
+      platformId: "github",
+      username: "janedeveloper",
       isActive: true,
     },
     {
-      id: '2',
-      platformId: 'twitter',
-      username: 'jane_developer',
+      id: "2",
+      platformId: "twitter",
+      username: "jane_developer",
       isActive: true,
     },
     {
-      id: '3',
-      platformId: 'linkedin',
-      username: 'jane-developer',
+      id: "3",
+      platformId: "linkedin",
+      username: "jane-developer",
       isActive: false,
     },
-  ]);
+  ])
 
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editUsername, setEditUsername] = useState('');
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [newSocial, setNewSocial] = useState({ platformId: '', username: '' });
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editUsername, setEditUsername] = useState("")
+  const [showAddForm, setShowAddForm] = useState(false)
+  const [newSocial, setNewSocial] = useState({ platformId: "", username: "" })
 
   const availablePlatforms = AVAILABLE_PLATFORMS.filter(
     (platform) =>
-      !userSocials.some((social) => social.platformId === platform.id)
-  );
+      !userSocials.some((social) => social.platformId === platform.id),
+  )
 
   const getPlatform = (platformId: string) =>
-    AVAILABLE_PLATFORMS.find((p) => p.id === platformId);
+    AVAILABLE_PLATFORMS.find((p) => p.id === platformId)
 
   const handleEdit = (social: UserSocial) => {
-    setEditingId(social.id);
-    setEditUsername(social.username);
-  };
+    setEditingId(social.id)
+    setEditUsername(social.username)
+  }
 
   const handleSaveEdit = (socialId: string) => {
     setUserSocials((prev) =>
       prev.map((social) =>
-        social.id === socialId ? { ...social, username: editUsername } : social
-      )
-    );
-    setEditingId(null);
-    setEditUsername('');
-  };
+        social.id === socialId ? { ...social, username: editUsername } : social,
+      ),
+    )
+    setEditingId(null)
+    setEditUsername("")
+  }
 
   const handleCancelEdit = () => {
-    setEditingId(null);
-    setEditUsername('');
-  };
+    setEditingId(null)
+    setEditUsername("")
+  }
 
   const handleToggleActive = (socialId: string) => {
     setUserSocials((prev) =>
       prev.map((social) =>
         social.id === socialId
           ? { ...social, isActive: !social.isActive }
-          : social
-      )
-    );
-  };
+          : social,
+      ),
+    )
+  }
 
   const handleDelete = (socialId: string) => {
-    setUserSocials((prev) => prev.filter((social) => social.id !== socialId));
-  };
+    setUserSocials((prev) => prev.filter((social) => social.id !== socialId))
+  }
 
   const handleAddSocial = () => {
     if (newSocial.platformId && newSocial.username) {
-      const newId = Date.now().toString();
+      const newId = Date.now().toString()
       setUserSocials((prev) => [
         ...prev,
         {
@@ -206,32 +206,32 @@ export default function SocialsTab() {
           username: newSocial.username,
           isActive: true,
         },
-      ]);
-      setNewSocial({ platformId: '', username: '' });
-      setShowAddForm(false);
+      ])
+      setNewSocial({ platformId: "", username: "" })
+      setShowAddForm(false)
     }
-  };
+  }
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className='space-y-6'
+      className="space-y-6"
     >
       {/* Header */}
-      <div className='flex items-center justify-between'>
+      <div className="flex items-center justify-between">
         <div>
-          <h3 className='flex items-center font-mono text-lg text-slate-200'>
-            <div className='mr-2 size-2 bg-purple-400'></div>
+          <h3 className="flex items-center font-mono text-lg text-slate-200">
+            <div className="mr-2 size-2 bg-purple-400"></div>
             SOCIAL_NETWORKS
           </h3>
-          <p className='mt-1 font-mono text-sm text-slate-400'>
+          <p className="mt-1 font-mono text-sm text-slate-400">
             Manage your social media presence and professional networks.
           </p>
         </div>
         <Button
-          variant='secondary'
+          variant="secondary"
           leftIcon={<Plus size={16} />}
           onClick={() => setShowAddForm(true)}
           disabled={availablePlatforms.length === 0}
@@ -243,14 +243,14 @@ export default function SocialsTab() {
       {/* Add Social Form */}
       {showAddForm && (
         <CyberCard>
-          <CyberCardContent className='p-6'>
-            <h4 className='mb-4 flex items-center font-mono text-sm text-slate-300'>
-              <div className='mr-2 size-1 bg-green-400'></div>
+          <CyberCardContent className="p-6">
+            <h4 className="mb-4 flex items-center font-mono text-sm text-slate-300">
+              <div className="mr-2 size-1 bg-green-400"></div>
               ADD_NEW_SOCIAL
             </h4>
-            <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
-                <label className='mb-2 block font-mono text-xs text-slate-400'>
+                <label className="mb-2 block font-mono text-xs text-slate-400">
                   PLATFORM
                 </label>
                 <select
@@ -261,9 +261,9 @@ export default function SocialsTab() {
                       platformId: e.target.value,
                     }))
                   }
-                  className='w-full border border-slate-700 bg-slate-900 p-3 font-mono text-sm text-slate-200 focus:border-purple-500 focus:outline-none'
+                  className="w-full border border-slate-700 bg-slate-900 p-3 font-mono text-sm text-slate-200 focus:border-purple-500 focus:outline-none"
                 >
-                  <option value=''>SELECT_PLATFORM</option>
+                  <option value="">SELECT_PLATFORM</option>
                   {availablePlatforms.map((platform) => (
                     <option key={platform.id} value={platform.id}>
                       {platform.name}
@@ -272,8 +272,8 @@ export default function SocialsTab() {
                 </select>
               </div>
               <CyberFormField
-                label='USERNAME'
-                name='username'
+                label="USERNAME"
+                name="username"
                 value={newSocial.username}
                 onChange={(e) =>
                   setNewSocial((prev) => ({
@@ -282,23 +282,23 @@ export default function SocialsTab() {
                   }))
                 }
                 placeholder={
-                  getPlatform(newSocial.platformId)?.placeholder || 'username'
+                  getPlatform(newSocial.platformId)?.placeholder || "username"
                 }
               />
             </div>
-            <div className='mt-4 flex gap-2'>
+            <div className="mt-4 flex gap-2">
               <Button
-                variant='secondary'
+                variant="secondary"
                 onClick={handleAddSocial}
                 disabled={!newSocial.platformId || !newSocial.username}
               >
                 ADD_SOCIAL
               </Button>
               <Button
-                variant='outline'
+                variant="outline"
                 onClick={() => {
-                  setShowAddForm(false);
-                  setNewSocial({ platformId: '', username: '' });
+                  setShowAddForm(false)
+                  setNewSocial({ platformId: "", username: "" })
                 }}
               >
                 CANCEL
@@ -309,78 +309,78 @@ export default function SocialsTab() {
       )}
 
       {/* Social Networks List */}
-      <div className='grid gap-4'>
+      <div className="grid gap-4">
         {userSocials.length === 0 ? (
           <CyberCard>
-            <CyberCardContent className='p-8 text-center'>
-              <div className='font-mono text-slate-500'>
+            <CyberCardContent className="p-8 text-center">
+              <div className="font-mono text-slate-500">
                 NO_SOCIAL_NETWORKS_CONFIGURED
               </div>
-              <p className='mt-2 text-sm text-slate-600'>
+              <p className="mt-2 text-sm text-slate-600">
                 Add your social media profiles to showcase your online presence.
               </p>
             </CyberCardContent>
           </CyberCard>
         ) : (
           userSocials.map((social) => {
-            const platform = getPlatform(social.platformId);
-            if (!platform) return null;
+            const platform = getPlatform(social.platformId)
+            if (!platform) return null
 
-            const fullUrl = `${platform.baseUrl}${social.username}`;
+            const fullUrl = `${platform.baseUrl}${social.username}`
 
             return (
               <CyberCard key={social.id}>
-                <CyberCardContent className='p-4'>
-                  <div className='flex items-center justify-between'>
-                    <div className='flex items-center gap-4'>
-                      <div className='text-purple-400'>{platform.icon}</div>
-                      <div className='flex-1'>
-                        <div className='flex items-center gap-2'>
-                          <span className='font-mono text-slate-200'>
+                <CyberCardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="text-purple-400">{platform.icon}</div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-slate-200">
                             {platform.name}
                           </span>
                           <CyberStatusBadge
-                            status={social.isActive ? 'online' : 'offline'}
+                            status={social.isActive ? "online" : "offline"}
                           >
-                            {social.isActive ? 'ACTIVE' : 'INACTIVE'}
+                            {social.isActive ? "ACTIVE" : "INACTIVE"}
                           </CyberStatusBadge>
                         </div>
                         {editingId === social.id ? (
-                          <div className='mt-2 flex items-center gap-2'>
+                          <div className="mt-2 flex items-center gap-2">
                             <input
-                              type='text'
+                              type="text"
                               value={editUsername}
                               onChange={(e) => setEditUsername(e.target.value)}
-                              className='flex-1 border border-slate-700 bg-slate-900 p-2 font-mono text-sm text-slate-200 focus:border-purple-500 focus:outline-none'
+                              className="flex-1 border border-slate-700 bg-slate-900 p-2 font-mono text-sm text-slate-200 focus:border-purple-500 focus:outline-none"
                               placeholder={platform.placeholder}
                             />
                             <Button
-                              size='sm'
+                              size="sm"
                               onClick={() => handleSaveEdit(social.id)}
                             >
                               SAVE
                             </Button>
                             <Button
-                              size='sm'
-                              variant='outline'
+                              size="sm"
+                              variant="outline"
                               onClick={handleCancelEdit}
                             >
                               CANCEL
                             </Button>
                           </div>
                         ) : (
-                          <div className='mt-1 flex items-center gap-2'>
-                            <span className='font-mono text-sm text-slate-400'>
+                          <div className="mt-1 flex items-center gap-2">
+                            <span className="font-mono text-sm text-slate-400">
                               {platform.baseUrl}
                             </span>
-                            <span className='font-mono text-sm text-slate-300'>
+                            <span className="font-mono text-sm text-slate-300">
                               {social.username}
                             </span>
                             <a
                               href={fullUrl}
-                              target='_blank'
-                              rel='noopener noreferrer'
-                              className='text-purple-400 transition-colors hover:text-purple-300'
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-purple-400 transition-colors hover:text-purple-300"
                             >
                               <ExternalLink size={14} />
                             </a>
@@ -388,10 +388,10 @@ export default function SocialsTab() {
                         )}
                       </div>
                     </div>
-                    <div className='flex items-center gap-2'>
+                    <div className="flex items-center gap-2">
                       <Button
-                        size='sm'
-                        variant='outline'
+                        size="sm"
+                        variant="outline"
                         onClick={() => handleToggleActive(social.id)}
                         leftIcon={
                           social.isActive ? (
@@ -401,22 +401,22 @@ export default function SocialsTab() {
                           )
                         }
                       >
-                        {social.isActive ? 'HIDE' : 'SHOW'}
+                        {social.isActive ? "HIDE" : "SHOW"}
                       </Button>
                       <Button
-                        size='sm'
-                        variant='outline'
+                        size="sm"
+                        variant="outline"
                         onClick={() => handleEdit(social)}
                         leftIcon={<Edit2 size={14} />}
                       >
                         EDIT
                       </Button>
                       <Button
-                        size='sm'
-                        variant='outline'
+                        size="sm"
+                        variant="outline"
                         onClick={() => handleDelete(social.id)}
                         leftIcon={<Trash2 size={14} />}
-                        className='border-red-800 text-red-400 hover:bg-red-900/20'
+                        className="border-red-800 text-red-400 hover:bg-red-900/20"
                       >
                         DELETE
                       </Button>
@@ -424,10 +424,10 @@ export default function SocialsTab() {
                   </div>
                 </CyberCardContent>
               </CyberCard>
-            );
+            )
           })
         )}
       </div>
     </motion.div>
-  );
+  )
 }

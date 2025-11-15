@@ -1,23 +1,23 @@
-'use client';
+"use client"
 
-import { useState } from 'react';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { projectQueryOptions } from './project-options';
+import { useState } from "react"
+import { useSuspenseQuery } from "@tanstack/react-query"
+import { projectQueryOptions } from "./project-options"
 import {
   UseFetchProjectsProps,
   UseFetchProjectsResult,
-} from './use-fetch-projects';
+} from "./use-fetch-projects"
 
 export const useSuspenseFetchProjects = ({
   title,
   initialPage = 1,
   limit = 10,
 }: UseFetchProjectsProps): UseFetchProjectsResult => {
-  const [page, setPage] = useState(initialPage);
+  const [page, setPage] = useState(initialPage)
 
   const { data, isPending, isError } = useSuspenseQuery(
-    projectQueryOptions({ title, page, limit })
-  );
+    projectQueryOptions({ title, page, limit }),
+  )
 
   return {
     projects: data?.items ?? [],
@@ -28,5 +28,5 @@ export const useSuspenseFetchProjects = ({
     goToPage: (p: number) => setPage((prev) => (p !== prev ? p : prev)),
     loadNextPage: () => setPage((prev) => prev + 1),
     loadPreviousPage: () => setPage((prev) => (prev > 1 ? prev - 1 : prev)),
-  };
-};
+  }
+}

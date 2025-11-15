@@ -1,22 +1,22 @@
 export interface AnalyticsError {
-  type: 'network' | 'validation' | 'server' | 'unknown';
-  message: string;
-  timestamp: string;
-  context?: Record<string, unknown>;
+  type: "network" | "validation" | "server" | "unknown"
+  message: string
+  timestamp: string
+  context?: Record<string, unknown>
 }
 
 export class AnalyticsErrorHandler {
-  private static instance: AnalyticsErrorHandler;
-  private errorQueue: AnalyticsError[] = [];
-  private maxQueueSize = 10;
+  private static instance: AnalyticsErrorHandler
+  private errorQueue: AnalyticsError[] = []
+  private maxQueueSize = 10
 
   private constructor() {}
 
   static getInstance(): AnalyticsErrorHandler {
     if (!AnalyticsErrorHandler.instance) {
-      AnalyticsErrorHandler.instance = new AnalyticsErrorHandler();
+      AnalyticsErrorHandler.instance = new AnalyticsErrorHandler()
     }
-    return AnalyticsErrorHandler.instance;
+    return AnalyticsErrorHandler.instance
   }
 
   handleTrackingError(error: unknown, context?: Record<string, unknown>): void {
@@ -25,86 +25,86 @@ export class AnalyticsErrorHandler {
       message: this.extractErrorMessage(error),
       timestamp: new Date().toISOString(),
       context,
-    };
+    }
 
-    this.addToErrorQueue(analyticsError);
+    this.addToErrorQueue(analyticsError)
 
-    if (process.env.NODE_ENV === 'development') {
-      console.warn('Analytics tracking error:', analyticsError);
+    if (process.env.NODE_ENV === "development") {
+      console.warn("Analytics tracking error:", analyticsError)
     }
   }
 
   private categorizeError(
-    error: unknown
-  ): 'network' | 'validation' | 'server' | 'unknown' {
-    if (error instanceof TypeError && error.message.includes('fetch')) {
-      return 'network';
+    error: unknown,
+  ): "network" | "validation" | "server" | "unknown" {
+    if (error instanceof TypeError && error.message.includes("fetch")) {
+      return "network"
     }
-    if (error instanceof Error && error.message.includes('validation')) {
-      return 'validation';
+    if (error instanceof Error && error.message.includes("validation")) {
+      return "validation"
     }
     if (error instanceof Response && !error.ok) {
-      return 'server';
+      return "server"
     }
-    return 'unknown';
+    return "unknown"
   }
 
   private extractErrorMessage(error: unknown): string {
     if (error instanceof Error) {
-      return error.message;
+      return error.message
     }
-    if (typeof error === 'string') {
-      return error;
+    if (typeof error === "string") {
+      return error
     }
-    return 'Unknown analytics error';
+    return "Unknown analytics error"
   }
 
   private addToErrorQueue(error: AnalyticsError): void {
-    this.errorQueue.push(error);
+    this.errorQueue.push(error)
 
     if (this.errorQueue.length > this.maxQueueSize) {
-      this.errorQueue.shift();
+      this.errorQueue.shift()
     }
   }
 
   getErrorQueue(): AnalyticsError[] {
-    return [...this.errorQueue];
+    return [...this.errorQueue]
   }
 
   clearErrorQueue(): void {
-    this.errorQueue = [];
+    this.errorQueue = []
   }
 
   async retryFailedRequests(): Promise<void> {
-    this.clearErrorQueue();
+    this.clearErrorQueue()
   }
 }
 
 export const handleAnalyticsError = (
   error: unknown,
-  context?: Record<string, unknown>
+  context?: Record<string, unknown>,
 ): void => {
-  AnalyticsErrorHandler.getInstance().handleTrackingError(error, context);
-};
+  AnalyticsErrorHandler.getInstance().handleTrackingError(error, context)
+}
 
 export const isAnalyticsAvailable = (): boolean => {
   try {
-    if (typeof window === 'undefined') {
-      return false;
+    if (typeof window === "undefined") {
+      return false
     }
 
-    if (typeof fetch === 'undefined') {
-      return false;
+    if (typeof fetch === "undefined") {
+      return false
     }
 
-    const userAgent = navigator.userAgent.toLowerCase();
-    const botPatterns = ['bot', 'crawler', 'spider', 'scraper'];
+    const userAgent = navigator.userAgent.toLowerCase()
+    const botPatterns = ["bot", "crawler", "spider", "scraper"]
     if (botPatterns.some((pattern) => userAgent.includes(pattern))) {
-      return false;
+      return false
     }
 
-    return true;
+    return true
   } catch {
-    return false;
+    return false
   }
-};
+}

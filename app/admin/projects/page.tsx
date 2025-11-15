@@ -18,9 +18,9 @@
 // import CyberSearchInput from '@/components/ui-custom/inputs/cyber-search-input';
 
 export default async function ProjectsPage() {
-  await new Promise((res) => setTimeout(res, 10000)); // simulate async loading
+  await new Promise((res) => setTimeout(res, 10000)) // simulate async loading
 
-  return 'page';
+  return "page"
 }
 // export default function ProjectsPage() {
 //   const queryClient = useQueryClient();

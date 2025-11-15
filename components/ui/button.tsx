@@ -1,32 +1,32 @@
-import type React from 'react';
-import { Button as PrimitiveButton } from '@/components/ui/primitives/button';
-import { cn } from '@/lib/utils';
-import { type ButtonHTMLAttributes, forwardRef } from 'react';
-import { Slot } from '@radix-ui/react-slot';
-import Spinner from './spinner';
+import type React from "react"
+import { Button as PrimitiveButton } from "@/components/ui/primitives/button"
+import { cn } from "@/lib/utils"
+import { type ButtonHTMLAttributes, forwardRef } from "react"
+import { Slot } from "@radix-ui/react-slot"
+import Spinner from "./spinner"
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?:
-    | 'default'
-    | 'secondary'
-    | 'destructive'
-    | 'outline'
-    | 'warning'
-    | 'ghost';
-  size?: 'default' | 'sm' | 'lg' | 'xl' | 'icon';
-  asChild?: boolean;
-  isLoading?: boolean;
-  loadingText?: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+    | "default"
+    | "secondary"
+    | "destructive"
+    | "outline"
+    | "warning"
+    | "ghost"
+  size?: "default" | "sm" | "lg" | "xl" | "icon"
+  asChild?: boolean
+  isLoading?: boolean
+  loadingText?: string
+  leftIcon?: React.ReactNode
+  rightIcon?: React.ReactNode
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       className,
-      variant = 'default',
-      size = 'default',
+      variant = "default",
+      size = "default",
       asChild = false,
       isLoading = false,
       loadingText,
@@ -35,17 +35,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const Comp = asChild ? Slot : PrimitiveButton;
+    const Comp = asChild ? Slot : PrimitiveButton
 
     return (
       <Comp
         ref={ref}
         className={cn(
-          'bg-transparent transition-colors font-mono flex items-center justify-center',
+          "bg-transparent transition-colors font-mono flex items-center justify-center",
           className,
-          isLoading ? 'ripple-loop' : ''
+          isLoading ? "ripple-loop" : "",
         )}
         size={size}
         variant={variant}
@@ -55,7 +55,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {isLoading ? (
           <>
             <Spinner />
-            {size != 'icon' && <span>{loadingText || children}</span>}
+            {size != "icon" && <span>{loadingText || children}</span>}
           </>
         ) : (
           <>
@@ -65,8 +65,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           </>
         )}
       </Comp>
-    );
-  }
-);
+    )
+  },
+)
 
-Button.displayName = 'Button';
+Button.displayName = "Button"

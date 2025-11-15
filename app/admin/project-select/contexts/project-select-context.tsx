@@ -1,30 +1,30 @@
-'use client';
+"use client"
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useState } from 'react';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { useState } from "react"
 
-import { createContext, useContext } from 'react';
-import { User } from '@/lib/services/auth/auth-types';
-import { TWENTY_FOUR_HOURS_IN_MS } from '@/lib/constants';
+import { createContext, useContext } from "react"
+import { User } from "@/lib/services/auth/auth-types"
+import { TWENTY_FOUR_HOURS_IN_MS } from "@/lib/constants"
 
-const ProjectSelectContext = createContext<User | undefined>(undefined);
+const ProjectSelectContext = createContext<User | undefined>(undefined)
 
 export const useProjectSelectContext = () => {
-  const context = useContext(ProjectSelectContext);
+  const context = useContext(ProjectSelectContext)
   if (!context) {
     throw new Error(
-      'useProjectSelectContext must be used within ProjectSelectProvider'
-    );
+      "useProjectSelectContext must be used within ProjectSelectProvider",
+    )
   }
-  return context;
-};
+  return context
+}
 
 export function ProjectSelectProvider({
   children,
   value,
 }: {
-  children: React.ReactNode;
-  value: User;
+  children: React.ReactNode
+  value: User
 }) {
   const [queryClient] = useState(
     () =>
@@ -38,12 +38,12 @@ export function ProjectSelectProvider({
             staleTime: TWENTY_FOUR_HOURS_IN_MS,
           },
         },
-      })
-  );
+      }),
+  )
 
   return (
     <ProjectSelectContext.Provider value={value}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </ProjectSelectContext.Provider>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-import type React from 'react';
-import { cn } from '@/lib/utils';
+import type React from "react"
+import { cn } from "@/lib/utils"
 
 interface CyberDataDisplayProps {
-  label: string;
-  value: string | React.ReactNode;
-  className?: string;
-  labelClassName?: string;
-  valueClassName?: string;
+  label: string
+  value: string | React.ReactNode
+  className?: string
+  labelClassName?: string
+  valueClassName?: string
 }
 
 export function CyberDataDisplay({
@@ -18,16 +18,16 @@ export function CyberDataDisplay({
 }: CyberDataDisplayProps) {
   return (
     <div
-      className={cn('bg-slate-800/50 p-3 border border-slate-700', className)}
+      className={cn("bg-slate-800/50 p-3 border border-slate-700", className)}
     >
       <div
-        className={cn('text-slate-400 mb-1 font-mono text-xs', labelClassName)}
+        className={cn("text-slate-400 mb-1 font-mono text-xs", labelClassName)}
       >
         {label}
       </div>
-      <div className={cn('text-purple-300 font-mono', valueClassName)}>
+      <div className={cn("text-purple-300 font-mono", valueClassName)}>
         {value}
       </div>
     </div>
-  );
+  )
 }

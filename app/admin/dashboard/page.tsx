@@ -1,8 +1,8 @@
-'use client';
+"use client"
 
-import AnalyticsDashboard from '@/components/admin/analytics/analytics-dashboard';
-import TimeFilter from '@/components/admin/analytics/time-filter';
-import { useAnalyticsDashboard } from '@/hooks/analytics/use-analytics-dashboard';
+import AnalyticsDashboard from "@/components/admin/analytics/analytics-dashboard"
+import TimeFilter from "@/components/admin/analytics/time-filter"
+import { useAnalyticsDashboard } from "@/hooks/analytics/use-analytics-dashboard"
 
 export default function DashboardPage() {
   const {
@@ -13,17 +13,17 @@ export default function DashboardPage() {
     timePeriod,
     setTimePeriod,
     refetch,
-  } = useAnalyticsDashboard();
+  } = useAnalyticsDashboard()
 
   return (
-    <div className='space-y-6'>
+    <div className="space-y-6">
       {/* Time Filter */}
-      <div className='flex items-center justify-between'>
+      <div className="flex items-center justify-between">
         <div>
-          <h2 className='font-mono text-xl text-slate-100'>
+          <h2 className="font-mono text-xl text-slate-100">
             ANALYTICS_OVERVIEW
           </h2>
-          <p className='text-sm text-slate-400'>
+          <p className="text-sm text-slate-400">
             Track visitor behavior and content performance
           </p>
         </div>
@@ -40,5 +40,5 @@ export default function DashboardPage() {
         refetch={refetch}
       />
     </div>
-  );
+  )
 }
