@@ -33,7 +33,7 @@ export default async function Home() {
             {
               id: 1,
               name: 'Willian Frantz',
-              description: `Senior Anti-cheat engineer at Riot\u00A0Games`,
+              description: `Anti-cheat Engineer`,
               github_url: user?.githubUsername
                 ? `https://github.com/${user?.githubUsername}`
                 : null,
