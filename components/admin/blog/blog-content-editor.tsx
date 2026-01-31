@@ -5,7 +5,6 @@ import type React from 'react';
 import { useState, useRef } from 'react';
 import { Edit3, Eye } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import ReactMarkdown from 'react-markdown';
 
 import DropZone from './drop-zone';
 import UploadPlaceholder from './upload-placeholder';
@@ -16,6 +15,7 @@ import {
   isVideoFile,
 } from '@/lib/supabase/storage/upload-client';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
+import MarkdownRender from '@/components/ui/markdown-render';
 
 type UploadingFile = {
   id: string;
@@ -90,8 +90,8 @@ export default function BlogContentEditor({
           prev.map((item) =>
             item.id === uploadId
               ? { ...item, progress: Math.min(item.progress + 10, 90) }
-              : item
-          )
+              : item,
+          ),
         );
       }, 300);
 
@@ -103,8 +103,8 @@ export default function BlogContentEditor({
         prev.map((item) =>
           item.id === uploadId
             ? { ...item, progress: 100, status: 'success', url: imageUrl }
-            : item
-        )
+            : item,
+        ),
       );
 
       const fileType = file.type.startsWith('image/') ? 'image' : 'video';
@@ -127,12 +127,15 @@ export default function BlogContentEditor({
                 status: 'error',
                 error: 'Upload failed. Please try again.',
               }
-            : item
-        )
+            : item,
+        ),
       );
 
       onContentChange((prev) =>
-        prev.replace(placeholderText, `<!-- Upload failed for ${file.name} -->`)
+        prev.replace(
+          placeholderText,
+          `<!-- Upload failed for ${file.name} -->`,
+        ),
       );
     }
   };
@@ -164,7 +167,7 @@ export default function BlogContentEditor({
               'px-4 py-2 font-mono text-sm flex items-center gap-2',
               activeTab === 'edit'
                 ? 'border-b-2 border-purple-600 text-purple-300'
-                : 'text-slate-400 hover:text-slate-200'
+                : 'text-slate-400 hover:text-slate-200',
             )}
           >
             <Edit3 size={16} />
@@ -177,7 +180,7 @@ export default function BlogContentEditor({
               'px-4 py-2 font-mono text-sm flex items-center gap-2',
               activeTab === 'preview'
                 ? 'border-b-2 border-green-400 text-green-300'
-                : 'text-slate-400 hover:text-slate-200'
+                : 'text-slate-400 hover:text-slate-200',
             )}
           >
             <Eye size={16} />
@@ -194,7 +197,7 @@ export default function BlogContentEditor({
               ref={textareaRef}
               value={content}
               onChange={(e) => onContentChange(e.target.value)}
-              className='w-full flex-1 resize-none border border-slate-700 bg-slate-800 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600'
+              className='w-full flex-1 resize-none border border-slate-700 bg-slate-900 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600'
               placeholder='Write your blog post in Markdown... Drag and drop images to upload'
               onPaste={handlePaste}
               name='content'
@@ -232,7 +235,7 @@ export default function BlogContentEditor({
           >
             <CyberCardContent className='prose-invert max-w-full lg:max-w-[100ch]'>
               {content ? (
-                <ReactMarkdown>{content === '' ? null : content}</ReactMarkdown>
+                <MarkdownRender content={content} />
               ) : (
                 <div className='italic text-slate-500'>
                   No content to preview

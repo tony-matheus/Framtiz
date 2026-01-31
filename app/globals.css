@@ -23,6 +23,23 @@
   animation: shine-rotate 1s infinite ease-in-out;
 }
 
+@keyframes icon-switch-animation {
+  from {
+    filter: blur(2px);
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.icon-switch-animation {
+  animation: icon-switch-animation 200ms ease-out;
+}
+
 @layer utilities {
   .animate-shine {
     background-size: 200% auto;
@@ -182,7 +199,8 @@ body {
     text-shadow: 0 0 5px rgba(139, 92, 246, 0.5);
   }
   50% {
-    text-shadow: 0 0 20px rgba(139, 92, 246, 0.8),
+    text-shadow:
+      0 0 20px rgba(139, 92, 246, 0.8),
       0 0 30px rgba(16, 185, 129, 0.5);
   }
 }

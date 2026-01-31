@@ -1,6 +1,6 @@
 'use client';
 
-import ReactMarkdown from 'react-markdown';
+import type React from 'react';
 import { motion, useScroll } from 'framer-motion';
 import {
   Calendar,
@@ -17,6 +17,8 @@ import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
 import { Blog } from '@/lib/services/blog-service/helpers';
 import PageTracker from '@/components/analytics/page-tracker';
 import BlogNavigation from './blog-navigation';
+import { getFormattedDate } from '@/lib/helpers/daytime';
+import MarkdownRender from '../ui/markdown-render';
 
 export default function BlogPost({ blog }: { blog: Blog }) {
   const { scrollYProgress } = useScroll();
@@ -96,7 +98,7 @@ export default function BlogPost({ blog }: { blog: Blog }) {
                 {/* Category and Status */}
                 <div className='mb-4 flex items-center gap-3'>
                   <CyberStatusBadge status='online'>
-                    {/* {blog.category} */}
+                    {blog.published ? 'PUBLISHED' : 'DRAFT'}
                   </CyberStatusBadge>
                   <div className='font-mono text-xs text-slate-500'>
                     FILE_ID: {blog.title.toUpperCase()}
@@ -114,14 +116,18 @@ export default function BlogPost({ blog }: { blog: Blog }) {
                     <User size={16} className='mr-2 text-purple-400' />
                     Willian Frantz
                   </div>
-                  <div className='flex items-center'>
-                    <Calendar size={16} className='mr-2 text-green-400' />
-                    {/* {formatDate(blog.publishedAt)} */}
-                  </div>
-                  <div className='flex items-center'>
-                    <Clock size={16} className='mr-2 text-purple-400' />2 min
-                    {/* {blog.readTime} */}
-                  </div>
+                  {blog.created_at && (
+                    <div className='flex items-center'>
+                      <Calendar size={16} className='mr-2 text-green-400' />
+                      {getFormattedDate(blog.created_at!)}
+                    </div>
+                  )}
+                  {blog.read_time && (
+                    <div className='flex items-center'>
+                      <Clock size={16} className='mr-2 text-purple-400' />
+                      {blog.read_time}
+                    </div>
+                  )}
                 </div>
 
                 {/* Tags */}
@@ -159,7 +165,7 @@ export default function BlogPost({ blog }: { blog: Blog }) {
                 className='prose prose-invert prose-lg max-w-none'
               >
                 {blog.content ? (
-                  <ReactMarkdown>{blog.content}</ReactMarkdown>
+                  <MarkdownRender content={blog.content} />
                 ) : (
                   <div className='italic text-slate-500'>
                     No content to preview

@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { Save, Minimize2, FileText, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
-import ReactMarkdown from 'react-markdown';
 import {
   ResizableHandle,
   ResizablePanel,
@@ -21,6 +20,7 @@ import {
   CyberFormField,
   CyberFormItem,
 } from '@/components/ui-custom/cyber-form/cyber-form';
+import MarkdownRender from '@/components/ui/markdown-render';
 
 interface FullScreenEditorProps extends BlogFormProps {
   onMinimize: () => void;
@@ -140,7 +140,7 @@ export default function FullScreenEditor({
                 >
                   <CyberCardContent className='prose prose-invert max-w-none p-6'>
                     {field.value ? (
-                      <ReactMarkdown>{field.value}</ReactMarkdown>
+                      <MarkdownRender content={field.value} />
                     ) : (
                       <div className='italic text-slate-500'>
                         No content to preview
@@ -177,7 +177,7 @@ export default function FullScreenEditor({
                 >
                   <CyberCardContent className='prose prose-invert max-w-none p-4  '>
                     {field.value ? (
-                      <ReactMarkdown>{field.value}</ReactMarkdown>
+                      <MarkdownRender content={field.value} />
                     ) : (
                       <div className='italic text-slate-500'>
                         No content to preview
