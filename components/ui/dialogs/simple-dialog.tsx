@@ -34,12 +34,9 @@ export default function SimpleDialog({
 }: SimpleDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        showDismiss={false}
-        className="mx-auto max-h-[90dvh] max-w-[100vw] overflow-y-auto border-2 border-slate-800 bg-slate-900 p-0 text-slate-200 sm:min-w-[80vw] sm:max-w-[90vw]"
-      >
+      <DialogContent showDismiss={false}>
         <DialogHeader>
-          <div className="z-10 flex items-center justify-between border-b border-slate-800 bg-slate-900 p-4">
+          <div className="flex items-center justify-between">
             <DialogTitle className="flex items-center font-mono text-xl font-bold text-slate-200">
               {!!icon && <span className="mr-2 text-purple-400">{icon}</span>}
               <span>{title}</span>
@@ -55,7 +52,7 @@ export default function SimpleDialog({
         </DialogHeader>
         {children}
         {!hideFooter && (
-          <DialogFooter className="flex flex-row justify-end gap-3 border-t border-slate-800 bg-slate-900 p-4 ">
+          <DialogFooter className="flex flex-row justify-end gap-3">
             <Button
               variant="outline"
               onClick={() => {
@@ -69,7 +66,6 @@ export default function SimpleDialog({
               variant="secondary"
               onClick={onConfirm}
               isLoading={isLoading}
-              loadingText="SAVING..."
               leftIcon={<Save size={16} />}
               disabled={!title.trim()}
             >

@@ -1,6 +1,6 @@
 "use client"
 
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Edit, Trash2, ExternalLink } from "lucide-react"
 import { Project } from "@/lib/services/project-service"
@@ -26,11 +26,11 @@ export default function ProjectCard({
   onDelete,
 }: ProjectCardProps) {
   return (
-    <CyberCard
+    <Card
       className="group h-full transition-[colors,shadow,transform]
  duration-300 ease-in-out hover:translate-y-[-5px] hover:border-purple-600 hover:shadow-accent"
     >
-      <CyberCardContent>
+      <CardContent>
         <div className="mb-3 flex items-start justify-between gap-2">
           <Heading as="h4" className="h-[84px] font-mono">
             {title}
@@ -88,7 +88,7 @@ export default function ProjectCard({
             GitHub
           </a>
         </div>
-      </CyberCardContent>
-    </CyberCard>
+      </CardContent>
+    </Card>
   )
 }

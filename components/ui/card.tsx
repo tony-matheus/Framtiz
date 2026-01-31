@@ -25,12 +25,7 @@ export function Card({
   withCornerAccents = true,
 }: CardProps) {
   return (
-    <PrimitiveCard
-      className={cn(
-        "bg-slate-900 rounded-none border-slate-800 text-slate-200 relative group",
-        className,
-      )}
-    >
+    <PrimitiveCard className={cn("relative group", className)}>
       {children}
       {withCornerAccents && (
         <>

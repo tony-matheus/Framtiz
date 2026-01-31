@@ -14,7 +14,7 @@ export const serverAuthService = {
       return null
     }
 
-    const { data: profile, ...rest } = await supabase
+    const { data: profile } = await supabase
       .from("profiles")
       .select("*")
       .eq("id", user.id)

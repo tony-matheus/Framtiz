@@ -27,7 +27,7 @@ export function CyberSkeleton({ className, children }: CyberSkeletonProps) {
   )
 }
 
-export function CyberCardSkeleton() {
+export function CardSkeleton() {
   return (
     <CyberSkeleton className="h-full">
       {/* Image skeleton */}

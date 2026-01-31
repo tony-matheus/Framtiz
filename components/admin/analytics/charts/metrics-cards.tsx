@@ -1,6 +1,6 @@
 "use client"
 
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { GeographicData, DeviceData } from "@/lib/schemas/analytics-schemas"
 import { Users, Globe, Monitor, TrendingUp } from "lucide-react"
 
@@ -62,8 +62,8 @@ export default function MetricsCards({
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
       {metrics.map((metric, index) => (
-        <CyberCard key={index}>
-          <CyberCardContent className="p-4">
+        <Card key={index}>
+          <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <p className="mb-1 font-mono text-sm text-slate-400">
@@ -85,8 +85,8 @@ export default function MetricsCards({
                 <metric.icon className={`size-6 ${metric.color}`} />
               </div>
             </div>
-          </CyberCardContent>
-        </CyberCard>
+          </CardContent>
+        </Card>
       ))}
     </div>
   )

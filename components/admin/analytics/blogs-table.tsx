@@ -1,6 +1,6 @@
 "use client"
 
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { BlogAnalytics } from "@/lib/schemas/analytics-schemas"
 import { Eye, Calendar, TrendingUp } from "lucide-react"
 
@@ -11,8 +11,8 @@ interface BlogsTableProps {
 export default function BlogsTable({ blogs }: BlogsTableProps) {
   if (!blogs || blogs.length === 0) {
     return (
-      <CyberCard>
-        <CyberCardContent className="p-6">
+      <Card>
+        <CardContent className="p-6">
           <div className="py-8 text-center">
             <TrendingUp className="mx-auto mb-4 size-12 text-slate-400" />
             <h3 className="mb-2 font-mono text-lg text-slate-200">
@@ -22,14 +22,14 @@ export default function BlogsTable({ blogs }: BlogsTableProps) {
               No blog visits recorded in the selected time period
             </p>
           </div>
-        </CyberCardContent>
-      </CyberCard>
+        </CardContent>
+      </Card>
     )
   }
 
   return (
-    <CyberCard>
-      <CyberCardContent className="p-6">
+    <Card>
+      <CardContent className="p-6">
         <div className="mb-6">
           <h3 className="mb-2 font-mono text-lg text-slate-100">
             ALL_BLOG_VISITS
@@ -80,10 +80,10 @@ export default function BlogsTable({ blogs }: BlogsTableProps) {
                   </td>
                   <td className="px-4 py-3">
                     <div className="max-w-xs">
-                      <p className="font-mono text-sm text-slate-200 truncate">
+                      <p className="truncate font-mono text-sm text-slate-200">
                         {blog.title || blog.slug}
                       </p>
-                      <p className="text-xs text-slate-500 truncate">
+                      <p className="truncate text-xs text-slate-500">
                         /blogs/{blog.slug}
                       </p>
                     </div>
@@ -121,7 +121,7 @@ export default function BlogsTable({ blogs }: BlogsTableProps) {
               .toLocaleString()}
           </span>
         </div>
-      </CyberCardContent>
-    </CyberCard>
+      </CardContent>
+    </Card>
   )
 }

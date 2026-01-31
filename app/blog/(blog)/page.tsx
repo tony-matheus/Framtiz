@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import BlogHeader from "@/components/blog/blog-header"
 import FeatureBlog from "@/components/blog/feature-blog"
 import { Search } from "lucide-react"
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { CyberPagination } from "@/components/ui-custom/cyber-pagination"
 import PageTracker from "@/components/analytics/page-tracker"
 
@@ -61,15 +61,15 @@ export default function Blog() {
                 transition={{ duration: 0.5, delay: 0.8 }}
                 className="flex justify-center"
               >
-                <CyberCard>
-                  <CyberCardContent className="p-4">
+                <Card>
+                  <CardContent className="p-4">
                     <CyberPagination
                       totalPages={totalPages}
                       currentPage={currentPage}
                       onPageChange={goToPage}
                     />
-                  </CyberCardContent>
-                </CyberCard>
+                  </CardContent>
+                </Card>
               </motion.div>
             )}
           </>
@@ -81,8 +81,8 @@ export default function Blog() {
             transition={{ duration: 0.5, delay: 0.6 }}
             className="py-16 text-center"
           >
-            <CyberCard>
-              <CyberCardContent className="p-12">
+            <Card>
+              <CardContent className="p-12">
                 <div className="mx-auto mb-4 flex size-16 items-center justify-center border border-slate-700 bg-slate-800">
                   <Search size={32} className="text-slate-400" />
                 </div>
@@ -102,8 +102,8 @@ export default function Blog() {
               >
                 CLEAR_FILTERS
               </Button> */}
-              </CyberCardContent>
-            </CyberCard>
+              </CardContent>
+            </Card>
           </motion.div>
         )}
       </div>

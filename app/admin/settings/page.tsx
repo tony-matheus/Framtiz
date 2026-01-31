@@ -1,7 +1,7 @@
 "use client"
 
 import { Lock, Sparkles } from "lucide-react"
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { CyberStatusBadge } from "@/components/ui-custom/cyber-status-badge"
 
 import { Label } from "@/components/ui/label"
@@ -12,8 +12,8 @@ export default function SettingsPage() {
     <div>
       {/* Settings panels */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <CyberCard>
-          <CyberCardContent>
+        <Card>
+          <CardContent>
             <h3 className="mb-4 flex items-center font-mono text-lg text-slate-200">
               <Lock size={18} className="mr-2 text-purple-400" />
               SECURITY_SETTINGS
@@ -46,11 +46,11 @@ export default function SettingsPage() {
                 <CyberStatusBadge status="warning">PENDING</CyberStatusBadge>
               </div>
             </div>
-          </CyberCardContent>
-        </CyberCard>
+          </CardContent>
+        </Card>
 
-        <CyberCard>
-          <CyberCardContent>
+        <Card>
+          <CardContent>
             <h3 className="mb-4 flex items-center font-mono text-lg text-slate-200">
               <Sparkles size={18} className="mr-2 text-purple-400" />
               AI_CONFIGURATION
@@ -83,11 +83,11 @@ export default function SettingsPage() {
                 </div>
               </div>
             </div>
-          </CyberCardContent>
-        </CyberCard>
+          </CardContent>
+        </Card>
 
-        <CyberCard>
-          <CyberCardContent>
+        <Card>
+          <CardContent>
             <h3 className="mb-4 flex items-center font-mono text-lg text-slate-200">
               <div className="mr-2 size-2 bg-purple-400"></div>
               APPEARANCE_SETTINGS
@@ -122,11 +122,11 @@ export default function SettingsPage() {
                 </div>
               </div>
             </div>
-          </CyberCardContent>
-        </CyberCard>
+          </CardContent>
+        </Card>
 
-        <CyberCard>
-          <CyberCardContent>
+        <Card>
+          <CardContent>
             <h3 className="mb-4 flex items-center font-mono text-lg text-slate-200">
               <div className="mr-2 size-2 bg-green-400"></div>
               NOTIFICATION_SETTINGS
@@ -167,8 +167,8 @@ export default function SettingsPage() {
                 </div>
               </div>
             </div>
-          </CyberCardContent>
-        </CyberCard>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

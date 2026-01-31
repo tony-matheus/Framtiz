@@ -1,4 +1,4 @@
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { CyberProgress } from "@/components/ui-custom/cyber-progress"
 import Heading from "@/components/ui/typography/heading"
 import { cn } from "@/lib/utils"
@@ -40,8 +40,8 @@ export default function MetricCard({
   const colorStyles = STATUS_COLOR[status]
 
   return (
-    <CyberCard>
-      <CyberCardContent>
+    <Card>
+      <CardContent>
         <Heading as="h5" className=" mb-4 font-mono text-slate-200">
           <div className={cn("w-2 h-2  mr-2 inline-flex", colorStyles.bg)} />
           {title}
@@ -53,7 +53,7 @@ export default function MetricCard({
         <p className="text-sm text-slate-400">{subtitle}</p>
         <CyberProgress status={status} value={65} className="mb-2 mt-4" />
         <p className="text-xs text-green-400">{info}</p>
-      </CyberCardContent>
-    </CyberCard>
+      </CardContent>
+    </Card>
   )
 }

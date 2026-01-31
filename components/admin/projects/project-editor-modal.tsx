@@ -4,7 +4,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Save, Sparkles, RefreshCw, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Project } from "@/lib/services/project-service"
 
 interface ProjectEditorModalProps {
@@ -133,8 +133,8 @@ export default function ProjectEditorModal({
         >
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {/* Preview panel */}
-            <CyberCard className="h-fit lg:col-span-1">
-              <CyberCardContent>
+            <Card className="h-fit lg:col-span-1">
+              <CardContent>
                 <h3 className="mb-4 flex items-center font-mono text-lg text-slate-200">
                   <div className="mr-2 size-2 bg-purple-400"></div>
                   PROJECT_PREVIEW
@@ -158,12 +158,12 @@ export default function ProjectEditorModal({
                     {editingRepo.description}
                   </div>
                 </div>
-              </CyberCardContent>
-            </CyberCard>
+              </CardContent>
+            </Card>
 
             {/* Editor form */}
-            <CyberCard className="lg:col-span-2">
-              <CyberCardContent>
+            <Card className="lg:col-span-2">
+              <CardContent>
                 <div className="space-y-6">
                   <div>
                     <label className="mb-2 block font-mono text-sm text-slate-400">
@@ -287,8 +287,8 @@ export default function ProjectEditorModal({
                     </Button>
                   </div>
                 </div>
-              </CyberCardContent>
-            </CyberCard>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>

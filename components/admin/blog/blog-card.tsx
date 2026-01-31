@@ -1,6 +1,6 @@
 "use client"
 
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Blog } from "@/lib/services/blog-service/helpers"
 import { CyberSwitch } from "@/components/ui-custom/cyber-switch"
@@ -36,11 +36,11 @@ export default function BlogCard({
   }
 
   return (
-    <CyberCard
+    <Card
       className="h-full transition-[colors,shadow,transform]
  duration-300 ease-in-out hover:border-purple-600 hover:shadow-accent"
     >
-      <CyberCardContent className="flex h-full flex-col justify-between gap-4">
+      <CardContent className="flex h-full flex-col justify-between gap-4">
         <div className="flex items-start justify-between gap-2">
           <Heading
             as="h4"
@@ -85,7 +85,7 @@ export default function BlogCard({
             {published ? "PUBLISHED" : "DRAFT"}
           </span>
         </div>
-      </CyberCardContent>
-    </CyberCard>
+      </CardContent>
+    </Card>
   )
 }

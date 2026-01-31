@@ -16,9 +16,31 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "default" | "sm" | "lg" | "xl" | "icon"
   asChild?: boolean
   isLoading?: boolean
-  loadingText?: string
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
+}
+
+const TRANSFORM_POSITION_BY_SIZE = {
+  default: {
+    in: "-translate-y-7",
+    out: "translate-y-7",
+  },
+  sm: {
+    in: "-translate-y-6",
+    out: "translate-y-6",
+  },
+  lg: {
+    in: "-translate-y-8",
+    out: "translate-y-8",
+  },
+  xl: {
+    in: "-translate-y-9",
+    out: "translate-y-9",
+  },
+  icon: {
+    in: "-translate-y-7",
+    out: "translate-y-7",
+  },
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -29,7 +51,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       size = "default",
       asChild = false,
       isLoading = false,
-      loadingText,
       leftIcon,
       rightIcon,
       children,
@@ -39,11 +60,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Comp = asChild ? Slot : PrimitiveButton
 
+    const transformPositionIn = TRANSFORM_POSITION_BY_SIZE[size].in
+    const transformPositionOut = TRANSFORM_POSITION_BY_SIZE[size].out
     return (
       <Comp
         ref={ref}
         className={cn(
-          "bg-transparent transition-colors font-mono flex items-center justify-center",
+          "bg-transparent transition-colors font-mono flex items-center justify-center overflow-y-hidden ease-out active:scale-[0.97]",
           className,
           isLoading ? "ripple-loop" : "",
         )}
@@ -52,18 +75,27 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isLoading || props.disabled}
         {...props}
       >
-        {isLoading ? (
-          <>
+        <div className="relative">
+          <div
+            className={cn(
+              "absolute inset-0 flex items-center justify-center gap-2 ease-out-quad transition-transform duration-150 -translate-y-7",
+              transformPositionIn,
+              isLoading ? "translate-y-0 delay-150" : "",
+            )}
+          >
             <Spinner />
-            {size != "icon" && <span>{loadingText || children}</span>}
-          </>
-        ) : (
-          <>
+          </div>
+          <div
+            className={cn(
+              "flex translate-y-0 items-center justify-center gap-2 ease-out-quad transition-transform duration-150",
+              isLoading ? transformPositionOut : "delay-150",
+            )}
+          >
             {leftIcon && <span>{leftIcon}</span>}
             {children}
             {rightIcon && <span>{rightIcon}</span>}
-          </>
-        )}
+          </div>
+        </div>
       </Comp>
     )
   },

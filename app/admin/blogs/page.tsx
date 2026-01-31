@@ -10,7 +10,7 @@ import { Blog } from "@/lib/services/blog-service/helpers"
 import { useDestroyBlog } from "@/hooks/blogs/mutations/use-destroy-blog"
 import { useUpdateBlog } from "@/hooks/blogs/mutations/use-update-blog"
 import BlogList from "@/components/admin/blog/blog-list"
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { CyberPagination } from "@/components/ui-custom/cyber-pagination"
 import { useQueryClient } from "@tanstack/react-query"
 import CyberSearchInput from "@/components/ui-custom/inputs/cyber-search-input"
@@ -138,15 +138,15 @@ export default function BlogPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mb-12 mt-8"
           >
-            <CyberCard className="mx-auto inline-block">
-              <CyberCardContent className="p-2 sm:p-4">
+            <Card className="mx-auto inline-block">
+              <CardContent className="p-2 sm:p-4">
                 <CyberPagination
                   totalPages={totalPages}
                   currentPage={currentPage}
                   onPageChange={goToPage}
                 />
-              </CyberCardContent>
-            </CyberCard>
+              </CardContent>
+            </Card>
           </motion.div>
         )}
       </div>

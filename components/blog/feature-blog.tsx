@@ -1,6 +1,6 @@
 import { Blog } from "@/lib/services/blog-service/helpers"
 import { ArrowRight, Calendar, Clock, Tag } from "lucide-react"
-import { CyberCard } from "../ui/card"
+import { Card } from "../ui/card"
 import { CyberStatusBadge } from "../ui-custom/cyber-status-badge"
 import Image from "next/image"
 import { Button } from "../ui/button"
@@ -23,7 +23,7 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
   return (
     <>
       <Link href={`/blog/${blog.id}`}>
-        <CyberCard
+        <Card
           className="group relative cursor-pointer rounded-t-xl border-purple-500/80 transition-colors duration-300 hover:border-purple-600"
           withCornerAccents
         >
@@ -103,7 +103,7 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
               </Button>
             </div>
           </div>
-        </CyberCard>
+        </Card>
       </Link>
     </>
   )

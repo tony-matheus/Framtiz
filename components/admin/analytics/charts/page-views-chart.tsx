@@ -1,6 +1,6 @@
 "use client"
 
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { TimeSeriesData } from "@/lib/schemas/analytics-schemas"
 import { TrendingUp, Calendar } from "lucide-react"
 
@@ -11,8 +11,8 @@ interface PageViewsChartProps {
 export default function PageViewsChart({ data }: PageViewsChartProps) {
   if (!data || data.length === 0) {
     return (
-      <CyberCard>
-        <CyberCardContent className="p-4">
+      <Card>
+        <CardContent className="p-4">
           <div className="py-8 text-center">
             <TrendingUp className="mx-auto mb-4 size-12 text-slate-400" />
             <h3 className="mb-2 font-mono text-lg text-slate-200">
@@ -22,8 +22,8 @@ export default function PageViewsChart({ data }: PageViewsChartProps) {
               No page views data available for the selected time period
             </p>
           </div>
-        </CyberCardContent>
-      </CyberCard>
+        </CardContent>
+      </Card>
     )
   }
 
@@ -65,8 +65,8 @@ export default function PageViewsChart({ data }: PageViewsChartProps) {
   }
 
   return (
-    <CyberCard>
-      <CyberCardContent className="p-4">
+    <Card>
+      <CardContent className="p-4">
         <div className="mb-6">
           <h3 className="mb-2 font-mono text-lg text-slate-100">
             PAGE_VIEWS_OVER_TIME
@@ -178,7 +178,7 @@ export default function PageViewsChart({ data }: PageViewsChartProps) {
             {formatDate(data[data.length - 1]?.date || "")}
           </span>
         </div>
-      </CyberCardContent>
-    </CyberCard>
+      </CardContent>
+    </Card>
   )
 }

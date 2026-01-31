@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { User, Save, Mail, MapPin, Github, Twitter } from "lucide-react"
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { CyberFormField } from "@/components/ui-custom/cyber-form-field"
 import { Button } from "@/components/ui/button"
 import { useUserContext } from "@/lib/contexts/user-context"
@@ -39,8 +39,8 @@ export default function ProfileForm() {
   }
 
   return (
-    <CyberCard className="md:col-span-2">
-      <CyberCardContent>
+    <Card className="md:col-span-2">
+      <CardContent>
         <h3 className="mb-4 flex items-center font-mono text-lg text-slate-200">
           <div className="mr-2 size-2 bg-purple-400"></div>
           EDIT_PROFILE
@@ -116,7 +116,7 @@ export default function ProfileForm() {
             </Button>
           </div>
         </form>
-      </CyberCardContent>
-    </CyberCard>
+      </CardContent>
+    </Card>
   )
 }

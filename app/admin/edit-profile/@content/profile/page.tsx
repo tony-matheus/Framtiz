@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { User, Save, Mail, MapPin, Github, Twitter } from "lucide-react"
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { CyberFormField } from "@/components/ui-custom/cyber-form-field"
 import { Button } from "@/components/ui/button"
 import { CyberDataDisplay } from "@/components/ui-custom/cyber-data-display"
@@ -47,8 +47,8 @@ export default function Profile() {
     <div>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {/* Profile sidebar */}
-        <CyberCard>
-          <CyberCardContent className="flex flex-col items-center p-6">
+        <Card>
+          <CardContent className="flex flex-col items-center p-6">
             <div className="mb-4 flex size-24 items-center justify-center border-2 border-purple-600 bg-slate-800">
               <User className="text-purple-400" size={48} />
             </div>
@@ -77,12 +77,12 @@ export default function Profile() {
               />
               <CyberDataDisplay label="SECURITY_LEVEL" value="LEVEL_3" />
             </div>
-          </CyberCardContent>
-        </CyberCard>
+          </CardContent>
+        </Card>
 
         {/* Profile form */}
-        <CyberCard className="md:col-span-2">
-          <CyberCardContent>
+        <Card className="md:col-span-2">
+          <CardContent>
             <h3 className="mb-4 flex items-center font-mono text-lg text-slate-200">
               <div className="mr-2 size-2 bg-purple-400"></div>
               EDIT_PROFILE
@@ -151,15 +151,14 @@ export default function Profile() {
                   type="submit"
                   variant="secondary"
                   isLoading={isPending}
-                  loadingText="SAVING..."
                   leftIcon={<Save size={16} />}
                 >
                   SAVE_PROFILE
                 </Button>
               </div>
             </form>
-          </CyberCardContent>
-        </CyberCard>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

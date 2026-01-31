@@ -52,9 +52,6 @@ const meta: Meta<typeof Button> = {
     asChild: {
       control: { type: "boolean" },
     },
-    loadingText: {
-      control: { type: "text" },
-    },
   },
 }
 
@@ -70,27 +67,47 @@ export const Default: Story = {
 
 // All variants showcase
 export const Variants: Story = {
-  render: () => (
+  render: (props) => (
     <div className="flex flex-wrap gap-4">
-      <Button variant="default">Default</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="destructive">Destructive</Button>
-      <Button variant="outline">Outline</Button>
-      <Button variant="warning">Warning</Button>
-      <Button variant="ghost">Ghost</Button>
+      <Button {...props} variant="default">
+        Default
+      </Button>
+      <Button {...props} variant="secondary">
+        Secondary
+      </Button>
+      <Button {...props} variant="destructive">
+        Destructive
+      </Button>
+      <Button {...props} variant="outline">
+        Outline
+      </Button>
+      <Button {...props} variant="warning">
+        Warning
+      </Button>
+      <Button {...props} variant="ghost">
+        Ghost
+      </Button>
     </div>
   ),
 }
 
 // All sizes showcase
 export const Sizes: Story = {
-  render: () => (
+  render: (props) => (
     <div className="flex flex-wrap items-center gap-4">
-      <Button size="sm">Small</Button>
-      <Button size="default">Default</Button>
-      <Button size="lg">Large</Button>
-      <Button size="xl">Extra Large</Button>
-      <Button size="icon">
+      <Button {...props} size="sm">
+        Small
+      </Button>
+      <Button {...props} size="default">
+        Default
+      </Button>
+      <Button {...props} size="lg">
+        Large
+      </Button>
+      <Button {...props} size="xl">
+        Extra Large
+      </Button>
+      <Button {...props} size="icon">
         <Settings className="size-4" />
       </Button>
     </div>
@@ -99,19 +116,34 @@ export const Sizes: Story = {
 
 // With left and right icons
 export const WithIcons: Story = {
-  render: () => (
+  render: (props) => (
     <div className="flex flex-wrap gap-4">
-      <Button leftIcon={<Download className="size-4" />}>Download</Button>
-      <Button variant="secondary" leftIcon={<Heart className="size-4" />}>
+      <Button {...props} leftIcon={<Download className="size-4" />}>
+        Download
+      </Button>
+      <Button
+        {...props}
+        variant="secondary"
+        leftIcon={<Heart className="size-4" />}
+      >
         Like
       </Button>
-      <Button variant="destructive" leftIcon={<Trash2 className="size-4" />}>
+      <Button
+        {...props}
+        variant="destructive"
+        leftIcon={<Trash2 className="size-4" />}
+      >
         Delete
       </Button>
-      <Button variant="warning" rightIcon={<ExternalLink className="size-4" />}>
+      <Button
+        {...props}
+        variant="warning"
+        rightIcon={<ExternalLink className="size-4" />}
+      >
         External Link
       </Button>
       <Button
+        {...props}
         variant="outline"
         leftIcon={<Play className="size-4" />}
         rightIcon={<Pause className="size-4" />}
@@ -124,24 +156,24 @@ export const WithIcons: Story = {
 
 // Icon only buttons
 export const IconOnly: Story = {
-  render: () => (
+  render: (props) => (
     <div className="flex flex-wrap gap-4">
-      <Button size="icon" variant="default">
+      <Button {...props} size="icon" variant="default">
         <Settings className="size-4" />
       </Button>
-      <Button size="icon" variant="secondary">
+      <Button {...props} size="icon" variant="secondary">
         <Heart className="size-4" />
       </Button>
-      <Button size="icon" variant="destructive">
+      <Button {...props} size="icon" variant="destructive">
         <Trash2 className="size-4" />
       </Button>
-      <Button size="icon" variant="warning">
+      <Button {...props} size="icon" variant="warning">
         <Download className="size-4" />
       </Button>
-      <Button size="icon" variant="outline">
+      <Button {...props} size="icon" variant="outline">
         <Save className="size-4" />
       </Button>
-      <Button size="icon" variant="ghost">
+      <Button {...props} size="icon" variant="ghost">
         <Upload className="size-4" />
       </Button>
     </div>
@@ -150,19 +182,21 @@ export const IconOnly: Story = {
 
 // Loading states
 export const Loading: Story = {
-  render: () => (
+  render: (props) => (
     <div className="flex flex-wrap gap-4">
-      <Button isLoading>Loading...</Button>
-      <Button variant="secondary" isLoading loadingText="Processing...">
+      <Button {...props} isLoading>
+        Loading...
+      </Button>
+      <Button {...props} variant="secondary" isLoading>
         Save Changes
       </Button>
-      <Button variant="destructive" isLoading>
+      <Button {...props} variant="destructive" isLoading>
         Deleting...
       </Button>
-      <Button variant="warning" isLoading loadingText="Uploading...">
+      <Button {...props} variant="warning" isLoading>
         Upload File
       </Button>
-      <Button size="icon" variant="default" isLoading>
+      <Button {...props} size="icon" variant="default" isLoading>
         <Settings className="size-4" />
       </Button>
     </div>
@@ -171,22 +205,24 @@ export const Loading: Story = {
 
 // Disabled states
 export const Disabled: Story = {
-  render: () => (
+  render: (props) => (
     <div className="flex flex-wrap gap-4">
-      <Button disabled>Disabled Primary</Button>
-      <Button variant="secondary" disabled>
+      <Button {...props} disabled>
+        Disabled Primary
+      </Button>
+      <Button {...props} variant="secondary" disabled>
         Disabled Secondary
       </Button>
-      <Button variant="destructive" disabled>
+      <Button {...props} variant="destructive" disabled>
         Disabled Destructive
       </Button>
-      <Button variant="outline" disabled>
+      <Button {...props} variant="outline" disabled>
         Disabled Outline
       </Button>
-      <Button variant="warning" disabled>
+      <Button {...props} variant="warning" disabled>
         Disabled Warning
       </Button>
-      <Button variant="ghost" disabled>
+      <Button {...props} variant="ghost" disabled>
         Disabled Ghost
       </Button>
     </div>
@@ -195,20 +231,31 @@ export const Disabled: Story = {
 
 // Interactive examples
 export const Interactive: Story = {
-  render: () => (
+  render: (props) => (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-4">
-        <Button onClick={() => alert("Cyber button clicked!")}>Click Me</Button>
+        <Button {...props} onClick={() => alert("Cyber button clicked!")}>
+          Click Me
+        </Button>
         <Button
+          {...props}
           variant="outline"
           onClick={() => console.log("Outline clicked")}
         >
           Console Log
         </Button>
-        <Button variant="destructive" onClick={() => confirm("Are you sure?")}>
+        <Button
+          {...props}
+          variant="destructive"
+          onClick={() => confirm("Are you sure?")}
+        >
           Confirm Action
         </Button>
-        <Button variant="warning" onClick={() => alert("Warning action!")}>
+        <Button
+          {...props}
+          variant="warning"
+          onClick={() => alert("Warning action!")}
+        >
           Warning Action
         </Button>
       </div>
@@ -218,13 +265,15 @@ export const Interactive: Story = {
 
 // Full width example
 export const FullWidth: Story = {
-  render: () => (
+  render: (props) => (
     <div className="w-full max-w-md space-y-2">
-      <Button className="w-full">Full Width Primary</Button>
-      <Button variant="outline" className="w-full">
+      <Button {...props} className="w-full">
+        Full Width Primary
+      </Button>
+      <Button {...props} variant="outline" className="w-full">
         Full Width Outline
       </Button>
-      <Button variant="secondary" className="w-full">
+      <Button {...props} variant="secondary" className="w-full">
         Full Width Secondary
       </Button>
     </div>
@@ -254,26 +303,6 @@ export const ButtonGroup: Story = {
         <Button variant="secondary">Secondary</Button>
         <Button>Primary</Button>
       </div>
-    </div>
-  ),
-}
-
-// Custom styling example
-export const CustomStyling: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      <Button className="border-purple-400 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
-        Gradient Cyber
-      </Button>
-      <Button className="rounded-full border-green-400 text-green-400">
-        Rounded Cyber
-      </Button>
-      <Button className="border-yellow-400 text-yellow-400 shadow-lg hover:shadow-xl">
-        Shadow Cyber
-      </Button>
-      <Button className="border-4 border-cyan-400 text-cyan-400 hover:bg-cyan-900/30">
-        Thick Border
-      </Button>
     </div>
   ),
 }
@@ -374,36 +403,29 @@ export const CyberTheme: Story = {
 
 // Loading states with different text
 export const LoadingVariations: Story = {
-  render: () => (
+  render: (props) => (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-4">
-        <Button isLoading loadingText="Connecting...">
-          Connect
-        </Button>
-        <Button variant="secondary" isLoading loadingText="Saving...">
+        <Button isLoading>Connect</Button>
+        <Button {...props} variant="secondary" isLoading>
           Save Changes
         </Button>
-        <Button variant="warning" isLoading loadingText="Uploading...">
+        <Button {...props} variant="warning" isLoading>
           Upload File
         </Button>
-        <Button variant="destructive" isLoading loadingText="Deleting...">
+        <Button {...props} variant="destructive" isLoading>
           Delete Item
         </Button>
       </div>
 
       <div className="flex flex-wrap gap-4">
-        <Button size="sm" isLoading loadingText="Processing...">
+        <Button {...props} size="sm" isLoading>
           Process
         </Button>
-        <Button
-          size="lg"
-          variant="outline"
-          isLoading
-          loadingText="Initializing..."
-        >
+        <Button {...props} size="lg" variant="outline" isLoading>
           Initialize System
         </Button>
-        <Button size="xl" variant="ghost" isLoading loadingText="Loading...">
+        <Button {...props} size="xl" variant="ghost" isLoading>
           Load Data
         </Button>
       </div>

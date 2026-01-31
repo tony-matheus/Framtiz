@@ -19,7 +19,7 @@ import {
   Code,
   HelpCircle,
 } from "lucide-react"
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { CyberFormField } from "@/components/ui-custom/cyber-form-field"
 import { CyberStatusBadge } from "@/components/ui-custom/cyber-status-badge"
@@ -242,8 +242,8 @@ export default function SocialsTab() {
 
       {/* Add Social Form */}
       {showAddForm && (
-        <CyberCard>
-          <CyberCardContent className="p-6">
+        <Card>
+          <CardContent className="p-6">
             <h4 className="mb-4 flex items-center font-mono text-sm text-slate-300">
               <div className="mr-2 size-1 bg-green-400"></div>
               ADD_NEW_SOCIAL
@@ -304,23 +304,23 @@ export default function SocialsTab() {
                 CANCEL
               </Button>
             </div>
-          </CyberCardContent>
-        </CyberCard>
+          </CardContent>
+        </Card>
       )}
 
       {/* Social Networks List */}
       <div className="grid gap-4">
         {userSocials.length === 0 ? (
-          <CyberCard>
-            <CyberCardContent className="p-8 text-center">
+          <Card>
+            <CardContent className="p-8 text-center">
               <div className="font-mono text-slate-500">
                 NO_SOCIAL_NETWORKS_CONFIGURED
               </div>
               <p className="mt-2 text-sm text-slate-600">
                 Add your social media profiles to showcase your online presence.
               </p>
-            </CyberCardContent>
-          </CyberCard>
+            </CardContent>
+          </Card>
         ) : (
           userSocials.map((social) => {
             const platform = getPlatform(social.platformId)
@@ -329,8 +329,8 @@ export default function SocialsTab() {
             const fullUrl = `${platform.baseUrl}${social.username}`
 
             return (
-              <CyberCard key={social.id}>
-                <CyberCardContent className="p-4">
+              <Card key={social.id}>
+                <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
                       <div className="text-purple-400">{platform.icon}</div>
@@ -422,8 +422,8 @@ export default function SocialsTab() {
                       </Button>
                     </div>
                   </div>
-                </CyberCardContent>
-              </CyberCard>
+                </CardContent>
+              </Card>
             )
           })
         )}

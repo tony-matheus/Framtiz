@@ -52,8 +52,8 @@ export default function MakeAdminPage() {
       setTimeout(() => {
         router.push("/admin")
       }, 2000)
-    } catch (err: any) {
-      setError(err.message)
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "An unknown error occurred")
     } finally {
       setIsLoading(false)
     }

@@ -4,7 +4,7 @@ import type React from "react"
 
 import { motion } from "framer-motion"
 import { FolderOpen, Plus } from "lucide-react"
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 interface EmptyStateProps {
@@ -28,8 +28,8 @@ export default function EmptyState({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <CyberCard>
-        <CyberCardContent className="flex flex-col items-center justify-center p-8 text-center">
+      <Card>
+        <CardContent className="flex flex-col items-center justify-center p-8 text-center">
           <div className="mb-4 flex size-16 items-center justify-center border border-slate-700 bg-slate-800 text-slate-400">
             {icon}
           </div>
@@ -45,8 +45,8 @@ export default function EmptyState({
               {actionLabel}
             </Button>
           )}
-        </CyberCardContent>
-      </CyberCard>
+        </CardContent>
+      </Card>
     </motion.div>
   )
 }

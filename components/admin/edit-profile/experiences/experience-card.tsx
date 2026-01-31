@@ -1,7 +1,7 @@
 import type React from "react"
 import { Edit2, Trash2, Calendar, MapPin, Building } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { CyberStatusBadge } from "@/components/ui-custom/cyber-status-badge"
 import { formatElapsedDuration, getFormattedDate } from "@/lib/helpers/daytime"
 import { EMPLOYMENT_TYPES, Experience } from "@/lib/schemas/experience-schemas"
@@ -20,8 +20,8 @@ export default function ExperienceCard({
   deleting = false,
 }: ExperienceCardProps) {
   return (
-    <CyberCard key={experience.id}>
-      <CyberCardContent>
+    <Card key={experience.id}>
+      <CardContent>
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <div className="mb-2 flex items-center gap-3">
@@ -88,7 +88,7 @@ export default function ExperienceCard({
             </Button>
           </div>
         </div>
-      </CyberCardContent>
-    </CyberCard>
+      </CardContent>
+    </Card>
   )
 }

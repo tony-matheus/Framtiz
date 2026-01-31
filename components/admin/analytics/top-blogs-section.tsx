@@ -1,6 +1,6 @@
 "use client"
 
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { BlogAnalytics } from "@/lib/schemas/analytics-schemas"
 import { Eye } from "lucide-react"
 import EmptyState from "../empty-state"
@@ -18,8 +18,8 @@ export default function TopBlogsSection({ blogs }: TopBlogsSectionProps) {
   }
 
   return (
-    <CyberCard>
-      <CyberCardContent className="p-6">
+    <Card>
+      <CardContent className="p-6">
         <div className="mb-4">
           <h3 className="mb-2 font-mono text-lg text-slate-100">
             TOP_PERFORMING_BLOGS
@@ -88,7 +88,7 @@ export default function TopBlogsSection({ blogs }: TopBlogsSectionProps) {
             </p>
           </div>
         )}
-      </CyberCardContent>
-    </CyberCard>
+      </CardContent>
+    </Card>
   )
 }

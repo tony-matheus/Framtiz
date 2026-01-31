@@ -1,9 +1,8 @@
 "use client"
 
-import { useEffect } from 'react';
-import { Save, Minimize2, FileText, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
+import { useEffect } from "react"
+import { Save, Minimize2, FileText, X } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import {
   ResizableHandle,
   ResizablePanel,
@@ -19,8 +18,9 @@ import {
   CyberFormControl,
   CyberFormField,
   CyberFormItem,
-} from '@/components/ui-custom/cyber-form/cyber-form';
-import MarkdownRender from '@/components/ui/markdown-render';
+} from "@/components/ui-custom/cyber-form/cyber-form"
+import MarkdownRender from "@/components/ui/markdown-render"
+import { Card, CardContent } from "@/components/ui/card"
 
 interface FullScreenEditorProps extends BlogFormProps {
   onMinimize: () => void
@@ -86,19 +86,19 @@ export default function FullScreenEditor({
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <Button
-              variant='secondary'
-              type='submit'
-              loadingText='SAVING...'
+              variant="secondary"
+              type="submit"
+              loadingText="SAVING..."
               isLoading={loading}
             >
               <Save size={16} />
-              <span className='hidden md:inline-flex'>
-                {editing ? 'UPDATE' : 'SAVE_DRAFT'}
+              <span className="hidden md:inline-flex">
+                {editing ? "UPDATE" : "SAVE_DRAFT"}
               </span>
             </Button>
             <Button
-              variant='outline'
-              size='icon'
+              variant="outline"
+              size="icon"
               disabled={loading}
               onClick={onMinimize}
               title="Exit Full Screen"
@@ -106,8 +106,8 @@ export default function FullScreenEditor({
               <Minimize2 size={18} />
             </Button>
             <Button
-              variant='outline'
-              size='icon'
+              variant="outline"
+              size="icon"
               disabled={loading}
               onClick={onCancel}
               title="Close"
@@ -134,11 +134,11 @@ export default function FullScreenEditor({
                   />
                 </CyberFormControl>
 
-                <CyberCard
+                <Card
                   withCornerAccents={false}
                   className="block h-full overflow-auto rounded-none border-0 md:hidden"
                 >
-                  <CyberCardContent className="prose prose-invert max-w-none p-6">
+                  <CardContent className="prose prose-invert max-w-none p-6">
                     {field.value ? (
                       <MarkdownRender content={field.value} />
                     ) : (
@@ -146,8 +146,8 @@ export default function FullScreenEditor({
                         No content to preview
                       </div>
                     )}
-                  </CyberCardContent>
-                </CyberCard>
+                  </CardContent>
+                </Card>
               </CyberFormItem>
             )}
           />
@@ -171,11 +171,11 @@ export default function FullScreenEditor({
                     placeholder="Write your blog post in Markdown..."
                   />
                 </CyberFormControl>
-                <CyberCard
+                <Card
                   withCornerAccents={false}
                   className="hidden h-full overflow-auto rounded-none border-0  md:block"
                 >
-                  <CyberCardContent className="prose prose-invert max-w-none p-4  ">
+                  <CardContent className="prose prose-invert max-w-none p-4  ">
                     {field.value ? (
                       <MarkdownRender content={field.value} />
                     ) : (
@@ -183,8 +183,8 @@ export default function FullScreenEditor({
                         No content to preview
                       </div>
                     )}
-                  </CyberCardContent>
-                </CyberCard>
+                  </CardContent>
+                </Card>
               </CyberFormItem>
             )}
           />

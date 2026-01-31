@@ -1,4 +1,3 @@
-// import '../styles/globals.css';
 import "../app/globals.css"
 import type { Preview } from "@storybook/nextjs-vite"
 

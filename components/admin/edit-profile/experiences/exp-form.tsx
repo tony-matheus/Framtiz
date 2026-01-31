@@ -21,7 +21,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/cyber-popover"
+} from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
@@ -159,7 +159,7 @@ export default function ExpForm({
                         variant="outline"
                         className={cn(
                           "w-full justify-start text-left h-9 font-mono bg-slate-800 border-slate-700 hover:border-slate-600",
-                          !field.value && "text-slate-500"
+                          !field.value && "text-slate-500",
                         )}
                       >
                         <CalendarIcon className="mr-2 size-4 text-slate-500" />
@@ -204,7 +204,7 @@ export default function ExpForm({
                           variant="outline"
                           className={cn(
                             "w-full justify-start text-left font-mono h-9 bg-slate-800 border-slate-700 hover:border-slate-600",
-                            !field.value && "text-slate-500"
+                            !field.value && "text-slate-500",
                           )}
                           disabled={expForm.watch("isCurrentPosition")}
                         >
@@ -266,7 +266,7 @@ export default function ExpForm({
               <CyberFormControl>
                 <Textarea
                   className={cn(
-                    "w-full bg-slate-800 border text-slate-200 focus-visible:ring-0 focus-visible:ring-offset-0 border-slate-700 focus-visible:border-purple-600"
+                    "w-full bg-slate-800 border text-slate-200 focus-visible:ring-0 focus-visible:ring-offset-0 border-slate-700 focus-visible:border-purple-600",
                   )}
                   {...field}
                 />

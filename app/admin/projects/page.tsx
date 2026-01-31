@@ -1,6 +1,6 @@
 // 'use client';
 
-// import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
+// import { Card, CardContent } from '@/components/ui-custom/cyber-card';
 // import { CyberPagination } from '@/components/ui-custom/cyber-pagination';
 // import { motion } from 'framer-motion';
 // import { useState } from 'react';
@@ -130,15 +130,15 @@ export default async function ProjectsPage() {
 //                 transition={{ duration: 0.5, delay: 0.3 }}
 //                 className='mb-12 mt-8'
 //               >
-//                 <CyberCard className='mx-auto inline-block'>
-//                   <CyberCardContent className='p-2 sm:p-4'>
+//                 <Card className='mx-auto inline-block'>
+//                   <CardContent className='p-2 sm:p-4'>
 //                     <CyberPagination
 //                       totalPages={totalPages}
 //                       currentPage={currentPage}
 //                       onPageChange={goToPage}
 //                     />
-//                   </CyberCardContent>
-//                 </CyberCard>
+//                   </CardContent>
+//                 </Card>
 //               </motion.div>
 //             )}
 //           </>

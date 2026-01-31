@@ -1,6 +1,6 @@
 "use client"
 
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { useState } from "react"
@@ -57,14 +57,14 @@ export default function ProfilePic({
     hp <= 30 ? "from-purple-600 to-red-500" : "from-purple-600 to-green-400"
 
   return (
-    <CyberCard
+    <Card
       className={cn(
         "mb-8 inline-flex overflow-hidden",
         circular ? "rounded-full" : "rounded-md",
       )}
       withCornerAccents={false}
     >
-      <CyberCardContent className={cn("relative p-0", sizeMap[size])}>
+      <CardContent className={cn("relative p-0", sizeMap[size])}>
         {/* HP Bar */}
         <motion.div
           layout
@@ -149,7 +149,7 @@ export default function ProfilePic({
             <RotateCcw size={14} />
           </button>
         )}
-      </CyberCardContent>
-    </CyberCard>
+      </CardContent>
+    </Card>
   )
 }

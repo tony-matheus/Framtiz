@@ -1,6 +1,6 @@
 "use client"
 
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { DeviceData } from "@/lib/schemas/analytics-schemas"
 import { Monitor, Smartphone, Tablet } from "lucide-react"
 
@@ -11,8 +11,8 @@ interface DeviceChartProps {
 export default function DeviceChart({ data }: DeviceChartProps) {
   if (!data || data.length === 0) {
     return (
-      <CyberCard>
-        <CyberCardContent className="p-4">
+      <Card>
+        <CardContent className="p-4">
           <div className="py-8 text-center">
             <Monitor className="mx-auto mb-4 size-12 text-slate-400" />
             <h3 className="mb-2 font-mono text-lg text-slate-200">
@@ -22,8 +22,8 @@ export default function DeviceChart({ data }: DeviceChartProps) {
               No device data available for the selected time period
             </p>
           </div>
-        </CyberCardContent>
-      </CyberCard>
+        </CardContent>
+      </Card>
     )
   }
 
@@ -53,8 +53,8 @@ export default function DeviceChart({ data }: DeviceChartProps) {
   ]
 
   return (
-    <CyberCard>
-      <CyberCardContent className="p-4">
+    <Card>
+      <CardContent className="p-4">
         <div className="mb-6">
           <h3 className="mb-2 font-mono text-lg text-slate-100">
             DEVICE_DISTRIBUTION
@@ -122,7 +122,7 @@ export default function DeviceChart({ data }: DeviceChartProps) {
             <span>Total visits: {totalVisits.toLocaleString()}</span>
           </div>
         </div>
-      </CyberCardContent>
-    </CyberCard>
+      </CardContent>
+    </Card>
   )
 }

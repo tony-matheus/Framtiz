@@ -2,9 +2,9 @@
 
 import type React from "react"
 
-import { useState, useRef } from 'react';
-import { Edit3, Eye } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { useState, useRef } from "react"
+import { Edit3, Eye } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 import DropZone from "./drop-zone"
 import UploadPlaceholder from "./upload-placeholder"
@@ -13,9 +13,9 @@ import {
   generateUploadId,
   isImageFile,
   isVideoFile,
-} from '@/lib/supabase/storage/upload-client';
-import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
-import MarkdownRender from '@/components/ui/markdown-render';
+} from "@/lib/supabase/storage/upload-client"
+import { Card, CardContent } from "@/components/ui-custom/cyber-card"
+import MarkdownRender from "@/components/ui/markdown-render"
 
 type UploadingFile = {
   id: string
@@ -92,8 +92,8 @@ export default function BlogContentEditor({
               ? { ...item, progress: Math.min(item.progress + 10, 90) }
               : item,
           ),
-        );
-      }, 300);
+        )
+      }, 300)
 
       const { imageUrl } = await uploadImage({ file })
 
@@ -102,10 +102,10 @@ export default function BlogContentEditor({
       setUploadingFiles((prev) =>
         prev.map((item) =>
           item.id === uploadId
-            ? { ...item, progress: 100, status: 'success', url: imageUrl }
+            ? { ...item, progress: 100, status: "success", url: imageUrl }
             : item,
         ),
-      );
+      )
 
       const fileType = file.type.startsWith("image/") ? "image" : "video"
       const markdownText =
@@ -129,14 +129,14 @@ export default function BlogContentEditor({
               }
             : item,
         ),
-      );
+      )
 
       onContentChange((prev) =>
         prev.replace(
           placeholderText,
           `<!-- Upload failed for ${file.name} -->`,
         ),
-      );
+      )
     }
   }
 
@@ -164,10 +164,10 @@ export default function BlogContentEditor({
             type="button"
             onClick={() => setActiveTab("edit")}
             className={cn(
-              'px-4 py-2 font-mono text-sm flex items-center gap-2',
-              activeTab === 'edit'
-                ? 'border-b-2 border-purple-600 text-purple-300'
-                : 'text-slate-400 hover:text-slate-200',
+              "px-4 py-2 font-mono text-sm flex items-center gap-2",
+              activeTab === "edit"
+                ? "border-b-2 border-purple-600 text-purple-300"
+                : "text-slate-400 hover:text-slate-200",
             )}
           >
             <Edit3 size={16} />
@@ -177,10 +177,10 @@ export default function BlogContentEditor({
             type="button"
             onClick={() => setActiveTab("preview")}
             className={cn(
-              'px-4 py-2 font-mono text-sm flex items-center gap-2',
-              activeTab === 'preview'
-                ? 'border-b-2 border-green-400 text-green-300'
-                : 'text-slate-400 hover:text-slate-200',
+              "px-4 py-2 font-mono text-sm flex items-center gap-2",
+              activeTab === "preview"
+                ? "border-b-2 border-green-400 text-green-300"
+                : "text-slate-400 hover:text-slate-200",
             )}
           >
             <Eye size={16} />
@@ -197,8 +197,8 @@ export default function BlogContentEditor({
               ref={textareaRef}
               value={content}
               onChange={(e) => onContentChange(e.target.value)}
-              className='w-full flex-1 resize-none border border-slate-700 bg-slate-900 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600'
-              placeholder='Write your blog post in Markdown... Drag and drop images to upload'
+              className="w-full flex-1 resize-none border border-slate-700 bg-slate-900 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600"
+              placeholder="Write your blog post in Markdown... Drag and drop images to upload"
               onPaste={handlePaste}
               name="content"
             />
@@ -229,11 +229,11 @@ export default function BlogContentEditor({
             </div>
           </div>
         ) : (
-          <CyberCard
+          <Card
             withCornerAccents={false}
             className="prose h-[450px] w-full flex-1 overflow-auto [&_pre]:max-w-[40ch] md:[&_pre]:max-w-prose"
           >
-            <CyberCardContent className="prose-invert max-w-full lg:max-w-[100ch]">
+            <CardContent className="prose-invert max-w-full lg:max-w-[100ch]">
               {content ? (
                 <MarkdownRender content={content} />
               ) : (
@@ -241,8 +241,8 @@ export default function BlogContentEditor({
                   No content to preview
                 </div>
               )}
-            </CyberCardContent>
-          </CyberCard>
+            </CardContent>
+          </Card>
         )}
       </div>
     </>

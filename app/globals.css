@@ -1,4 +1,4 @@
-@import '../styles/markdown.css';
+@import "../styles/markdown.css";
 
 @tailwind base;
 @tailwind components;
@@ -54,6 +54,68 @@
       background-position: 200% 0%;
     }
   }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Easing: animation-timing-function from :root variables */
+  .ease-in-quad {
+    animation-timing-function: var(--ease-in-quad);
+  }
+  .ease-in-cubic {
+    animation-timing-function: var(--ease-in-cubic);
+  }
+  .ease-in-quart {
+    animation-timing-function: var(--ease-in-quart);
+  }
+  .ease-in-quint {
+    animation-timing-function: var(--ease-in-quint);
+  }
+  .ease-in-expo {
+    animation-timing-function: var(--ease-in-expo);
+  }
+  .ease-in-circ {
+    animation-timing-function: var(--ease-in-circ);
+  }
+
+  .ease-out-quad {
+    animation-timing-function: var(--ease-out-quad);
+  }
+  .ease-out-cubic {
+    animation-timing-function: var(--ease-out-cubic);
+  }
+  .ease-out-quart {
+    animation-timing-function: var(--ease-out-quart);
+  }
+  .ease-out-quint {
+    animation-timing-function: var(--ease-out-quint);
+  }
+  .ease-out-expo {
+    animation-timing-function: var(--ease-out-expo);
+  }
+  .ease-out-circ {
+    animation-timing-function: var(--ease-out-circ);
+  }
+
+  .ease-in-out-quad {
+    animation-timing-function: var(--ease-in-out-quad);
+  }
+  .ease-in-out-cubic {
+    animation-timing-function: var(--ease-in-out-cubic);
+  }
+  .ease-in-out-quart {
+    animation-timing-function: var(--ease-in-out-quart);
+  }
+  .ease-in-out-quint {
+    animation-timing-function: var(--ease-in-out-quint);
+  }
+  .ease-in-out-expo {
+    animation-timing-function: var(--ease-in-out-expo);
+  }
+  .ease-in-out-circ {
+    animation-timing-function: var(--ease-in-out-circ);
+  }
 }
 
 :root {
@@ -72,6 +134,27 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
     --header-height: 58px;
+
+    --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    --ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    --ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+    --ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    --ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    --ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+
+    --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+    --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+    --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+    --ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+    --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+    --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+    --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
   }
 }
 
@@ -88,7 +171,7 @@ body {
   scroll-behavior: smooth;
   background-color: #020617;
   color: #f8fafc;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 /* Custom scrollbar */
@@ -139,7 +222,7 @@ body {
   z-index: 50 !important;
 }
 
-.fixed[data-state='open'] {
+.fixed[data-state="open"] {
   z-index: 50 !important;
 }
 
@@ -211,7 +294,7 @@ body {
 }
 
 .ripple::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;

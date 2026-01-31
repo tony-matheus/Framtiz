@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { AlertTriangle, RefreshCw } from "lucide-react"
 
 interface ErrorBoundaryState {
@@ -48,9 +48,9 @@ export class AnalyticsErrorBoundary extends React.Component<
       }
 
       return (
-        <CyberCard>
-          <CyberCardContent className="p-6">
-            <div className="text-center py-8">
+        <Card>
+          <CardContent className="p-6">
+            <div className="py-8 text-center">
               <AlertTriangle className="mx-auto mb-4 size-12 text-red-400" />
               <h3 className="mb-2 font-mono text-lg text-slate-200">
                 ANALYTICS_ERROR
@@ -60,14 +60,14 @@ export class AnalyticsErrorBoundary extends React.Component<
               </p>
               <button
                 onClick={this.resetError}
-                className="inline-flex items-center space-x-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded font-mono text-sm transition-colors"
+                className="inline-flex items-center space-x-2 rounded bg-purple-600 px-4 py-2 font-mono text-sm text-white transition-colors hover:bg-purple-700"
               >
                 <RefreshCw className="size-4" />
                 <span>RETRY</span>
               </button>
             </div>
-          </CyberCardContent>
-        </CyberCard>
+          </CardContent>
+        </Card>
       )
     }
 

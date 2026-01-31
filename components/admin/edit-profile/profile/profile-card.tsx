@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { User } from "lucide-react"
-import { CyberCard, CyberCardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { CyberDataDisplay } from "@/components/ui-custom/cyber-data-display"
 import { CyberStatusBadge } from "@/components/ui-custom/cyber-status-badge"
 import { Separator } from "@/components/ui/separator"
@@ -19,8 +19,8 @@ const profile = {
 }
 export default function ProfileCard({}) {
   return (
-    <CyberCard>
-      <CyberCardContent className="flex flex-col items-center p-6">
+    <Card>
+      <CardContent className="flex flex-col items-center p-6">
         <div className="mb-4 flex size-24 items-center justify-center border-2 border-purple-600 bg-slate-800">
           <User className="text-purple-400" size={48} />
         </div>
@@ -44,7 +44,7 @@ export default function ProfileCard({}) {
           <CyberDataDisplay label="LAST_LOGIN" value="2025-05-12 14:32:18" />
           <CyberDataDisplay label="SECURITY_LEVEL" value="LEVEL_3" />
         </div>
-      </CyberCardContent>
-    </CyberCard>
+      </CardContent>
+    </Card>
   )
 }

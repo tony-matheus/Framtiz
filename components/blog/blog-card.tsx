@@ -1,7 +1,7 @@
 import { Blog } from "@/lib/services/blog-service/helpers"
 import Image from "next/image"
 import Link from "next/link"
-import { CyberCard, CyberCardContent } from "../ui/card"
+import { Card, CardContent } from "../ui/card"
 import { Calendar, Clock } from "lucide-react"
 import { getTimeToReadText } from "@/lib/helpers/get-time-to-read-text"
 import { getFormattedDate } from "@/lib/helpers/daytime"
@@ -17,7 +17,7 @@ export default function BlogCard({ blog, className }: BlogCardProps) {
       href={`/blog/${blog.id}`}
       className={cn(className, "h-full flex flex-col")}
     >
-      <CyberCard
+      <Card
         withCornerAccents={false}
         className="flex h-full flex-col rounded-none"
       >
@@ -31,7 +31,7 @@ export default function BlogCard({ blog, className }: BlogCardProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
         </div>
 
-        <CyberCardContent className="flex flex-1 flex-col justify-between rounded-none">
+        <CardContent className="flex flex-1 flex-col justify-between rounded-none">
           <div className="mb-4 flex justify-between gap-4 xl:mb-0 xl:block">
             <div>
               <h3 className="mb-3 line-clamp-2 h-[56px] text-xl font-bold text-slate-200 transition-colors duration-300 group-hover:text-purple-300">
@@ -72,8 +72,8 @@ export default function BlogCard({ blog, className }: BlogCardProps) {
               {getTimeToReadText({ text: blog.content })}
             </div>
           </div>
-        </CyberCardContent>
-      </CyberCard>
+        </CardContent>
+      </Card>
     </Link>
   )
 }
