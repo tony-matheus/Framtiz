@@ -89,17 +89,17 @@ export default function FullScreenEditor({
               variant='secondary'
               type='submit'
               loadingText='SAVING...'
-              disabled={loading}
+              isLoading={loading}
             >
               <Save size={16} />
               <span className='hidden md:inline-flex'>
-                {editing ? 'SAVE' : 'SAVE_DRAFT'}
+                {editing ? 'UPDATE' : 'SAVE_DRAFT'}
               </span>
             </Button>
             <Button
               variant='outline'
               size='icon'
-              isLoading={loading}
+              disabled={loading}
               onClick={onMinimize}
               title='Exit Full Screen'
             >
@@ -108,7 +108,7 @@ export default function FullScreenEditor({
             <Button
               variant='outline'
               size='icon'
-              isLoading={loading}
+              disabled={loading}
               onClick={onCancel}
               title='Close'
             >

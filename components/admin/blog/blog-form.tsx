@@ -62,7 +62,7 @@ export default function BlogForm({
       const content = blogForm.getValues('content');
       if (content) {
         const { data } = await generateData(
-          blogForm.getValues('content')! ?? ''
+          blogForm.getValues('content')! ?? '',
         );
         blogForm.setValue('excerpt', data.excerpt);
         // setReadTime(data.read_time);
@@ -86,9 +86,12 @@ export default function BlogForm({
       }, index * 40);
     });
 
-    setTimeout(() => {
-      blogForm.setValue('excerpt', '');
-    }, text.length * 40 + 1500);
+    setTimeout(
+      () => {
+        blogForm.setValue('excerpt', '');
+      },
+      text.length * 40 + 1500,
+    );
   };
 
   const handleConfirm = (exp: BlogInput) => {
@@ -173,7 +176,7 @@ export default function BlogForm({
               loadingText='SAVING...'
               leftIcon={<Save size={16} />}
             >
-              SAVE_BLOG
+              UPDATE_BLOG
             </Button>
           ) : (
             <div className='inline-flex items-center gap-4'>

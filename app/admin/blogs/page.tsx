@@ -44,7 +44,7 @@ export default function BlogPage() {
     {
       initialPage: 1,
       title: term,
-    }
+    },
   );
 
   const refetchPage = (page: number, term = '') => {
@@ -68,11 +68,19 @@ export default function BlogPage() {
     refetchPage(currentPage, term);
   };
 
-  const handleSaveBlog = () => {
-    setIsDialogOpen(false);
+  const handleSaveBlog = ({
+    shouldClose = true,
+  }: {
+    shouldClose?: boolean;
+    blog?: Blog | null;
+  }) => {
+    setIsDialogOpen(shouldClose ? false : true);
     if (currentBlog) {
       refetchPage(currentPage, term);
-      return setCurrentBlog(null);
+      if (shouldClose) {
+        setCurrentBlog(null);
+      }
+      return;
     }
     goToPage(1);
     refetchPage(1, '');

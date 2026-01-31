@@ -27,7 +27,13 @@ const STORAGE_KEY = 'BLOG_FORM_STORAGE_KEY';
 interface BlogEditorDialogProps {
   isOpen: boolean;
   onOpenChange: (arg0: boolean) => void;
-  onSave: (arg0: Blog) => void;
+  onSave: ({
+    shouldClose,
+    blog,
+  }: {
+    shouldClose?: boolean;
+    blog?: Blog | null;
+  }) => void;
   onCancel: () => void;
   blog?: Blog | null;
 }
@@ -92,11 +98,13 @@ export default function BlogEditorDialog({
     onSuccess: () => {
       toast.success('SYSTEM_ACTION: COMPLETED', {
         description: 'Experience successfully created!',
+        duration: 1000,
       });
     },
     onError: () => {
       toast.error('SYSTEM_ACTION: FAILED', {
         description: "Experience couldn't be created!",
+        duration: 1000,
       });
     },
   });
@@ -109,11 +117,13 @@ export default function BlogEditorDialog({
     onSuccess: () => {
       toast.success('SYSTEM_ACTION: COMPLETED', {
         description: 'Experience successfully updated!',
+        duration: 1000,
       });
     },
     onError: () => {
       toast.error('SYSTEM_ACTION: FAILED', {
         description: "Experience couldn't be updated!",
+        duration: 1000,
       });
     },
   });
@@ -121,7 +131,7 @@ export default function BlogEditorDialog({
   const handleCreateBlog = async (blogInput: BlogInput) => {
     const savedBlog = await createBlog(blogInput);
 
-    onSave?.(savedBlog);
+    onSave?.({ shouldClose: true, blog: savedBlog });
   };
 
   const handleUpdateBlog = async (blogInput: BlogInput) => {
@@ -132,7 +142,7 @@ export default function BlogEditorDialog({
       ...blogInput,
     });
 
-    onSave?.(savedBlog);
+    onSave?.({ blog: savedBlog, shouldClose: false });
   };
 
   const onSubmit = (blogInput: BlogInput) => {

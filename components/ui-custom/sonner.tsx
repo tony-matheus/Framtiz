@@ -16,7 +16,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast: cn(
-            'group toast group-[.toaster]:bg-[#020617]/90 group-[.toaster]:text-purple-400 group-[.toaster]:border-purple-400 group-[.toaster]:border-border group-[.toaster]:shadow-lg !border-0 !border-l-4 !backdrop-blur-sm !rounded-none'
+            'group toast group-[.toaster]:bg-[#020617]/90 group-[.toaster]:text-purple-400 group-[.toaster]:border-purple-400 group-[.toaster]:border-border group-[.toaster]:shadow-lg !border-0 !border-l-4 !backdrop-blur-sm !rounded-none',
           ),
           description: 'text-sm',
           actionButton:
@@ -29,7 +29,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
           content: 'font-mono text-xs',
         },
       }}
-      duration={50000}
+      duration={5000}
       {...props}
     />
   );
