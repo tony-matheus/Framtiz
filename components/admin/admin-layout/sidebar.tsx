@@ -59,7 +59,7 @@ export default function AdminSidebar({ onLogout, user }: AdminSidebarProps) {
             <SidebarMenu>
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <div className="mr-3 flex size-8 items-center justify-center border border-purple-600 bg-slate-800">
+                  <div className="mr-3 flex size-8 items-center justify-center border-2 border-purple-600 bg-slate-800">
                     <UserIcon className="text-purple-400" size={16} />
                   </div>
                   <div>
@@ -72,8 +72,8 @@ export default function AdminSidebar({ onLogout, user }: AdminSidebarProps) {
                   </div>
                 </div>
                 <Link href="/admin/edit-profile/profile">
-                  <Button variant="outline" size="icon" className="size-7">
-                    <Settings size={14} className="text-purple-400" />
+                  <Button variant="outline" size="icon">
+                    <Settings size={14} />
                   </Button>
                 </Link>
               </div>

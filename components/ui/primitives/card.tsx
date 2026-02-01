@@ -4,16 +4,26 @@ import { cn } from "@/lib/utils"
 
 const PrimitiveCard = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+  React.HTMLAttributes<HTMLDivElement> & {
+    withCornerAccents?: boolean
+  }
+>(({ className, children, withCornerAccents = false, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
-      "bg-slate-900 rounded-none border-slate-800 text-slate-200 border shadow",
+      "bg-slate-900 rounded-none border-slate-800 text-slate-200 border shadow relative group",
       className,
     )}
     {...props}
-  />
+  >
+    {children}
+    {withCornerAccents && (
+      <>
+        <div className="absolute -left-1 -top-1 hidden size-3 bg-purple-600 group-hover:block"></div>
+        <div className="absolute -bottom-1 -right-1 hidden size-3 bg-green-400 group-hover:block"></div>
+      </>
+    )}
+  </div>
 ))
 PrimitiveCard.displayName = "PrimitiveCard"
 

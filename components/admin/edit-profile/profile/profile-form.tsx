@@ -109,7 +109,6 @@ export default function ProfileForm() {
               type="submit"
               variant="secondary"
               isLoading={isPending}
-              loadingText="SAVING..."
               leftIcon={<Save size={16} />}
             >
               SAVE_PROFILE

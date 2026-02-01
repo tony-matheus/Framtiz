@@ -57,7 +57,7 @@ export default function NavItem({
       whileHover={{ x: 5 }}
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: 0.2 }}
+      transition={{ delay: 0.18, ease: "easeOut" }}
     >
       <NavLinkWrapper
         href={href}

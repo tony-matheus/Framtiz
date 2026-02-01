@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import BlogHeader from "@/components/blog/blog-header"
 import FeatureBlog from "@/components/blog/feature-blog"
 import { Search } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
@@ -25,8 +24,6 @@ export default function Blog() {
 
       <BlogNavigation link="/" text="BACK_TO_HOME" />
       <div className="container relative z-10 mx-auto px-2 py-6">
-        <BlogHeader />
-
         {blogs.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}

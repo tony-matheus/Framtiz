@@ -29,17 +29,17 @@ import { toast } from "sonner"
 const STORAGE_KEY = "BLOG_FORM_STORAGE_KEY"
 
 interface BlogEditorDialogProps {
-  isOpen: boolean;
-  onOpenChange: (arg0: boolean) => void;
+  isOpen: boolean
+  onOpenChange: (arg0: boolean) => void
   onSave: ({
     shouldClose,
     blog,
   }: {
-    shouldClose?: boolean;
-    blog?: Blog | null;
-  }) => void;
-  onCancel: () => void;
-  blog?: Blog | null;
+    shouldClose?: boolean
+    blog?: Blog | null
+  }) => void
+  onCancel: () => void
+  blog?: Blog | null
 }
 
 export default function BlogEditorDialog({
@@ -100,16 +100,16 @@ export default function BlogEditorDialog({
     isError: isErrorCreating,
   } = useCreateBlog({
     onSuccess: () => {
-      toast.success('SYSTEM_ACTION: COMPLETED', {
-        description: 'Experience successfully created!',
+      toast.success("SYSTEM_ACTION: COMPLETED", {
+        description: "Experience successfully created!",
         duration: 1000,
-      });
+      })
     },
     onError: () => {
       toast.error("SYSTEM_ACTION: FAILED", {
         description: "Experience couldn't be created!",
         duration: 1000,
-      });
+      })
     },
   })
 
@@ -119,24 +119,24 @@ export default function BlogEditorDialog({
     isError: isErrorUpdating,
   } = useUpdateBlog({
     onSuccess: () => {
-      toast.success('SYSTEM_ACTION: COMPLETED', {
-        description: 'Experience successfully updated!',
+      toast.success("SYSTEM_ACTION: COMPLETED", {
+        description: "Experience successfully updated!",
         duration: 1000,
-      });
+      })
     },
     onError: () => {
       toast.error("SYSTEM_ACTION: FAILED", {
         description: "Experience couldn't be updated!",
         duration: 1000,
-      });
+      })
     },
   })
 
   const handleCreateBlog = async (blogInput: BlogInput) => {
     const savedBlog = await createBlog(blogInput)
 
-    onSave?.({ shouldClose: true, blog: savedBlog });
-  };
+    onSave?.({ shouldClose: true, blog: savedBlog })
+  }
 
   const handleUpdateBlog = async (blogInput: BlogInput) => {
     if (!blog) return
@@ -146,8 +146,8 @@ export default function BlogEditorDialog({
       ...blogInput,
     })
 
-    onSave?.({ blog: savedBlog, shouldClose: false });
-  };
+    onSave?.({ blog: savedBlog, shouldClose: false })
+  }
 
   const onSubmit = (blogInput: BlogInput) => {
     sessionStorage.removeItem(STORAGE_KEY)
@@ -222,11 +222,11 @@ export default function BlogEditorDialog({
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
           <DialogContent
             showDismiss={false}
-            className="mx-auto max-h-[95dvh] max-w-[95vw] overflow-y-auto overflow-x-hidden border-2 border-slate-800 bg-slate-900 p-0 text-slate-200 xl:min-w-[50vw] xl:max-w-[60vw]"
+            className="mx-auto overflow-y-auto overflow-x-hidden border-2 border-slate-800 bg-slate-900 p-0 text-slate-200 md:max-h-[95dvh] md:max-w-[95vw] xl:min-w-[50vw] xl:max-w-[60vw]"
           >
             {/* Header */}
             <DialogHeader>
-              <div className="z-10 flex items-center justify-between border-b border-slate-800 bg-slate-900 p-4">
+              <div className="z-10 flex items-center justify-between ">
                 <DialogTitle className="flex items-center font-mono text-xl font-bold text-slate-200">
                   <FileText className="mr-2 text-purple-400" size={20} />
                   <span>{blog ? "EDIT_BLOG" : "CREATE_BLOG"}</span>

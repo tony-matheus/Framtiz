@@ -115,7 +115,7 @@ export default function FloatingNav() {
 
   return (
     <div
-      className="fixed bottom-auto right-4 top-6 z-50 md:bottom-6 md:top-auto"
+      className="fixed bottom-6 right-4 top-auto z-50"
       style={{ position: "fixed" }}
     >
       <motion.div
@@ -150,12 +150,15 @@ export default function FloatingNav() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, y: 80, x: 20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 80, x: 20, scale: 0.9 }}
+              transition={{
+                duration: 0.18,
+                ease: "easeOut",
+              }}
               className={cn(
-                `absolute right-0 top-16 bottom-auto border-2 bg-slate-900 md:top-auto md:bottom-16 w-[calc(100vw-32px)] md:w-auto md:min-w-[280px] overflow-hidden`,
+                `absolute right-0 border-2 bg-slate-900 top-auto bottom-16 w-[calc(100vw-32px)] md:w-auto md:min-w-[280px] overflow-hidden`,
                 glitchActive ? "border-red-500" : "border-purple-600",
               )}
             >

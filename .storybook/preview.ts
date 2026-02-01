@@ -4,7 +4,7 @@ import type { Preview } from "@storybook/nextjs-vite"
 const preview: Preview = {
   parameters: {
     backgrounds: {
-      default: "dark",
+      default: "Dark",
       options: {
         dark: { name: "Dark", value: "#020618" },
       },

@@ -14,7 +14,7 @@ import {
   isImageFile,
   isVideoFile,
 } from "@/lib/supabase/storage/upload-client"
-import { Card, CardContent } from "@/components/ui-custom/cyber-card"
+import { Card, CardContent } from "@/components/ui/card"
 import MarkdownRender from "@/components/ui/markdown-render"
 
 type UploadingFile = {

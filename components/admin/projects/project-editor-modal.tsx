@@ -172,7 +172,7 @@ export default function ProjectEditorModal({
                     <input
                       type="text"
                       name="name"
-                      value={editingRepo.name}
+                      value={editingRepo.title}
                       onChange={handleInputChange}
                       className="w-full border border-slate-700 bg-slate-800 p-3 text-slate-200 outline-none transition-colors focus:border-purple-600"
                     />
@@ -280,7 +280,6 @@ export default function ProjectEditorModal({
                       onClick={saveChanges}
                       variant="secondary"
                       isLoading={isSaving}
-                      loadingText="SAVING..."
                       leftIcon={<Save size={16} />}
                     >
                       SAVE_CHANGES

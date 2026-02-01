@@ -10,18 +10,12 @@ import type { ReactNode } from "react"
 interface CardProps {
   children: ReactNode
   className?: string
-  headerClassName?: string
-  contentClassName?: string
-  footerClassName?: string
   withCornerAccents?: boolean
 }
 
 export function Card({
   children,
   className,
-  // headerClassName,
-  // contentClassName,
-  // footerClassName,
   withCornerAccents = true,
 }: CardProps) {
   return (

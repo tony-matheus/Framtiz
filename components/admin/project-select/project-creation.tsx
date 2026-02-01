@@ -86,7 +86,6 @@ export default function ProjectCreation({
                 }
                 onClick={() => createProjectsWithLogging(selectedRepos)}
                 isLoading={saving}
-                loadingText={hasError ? "Retrying..." : "SAVING..."}
               >
                 {hasError ? "RETRY" : "SAVE_SELECTION"}
               </Button>

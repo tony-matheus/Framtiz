@@ -1,19 +1,14 @@
 import type React from "react"
-import { Button as PrimitiveButton } from "@/components/ui/primitives/button"
+import {
+  Button as PrimitiveButton,
+  PrimitiveButtonProps,
+} from "@/components/ui/primitives/button"
 import { cn } from "@/lib/utils"
-import { type ButtonHTMLAttributes, forwardRef } from "react"
+import { forwardRef } from "react"
 import { Slot } from "@radix-ui/react-slot"
 import Spinner from "./spinner"
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?:
-    | "default"
-    | "secondary"
-    | "destructive"
-    | "outline"
-    | "warning"
-    | "ghost"
-  size?: "default" | "sm" | "lg" | "xl" | "icon"
+interface ButtonProps extends PrimitiveButtonProps {
   asChild?: boolean
   isLoading?: boolean
   leftIcon?: React.ReactNode
@@ -41,6 +36,10 @@ const TRANSFORM_POSITION_BY_SIZE = {
     in: "-translate-y-7",
     out: "translate-y-7",
   },
+  iconLg: {
+    in: "-translate-y-8",
+    out: "translate-y-8",
+  },
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -66,7 +65,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         ref={ref}
         className={cn(
-          "bg-transparent transition-colors font-mono flex items-center justify-center overflow-y-hidden ease-out active:scale-[0.97]",
+          "flex items-center justify-center overflow-hidden ease-out active:scale-[0.97]",
           className,
           isLoading ? "ripple-loop" : "",
         )}

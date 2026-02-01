@@ -24,7 +24,7 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
     <>
       <Link href={`/blog/${blog.id}`}>
         <Card
-          className="group relative cursor-pointer rounded-t-xl border-purple-500/80 transition-colors duration-300 hover:border-purple-600"
+          className="group relative cursor-pointer border-purple-500/80 transition-colors duration-300 hover:border-purple-600"
           withCornerAccents
         >
           {/* Featured badge */}
@@ -84,7 +84,6 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
               </div>
 
               <Button
-                className="hidden md:inline"
                 variant="secondary"
                 rightIcon={
                   <ArrowRight
@@ -93,13 +92,8 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
                   />
                 }
               >
-                READ_ARTICLE
-              </Button>
-              <Button size="icon" variant="secondary">
-                <ArrowRight
-                  size={16}
-                  className=" transition-transform group-hover:translate-x-1"
-                />
+                <span className="hidden md:inline">READ_ARTICLE</span>
+                <span className="inline md:hidden">READ</span>
               </Button>
             </div>
           </div>

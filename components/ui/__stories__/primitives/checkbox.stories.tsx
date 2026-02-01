@@ -79,7 +79,7 @@ export const Controlled: Story = {
         />
         <label
           htmlFor="controlled"
-          className="text-sm font-medium leading-none cursor-pointer"
+          className="cursor-pointer text-sm font-medium leading-none"
         >
           {checked ? "Checked" : "Unchecked"}
         </label>

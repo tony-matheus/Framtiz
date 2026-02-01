@@ -85,12 +85,7 @@ export default function FullScreenEditor({
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <Button
-              variant="secondary"
-              type="submit"
-              loadingText="SAVING..."
-              isLoading={loading}
-            >
+            <Button variant="secondary" type="submit" isLoading={loading}>
               <Save size={16} />
               <span className="hidden md:inline-flex">
                 {editing ? "UPDATE" : "SAVE_DRAFT"}

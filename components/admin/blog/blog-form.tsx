@@ -62,9 +62,9 @@ export default function BlogForm({
       const content = blogForm.getValues("content")
       if (content) {
         const { data } = await generateData(
-          blogForm.getValues('content')! ?? '',
-        );
-        blogForm.setValue('excerpt', data.excerpt);
+          blogForm.getValues("content")! ?? "",
+        )
+        blogForm.setValue("excerpt", data.excerpt)
         // setReadTime(data.read_time);
         // setExcerpt(data.excerpt);
       } else {
@@ -88,11 +88,11 @@ export default function BlogForm({
 
     setTimeout(
       () => {
-        blogForm.setValue('excerpt', '');
+        blogForm.setValue("excerpt", "")
       },
       text.length * 40 + 1500,
-    );
-  };
+    )
+  }
 
   const handleConfirm = (exp: BlogInput) => {
     onSubmit(exp)
@@ -173,7 +173,6 @@ export default function BlogForm({
               type="submit"
               variant="secondary"
               isLoading={loading}
-              loadingText="SAVING..."
               leftIcon={<Save size={16} />}
             >
               UPDATE_BLOG
@@ -184,7 +183,6 @@ export default function BlogForm({
                 type="submit"
                 variant="default"
                 isLoading={loading}
-                loadingText="SAVING..."
                 leftIcon={<Save size={16} />}
                 onClick={() => blogForm.setValue("published", false)}
               >
@@ -194,7 +192,6 @@ export default function BlogForm({
                 type="submit"
                 variant="secondary"
                 isLoading={loading}
-                loadingText="SAVING..."
                 leftIcon={<Save size={16} />}
                 onClick={() => blogForm.setValue("published", true)}
               >

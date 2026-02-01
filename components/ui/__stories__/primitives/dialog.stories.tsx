@@ -29,20 +29,14 @@ export const Default: Story = {
       <DialogTrigger asChild>
         <Button>Open Dialog</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent showDismiss>
         <DialogHeader>
           <DialogTitle>Dialog Title</DialogTitle>
-          <DialogDescription>
-            This is a description of the dialog. It can contain additional
-            context or instructions.
-          </DialogDescription>
         </DialogHeader>
-        <div className="py-4">
-          <p className="text-sm text-muted-foreground">
-            Dialog content goes here. You can add forms, text, or any other
-            content.
-          </p>
-        </div>
+        <DialogDescription>
+          Dialog content goes here. You can add forms, text, or any other
+          content.
+        </DialogDescription>
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
