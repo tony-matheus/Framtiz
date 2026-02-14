@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import BlogEditorDialog from "@/components/admin/blog/blog-editor-dialog"
+import BlogEditorDialog from "@/components/admin/blog/dialogs/blog-editor-dialog"
 import { Blog } from "@/lib/services/blog-service/helpers"
 import { useDestroyBlog } from "@/hooks/blogs/mutations/use-destroy-blog"
 import { useUpdateBlog } from "@/hooks/blogs/mutations/use-update-blog"
@@ -117,7 +117,7 @@ export default function BlogPage() {
             onClick={handleAddBlog}
             className="md:self-end"
           >
-            ADD_BLOG
+            ADD_CONTENT
           </Button>
         </motion.div>
         <BlogList
