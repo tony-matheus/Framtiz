@@ -23,6 +23,7 @@ export interface BlogFormProps {
   loading?: boolean
   editing?: boolean
   form?: UseFormReturn<BlogInput>
+  type?: "blog" | "gist"
 }
 
 const FormWrapper = ({
@@ -46,6 +47,7 @@ export default function BlogForm({
   loading = false,
   editing = false,
   form,
+  type = "blog",
 }: BlogFormProps) {
   const internalForm = useForm<BlogInput>({
     resolver: zodResolver(BlogInputSchema),
@@ -108,8 +110,8 @@ export default function BlogForm({
                 <CyberFormInput
                   control={blogForm.control}
                   name="title"
-                  label="BLOG_TITLE"
-                  placeholder="Enter blog title..."
+                  label="TITLE"
+                  placeholder="Enter some fun title..."
                 />
               </div>
             </div>
@@ -125,35 +127,42 @@ export default function BlogForm({
               )}
             />
 
-            <Separator className="h-px bg-gradient-to-r from-purple-500 to-green-400" />
-            <div className="flex items-center justify-between">
-              <p className="font-mono text-xs">
-                Generate the following with AI
-              </p>
+            {type === "blog" && (
+              <>
+                <Separator className="h-px bg-gradient-to-r from-purple-500 to-green-400" />
+                <div className="flex items-center justify-between">
+                  <p className="font-mono text-xs">
+                    Generate the following with AI
+                  </p>
 
-              <Button
-                type="button"
-                onClick={handleClick}
-                disabled={isGenerating}
-                size="sm"
-                className={cn(isGenerating ? "ripple-loop" : "")}
-              >
-                <Sparkles
-                  className={cn("ml-2", isGenerating ? "animate-shine" : false)}
+                  <Button
+                    type="button"
+                    onClick={handleClick}
+                    disabled={isGenerating}
+                    size="sm"
+                    className={cn(isGenerating ? "ripple-loop" : "")}
+                  >
+                    <Sparkles
+                      className={cn(
+                        "ml-2",
+                        isGenerating ? "animate-shine" : false,
+                      )}
+                    />
+                    Generate with AI
+                  </Button>
+                </div>
+                <CyberFormTextarea
+                  control={blogForm.control}
+                  name="excerpt"
+                  label="EXCERPT"
+                  placeholder={
+                    isGenerating ? "Generating" : "Write a short description"
+                  }
+                  className="resize-none"
+                  disabled={isGenerating}
                 />
-                Generate with AI
-              </Button>
-            </div>
-            <CyberFormTextarea
-              control={blogForm.control}
-              name="excerpt"
-              label="EXCERPT"
-              placeholder={
-                isGenerating ? "Generating" : "Write a short description"
-              }
-              className="resize-none"
-              disabled={isGenerating}
-            />
+              </>
+            )}
           </div>
         </div>
         <div className="sticky bottom-0 flex flex-row justify-end gap-3 border-t border-slate-800 bg-slate-900 p-4 sm:flex-row sm:justify-end sm:space-x-2 ">

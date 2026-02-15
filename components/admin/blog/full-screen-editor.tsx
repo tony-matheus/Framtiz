@@ -79,7 +79,7 @@ export default function FullScreenEditor({
           <CyberFormInput
             control={blogForm.control}
             name="title"
-            placeholder="Enter blog title..."
+            placeholder="Enter some fun title..."
             className="w-full"
           />
         </div>
@@ -125,7 +125,7 @@ export default function FullScreenEditor({
                     value={field.value ?? ""}
                     onChange={field.onChange}
                     className="hidden size-full resize-none border-0 bg-slate-800 p-4 font-mono text-slate-200 focus:outline-none md:inline-block"
-                    placeholder="Write your blog post in Markdown..."
+                    placeholder="Try using some markdown..."
                   />
                 </CyberFormControl>
 
@@ -163,7 +163,7 @@ export default function FullScreenEditor({
                     value={field.value ?? ""}
                     onChange={field.onChange}
                     className="inline-block size-full resize-none border-0 bg-slate-800 p-4 font-mono text-slate-200 focus:outline-none md:hidden"
-                    placeholder="Write your blog post in Markdown..."
+                    placeholder="Try using some markdown..."
                   />
                 </CyberFormControl>
                 <Card

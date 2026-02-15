@@ -198,7 +198,7 @@ export default function BlogContentEditor({
               value={content}
               onChange={(e) => onContentChange(e.target.value)}
               className="w-full flex-1 resize-none border border-slate-700 bg-slate-900 p-4 font-mono text-slate-200 outline-none transition-colors focus:border-purple-600"
-              placeholder="Write your blog post in Markdown... Drag and drop images to upload"
+              placeholder="Try using some markdown..."
               onPaste={handlePaste}
               name="content"
             />
@@ -224,7 +224,7 @@ export default function BlogContentEditor({
             )}
 
             {/* Drag overlay hint */}
-            <div className="pointer-events-none text-xs text-slate-500">
+            <div className="pointer-events-none hidden text-xs text-slate-500">
               Drag & drop images to upload
             </div>
           </div>

@@ -47,7 +47,7 @@ export default function BlogsTable({ blogs }: BlogsTableProps) {
                   RANK
                 </th>
                 <th className="px-4 py-3 text-left font-mono text-sm text-slate-300">
-                  BLOG_TITLE
+                  TITLE
                 </th>
                 <th className="px-4 py-3 text-left font-mono text-sm text-slate-300">
                   VISITS

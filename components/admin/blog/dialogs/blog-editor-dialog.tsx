@@ -28,7 +28,7 @@ import { toast } from "sonner"
 
 const STORAGE_KEY = "BLOG_FORM_STORAGE_KEY"
 
-interface BlogEditorDialogProps {
+export interface BlogEditorDialogProps {
   isOpen: boolean
   onOpenChange: (arg0: boolean) => void
   onSave: ({
@@ -40,6 +40,7 @@ interface BlogEditorDialogProps {
   }) => void
   onCancel: () => void
   blog?: Blog | null
+  type?: "blog" | "gist"
 }
 
 export default function BlogEditorDialog({
@@ -48,6 +49,7 @@ export default function BlogEditorDialog({
   onSave,
   blog,
   onCancel,
+  type = "blog",
 }: BlogEditorDialogProps) {
   const [isMaximized, setIsMaximized] = useState(false)
 
@@ -229,7 +231,7 @@ export default function BlogEditorDialog({
               <div className="z-10 flex items-center justify-between ">
                 <DialogTitle className="flex items-center font-mono text-xl font-bold text-slate-200">
                   <FileText className="mr-2 text-purple-400" size={20} />
-                  <span>{blog ? "EDIT_BLOG" : "CREATE_BLOG"}</span>
+                  <span>{blog ? "EDIT" : "CREATE"}</span>
                 </DialogTitle>
                 <div className="flex items-center gap-2">
                   <Button
@@ -253,6 +255,7 @@ export default function BlogEditorDialog({
               onCancel={handleCancel}
               loading={isUpdating || isCreating}
               editing={!!blog}
+              type={type}
             />
           </DialogContent>
         </Dialog>

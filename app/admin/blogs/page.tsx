@@ -2,10 +2,9 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Plus } from "lucide-react"
+import { GithubIcon, Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import BlogEditorDialog from "@/components/admin/blog/dialogs/blog-editor-dialog"
 import { Blog } from "@/lib/services/blog-service/helpers"
 import { useDestroyBlog } from "@/hooks/blogs/mutations/use-destroy-blog"
 import { useUpdateBlog } from "@/hooks/blogs/mutations/use-update-blog"
@@ -16,12 +15,16 @@ import { useQueryClient } from "@tanstack/react-query"
 import CyberSearchInput from "@/components/ui-custom/inputs/cyber-search-input"
 import { useFetchBlogs } from "@/hooks/blogs/fetch/use-fetch-blogs"
 import { toast } from "sonner"
+import ContentSelectionDialog from "@/components/admin/blog/dialogs/content-selection-dialog"
+import Tooltip from "@/components/ui/tooltip"
+import ImportGistDialog from "@/components/admin/blog/dialogs/import-gist-dialog"
 
 export default function BlogPage() {
   const queryClient = useQueryClient()
 
   const [term, setTerm] = useState("")
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [isImportGistDialogOpen, setIsImportGistDialogOpen] = useState(false)
   const [currentBlog, setCurrentBlog] = useState<Blog | null>(null)
   const [deletingId, setDeletingId] = useState<number | null>(null)
 
@@ -111,13 +114,22 @@ export default function BlogPage() {
         >
           <CyberSearchInput onSearch={setTerm} placeholder="Type to search…" />
 
+          <Tooltip content="Import your gist from Github">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setIsImportGistDialogOpen(true)}
+            >
+              <GithubIcon />
+            </Button>
+          </Tooltip>
           <Button
             variant="default"
             leftIcon={<Plus size={16} />}
             onClick={handleAddBlog}
             className="md:self-end"
           >
-            ADD_CONTENT
+            CREATE
           </Button>
         </motion.div>
         <BlogList
@@ -151,8 +163,8 @@ export default function BlogPage() {
         )}
       </div>
 
-      <BlogEditorDialog
-        isOpen={isDialogOpen}
+      <ContentSelectionDialog
+        open={isDialogOpen}
         onOpenChange={setIsDialogOpen}
         onCancel={() => {
           setIsDialogOpen(false)
@@ -160,6 +172,10 @@ export default function BlogPage() {
         }}
         onSave={handleSaveBlog}
         blog={currentBlog}
+      />
+      <ImportGistDialog
+        open={isImportGistDialogOpen}
+        onOpenChange={setIsImportGistDialogOpen}
       />
     </>
   )
