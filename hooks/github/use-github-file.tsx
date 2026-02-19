@@ -40,7 +40,7 @@ export const useGithubFiles = (
   const { data, isError, isPending } = useQuery<
     { content: string; raw_url: string }[]
   >({
-    queryKey: ["github-files", files.map((file) => file.filename).join("-")],
+    queryKey: ["github-files", files.map((file) => file.raw_url).join("|")],
     queryFn: async () => {
       const responses = await Promise.all(
         files.map((file) => fetch(file.raw_url)),

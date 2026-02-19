@@ -256,7 +256,11 @@ export default function BlogForm({
         <div className="absolute inset-0 z-10 max-h-full bg-black/30 p-4 md:p-8">
           <GistPreview
             content={previewContent ?? ""}
-            onClose={() => setPreviewGist(false)}
+            onClose={() => {
+              setPreviewGist(false)
+              setPreviewContent(null)
+              setGistId(null)
+            }}
             onApply={() => {
               blogForm.setValue("content", previewContent ?? "")
               setGistId(null)
