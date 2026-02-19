@@ -5,17 +5,28 @@ import { serverAuthService } from "@/lib/services/auth/server-auth-service"
 import { extractGithubPaginationData } from "@/lib/helpers/extract-github-pagination-data"
 
 export const GISTSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   url: z.string(),
+  html_url: z.string(),
+  description: z.string().nullable(),
+  name: z.string(),
   truncated: z.boolean(),
   created_at: z.string(),
   updated_at: z.string(),
+  filesList: z.array(
+    z.object({
+      filename: z.string(),
+      raw_url: z.string(),
+      language: z.string().nullable(),
+      size: z.number(),
+    }),
+  ),
   files: z.record(
     z.string(),
     z.object({
       filename: z.string(),
       raw_url: z.string(),
-      language: z.string(),
+      language: z.string().nullable(),
       size: z.number(),
     }),
   ),
@@ -51,16 +62,31 @@ export async function GET(req: NextRequest) {
   const octokit = new Octokit({ auth: token })
 
   try {
-    const { data: repos, headers } = await octokit.rest.gists.listForUser({
-      username: "WLSF",
+    const { data: gists, headers } = await octokit.rest.gists.listForUser({
+      username: "tony-matheus",
       page,
       per_page,
     })
 
+    const formattedGists = gists.map((gist) => {
+      const filesNames = Object.keys(gist.files)
+      const gistName = gist.files[filesNames[0]].filename ?? "Untitled Gist"
+      return {
+        ...gist,
+        name: gistName,
+        filesList: filesNames.map((file) => ({
+          filename: file,
+          raw_url: gist.files[file].raw_url,
+          language: gist.files[file].language ?? null,
+          size: gist.files[file].size,
+        })),
+      }
+    })
     const pagination = extractGithubPaginationData(headers.link)
-    const parsed = RepoArraySchema.safeParse(repos)
+    const parsed = RepoArraySchema.safeParse(formattedGists)
 
     if (!parsed.success) {
+      console.log(parsed.error)
       return NextResponse.json(
         { error: "Invalid GIST data received" },
         { status: 502 },
@@ -82,6 +108,7 @@ export async function GET(req: NextRequest) {
 
     return response
   } catch (error: unknown) {
+    console.error(error)
     const message = error instanceof Error ? error.message : "Unknown error"
     return NextResponse.json({ error: message }, { status: 500 })
   }

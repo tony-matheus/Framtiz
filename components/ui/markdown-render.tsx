@@ -62,25 +62,27 @@ function CodeBlockWithCopy({
   return (
     <div className="relative">
       {children}
-      <div className="absolute right-2 top-2">
-        <Button
-          type="button"
-          variant="outline"
-          size="icon"
-          onClick={handleCopy}
-          aria-label={copied ? "Copied!" : "Copy code"}
-        >
-          <span
-            key={copied ? "check" : "copy"}
-            className="icon-switch-animation inline-flex items-center justify-center"
+      <div className="absolute right-2 top-2 ">
+        <div className="bg-slate-900">
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            onClick={handleCopy}
+            aria-label={copied ? "Copied!" : "Copy code"}
           >
-            {copied ? (
-              <Check size={16} className="text-green-400" />
-            ) : (
-              <Copy size={16} />
-            )}
-          </span>
-        </Button>
+            <span
+              key={copied ? "check" : "copy"}
+              className="icon-switch-animation inline-flex items-center justify-center"
+            >
+              {copied ? (
+                <Check size={16} className="text-green-400" />
+              ) : (
+                <Copy size={16} />
+              )}
+            </span>
+          </Button>
+        </div>
       </div>
     </div>
   )
@@ -121,8 +123,10 @@ export default function MarkdownRender({ content }: { content: string }) {
         code({ className, children, ...props }) {
           // Match language and optional theme: language-cpp or language-cpp-[dracula]
           const match = /language-(\w+)(?:-\[(\w+)\])?/.exec(className || "")
+
           const language = match ? match[1] : ""
           const themeKey = match?.[2]
+
           const style = themeKey ? getStyle(themeKey) : DEFAULT_STYLE
           const isBlock = Boolean(language)
           const codeString = String(children).replace(/\n$/, "")
@@ -137,6 +141,7 @@ export default function MarkdownRender({ content }: { content: string }) {
                 customStyle={{
                   margin: 0,
                   padding: "0.5rem",
+                  paddingRight: "4rem",
                 }}
                 showLineNumbers
                 {...props}

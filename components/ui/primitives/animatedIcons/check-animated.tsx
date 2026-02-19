@@ -54,7 +54,7 @@ const CheckAnimated = forwardRef<CheckAnimatedHandle, CheckAnimatedProps>(
       className,
       animateOnHover = false,
       animateOnEnter = false,
-      size = 28,
+      size = 22,
       ...props
     },
     ref,

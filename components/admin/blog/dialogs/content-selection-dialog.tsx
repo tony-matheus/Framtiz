@@ -84,11 +84,14 @@ export default function ContentSelectionDialog({
       open={open}
       onOpenChange={onOpenChange}
       icon={<FileEditIcon />}
-      title="Fala pra mim manito, tu quer criar o que hoje?"
+      title="Criar conteúdo"
       hideFooter
       className="md:!min-h-[50vh] md:!max-w-[60vw]"
     >
       <div className="flex h-full flex-col gap-6">
+        <p className="text-lg font-bold">
+          Fala pra mim manito, tu quer criar o que hoje?
+        </p>
         <div className="flex flex-1 gap-4">
           <PrimitiveButton
             variant={selectedOption === "blog" ? "default" : "outline"}

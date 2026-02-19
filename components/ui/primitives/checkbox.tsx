@@ -8,7 +8,7 @@ import { cva, VariantProps } from "class-variance-authority"
 import { CheckAnimated } from "./animatedIcons/check-animated"
 
 const checkboxVariants = cva(
-  "peer size-4 shrink-0 border border-slate-600 bg-slate-900 transition-colors hover:border-purple-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-purple-500 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-purple-500 data-[state=checked]:bg-purple-600 data-[state=checked]:text-slate-100",
+  "peer relative inline-flex size-4 shrink-0 items-center justify-center border border-slate-600 bg-slate-900 align-middle leading-none transition-colors hover:border-purple-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-purple-500 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-purple-500 data-[state=checked]:bg-purple-600 data-[state=checked]:text-slate-100",
   {
     variants: {
       size: {
@@ -31,9 +31,9 @@ export interface PrimitiveCheckboxProps
 }
 
 enum CheckboxIconSize {
-  sm = 18,
-  lg = 22,
-  xl = 26,
+  sm = 12,
+  lg = 16,
+  xl = 24,
 }
 
 const PrimitiveCheckbox = React.forwardRef<
@@ -45,7 +45,7 @@ const PrimitiveCheckbox = React.forwardRef<
     className={cn(checkboxVariants({ size }), className)}
     {...props}
   >
-    <CheckboxPrimitive.Indicator className="inline-flex items-center justify-center">
+    <CheckboxPrimitive.Indicator className="pointer-events-none absolute inset-0 flex items-center justify-center">
       <CheckAnimated animateOnEnter size={CheckboxIconSize[size ?? "lg"]} />
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>

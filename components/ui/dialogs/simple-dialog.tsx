@@ -42,7 +42,7 @@ export default function SimpleDialog({
             <div className="flex items-center justify-between">
               <DialogTitle className="flex items-center font-mono text-xl font-bold text-slate-200">
                 {!!icon && <span className="mr-2 text-purple-400">{icon}</span>}
-                <span>{title}</span>
+                <span className="text-left">{title}</span>
               </DialogTitle>
               <Button
                 variant="outline"

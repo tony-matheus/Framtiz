@@ -11,8 +11,8 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, type = "text", className, icon, ...props }: InputProps, ref) => {
     return (
-      <div className="w-full">
-        {!!label && <Label className="mb-2 block">{label}</Label>}
+      <div className="w-full space-y-2">
+        {!!label && <Label>{label}</Label>}
         <div className="relative w-full">
           {!!icon && (
             <div className="absolute inset-y-0 left-0 flex w-10 items-center justify-center border-r border-slate-700">

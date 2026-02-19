@@ -21,6 +21,7 @@ type UseGithubGistsResult = {
 export const useGithubGists = (
   initialPage = 1,
   limit = 10,
+  { enabled = true } = {},
 ): UseGithubGistsResult => {
   const [page, setPage] = useState<number>(initialPage)
 
@@ -28,6 +29,8 @@ export const useGithubGists = (
     queryKey: ["github-gists", page],
     queryFn: () => fetchGitHubGists({ page, limit }),
     staleTime: 60,
+    retry: false,
+    enabled,
   })
 
   const loadNextPage = () => {
@@ -61,4 +64,28 @@ export const useGithubGists = (
     loadPreviousPage,
     goToPage,
   }
+}
+
+const fetchGitHubGist = async (gistId: string): Promise<GithubGist> => {
+  const response = await fetch(`/api/github/gists/${gistId}`)
+  return response.json()
+}
+
+type UseGithubGistResult = {
+  data: GithubGist | undefined
+  isError: boolean
+  isPending: boolean
+}
+
+export const useGithubGist = (
+  gistId: string,
+  { enabled = true } = {},
+): UseGithubGistResult => {
+  const { data, isError, isFetching } = useQuery<GithubGist>({
+    queryKey: ["github-gist", gistId],
+    queryFn: () => fetchGitHubGist(gistId),
+    enabled,
+  })
+
+  return { data, isError, isPending: isFetching }
 }

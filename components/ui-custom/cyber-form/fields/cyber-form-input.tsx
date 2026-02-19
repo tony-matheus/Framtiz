@@ -32,17 +32,14 @@ export default function CyberFormInput<T extends FieldValues>({
       control={control}
       name={name}
       render={({ field, fieldState }) => (
-        <CyberFormItem className="w-full space-y-2">
+        <CyberFormItem className={className}>
           {label && <CyberFormLabel>{label}</CyberFormLabel>}
 
           <CyberFormControl>
             <Input
               icon={icon}
               {...field}
-              className={cn(
-                fieldState.error ? "border-red-500" : "",
-                className,
-              )}
+              className={cn(fieldState.error ? "border-red-500" : "")}
               value={field.value ?? ""}
               placeholder={placeholder}
               {...rest}

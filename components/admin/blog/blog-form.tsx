@@ -1,5 +1,3 @@
-import { CyberFormProvider } from "@/components/ui-custom/cyber-form/cyber-form"
-
 import { BlogInput, BlogInputSchema } from "@/lib/schemas/blog-schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm, UseFormReturn } from "react-hook-form"
@@ -7,14 +5,17 @@ import BlogContentEditor from "./blog-content-editor"
 
 import { Separator } from "@radix-ui/react-separator"
 import { Button } from "@/components/ui/button"
-import { Save, Sparkles } from "lucide-react"
+import { Save, Search, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useGenerateBlogContent } from "@/hooks/blogs/mutations/use-generate-content"
 import {
   CyberFormInput,
   CyberFormTextarea,
 } from "@/components/ui-custom/cyber-form/fields"
-import { ReactNode } from "react"
+import { useEffect, useState } from "react"
+import Input from "@/components/ui/input"
+import { useFetchGistInfo } from "./hooks/use-fetch-gist-info"
+import GistPreview from "./gist-preview"
 
 export interface BlogFormProps {
   defaultValues?: BlogInput | undefined
@@ -26,19 +27,8 @@ export interface BlogFormProps {
   type?: "blog" | "gist"
 }
 
-const FormWrapper = ({
-  form,
-  children,
-}: {
-  children: ReactNode
-  form: UseFormReturn<BlogInput>
-}) => {
-  if (form) {
-    ;<CyberFormProvider {...form}>{children}</CyberFormProvider>
-  }
-
-  return children
-}
+const GIST_URL_REGEX =
+  /https:\/\/gist\.github\.com\/[a-zA-Z0-9]+\/([a-zA-Z0-9]+)/
 
 export default function BlogForm({
   defaultValues,
@@ -49,6 +39,13 @@ export default function BlogForm({
   form,
   type = "blog",
 }: BlogFormProps) {
+  const [gistId, setGistId] = useState<string | null>(null)
+  const [gistIdOrUrl, setGistIdOrUrl] = useState<string | null>(
+    "a4e0cd8c07987052d6c7ac7fa7cc1650",
+  )
+  const [previewGist, setPreviewGist] = useState<boolean>(false)
+  const [previewContent, setPreviewContent] = useState<string | null>(null)
+
   const internalForm = useForm<BlogInput>({
     resolver: zodResolver(BlogInputSchema),
     defaultValues,
@@ -58,6 +55,8 @@ export default function BlogForm({
 
   const { mutateAsync: generateData, isPending: isGenerating } =
     useGenerateBlogContent()
+
+  const { gistInfo, isPending: isFetchingGist } = useFetchGistInfo(gistId)
 
   const handleClick = async () => {
     try {
@@ -96,23 +95,63 @@ export default function BlogForm({
     )
   }
 
+  useEffect(() => {
+    if (gistInfo) {
+      setPreviewGist(true)
+      setPreviewContent(gistInfo.content)
+    }
+  }, [gistInfo, blogForm])
+
+  const handleSearchGist = () => {
+    if (!gistIdOrUrl) {
+      return
+    }
+
+    if (GIST_URL_REGEX.test(gistIdOrUrl)) {
+      setGistId(gistIdOrUrl.match(GIST_URL_REGEX)?.[1] ?? null)
+    } else {
+      setGistId(gistIdOrUrl)
+    }
+  }
+
   const handleConfirm = (exp: BlogInput) => {
     onSubmit(exp)
   }
 
   return (
-    <FormWrapper form={blogForm}>
-      <form onSubmit={blogForm.handleSubmit(handleConfirm)}>
+    <>
+      <form
+        onSubmit={blogForm.handleSubmit(handleConfirm)}
+        className="relative"
+      >
         <div className="flex-1 overflow-y-auto p-4">
           <div className="space-y-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center">
-              <div className="w-full">
+              <div className="flex w-full flex-col gap-2 md:flex-row md:gap-8">
                 <CyberFormInput
                   control={blogForm.control}
                   name="title"
                   label="TITLE"
                   placeholder="Enter some fun title..."
+                  className="flex-1"
                 />
+                <div className="flex h-fit flex-1 gap-2">
+                  <Input
+                    value={gistIdOrUrl ?? ""}
+                    onChange={(e) => setGistIdOrUrl(e.target.value)}
+                    label="GIST_ID_OR_URL"
+                    placeholder="Enter the GIST ID or URL"
+                  />
+                  <Button
+                    type="button"
+                    onClick={handleSearchGist}
+                    className="mt-auto"
+                    size="icon"
+                    isLoading={isFetchingGist}
+                  >
+                    <Search size={16} />
+                  </Button>
+                </div>
               </div>
             </div>
 
@@ -165,8 +204,8 @@ export default function BlogForm({
             )}
           </div>
         </div>
-        <div className="sticky bottom-0 flex flex-row justify-end gap-3 border-t border-slate-800 bg-slate-900 p-4 sm:flex-row sm:justify-end sm:space-x-2 ">
-          <input type="hidden" {...blogForm.register("published")} />
+        <input type="hidden" {...blogForm.register("published")} />
+        <div className="sticky bottom-0 flex flex-row justify-end gap-2 border-t border-slate-800 bg-slate-900 p-2 sm:flex-row sm:justify-end md:p-4">
           <Button
             type="button"
             variant="outline"
@@ -174,6 +213,7 @@ export default function BlogForm({
               e.preventDefault()
               onCancel()
             }}
+            className="hidden md:flex"
           >
             CANCEL
           </Button>
@@ -187,15 +227,16 @@ export default function BlogForm({
               UPDATE_BLOG
             </Button>
           ) : (
-            <div className="inline-flex items-center gap-4">
+            <div className="flex items-center gap-4 md:inline-flex">
               <Button
                 type="submit"
                 variant="default"
                 isLoading={loading}
                 leftIcon={<Save size={16} />}
                 onClick={() => blogForm.setValue("published", false)}
+                className="flex-1"
               >
-                SAVE_AS_DRAFT
+                SAVE_DRAFT
               </Button>
               <Button
                 type="submit"
@@ -203,13 +244,28 @@ export default function BlogForm({
                 isLoading={loading}
                 leftIcon={<Save size={16} />}
                 onClick={() => blogForm.setValue("published", true)}
+                className="flex-1"
               >
-                SAVE_AND_PUBLISHED
+                PUBLISHE
               </Button>
             </div>
           )}
         </div>
       </form>
-    </FormWrapper>
+      {previewGist && (
+        <div className="absolute inset-0 z-10 max-h-full bg-black/30 p-4 md:p-8">
+          <GistPreview
+            content={previewContent ?? ""}
+            onClose={() => setPreviewGist(false)}
+            onApply={() => {
+              blogForm.setValue("content", previewContent ?? "")
+              setGistId(null)
+              setPreviewGist(false)
+              setPreviewContent(null)
+            }}
+          />
+        </div>
+      )}
+    </>
   )
 }

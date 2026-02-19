@@ -16,11 +16,7 @@ const CyberFormItem = forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   return (
-    <FormPrimitive.FormItem
-      ref={ref}
-      className={cn(className ?? "space-y-2")}
-      {...props}
-    />
+    <FormPrimitive.FormItem ref={ref} className={cn(className)} {...props} />
   )
 })
 CyberFormItem.displayName = "CyberFormItem"

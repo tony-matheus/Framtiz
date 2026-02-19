@@ -234,14 +234,16 @@ export default function BlogEditorDialog({
                   <span>{blog ? "EDIT" : "CREATE"}</span>
                 </DialogTitle>
                 <div className="flex items-center gap-2">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={toggleMaximize}
-                    title="Maximize Editor"
-                  >
-                    <Maximize2 size={18} />
-                  </Button>
+                  {type === "blog" && (
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={toggleMaximize}
+                      title="Maximize Editor"
+                    >
+                      <Maximize2 size={18} />
+                    </Button>
+                  )}
                   <Button variant="outline" size="icon" onClick={onCancel}>
                     <X size={18} />
                   </Button>

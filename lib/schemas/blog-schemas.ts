@@ -6,6 +6,7 @@ export const BlogInputSchema = z.object({
   content: z.string().nullable().optional(),
   excerpt: z.string().nullable().optional(),
   image_url: z.string().nullable().optional(),
+  type: z.string().nullable().optional(),
 })
 
 export type BlogInput = z.infer<typeof BlogInputSchema>
