@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { GithubIcon, Plus } from "lucide-react"
+import { Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Blog } from "@/lib/services/blog-service/helpers"
@@ -16,7 +16,6 @@ import CyberSearchInput from "@/components/ui-custom/inputs/cyber-search-input"
 import { useFetchBlogs } from "@/hooks/blogs/fetch/use-fetch-blogs"
 import { toast } from "sonner"
 import ContentSelectionDialog from "@/components/admin/blog/dialogs/content-selection-dialog"
-import Tooltip from "@/components/ui/tooltip"
 import ImportGistDialog from "@/components/admin/blog/dialogs/import-gist-dialog"
 
 export default function BlogPage() {
@@ -31,12 +30,12 @@ export default function BlogPage() {
   const { mutateAsync: mutateDestroy } = useDestroyBlog({
     onSuccess: () => {
       toast.success("SYSTEM_ACTION: COMPLETED", {
-        description: "Experience successfully destroyed!",
+        description: "Content successfully destroyed!",
       })
     },
     onError: () => {
       toast.error("SYSTEM_ACTION: FAILED", {
-        description: "Experience couldn't be destroyed!",
+        description: "Content couldn't be destroyed!",
       })
     },
   })
@@ -47,12 +46,17 @@ export default function BlogPage() {
     {
       initialPage: 1,
       title: term,
+      published: null,
+      type: null,
     },
   )
 
   const refetchPage = (page: number, term = "") => {
     queryClient.refetchQueries({
-      queryKey: ["blogs", term, page],
+      queryKey: [
+        "blogs",
+        { title: term, page, limit: 10, published: null, type: null },
+      ],
       exact: true,
     })
   }
@@ -89,9 +93,6 @@ export default function BlogPage() {
   const handleDeleteBlog = async (blog: Blog) => {
     setDeletingId(blog.id)
     await mutateDestroy(blog.id)
-    toast.success("SYSTEM_ACTION: COMPLETED", {
-      description: "Blog successfully deleted!",
-    })
     setDeletingId(null)
     refetchPage(currentPage, term)
   }
@@ -114,15 +115,6 @@ export default function BlogPage() {
         >
           <CyberSearchInput onSearch={setTerm} placeholder="Type to search…" />
 
-          <Tooltip content="Import your gist from Github">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setIsImportGistDialogOpen(true)}
-            >
-              <GithubIcon />
-            </Button>
-          </Tooltip>
           <Button
             variant="default"
             leftIcon={<Plus size={16} />}

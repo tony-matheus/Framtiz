@@ -47,7 +47,6 @@ export const useGithubFiles = (
       )
       const data = await Promise.all(
         responses.map(async (response) => {
-          console.log("response", response)
           return { content: await response.text(), raw_url: response.url }
         }),
       )

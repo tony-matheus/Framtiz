@@ -231,7 +231,7 @@ export default function BlogContentEditor({
         ) : (
           <Card
             withCornerAccents={false}
-            className="prose h-[450px] w-full flex-1 overflow-auto [&_pre]:max-w-[40ch] md:[&_pre]:max-w-prose"
+            className="prose max-h-[450px] w-full flex-1 overflow-auto [&_pre]:max-w-[40ch] md:[&_pre]:max-w-prose"
           >
             <CardContent className="prose-invert max-w-full lg:max-w-[100ch]">
               {content ? (

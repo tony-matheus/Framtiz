@@ -25,6 +25,7 @@ import FullScreenEditor from "../full-screen-editor"
 import { mergeRight } from "ramda"
 import { useDebouncedCallback } from "use-debounce"
 import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 
 const STORAGE_KEY = "BLOG_FORM_STORAGE_KEY"
 
@@ -40,7 +41,7 @@ export interface BlogEditorDialogProps {
   }) => void
   onCancel: () => void
   blog?: Blog | null
-  type?: "blog" | "gist"
+  type?: "blog" | "gist" | undefined
 }
 
 export default function BlogEditorDialog({
@@ -49,7 +50,7 @@ export default function BlogEditorDialog({
   onSave,
   blog,
   onCancel,
-  type = "blog",
+  type = "blog" as "blog" | "gist",
 }: BlogEditorDialogProps) {
   const [isMaximized, setIsMaximized] = useState(false)
 
@@ -103,13 +104,13 @@ export default function BlogEditorDialog({
   } = useCreateBlog({
     onSuccess: () => {
       toast.success("SYSTEM_ACTION: COMPLETED", {
-        description: "Experience successfully created!",
+        description: "Content successfully created!",
         duration: 1000,
       })
     },
     onError: () => {
       toast.error("SYSTEM_ACTION: FAILED", {
-        description: "Experience couldn't be created!",
+        description: "Content couldn't be created!",
         duration: 1000,
       })
     },
@@ -122,13 +123,13 @@ export default function BlogEditorDialog({
   } = useUpdateBlog({
     onSuccess: () => {
       toast.success("SYSTEM_ACTION: COMPLETED", {
-        description: "Experience successfully updated!",
+        description: "Content successfully updated!",
         duration: 1000,
       })
     },
     onError: () => {
       toast.error("SYSTEM_ACTION: FAILED", {
-        description: "Experience couldn't be updated!",
+        description: "Content couldn't be updated!",
         duration: 1000,
       })
     },
@@ -146,6 +147,7 @@ export default function BlogEditorDialog({
     const savedBlog = await updateBlog({
       id: blog?.id,
       ...blogInput,
+      type,
     })
 
     onSave?.({ blog: savedBlog, shouldClose: false })
@@ -154,16 +156,24 @@ export default function BlogEditorDialog({
   const onSubmit = (blogInput: BlogInput) => {
     sessionStorage.removeItem(STORAGE_KEY)
 
+    blogForm.reset({
+      title: "",
+      published: false,
+      content: null,
+      excerpt: null,
+      image_url: null,
+    })
+
     if (blog) {
       return handleUpdateBlog(blogInput)
     }
 
-    handleCreateBlog(blogInput)
+    handleCreateBlog({ ...blogInput, type })
   }
 
   const handleCancel = () => {
     blogForm.reset({
-      title: " ",
+      title: "",
       published: false,
       content: null,
       excerpt: null,
@@ -224,7 +234,10 @@ export default function BlogEditorDialog({
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
           <DialogContent
             showDismiss={false}
-            className="mx-auto overflow-y-auto overflow-x-hidden border-2 border-slate-800 bg-slate-900 p-0 text-slate-200 md:max-h-[95dvh] md:max-w-[95vw] xl:min-w-[50vw] xl:max-w-[60vw]"
+            className={cn(
+              "mx-auto overflow-y-auto overflow-x-hidden border-2 border-slate-800 bg-slate-900 p-0 text-slate-200 md:max-h-[95dvh] md:max-w-[95vw] xl:min-w-[50vw] xl:max-w-[60vw]",
+              type === "gist" && "md:min-w-[80vw]",
+            )}
           >
             {/* Header */}
             <DialogHeader>

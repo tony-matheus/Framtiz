@@ -9,11 +9,12 @@ export const useSuspenseFetchBlogsPublic = ({
   title,
   initialPage = 1,
   limit = 10,
+  type = "blog",
 }: UseFetchBlogsProps): UseFetchBlogsResult => {
   const [page, setPage] = useState(initialPage)
 
   const { data, isPending, isError } = useSuspenseQuery(
-    publicBlogQueryOptions({ title, page, limit }),
+    publicBlogQueryOptions({ title, page, limit, type }),
   )
 
   return {

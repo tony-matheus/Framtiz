@@ -6,8 +6,9 @@ import { Blog } from "@/lib/services/blog-service/helpers"
 import { CyberSwitch } from "@/components/ui-custom/cyber-switch"
 import { useState } from "react"
 import Heading from "@/components/ui/typography/heading"
-import { Edit, Trash2 } from "lucide-react"
+import { Edit, NotebookIcon, Trash2 } from "lucide-react"
 import ImagePreviewUpload from "./image-preview-upload"
+import { Badge } from "@/components/ui/badge"
 
 export interface BlogCardProps {
   blog: Blog
@@ -70,20 +71,34 @@ export default function BlogCard({
             </Button>
           </div>
         </div>
-        <ImagePreviewUpload
-          currentImageUrl={blog.image_url}
-          onFileUpload={(imageUrl) => onFileUpload(blog, imageUrl)}
-        />
-        <div className="flex shrink-0 items-center gap-2">
-          <CyberSwitch
-            id="status"
-            checked={published}
-            onCheckedChange={(value) => handlePublishChange(blog, value)}
-            disabled={isDeleting}
+        {blog.type === "gist" ? (
+          <div className="flex h-40 w-full items-center justify-center rounded-md bg-slate-800">
+            <NotebookIcon size={16} className="text-green-400" />
+            <span className="ml-2 font-mono text-sm font-bold text-slate-200">
+              Gist
+            </span>
+          </div>
+        ) : (
+          <ImagePreviewUpload
+            currentImageUrl={blog.image_url}
+            onFileUpload={(imageUrl) => onFileUpload(blog, imageUrl)}
           />
-          <span className="font-mono text-sm text-slate-300">
-            {published ? "PUBLISHED" : "DRAFT"}
-          </span>
+        )}
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex shrink-0 items-center  gap-2">
+            <CyberSwitch
+              id="status"
+              checked={published}
+              onCheckedChange={(value) => handlePublishChange(blog, value)}
+              disabled={isDeleting}
+            />
+            <span className="font-mono text-sm text-slate-300">
+              {published ? "PUBLISHED" : "DRAFT"}
+            </span>
+          </div>
+          <Badge variant={blog.type === "blog" ? "default" : "secondary"}>
+            {blog.type === "blog" ? "BLOG" : "GIST"}
+          </Badge>
         </div>
       </CardContent>
     </Card>

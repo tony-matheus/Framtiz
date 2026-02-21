@@ -10,6 +10,7 @@ export type Blog = {
   read_time?: number
   updated_at?: string | null
   image_url?: string | null
+  type?: "blog" | "gist" | undefined
 }
 
 export interface GetAllBlogsOptions {
@@ -17,16 +18,21 @@ export interface GetAllBlogsOptions {
   page?: number
   limit?: number
   published?: boolean | null
+  type?: "blog" | "gist" | undefined | null
 }
 
 export const getAllBlogs = async (
   supabaseClient: SupabaseClient,
-  { title, published, page = 1, limit = 10 }: GetAllBlogsOptions,
+  { title, published, page = 1, limit = 10, type }: GetAllBlogsOptions,
 ): Promise<{ blogs: Blog[]; totalPages: number }> => {
   let query = supabaseClient
     .from("blogs")
     .select("*", { count: "exact" })
     .eq("is_about", false)
+
+  if (type) {
+    query = query.eq("type", type)
+  }
 
   if (title) {
     query = query.ilike("title", `%${title}%`)

@@ -8,6 +8,7 @@ import { CyberPagination } from "@/components/ui-custom/cyber-pagination"
 import PageTracker from "@/components/analytics/page-tracker"
 
 import BlogCard from "@/components/blog/blog-card"
+import GistCard from "@/components/blog/gist-card"
 import { useSuspenseFetchBlogsPublic } from "@/hooks/blogs/fetch/use-suspense-fetch-blogs-public"
 import BlogNavigation from "@/components/blog/blog-navigation"
 
@@ -15,7 +16,18 @@ export default function Blog() {
   const { blogs, totalPages, currentPage, goToPage } =
     useSuspenseFetchBlogsPublic({
       initialPage: 1,
+      type: "blog",
     })
+
+  const {
+    blogs: gists,
+    // totalPages: totalPagesGists,
+    // currentPage: currentPageGists,
+    // goToPage: goToPageGists,
+  } = useSuspenseFetchBlogsPublic({
+    initialPage: 1,
+    type: "gist",
+  })
 
   return (
     <div className="relative">
@@ -35,8 +47,29 @@ export default function Blog() {
           </motion.div>
         )}
 
+        {gists.length > 0 && (
+          <div className="mb-4 border border-green-600">
+            <h2 className="p-4 pb-0 text-2xl font-bold text-slate-100">
+              Gists
+            </h2>
+            <div className="flex flex-row gap-4 overflow-x-scroll p-4">
+              {gists.map((gist, index) => (
+                <motion.div
+                  key={gist.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                >
+                  <GistCard gist={gist} />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {blogs.length > 0 ? (
           <>
+            <h2 className="mb-4 text-2xl font-bold text-slate-100">Blogs</h2>
             <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
               {blogs.map((blog, index) => (
                 <motion.div

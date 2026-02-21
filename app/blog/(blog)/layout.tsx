@@ -15,6 +15,16 @@ export default async function Layout({ children }: { children: ReactNode }) {
       page: 1,
       title: "",
       published: true,
+      type: "blog",
+    }),
+  )
+
+  await queryClient.prefetchQuery(
+    publicBlogQueryOptions({
+      page: 1,
+      title: "",
+      published: true,
+      type: "gist",
     }),
   )
 

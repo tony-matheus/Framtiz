@@ -16,6 +16,7 @@ import { useEffect, useState } from "react"
 import Input from "@/components/ui/input"
 import { useFetchGistInfo } from "./hooks/use-fetch-gist-info"
 import GistPreview from "./gist-preview"
+import ConfirmGistAlert from "./confirm-gist-alert"
 
 export interface BlogFormProps {
   defaultValues?: BlogInput | undefined
@@ -39,10 +40,9 @@ export default function BlogForm({
   form,
   type = "blog",
 }: BlogFormProps) {
+  const [showConfirmationAlert, setShowConfirmationAlert] = useState(false)
   const [gistId, setGistId] = useState<string | null>(null)
-  const [gistIdOrUrl, setGistIdOrUrl] = useState<string | null>(
-    "a4e0cd8c07987052d6c7ac7fa7cc1650",
-  )
+  const [gistIdOrUrl, setGistIdOrUrl] = useState<string | null>(null)
   const [previewGist, setPreviewGist] = useState<boolean>(false)
   const [previewContent, setPreviewContent] = useState<string | null>(null)
 
@@ -116,6 +116,25 @@ export default function BlogForm({
 
   const handleConfirm = (exp: BlogInput) => {
     onSubmit(exp)
+  }
+
+  const handleApplyGist = ({
+    shouldByPass = false,
+  }: {
+    shouldByPass?: boolean
+  }) => {
+    if (
+      localStorage.getItem("gist-preview-dont-ask-again") === "true" ||
+      shouldByPass
+    ) {
+      blogForm.setValue("content", previewContent ?? "")
+      setGistId(null)
+      setPreviewGist(false)
+      setPreviewContent(null)
+      return
+    }
+
+    setShowConfirmationAlert(true)
   }
 
   return (
@@ -253,22 +272,34 @@ export default function BlogForm({
         </div>
       </form>
       {previewGist && (
-        <div className="absolute inset-0 z-10 max-h-full bg-black/30 p-4 md:p-8">
-          <GistPreview
-            content={previewContent ?? ""}
-            onClose={() => {
-              setPreviewGist(false)
-              setPreviewContent(null)
-              setGistId(null)
-            }}
-            onApply={() => {
-              blogForm.setValue("content", previewContent ?? "")
-              setGistId(null)
-              setPreviewGist(false)
-              setPreviewContent(null)
-            }}
-          />
-        </div>
+        <>
+          <div className="fixed inset-0 z-20 flex items-center justify-center overflow-hidden bg-black/30 p-4 md:p-8">
+            <GistPreview
+              content={previewContent ?? ""}
+              onClose={() => {
+                setPreviewGist(false)
+                setPreviewContent(null)
+                setGistId(null)
+              }}
+              onApply={() => handleApplyGist({ shouldByPass: false })}
+            />
+          </div>
+          {showConfirmationAlert && (
+            <div
+              className="fixed inset-0 z-30 flex items-center justify-center overflow-hidden bg-black/80 p-4 md:p-8"
+              onWheel={(e) => e.preventDefault()}
+              onTouchMove={(e) => e.preventDefault()}
+            >
+              <ConfirmGistAlert
+                onCancel={() => setShowConfirmationAlert(false)}
+                onConfirm={() => {
+                  setShowConfirmationAlert(false)
+                  handleApplyGist({ shouldByPass: true })
+                }}
+              />
+            </div>
+          )}
+        </>
       )}
     </>
   )

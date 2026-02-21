@@ -52,7 +52,7 @@ export default function TopBlogsSection({ blogs }: TopBlogsSectionProps) {
 
                 {/* Blog info */}
                 <div className="mt-2">
-                  <h4 className="mb-2 line-clamp-2 font-mono text-sm text-slate-200">
+                  <h4 className="mb-2 line-clamp-2 h-[40px] font-mono text-sm text-slate-200">
                     {blog.title ?? blog.slug}
                   </h4>
 

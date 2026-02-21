@@ -86,7 +86,6 @@ export async function GET(req: NextRequest) {
     const parsed = RepoArraySchema.safeParse(formattedGists)
 
     if (!parsed.success) {
-      console.log(parsed.error)
       return NextResponse.json(
         { error: "Invalid GIST data received" },
         { status: 502 },

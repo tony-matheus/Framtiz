@@ -86,10 +86,10 @@ export default function ContentSelectionDialog({
       icon={<FileEditIcon />}
       title="Criar conteúdo"
       hideFooter
-      className="md:!min-h-[50vh] md:!max-w-[60vw]"
+      className="!min-h-[50vh] md:!max-w-[60vw]"
     >
       <div className="flex h-full flex-col gap-6">
-        <p className="text-lg font-bold">
+        <p className="text-lg">
           Fala pra mim manito, tu quer criar o que hoje?
         </p>
         <div className="flex flex-1 gap-4">
@@ -99,7 +99,7 @@ export default function ContentSelectionDialog({
             className="h-full flex-1"
           >
             <div className="flex flex-col items-center gap-2">
-              <FileTextIcon className="size-16" />
+              <FileTextIcon className="size-10 md:size-16" />
               <p className="font-mono">Blogzada?</p>
             </div>
           </PrimitiveButton>
@@ -110,7 +110,7 @@ export default function ContentSelectionDialog({
             className="h-full flex-1"
           >
             <div className="flex flex-col items-center gap-2">
-              <CodeSquareIcon className="size-16" />
+              <CodeSquareIcon className="size-10 md:size-16" />
               <p className="font-mono">GISTzeira?</p>
             </div>
           </PrimitiveButton>

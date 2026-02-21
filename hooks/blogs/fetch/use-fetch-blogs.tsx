@@ -20,17 +20,21 @@ export interface UseFetchBlogsProps {
   title?: string
   initialPage?: number
   limit?: number
+  type?: "blog" | "gist" | undefined | null
+  published?: boolean | null
 }
 
 export const useFetchBlogs = ({
   title,
   initialPage = 1,
   limit = 10,
+  published = true,
+  type = null,
 }: UseFetchBlogsProps): UseFetchBlogsResult => {
   const [page, setPage] = useState(initialPage)
 
   const { data, isPending, isError } = useQuery(
-    blogQueryOptions({ title, page, limit }),
+    blogQueryOptions({ title, page, limit, published, type }),
   )
 
   return {
