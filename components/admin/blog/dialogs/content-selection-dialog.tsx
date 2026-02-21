@@ -6,7 +6,7 @@ import {
   FileTextIcon,
   PencilRulerIcon,
 } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import BlogEditorDialog, { BlogEditorDialogProps } from "./blog-editor-dialog"
 import { Button as PrimitiveButton } from "@/components/ui/primitives/button"
 import { Blog } from "@/lib/services/blog-service/helpers"
@@ -20,6 +20,7 @@ interface ContentSelectionDialogProps extends Omit<
   open: boolean
   onOpenChange: (open: boolean) => void
 }
+
 export default function ContentSelectionDialog({
   open = true,
   onOpenChange,
@@ -27,9 +28,10 @@ export default function ContentSelectionDialog({
   blog,
   onCancel,
 }: ContentSelectionDialogProps) {
-  const [selectedOption, setSelectedOption] =
-    useState<ContentSelectionOption>(null)
-  const [optionSelected, setOptionSelected] = useState<boolean>(false)
+  const [selectedOption, setSelectedOption] = useState<ContentSelectionOption>(
+    blog?.type ?? null,
+  )
+  const [optionSelected, setOptionSelected] = useState<boolean>(!!blog?.type)
 
   const handleCancel = () => {
     setSelectedOption(null)
@@ -53,6 +55,11 @@ export default function ContentSelectionDialog({
       blog,
     })
   }
+
+  useEffect(() => {
+    setSelectedOption(blog?.type ?? null)
+    setOptionSelected(!!blog?.type)
+  }, [blog])
 
   if (optionSelected && selectedOption === "blog") {
     return (
