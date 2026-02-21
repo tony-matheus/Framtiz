@@ -35,7 +35,7 @@ export default function Blog() {
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-slate-950/80 to-green-900/20" />
 
       <BlogNavigation link="/" text="BACK_TO_HOME" />
-      <div className="container relative z-10 mx-auto px-2 py-6">
+      <div className="container relative z-10 mx-auto px-4 py-6">
         {blogs.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -70,7 +70,7 @@ export default function Blog() {
         {blogs.length > 0 ? (
           <>
             <h2 className="mb-4 text-2xl font-bold text-slate-100">Blogs</h2>
-            <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
               {blogs.map((blog, index) => (
                 <motion.div
                   key={blog.id}

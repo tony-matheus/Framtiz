@@ -64,11 +64,11 @@ export default function BlogCard({ blog, className }: BlogCardProps) {
           {/* Meta info */}
           <div className="flex items-center justify-between border-t border-slate-800 pt-3 text-xs text-slate-500">
             <div className="flex items-center">
-              <Calendar size={12} className="mr-1" />
+              <Calendar size={12} className="mr-2 text-green-400" />
               {getFormattedDate(blog.updated_at ?? "")}
             </div>
             <div className="flex items-center">
-              <Clock size={12} className="mr-1" />
+              <Clock size={12} className="mr-2 text-purple-400" />
               {getTimeToReadText({ text: blog.content })}
             </div>
           </div>

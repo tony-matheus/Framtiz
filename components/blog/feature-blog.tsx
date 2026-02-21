@@ -72,7 +72,7 @@ export default function FeatureBlog({ blog }: FeatureBlogProps) {
               </p> */}
 
             <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2 text-sm text-slate-400 md:gap-6">
+              <div className="flex flex-col gap-2 text-sm text-slate-400 md:flex-row md:items-center md:gap-6">
                 <div className="flex items-center">
                   <Calendar size={16} className="mr-2 text-green-400" />
                   {formatDate(blog.updated_at!)}

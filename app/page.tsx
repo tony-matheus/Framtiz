@@ -17,6 +17,7 @@ export default async function Home() {
   const { blogs } = await serverBlogService.getAllBlogs({
     limit: 4,
     published: true,
+    type: "blog",
   })
   const { experiences } = await serverExperienceService.getAll()
 
@@ -32,7 +33,7 @@ export default async function Home() {
           profile={
             {
               id: 1,
-              name: 'Willian Frantz',
+              name: "Willian Frantz",
               description: `Anti-cheat Engineer`,
               github_url: user?.githubUsername
                 ? `https://github.com/${user?.githubUsername}`
