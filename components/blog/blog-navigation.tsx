@@ -24,7 +24,7 @@ export default function BlogNavigation({
             prefetch={true}
           >
             <ArrowLeft className="mr-2 size-4 transition-transform group-hover:-translate-x-1" />
-            <span className="font-mono">{text}</span>
+            <span className="hidden font-mono md:inline-block">{text}</span>
           </Link>
           <div className="flex items-center justify-center">
             <BookOpen className="mr-3 text-purple-400" size={24} />

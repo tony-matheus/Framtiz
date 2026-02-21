@@ -10,7 +10,7 @@ export default function AboutHeader() {
         prefetch={true}
       >
         <ArrowLeft className="mr-2 size-4 transition-transform group-hover:-translate-x-1" />
-        <span className="font-mono">BACK_TO_HOME</span>
+        <span className="hidden font-mono md:inline-block">BACK_TO_HOME</span>
       </Link>
     </div>
   )
