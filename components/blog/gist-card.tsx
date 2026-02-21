@@ -58,7 +58,7 @@ export default function GistCard({ gist }: { gist: Blog }) {
             <NotebookIcon className="size-4 text-green-400" />
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="line-clamp-2 max-h-[45px] text-lg font-semibold leading-tight text-slate-100 transition-colors duration-300 hover:text-purple-300">
+            <h3 className="line-clamp-2 h-[45px] max-h-[45px] text-lg font-semibold leading-tight text-slate-100 transition-colors duration-300 hover:text-purple-300">
               {gist.title}
             </h3>
           </div>
