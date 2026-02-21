@@ -1,12 +1,12 @@
-import { getSupabaseClient } from '@/lib/supabase/client';
-import { LoginInput, SignUpData, User } from './auth-types';
+import { getSupabaseClient } from "@/lib/supabase/client"
+import { LoginInput, SignUpData, User } from "./auth-types"
 
 // Client-side functions
 export const clientAuthService = {
   async signUp(
-    data: SignUpData
+    data: SignUpData,
   ): Promise<{ success: boolean; error?: string }> {
-    const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient()
 
     const { error } = await supabase.auth.signUp({
       email: data.email,
@@ -17,56 +17,56 @@ export const clientAuthService = {
           full_name: data.fullName,
         },
       },
-    });
+    })
 
     if (error) {
-      return { success: false, error: error.message };
+      return { success: false, error: error.message }
     }
 
-    return { success: true };
+    return { success: true }
   },
 
   async signIn(
-    data: LoginInput
+    data: LoginInput,
   ): Promise<{ success: boolean; error?: string }> {
-    const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient()
 
     const { error } = await supabase.auth.signInWithPassword({
       email: data.email,
       password: data.password,
-    });
+    })
 
     if (error) {
-      return { success: false, error: error.message };
+      return { success: false, error: error.message }
     }
 
-    return { success: true };
+    return { success: true }
   },
 
   async signOut(): Promise<void> {
-    const supabase = getSupabaseClient();
-    await supabase.auth.signOut();
+    const supabase = getSupabaseClient()
+    await supabase.auth.signOut()
   },
 
   async getCurrentUser(): Promise<User | null> {
-    const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient()
 
     const {
       data: { user },
-    } = await supabase.auth.getUser();
+    } = await supabase.auth.getUser()
 
     if (!user) {
-      return null;
+      return null
     }
 
     const { data: profile } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id)
-      .single();
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single()
 
     if (!profile) {
-      return null;
+      return null
     }
 
     return {
@@ -78,6 +78,6 @@ export const clientAuthService = {
       avatarUrl: profile.avatar_url,
       isAdmin: profile.is_admin,
       githubUsername: profile.github_username,
-    };
+    }
   },
-};
+}

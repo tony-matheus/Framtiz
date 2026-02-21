@@ -1,36 +1,36 @@
-'use client';
+"use client"
 
-import type React from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { cn } from '@/lib/utils';
-import type { ReactNode } from 'react';
+import type React from "react"
+import { PrimitiveInput } from "@/components/ui/primitives/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { cn } from "@/lib/utils"
+import type { ReactNode } from "react"
 
 interface CyberFormFieldProps {
-  label: string;
-  name: string;
-  type?: string;
-  placeholder?: string;
-  value?: string;
+  label: string
+  name: string
+  type?: string
+  placeholder?: string
+  value?: string
   onChange?: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  className?: string;
-  labelClassName?: string;
-  inputClassName?: string;
-  required?: boolean;
-  disabled?: boolean;
-  multiline?: boolean;
-  rows?: number;
-  icon?: ReactNode;
-  error?: string;
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void
+  className?: string
+  labelClassName?: string
+  inputClassName?: string
+  required?: boolean
+  disabled?: boolean
+  multiline?: boolean
+  rows?: number
+  icon?: ReactNode
+  error?: string
 }
 
 export function CyberFormField({
   label,
   name,
-  type = 'text',
+  type = "text",
   placeholder,
   value,
   onChange,
@@ -44,19 +44,19 @@ export function CyberFormField({
   icon,
   error,
 }: CyberFormFieldProps) {
-  const hasError = Boolean(error);
+  const hasError = Boolean(error)
 
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn("space-y-2", className)}>
       <Label
         htmlFor={name}
-        className={cn('text-slate-400 text-sm font-mono', labelClassName)}
+        className={cn("text-slate-400 text-sm font-mono", labelClassName)}
       >
         {label}
       </Label>
-      <div className='relative'>
+      <div className="relative">
         {icon && (
-          <div className='absolute inset-y-0 left-0 flex w-10 items-center justify-center border-r border-slate-700'>
+          <div className="absolute inset-y-0 left-0 flex w-10 items-center justify-center border-r border-slate-700">
             {icon}
           </div>
         )}
@@ -70,18 +70,18 @@ export function CyberFormField({
             onChange={onChange}
             rows={rows}
             className={cn(
-              'w-full bg-slate-800 border text-slate-200 focus-visible:ring-0 focus-visible:ring-offset-0',
+              "w-full bg-slate-800 border text-slate-200 focus-visible:ring-0 focus-visible:ring-offset-0",
               hasError
-                ? 'border-red-500 focus-visible:border-red-500'
-                : 'border-slate-700 focus-visible:border-purple-600',
-              icon && 'pl-12',
-              inputClassName
+                ? "border-red-500 focus-visible:border-red-500"
+                : "border-slate-700 focus-visible:border-purple-600",
+              icon && "pl-12",
+              inputClassName,
             )}
             required={required}
             disabled={disabled}
           />
         ) : (
-          <Input
+          <PrimitiveInput
             id={name}
             name={name}
             type={type}
@@ -89,12 +89,12 @@ export function CyberFormField({
             value={value}
             onChange={onChange}
             className={cn(
-              'w-full bg-slate-800 border text-slate-200 focus-visible:ring-0 focus-visible:ring-offset-0',
+              "w-full bg-slate-800 border text-slate-200 focus-visible:ring-0 focus-visible:ring-offset-0",
               hasError
-                ? 'border-red-500 focus-visible:border-red-500'
-                : 'border-slate-700 focus-visible:border-purple-600',
-              icon && 'pl-12',
-              inputClassName
+                ? "border-red-500 focus-visible:border-red-500"
+                : "border-slate-700 focus-visible:border-purple-600",
+              icon && "pl-12",
+              inputClassName,
             )}
             required={required}
             disabled={disabled}
@@ -102,7 +102,7 @@ export function CyberFormField({
         )}
       </div>
 
-      {hasError && <p className='font-mono text-xs text-red-500'>{error}</p>}
+      {hasError && <p className="font-mono text-xs text-red-500">{error}</p>}
     </div>
-  );
+  )
 }

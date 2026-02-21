@@ -4,20 +4,20 @@ import {
   Github,
   Newspaper,
   UserIcon,
-} from 'lucide-react';
+} from "lucide-react"
 
 export const NAV_ITEMS = [
   {
-    id: 'dashboard',
-    label: 'DASHBOARD',
+    id: "dashboard",
+    label: "DASHBOARD",
     icon: <ChartLineIcon size={18} />,
-    href: '/admin/dashboard',
+    href: "/admin/dashboard",
   },
   {
-    id: 'blog',
-    label: 'BLOGS',
+    id: "blog",
+    label: "BLOGS",
     icon: <Newspaper size={18} />,
-    href: '/admin/blogs',
+    href: "/admin/blogs",
   },
   // {
   //   id: 'projects',
@@ -28,17 +28,17 @@ export const NAV_ITEMS = [
 
   // hidden
   {
-    id: 'profile',
-    label: 'PROFILE',
+    id: "profile",
+    label: "PROFILE",
     icon: <UserIcon size={18} />,
-    href: '/admin/edit-profile/profile',
+    href: "/admin/edit-profile/profile",
     removeFromSideBar: true,
   },
   {
-    id: 'profile',
-    label: 'GITHUB_REPOSITORY_SELECTOR',
+    id: "profile",
+    label: "GITHUB_REPOSITORY_SELECTOR",
     icon: <Github size={18} />,
-    href: '/admin/project-select',
+    href: "/admin/project-select",
     removeFromSideBar: true,
   },
-];
+]

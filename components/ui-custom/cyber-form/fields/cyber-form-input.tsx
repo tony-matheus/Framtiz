@@ -1,22 +1,22 @@
-import { FieldValues, UseControllerProps } from 'react-hook-form';
-import CyberInput from '../../cyber-input';
+import { FieldValues, UseControllerProps } from "react-hook-form"
+import Input from "../../../ui/input"
 import {
   CyberFormControl,
   CyberFormField,
   CyberFormItem,
   CyberFormLabel,
   CyberFormMessage,
-} from '../cyber-form';
-import { ReactNode } from 'react';
-import { cn } from '@/lib/utils';
+} from "../cyber-form"
+import { ReactNode } from "react"
+import { cn } from "@/lib/utils"
 
 type CyberFormInputProps<T extends FieldValues> = UseControllerProps<T> &
   React.InputHTMLAttributes<HTMLInputElement> & {
-    className?: string;
-    label?: string;
-    icon?: ReactNode;
-    placeholder?: string;
-  };
+    className?: string
+    label?: string
+    icon?: ReactNode
+    placeholder?: string
+  }
 
 export default function CyberFormInput<T extends FieldValues>({
   name,
@@ -32,18 +32,15 @@ export default function CyberFormInput<T extends FieldValues>({
       control={control}
       name={name}
       render={({ field, fieldState }) => (
-        <CyberFormItem className='w-full space-y-0'>
+        <CyberFormItem className={className}>
           {label && <CyberFormLabel>{label}</CyberFormLabel>}
 
           <CyberFormControl>
-            <CyberInput
+            <Input
               icon={icon}
               {...field}
-              className={cn(
-                fieldState.error ? 'border-red-500' : '',
-                className
-              )}
-              value={field.value ?? ''}
+              className={cn(fieldState.error ? "border-red-500" : "")}
+              value={field.value ?? ""}
               placeholder={placeholder}
               {...rest}
             />
@@ -52,5 +49,5 @@ export default function CyberFormInput<T extends FieldValues>({
         </CyberFormItem>
       )}
     />
-  );
+  )
 }

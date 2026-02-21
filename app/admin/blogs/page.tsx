@@ -1,112 +1,108 @@
-'use client';
+"use client"
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Plus } from 'lucide-react';
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { Plus } from "lucide-react"
 
-import { Button } from '@/components/ui/button';
-import BlogEditorDialog from '@/components/admin/blog/blog-editor-dialog';
-import { Blog } from '@/lib/services/blog-service/helpers';
-import { useDestroyBlog } from '@/hooks/blogs/mutations/use-destroy-blog';
-import { useUpdateBlog } from '@/hooks/blogs/mutations/use-update-blog';
-import BlogList from '@/components/admin/blog/blog-list';
-import { CyberCard, CyberCardContent } from '@/components/ui-custom/cyber-card';
-import { CyberPagination } from '@/components/ui-custom/cyber-pagination';
-import { useQueryClient } from '@tanstack/react-query';
-import CyberSearchInput from '@/components/ui-custom/inputs/cyber-search-input';
-import { useFetchBlogs } from '@/hooks/blogs/fetch/use-fetch-blogs';
-import { toast } from 'sonner';
+import { Button } from "@/components/ui/button"
+import { Blog } from "@/lib/services/blog-service/helpers"
+import { useDestroyBlog } from "@/hooks/blogs/mutations/use-destroy-blog"
+import { useUpdateBlog } from "@/hooks/blogs/mutations/use-update-blog"
+import BlogList from "@/components/admin/blog/blog-list"
+import { Card, CardContent } from "@/components/ui/card"
+import { CyberPagination } from "@/components/ui-custom/cyber-pagination"
+import { useQueryClient } from "@tanstack/react-query"
+import CyberSearchInput from "@/components/ui-custom/inputs/cyber-search-input"
+import { useFetchBlogs } from "@/hooks/blogs/fetch/use-fetch-blogs"
+import { toast } from "sonner"
+import ContentSelectionDialog from "@/components/admin/blog/dialogs/content-selection-dialog"
+import ImportGistDialog from "@/components/admin/blog/dialogs/import-gist-dialog"
 
 export default function BlogPage() {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
-  const [term, setTerm] = useState('');
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [currentBlog, setCurrentBlog] = useState<Blog | null>(null);
-  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [term, setTerm] = useState("")
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [isImportGistDialogOpen, setIsImportGistDialogOpen] = useState(false)
+  const [currentBlog, setCurrentBlog] = useState<Blog | null>(null)
+  const [deletingId, setDeletingId] = useState<number | null>(null)
 
   const { mutateAsync: mutateDestroy } = useDestroyBlog({
     onSuccess: () => {
-      toast.success('SYSTEM_ACTION: COMPLETED', {
-        description: 'Experience successfully destroyed!',
-      });
+      toast.success("SYSTEM_ACTION: COMPLETED", {
+        description: "Content successfully destroyed!",
+      })
     },
     onError: () => {
-      toast.error('SYSTEM_ACTION: FAILED', {
-        description: "Experience couldn't be destroyed!",
-      });
+      toast.error("SYSTEM_ACTION: FAILED", {
+        description: "Content couldn't be destroyed!",
+      })
     },
-  });
+  })
 
-  const { mutateAsync: updateBlog } = useUpdateBlog({});
+  const { mutateAsync: updateBlog } = useUpdateBlog({})
 
   const { blogs, totalPages, currentPage, goToPage, isLoading } = useFetchBlogs(
     {
       initialPage: 1,
       title: term,
+      published: null,
+      type: null,
     },
-  );
+  )
 
-  const refetchPage = (page: number, term = '') => {
+  const refetchPage = (page: number, term = "") => {
     queryClient.refetchQueries({
-      queryKey: ['blogs', term, page],
+      queryKey: [
+        "blogs",
+        { title: term, page, limit: 10, published: null, type: null },
+      ],
       exact: true,
-    });
-  };
+    })
+  }
 
   const handleAddBlog = () => {
-    setCurrentBlog(null);
-    setIsDialogOpen(true);
-  };
+    setCurrentBlog(null)
+    setIsDialogOpen(true)
+  }
 
   const handleUploadImage = async (blog: Blog, imageUrl: string) => {
     await updateBlog({
       ...blog,
       image_url: imageUrl,
-    });
+    })
 
-    refetchPage(currentPage, term);
-  };
+    refetchPage(currentPage, term)
+  }
 
-  const handleSaveBlog = ({
-    shouldClose = true,
-  }: {
-    shouldClose?: boolean;
-    blog?: Blog | null;
-  }) => {
-    setIsDialogOpen(shouldClose ? false : true);
+  const handleSaveBlog = () => {
+    setIsDialogOpen(false)
     if (currentBlog) {
-      refetchPage(currentPage, term);
-      if (shouldClose) {
-        setCurrentBlog(null);
-      }
-      return;
+      refetchPage(currentPage, term)
+      return setCurrentBlog(null)
     }
-    goToPage(1);
-    refetchPage(1, '');
-  };
+    goToPage(1)
+    refetchPage(1, "")
+  }
 
   const handleEditBlog = (blog: Blog) => {
-    setCurrentBlog(blog);
-    setIsDialogOpen(true);
-  };
+    setCurrentBlog(blog)
+    setIsDialogOpen(true)
+  }
 
   const handleDeleteBlog = async (blog: Blog) => {
-    setDeletingId(blog.id);
-    await mutateDestroy(blog.id);
-    toast.success('SYSTEM_ACTION: COMPLETED', {
-      description: 'Blog successfully deleted!',
-    });
-    setDeletingId(null);
-    refetchPage(currentPage, term);
-  };
+    setDeletingId(blog.id)
+    await mutateDestroy(blog.id)
+    setDeletingId(null)
+    refetchPage(currentPage, term)
+  }
 
   const handleToggleStatus = (blog: Blog) => {
     updateBlog({
       ...blog,
       published: !blog.published,
-    });
-  };
+    })
+  }
 
   return (
     <>
@@ -115,17 +111,17 @@ export default function BlogPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className='mb-4 flex  items-start justify-between gap-4 py-4  md:items-center'
+          className="mb-4 flex  items-start justify-between gap-4 py-4  md:items-center"
         >
-          <CyberSearchInput onSearch={setTerm} placeholder='Type to search…' />
+          <CyberSearchInput onSearch={setTerm} placeholder="Type to search…" />
 
           <Button
-            variant='default'
+            variant="default"
             leftIcon={<Plus size={16} />}
             onClick={handleAddBlog}
-            className='md:self-end'
+            className="md:self-end"
           >
-            ADD_BLOG
+            CREATE
           </Button>
         </motion.div>
         <BlogList
@@ -144,31 +140,35 @@ export default function BlogPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className='mb-12 mt-8'
+            className="mb-12 mt-8"
           >
-            <CyberCard className='mx-auto inline-block'>
-              <CyberCardContent className='p-2 sm:p-4'>
+            <Card className="mx-auto inline-block">
+              <CardContent className="p-2 sm:p-4">
                 <CyberPagination
                   totalPages={totalPages}
                   currentPage={currentPage}
                   onPageChange={goToPage}
                 />
-              </CyberCardContent>
-            </CyberCard>
+              </CardContent>
+            </Card>
           </motion.div>
         )}
       </div>
 
-      <BlogEditorDialog
-        isOpen={isDialogOpen}
+      <ContentSelectionDialog
+        open={isDialogOpen}
         onOpenChange={setIsDialogOpen}
         onCancel={() => {
-          setIsDialogOpen(false);
-          setCurrentBlog(null);
+          setIsDialogOpen(false)
+          setCurrentBlog(null)
         }}
         onSave={handleSaveBlog}
         blog={currentBlog}
       />
+      <ImportGistDialog
+        open={isImportGistDialogOpen}
+        onOpenChange={setIsImportGistDialogOpen}
+      />
     </>
-  );
+  )
 }

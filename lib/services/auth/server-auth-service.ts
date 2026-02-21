@@ -1,27 +1,27 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { User } from './auth-types';
+import { createServerSupabaseClient } from "@/lib/supabase/server"
+import { User } from "./auth-types"
 
 // Server-side functions
 export const serverAuthService = {
   async getCurrentUser(): Promise<User | null> {
-    const supabase = await createServerSupabaseClient();
+    const supabase = await createServerSupabaseClient()
 
     const {
       data: { user },
-    } = await supabase.auth.getUser();
+    } = await supabase.auth.getUser()
 
     if (!user) {
-      return null;
+      return null
     }
 
-    const { data: profile, ...rest } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id)
-      .single();
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single()
 
     if (!profile) {
-      return null;
+      return null
     }
 
     return {
@@ -33,11 +33,11 @@ export const serverAuthService = {
       isAdmin: profile.is_admin,
       githubUsername: profile.github_username,
       profileId: profile.id,
-    };
+    }
   },
 
   async isAdmin(): Promise<boolean> {
-    const user = await this.getCurrentUser();
-    return !!user?.isAdmin;
+    const user = await this.getCurrentUser()
+    return !!user?.isAdmin
   },
-};
+}

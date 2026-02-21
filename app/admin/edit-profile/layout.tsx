@@ -1,19 +1,19 @@
-import type { ReactNode } from 'react';
-import { serverAuthService } from '@/lib/services/auth/server-auth-service';
-import { redirect } from 'next/navigation';
-import { UserProvider } from '@/lib/contexts/user-context';
+import type { ReactNode } from "react"
+import { serverAuthService } from "@/lib/services/auth/server-auth-service"
+import { redirect } from "next/navigation"
+import { UserProvider } from "@/lib/contexts/user-context"
 
 export default async function Layout({
   children,
   content,
 }: {
-  children: ReactNode;
-  content: ReactNode;
+  children: ReactNode
+  content: ReactNode
 }) {
-  const user = await serverAuthService.getCurrentUser();
+  const user = await serverAuthService.getCurrentUser()
 
   if (!user) {
-    redirect('/auth/login');
+    redirect("/auth/login")
   }
 
   return (
@@ -21,5 +21,5 @@ export default async function Layout({
       {children}
       {content}
     </UserProvider>
-  );
+  )
 }

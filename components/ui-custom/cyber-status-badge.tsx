@@ -1,23 +1,23 @@
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
-import type { ReactNode } from 'react';
+import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
+import type { ReactNode } from "react"
 
 interface CyberStatusBadgeProps {
-  status: 'online' | 'offline' | 'warning' | 'error' | 'success' | 'pending';
-  label?: string;
-  className?: string;
-  withDot?: boolean;
-  children?: ReactNode;
+  status: "online" | "offline" | "warning" | "error" | "success" | "pending"
+  label?: string
+  className?: string
+  withDot?: boolean
+  children?: ReactNode
 }
 
 const STATUS_CONFIG = {
-  online: { color: 'text-green-400', bg: 'bg-green-400' },
-  offline: { color: 'text-slate-400', bg: 'bg-slate-400' },
-  warning: { color: 'text-yellow-400', bg: 'bg-yellow-400' },
-  error: { color: 'text-red-400', bg: 'bg-red-400' },
-  success: { color: 'text-green-400', bg: 'bg-green-400' },
-  pending: { color: 'text-purple-400', bg: 'bg-purple-400' },
-};
+  online: { color: "text-green-400", bg: "bg-green-400" },
+  offline: { color: "text-slate-400", bg: "bg-slate-400" },
+  warning: { color: "text-yellow-400", bg: "bg-yellow-400" },
+  error: { color: "text-red-400", bg: "bg-red-400" },
+  success: { color: "text-green-400", bg: "bg-green-400" },
+  pending: { color: "text-purple-400", bg: "bg-purple-400" },
+}
 
 export function CyberStatusBadge({
   status,
@@ -26,13 +26,13 @@ export function CyberStatusBadge({
   withDot = true,
   children,
 }: CyberStatusBadgeProps) {
-  const { color, bg } = STATUS_CONFIG[status];
+  const { color, bg } = STATUS_CONFIG[status]
 
   return (
     <Badge
-      variant='outline'
+      variant="outline"
       className={cn(
-        'font-mono text-xs border-slate-700 bg-slate-800/50 flex items-center gap-2',
+        "font-mono text-xs border-slate-700 bg-slate-800/50 flex items-center gap-2",
         color,
         className,
       )}
@@ -40,7 +40,7 @@ export function CyberStatusBadge({
       {withDot && (
         <span
           className={cn(
-            'w-2 h-2 rounded-full',
+            "w-2 h-2 rounded-full",
             bg,
             status === 'online' && 'animate-pulse',
           )}
@@ -48,5 +48,5 @@ export function CyberStatusBadge({
       )}
       {children || label || status.toUpperCase()}
     </Badge>
-  );
+  )
 }

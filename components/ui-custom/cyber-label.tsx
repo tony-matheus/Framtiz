@@ -1,3 +1,3 @@
-import { Label } from '../ui/label';
+import { Label } from "../ui/label"
 
-export const CyberLabel = Label;
+export const CyberLabel = Label

@@ -1,4 +1,4 @@
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
   eslint: {
@@ -11,12 +11,12 @@ const nextConfig: NextConfig = {
     unoptimized: true,
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'higssmppvjoqahjxesne.supabase.co',
-        port: '',
+        protocol: "https",
+        hostname: "higssmppvjoqahjxesne.supabase.co",
+        port: "",
       },
     ],
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

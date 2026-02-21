@@ -1,36 +1,36 @@
-import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from "dayjs"
+import duration from "dayjs/plugin/duration"
+import relativeTime from "dayjs/plugin/relativeTime"
 
 interface getWordsPerProps {
-  text?: string | null;
-  numberOfWords?: number | null;
+  text?: string | null
+  numberOfWords?: number | null
 }
 
 const numberOfWordsfromText = (text: string): number => {
-  return text.split(' ').length;
-};
+  return text.split(" ").length
+}
 
-const WORDS_PER_SECOND = 4;
+const WORDS_PER_SECOND = 4
 
 export const getTimeToReadText = ({
   text,
   numberOfWords = 0,
 }: getWordsPerProps) => {
   if (text === null && numberOfWords === null) {
-    throw Error('"text" or "numberOfWords" should be provided');
+    throw Error('"text" or "numberOfWords" should be provided')
   }
 
-  dayjs.extend(duration);
-  dayjs.extend(relativeTime);
+  dayjs.extend(duration)
+  dayjs.extend(relativeTime)
 
-  let numOfWords = numberOfWords;
+  let numOfWords = numberOfWords
 
   if (text) {
-    numOfWords = numberOfWordsfromText(text);
+    numOfWords = numberOfWordsfromText(text)
   }
 
-  const timeToRead = numOfWords! / WORDS_PER_SECOND;
+  const timeToRead = numOfWords! / WORDS_PER_SECOND
 
-  return dayjs.duration(timeToRead, 'seconds').locale('en').humanize();
-};
+  return dayjs.duration(timeToRead, "seconds").locale("en").humanize()
+}

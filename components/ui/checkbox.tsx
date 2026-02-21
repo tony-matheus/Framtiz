@@ -1,30 +1,33 @@
 "use client"
 
 import * as React from "react"
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-import { Check } from "lucide-react"
-
+import {
+  PrimitiveCheckbox,
+  PrimitiveCheckboxProps,
+} from "./primitives/checkbox"
 import { cn } from "@/lib/utils"
+import { Label } from "@radix-ui/react-label"
+
+export interface CheckboxProps extends PrimitiveCheckboxProps {
+  label?: string | null
+}
 
 const Checkbox = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <CheckboxPrimitive.Root
-    ref={ref}
-    className={cn(
-      "peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
-      className
+  React.ElementRef<typeof PrimitiveCheckbox>,
+  CheckboxProps
+>(({ className, label, ...props }, ref) => (
+  <div className="inline-flex items-center justify-center gap-2">
+    <PrimitiveCheckbox ref={ref} className={cn(className)} {...props} />
+    {label && (
+      <Label
+        htmlFor={props.id}
+        className="cursor-pointer text-sm font-medium leading-none"
+      >
+        {label}
+      </Label>
     )}
-    {...props}
-  >
-    <CheckboxPrimitive.Indicator
-      className={cn("flex items-center justify-center text-current")}
-    >
-      <Check className="h-4 w-4" />
-    </CheckboxPrimitive.Indicator>
-  </CheckboxPrimitive.Root>
+  </div>
 ))
-Checkbox.displayName = CheckboxPrimitive.Root.displayName
+Checkbox.displayName = PrimitiveCheckbox.displayName
 
 export { Checkbox }
