@@ -265,7 +265,7 @@ export default function BlogForm({
                 onClick={() => blogForm.setValue("published", true)}
                 className="flex-1"
               >
-                PUBLISHE
+                PUBLISH
               </Button>
             </div>
           )}
