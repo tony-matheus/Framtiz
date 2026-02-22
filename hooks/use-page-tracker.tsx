@@ -2,6 +2,7 @@ import { isAnalyticsAvailable } from "@/lib/services/analytics/analytics-error-h
 import { usePathname } from "next/navigation"
 import { useEffect, useRef } from "react"
 import { useAnalyticsTrack } from "./analytics/use-analytics-track"
+import { User } from "@/lib/services/auth/auth-types"
 
 type PageTrackerProps = {
   page?: string
@@ -11,6 +12,7 @@ type PageTrackerProps = {
   device?: string
   from?: string
   metadata?: Record<string, unknown>
+  user?: User | null | undefined
 }
 
 export default function usePageTracker({
@@ -21,6 +23,7 @@ export default function usePageTracker({
   device,
   from,
   metadata = {},
+  user,
 }: PageTrackerProps) {
   const pathname = usePathname()
   const wasTracked = useRef(false)
@@ -62,7 +65,7 @@ export default function usePageTracker({
   }
 
   useEffect(() => {
-    if (!wasTracked.current) {
+    if (!wasTracked.current && !user?.id) {
       const trackPageView = async () => {
         if (!isAnalyticsAvailable()) {
           return
@@ -108,6 +111,7 @@ export default function usePageTracker({
     metadata,
     trackAnalytics,
     wasTracked,
+    user,
   ])
 
   return null

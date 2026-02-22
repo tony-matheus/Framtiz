@@ -5,7 +5,6 @@ import FeatureBlog from "@/components/blog/feature-blog"
 import { Search } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { CyberPagination } from "@/components/ui-custom/cyber-pagination"
-import PageTracker from "@/components/analytics/page-tracker"
 
 import BlogCard from "@/components/blog/blog-card"
 import { useSuspenseFetchBlogsPublic } from "@/hooks/blogs/fetch/use-suspense-fetch-blogs-public"
@@ -26,7 +25,6 @@ export default function Blog() {
 
   return (
     <div className="relative">
-      <PageTracker />
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-slate-950/80 to-green-900/20" />
 
       <BlogNavigation link="/" text="BACK_TO_HOME" />

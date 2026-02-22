@@ -2,6 +2,8 @@ import { serverBlogService } from "@/lib/services/blog-service/server"
 import BlogPost from "@/components/blog/blog-post"
 import { notFound } from "next/navigation"
 import { cache } from "react"
+import PageTracker from "@/components/analytics/page-tracker"
+import { serverAuthService } from "@/lib/services/auth/server-auth-service"
 
 type Props = {
   params: { slug: string }
@@ -54,10 +56,10 @@ export async function generateMetadata({ params }: Props) {
 export default async function Page({ params }: Props) {
   const { slug } = await params
   const blogId = Number(slug)
-
   if (isNaN(blogId)) {
     notFound()
   }
+  const user = await serverAuthService.getCurrentUser()
 
   try {
     const blog = await getBlog(blogId)
@@ -66,7 +68,18 @@ export default async function Page({ params }: Props) {
       throw new Error("Not published")
     }
 
-    return <BlogPost blog={blog} />
+    return (
+      <>
+        <PageTracker
+          user={user ?? undefined}
+          metadata={{
+            slug: blog.id,
+            title: blog.title,
+          }}
+        />
+        <BlogPost blog={blog} />
+      </>
+    )
   } catch {
     notFound()
   }

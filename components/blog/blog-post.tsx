@@ -1,7 +1,7 @@
 "use client"
 
-import type React from 'react';
-import { motion, useScroll } from 'framer-motion';
+import type React from "react"
+import { motion, useScroll } from "framer-motion"
 import {
   Calendar,
   ChevronLeft,
@@ -11,26 +11,19 @@ import {
   User,
 } from "lucide-react"
 
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
-import { CyberStatusBadge } from '@/components/ui-custom/cyber-status-badge';
-import { Blog } from '@/lib/services/blog-service/helpers';
-import PageTracker from '@/components/analytics/page-tracker';
-import BlogNavigation from './blog-navigation';
-import { getFormattedDate } from '@/lib/helpers/daytime';
-import MarkdownRender from '../ui/markdown-render';
+import { Button } from "@/components/ui/button"
+import Image from "next/image"
+import { CyberStatusBadge } from "@/components/ui-custom/cyber-status-badge"
+import { Blog } from "@/lib/services/blog-service/helpers"
+import BlogNavigation from "./blog-navigation"
+import { getFormattedDate } from "@/lib/helpers/daytime"
+import MarkdownRender from "../ui/markdown-render"
 
 export default function BlogPost({ blog }: { blog: Blog }) {
   const { scrollYProgress } = useScroll()
 
   return (
     <div>
-      <PageTracker
-        metadata={{
-          slug: blog.id,
-          title: blog.title,
-        }}
-      />
       {/* Reading Progress Bar */}
       <div className="fixed left-0 top-0 z-50 h-1 w-full bg-slate-800">
         <motion.div
@@ -96,9 +89,9 @@ export default function BlogPost({ blog }: { blog: Blog }) {
                 className="mb-8"
               >
                 {/* Category and Status */}
-                <div className='mb-4 flex items-center gap-3'>
-                  <CyberStatusBadge status='online'>
-                    {blog.published ? 'PUBLISHED' : 'DRAFT'}
+                <div className="mb-4 flex items-center gap-3">
+                  <CyberStatusBadge status="online">
+                    {blog.published ? "PUBLISHED" : "DRAFT"}
                   </CyberStatusBadge>
                   <div className="font-mono text-xs text-slate-500">
                     FILE_ID: {blog.title.toUpperCase()}
@@ -117,14 +110,14 @@ export default function BlogPost({ blog }: { blog: Blog }) {
                     Willian Frantz
                   </div>
                   {blog.created_at && (
-                    <div className='flex items-center'>
-                      <Calendar size={16} className='mr-2 text-green-400' />
+                    <div className="flex items-center">
+                      <Calendar size={16} className="mr-2 text-green-400" />
                       {getFormattedDate(blog.created_at!)}
                     </div>
                   )}
                   {blog.read_time && (
-                    <div className='flex items-center'>
-                      <Clock size={16} className='mr-2 text-purple-400' />
+                    <div className="flex items-center">
+                      <Clock size={16} className="mr-2 text-purple-400" />
                       {blog.read_time}
                     </div>
                   )}

@@ -1,6 +1,7 @@
 "use client"
 
 import usePageTracker from "@/hooks/use-page-tracker"
+import { User } from "@/lib/services/auth/auth-types"
 
 type PageTrackerProps = {
   page?: string
@@ -10,6 +11,7 @@ type PageTrackerProps = {
   device?: string
   from?: string
   metadata?: Record<string, unknown>
+  user?: User | null | undefined
 }
 
 export default function PageTracker({
@@ -20,6 +22,7 @@ export default function PageTracker({
   device,
   from,
   metadata = {},
+  user,
 }: PageTrackerProps) {
   usePageTracker({
     page,
@@ -29,6 +32,7 @@ export default function PageTracker({
     device,
     from,
     metadata,
+    user,
   })
 
   return null

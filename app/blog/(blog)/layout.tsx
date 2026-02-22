@@ -1,14 +1,17 @@
 /* eslint-disable tailwindcss/no-contradicting-classname */
+import PageTracker from "@/components/analytics/page-tracker"
 import FloatingNav from "@/components/home/floating-nav/floating-nav"
 import Footer from "@/components/home/footer"
 import { publicBlogQueryOptions } from "@/hooks/blogs/fetch/blog-options"
 import ReactQueryProvider from "@/lib/contexts/react-query-provider"
 import { getQueryClient } from "@/lib/helpers/get-query-client"
+import { serverAuthService } from "@/lib/services/auth/server-auth-service"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 import { ReactNode } from "react"
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const queryClient = getQueryClient()
+  const user = await serverAuthService.getCurrentUser()
 
   await queryClient.prefetchQuery(
     publicBlogQueryOptions({
@@ -36,6 +39,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
           {children}
           <Footer />
           <FloatingNav />
+          <PageTracker user={user ?? undefined} />
         </div>
       </HydrationBoundary>
     </ReactQueryProvider>
